@@ -25,16 +25,16 @@ Paul is the vision and the community manager. Claude makes every design, researc
 | `data/strategy.yaml`, `research/strategy/` | S1 Strategy | Purpose, mission, vision, values, promise, positioning, tagline, audiences, personas, messaging |
 | `data/architecture.yaml`, `data/world.yaml` | S2 Architecture and world | Brand tree, lockup rules, outposts, towns, crests, influence map |
 | `data/voice.yaml`, `data/words.yaml` | S3 Voice and words | Voice, tone by channel, Hall vocabulary, boilerplates, banned words, glossary |
-| `concepts/a-forged-shield/` | S4 | Concept A board |
-| `concepts/b-claim-stake/` | S5 | Concept B board |
-| `concepts/c-hearth-ring/` | S6 | Concept C board |
+| concepts/a-forged-shield/ (planned) | S4 | Concept A board |
+| concepts/b-claim-stake/ (planned) | S5 | Concept B board |
+| concepts/c-hearth-ring/ (planned) | S6 | Concept C board |
 | `art/` | S7 Art and motion | Art direction, FIBO 2.0 prompt templates, keeper sheets, LTX-2.5 motion rules, licenses |
 | `guide/` | S8 Guide engine | The interactive guide on public GitHub Pages |
-| `templates/`, `.github/workflows/render.yml` | S9 Templates engine | Every application template, rendered in CI |
-| `tools/`, `tokens/` (until Wave 2), `.github/workflows/ci.yml`, `.github/workflows/cloud-test.yml`, `.github/cloud-test.json`, root `package.json`, lockfile and `.nvmrc` | S10 Tooling and gates | Build, checks with self-tests, `brand_pull.py`, generated skill |
+| `templates/`, .github/workflows/render.yml (planned) | S9 Templates engine | Every application template, rendered in CI |
+| `tools/`, `tokens/` (until Wave 2), `.github/workflows/ci.yml`, `.github/workflows/cloud-test.yml`, `.github/cloud-test.json`, root package.json (planned), lockfile and `.nvmrc` | S10 Tooling and gates | Build, checks with self-tests, brand_pull.py (planned), generated skill |
 | `governance/`, `data/kpis.yaml` | S11 Governance and measurement | Owners, releases, KPIs, survey, audits |
-| `research/color/` | S12c Color research | The category color audit, heritage equity and the color evidence review |
-| `tokens/brand_tokens.yaml` (Wave 2) | S12 Tokens v3 | The v3 token values |
+| research/color/ (planned) | S12c Color research | The category color audit, heritage equity and the color evidence review |
+| tokens/brand_tokens.yaml (planned) (Wave 2) | S12 Tokens v3 | The v3 token values |
 | `logo/` (Wave 2) | S13 Logo system | Every logo file, lockup, crest and favicon |
 | `README.md`, `CLAUDE.md`, `AGENTS.md`, `baseline/`, root community and licence files, `.github/` (except S10's workflows), `.claude/`, `quality/`, `tools/vendor/` | The orchestrator | Only the orchestrator edits these |
 | `decisions.md`, `dist/` | Every session | Append your decisions and rebuild `dist/` with `tools/` in your own PR; rebase on conflict (decision 21) |
@@ -44,19 +44,19 @@ Paul is the vision and the community manager. Claude makes every design, researc
 ## Rules that never bend
 
 - **Original only in what ships.** Anything public borrows no name, emblem, silhouette, iconic item, script, rune, font or picture from a game or film franchise, and passes the website's franchise gate. Never use a franchise picture as an AI reference image (`baseline/v2/lore.md`). The influences are named openly here (decision 30); what ships borrows nothing from them.
-- **Every keeper says it is an AI agent** wherever it appears, in words or in a picture. The disclosure text comes from the website's `data/team/dwarves.yaml` (copy in `baseline/v2/`).
+- **Every keeper says it is an AI agent** wherever it appears, in words or in a picture. The disclosure text comes from the website's data/team/dwarves.yaml (copy in `baseline/v2/`).
 - **Colors come from evidence, not preference** (decision 20): every main color carries a rationale against the six-point method.
 - **Real places keep their meaning.** Places that matter to the Ute and other tribes, such as Garden of the Gods, are never fantasy decoration.
 - **Accessibility.** WCAG 2.2 AA: 4.5:1 for text, 3:1 for large text and UI parts. Motion that starts on its own stops within 5 s or has a pause control. Nothing flashes more than three times a second.
 - **Fonts must be properly licensed.** A font that costs money waits for Paul's spend approval.
 - **Nothing heavy runs on this Mac.** Never install Playwright browsers locally; image renders of templates run in GitHub Actions. Run `df -h /` before any install. Renders run only on the free lanes in `art/LICENSES.md` (decision 31), each batch after Paul's yes.
-- **Compute:** cloud first, the Mac last and small (Paul, 2026-11-02). CI, test suites, builds, browsers, e2e, renders and GPU jobs run in the cloud (`.github/workflows/cloud-test.yml` here). The MacBook Air runs only rare, seconds-long checks, such as one test file or one lint. House rule: `~/.claude/rules/compute.md` (canonical: Code-OS `rules/compute.md`), which wins any disagreement.
+- **Compute:** cloud first, the Mac last and small (Paul, 2026-11-02). CI, test suites, builds, browsers, e2e, renders and GPU jobs run in the cloud (`.github/workflows/cloud-test.yml` here). The MacBook Air runs only rare, seconds-long checks, such as one test file or one lint. House rule: `~/.claude/rules/compute.md` (canonical: Code-OS rules/compute.md), which wins any disagreement.
 
 ## Data conventions
 
 - Source of truth is YAML in `data/` and `tokens/`. One file per owner, so parallel sessions never edit the same file.
 - `dist/` is generated by `tools/`. Every PR that changes a source rebuilds it, and S10's drift check blocks when it is stale (decision 21).
-- Prefer no dependencies. A session that needs Node packages keeps a `package.json` inside its own folder; the root one belongs to S10.
+- Prefer no dependencies. A session that needs Node packages keeps a package.json (planned) inside its own folder; the root one belongs to S10.
 
 ## Git and pull requests
 

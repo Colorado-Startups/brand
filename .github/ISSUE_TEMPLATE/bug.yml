@@ -4,6 +4,7 @@
 # labels. A new area label changes, in the same PR, this list and the Work tracking tables in
 # CLAUDE.md and CONTRIBUTING.md.
 name: Bug
+type: Bug
 description: Something is broken, wrong or out of date. It gets a fix PR right away.
 labels: ["bug"]
 body:
