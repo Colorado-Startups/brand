@@ -1,0 +1,24 @@
+# research/color/state.yaml: the State of Colorado brand palette, the base of the UI palette (decision 29).
+# Owner: S12c. Read from the 2024 State brand guide ("CO Brand Guide 2024 No5", DPA Division of
+# Central Services), pages 14 and 15, in Chrome on 2026-11-13. S12 sets the v3 tokens from these values
+# and checks every text pairing for WCAG 2.2 AA before pinning.
+source:
+  title: Colorado Brand Guide 2024
+  url: https://dcs.colorado.gov/sites/dcs/files/documents/CO%20Brand%20Guide%202024%20No5.pdf
+  pages: [14, 15]
+  read: "2026-11-13"
+primary:
+  - {name: Red,                   pms: 200C,  hex: "#C3002F", rgb: [195, 0, 47],    cmyk: [16, 100, 87, 6]}
+  - {name: Blue,                  pms: 2748C, hex: "#001970", rgb: [0, 25, 112],    cmyk: [100, 94, 24, 23]}
+  - {name: Purple,                pms: 5125C, hex: "#6D3A5D", rgb: [109, 58, 93],   cmyk: [56, 84, 39, 24]}
+  - {name: Tree Green,            pms: 7483C, hex: "#245D38", rgb: [36, 93, 56],    cmyk: [84, 38, 88, 34]}
+  - {name: Yellow,                pms: 109C,  hex: "#FFD100", rgb: [255, 209, 0],   cmyk: [0, 16, 100, 0]}
+  - {name: Left Mountain Green,   pms: 7491C, hex: "#7A853B", rgb: [122, 133, 59],  cmyk: [54, 33, 96, 12]}
+  - {name: Right Mountain Teal,   pms: 7699C, hex: "#35647E", rgb: [53, 100, 126],  cmyk: [83, 54, 35, 12]}
+type:
+  primary: {family: Museo Slab 500, use: "headlines and titles", licence: "free from exljbris (exljbris.com/museo.html); S12 confirms web embedding before use"}
+  secondary: {family: Trebuchet MS, use: "alternate headlines, body, captions; live web text"}
+never:
+  - the State "C" logo (a DPA mark)
+  - the State Seal (C.R.S. 24-80-902)
+  - anything that implies State endorsement or partnership
