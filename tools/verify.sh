@@ -18,6 +18,8 @@ run python3 -I tools/check_dashes.py
 run python3 -I tools/franchise_gate.py --self-test
 run python3 -I tools/franchise_gate.py
 run python3 -I tools/vendor/export_scan.py --self-test
+run python3 -I tools/fibo_budget.py --self-test
+run python3 -I tools/fibo_budget.py check
 # The public tree, as git would publish it: names, keys, private links, image metadata.
 tree=$(mktemp -d)
 git ls-files -z | tar --null -T - -cf - | tar -xf - -C "$tree"
