@@ -30,6 +30,14 @@
         {
           "glob": "tokens/README.md",
           "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        },
+        {
+          "glob": "decisions.md",
+          "why": "an append-only log; each entry is short and dated"
+        },
+        {
+          "glob": "CODE_OF_CONDUCT.md",
+          "why": "the Contributor Covenant 2.1, kept verbatim"
         }
       ],
       "skip_dirs": [
