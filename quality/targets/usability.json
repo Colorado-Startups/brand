@@ -1,0 +1,13 @@
+[
+  {
+    "id": "usability.reading_grade",
+    "params": {
+      "origin": "https://colorado-startups.github.io/brand",
+      "key_pages": ["/", "/quality/"],
+      "tasks": [
+        {"label": "See the brand", "path": "/"},
+        {"label": "See the scores", "path": "/quality/"}
+      ]
+    }
+  }
+]

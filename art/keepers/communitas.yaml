@@ -1,0 +1,87 @@
+# art/keepers/communitas.yaml: the fixed picture sheet for one keeper (owner S7).
+#
+# FIBO 2.0 reads words, so the keeper's look is written once here and pasted
+# verbatim into every caption that shows this keeper: the portrait template
+# (art/prompts/keeper.vgl.json) and any hero or scene. Only `location` and
+# `relationship`, plus the fields in `per_image`, are written per image.
+#
+# Precedence: who the keeper is, and its disclosure, come from
+# baseline/v2/dwarves.yaml (the website's data/team/dwarves.yaml at 18b65a6).
+# If that file and this one disagree, that file wins; fix this one in the same
+# session. Colors are token roles; tokens/brand_tokens.yaml sets the values.
+# Rules: art/DIRECTION.md, "The keepers".
+#
+# Keys
+#   id, name, kind, title  copied from baseline/v2/dwarves.yaml
+#   disclosure             copied verbatim from the same file; it ships beside every picture, in HTML
+#   disclosure_source      where the disclosure text comes from
+#   sheet                  the look in short labels: age, beard or hair, clothing,
+#                          color anchor (a token role), prop and silhouette
+#   objects_entry          FIXED. One VGL `objects` entry. Paste it verbatim, then add
+#                          `location` and `relationship` for the image
+#   per_image              the VGL object fields a caption may also set per image
+#   portrait               FIXED for the portrait template: background and crops
+#   alt_text               alt text for any picture of this keeper; it says the keeper is an AI agent
+#   continuity             the shipped picture this sheet follows, what changed, and why
+#   never                  what never appears in a picture of this keeper
+
+id: communitas
+name: Communitas
+kind: dwarf
+title: Keeper of the Doors
+
+disclosure: Communitas is an AI agent run by Colorado Startups. It can make mistakes, and a person reviews its work.
+disclosure_source: baseline/v2/dwarves.yaml, entry communitas, field disclosure (website data/team/dwarves.yaml at 18b65a6)
+
+sheet:
+  kind: dwarf woman
+  age: middle-aged
+  beard_or_hair: dark chestnut-brown hair in a thick crown of braids, freckles, no beard
+  clothing: a clear sky-blue hooded wool cloak with narrow gold trim, over a cream shirt and a brown leather vest; a wide belt; sturdy boots
+  color_anchor:
+    token: community
+    in_words: clear Colorado sky blue, the role's v2 value; update with the Wave 2 value
+  prop: a glowing brass lantern on a short pole, raised in one hand; a big ring of brass keys at her belt
+  silhouette: broad and stout, the peaked shape of a hooded cloak, a lantern held up high
+
+objects_entry:
+  description: A cheerful, middle-aged stout dwarf woman who keeps the doors. She has dark chestnut-brown hair in a thick crown of braids, freckles and a wide, welcoming smile. She holds up a glowing brass lantern on a short pole, and a big ring of brass keys hangs from her belt.
+  shape_and_color: A broad, stout figure wrapped in a large sky-blue hooded cloak, the one cool color on her, with small gold and brass accents.
+  texture: soft wool, worn leather and polished brass
+  clothing: A clear sky-blue hooded wool cloak with narrow gold trim over a cream shirt and a brown leather vest, a wide leather belt and sturdy boots.
+  appearance_details: The lantern's warm glow lights her face from below.
+  gender: female
+
+per_image: [location, relationship, relative_size, orientation, pose, expression, action]
+
+portrait:
+  background_setting: The tall hammered bronze doors of the Hall stand open behind her, carved with straight-line chevron relief. Between them, golden aspens and the Front Range peaks glow in golden-hour light. The background is soft and low in detail.
+  crops:
+    large: {ratio: "4:5", size: [960, 1200], use: team page and keeper panels, goal: true}
+    small: {ratio: "1:1", size: [320, 320], use: avatars at 40 to 96 px, goal: true}
+    source: baseline/v2/art-DIRECTION.md, Portrait files (website art/DIRECTION.md at 18b65a6, read 2026-11-02)
+
+alt_text: "Communitas, Keeper of the Doors, an AI agent run by Colorado Startups, pictured as a dwarf holding a lantern at the Hall's open doors."
+
+continuity:
+  follows: keeper-communitas-3, the shipped pick (website art/concepts/batch-1.md, picked 2026-10-18)
+  changes:
+    - what: Hair from copper-red to dark chestnut-brown.
+      why: >-
+        At 64 px her shipped avatar measured 53% ember and 11% sky blue (source:
+        website art/concepts/batch-1.md, make-finals, 2026-10-18). Ember is
+        Publicus's anchor. Brown hair leaves sky blue as her one strong color.
+    - what: The cloak's color words follow the community role, and each render's cloak is checked against it.
+      why: >-
+        The shipped art painted her cloak near 187 degrees, while the community
+        token sat at 212 degrees (source: website art/finals.json, anchors). The
+        anchor is the role, so its words change when Wave 2 sets the role's value.
+    - what: The keys move to her belt, and the lantern is held up high.
+      why: One raised prop gives a cleaner silhouette at small sizes (art/DIRECTION.md, rule 1).
+    - what: Her age is stated as middle-aged.
+      why: The three keepers now read apart by age as well as color (middle-aged, old, young).
+
+never:
+  - a weapon, armor or a helmet
+  - letters, runes or an emblem on the cloak or the doors
+  - a beard

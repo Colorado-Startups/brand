@@ -1,0 +1,92 @@
+name: pages
+
+# From Colorado-Startups/coloradostartups.org .github/workflows/pages.yml at b8d3a92 (itself Git Crafter
+# templates/ci/pages.yml at v7.0.0). One public Pages site (decision 33): the guide at /, the Process page at
+# /quality/ and the Quality, Speed and Consumption page at /quality/metrics.html. A pull request builds and scans
+# both; only main publishes. ADMIN_READ_TOKEN reaches the collect step on main only; unset, the metrics that need it
+# read not measured. The vendored leak scan and the franchise gate check the built site before upload.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "guide/**"
+      - "quality/**"
+      - ".github/workflows/pages.yml"
+  schedule:
+    - cron: "41 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
+      checks: read
+      deployments: read
+      issues: read
+      pull-requests: read
+      vulnerability-alerts: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26
+
+      - uses: SoulCraft-Org/git-crafter/actions/pages@a9d6b45b7e5ac54091123e2cda1efcfcd2f63696 # v7.0.0
+        with:
+          pages: process quality
+          config: quality/process/config.json
+          quality-config: quality/config.json
+          admin-read-token: ${{ github.ref == 'refs/heads/main' && secrets.ADMIN_READ_TOKEN || '' }}
+
+      - name: Assemble the site
+        run: |
+          mkdir -p site/quality
+          cp -R guide/public/. site/
+          cp -R quality/dist/. site/quality/
+
+      - name: Leak scan and franchise gate on the built site
+        run: |
+          python3 -I tools/vendor/export_scan.py site --public-checks-only
+          python3 -I - <<'PY'
+          import json, os, re, sys
+          rx = re.compile(json.load(open("tools/vendor/franchise_rule.json"))["rule"]["regex"])
+          hits = [f"{d}/{f}" for d, _, fs in os.walk("site") for f in fs
+                  if f.endswith((".html", ".css", ".js", ".json", ".svg")) and rx.search(open(os.path.join(d, f), errors="replace").read())]
+          print("\n".join(hits) or "franchise gate: 0 findings"); sys.exit(1 if hits else 0)
+          PY
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        with:
+          path: site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

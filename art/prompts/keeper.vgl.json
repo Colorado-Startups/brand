@@ -1,0 +1,91 @@
+{
+  "_about": "FIBO 2.0 VGL template for a keeper portrait (owner S7). Pick a keeper, paste its objects_entry and portrait.background_setting from art/keepers/<id>.yaml verbatim, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. The disclosure ships beside the picture in HTML, never inside it. Rules: art/DIRECTION.md, 'The keepers'.",
+  "template": "keeper",
+  "direction": "art/DIRECTION.md v4",
+  "model": "FIBO 2.0",
+  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
+  "tier": 3,
+  "node": {
+    "aspect_ratio": "3:4",
+    "resolution": "{1MP, or 4MP after an estimate}",
+    "seed": "{an integer of 1 or more; record it with the render}",
+    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node)"
+  },
+  "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
+  "fixed": [
+    "/lighting/conditions",
+    "/lighting/shadows",
+    "/aesthetics/composition",
+    "/aesthetics/color_scheme",
+    "/aesthetics/mood_atmosphere",
+    "/photographic_characteristics/depth_of_field",
+    "/photographic_characteristics/focus",
+    "/photographic_characteristics/camera_angle",
+    "/photographic_characteristics/lens_focal_length",
+    "/objects/0/location",
+    "/objects/0/relative_size",
+    "/objects/0/orientation",
+    "/style_medium",
+    "/text_render",
+    "/context",
+    "/artistic_style"
+  ],
+  "fixed_per_keeper": [
+    "/objects/0/description",
+    "/objects/0/shape_and_color",
+    "/objects/0/texture",
+    "/objects/0/clothing",
+    "/objects/0/appearance_details",
+    "/objects/0/gender",
+    "/background_setting"
+  ],
+  "per_image": [
+    "/short_description",
+    "/objects/0/relationship",
+    "/objects/0/pose",
+    "/objects/0/expression",
+    "/objects/0/action",
+    "/lighting/direction"
+  ],
+  "structured_prompt": {
+    "short_description": "{one or two sentences: the keeper, what it is doing, and where}",
+    "objects": [
+      {
+        "description": "{art/keepers/<id>.yaml objects_entry.description, verbatim}",
+        "location": "center",
+        "relationship": "{the only subject; the room behind is soft}",
+        "relative_size": "large within frame",
+        "shape_and_color": "{objects_entry.shape_and_color, verbatim}",
+        "texture": "{objects_entry.texture, verbatim}",
+        "appearance_details": "{objects_entry.appearance_details, verbatim}",
+        "orientation": "facing the viewer",
+        "pose": "{half body, standing, the prop held clear of the face}",
+        "expression": "{warm and friendly}",
+        "clothing": "{objects_entry.clothing, verbatim}",
+        "action": "{what the keeper is doing with its prop}",
+        "gender": "{objects_entry.gender, verbatim}"
+      }
+    ],
+    "background_setting": "{art/keepers/<id>.yaml portrait.background_setting, verbatim}",
+    "lighting": {
+      "conditions": "luminous golden light from glowing lanterns and a low warm sun, with a soft warm underglow on the face",
+      "direction": "{where the warm key light comes from: the keeper's own lantern, a window or a hearth}",
+      "shadows": "soft, warm bronze shadows"
+    },
+    "aesthetics": {
+      "composition": "half-body portrait, centered and facing the viewer, the figure built from two or three bold shapes, with clear space around the head for a round crop and a soft, low-detail background",
+      "color_scheme": "warm cream and honey gold with ember orange, copper and hammered bronze, gold inlaid in cool pink-grey granite, and one clear note of Colorado sky blue",
+      "mood_atmosphere": "bright, glowing, cheerful and welcoming"
+    },
+    "photographic_characteristics": {
+      "depth_of_field": "shallow",
+      "focus": "sharp focus on the keeper's face and prop",
+      "camera_angle": "eye-level",
+      "lens_focal_length": "portrait lens"
+    },
+    "style_medium": "stylized hand-painted high-fantasy illustration with a few bold, chunky shapes, sturdy exaggerated proportions, thick confident outlines, visible painted brush texture and soft cel shading",
+    "text_render": [],
+    "context": "a character portrait of a friendly fantasy keeper for a community website's team page, later cropped to a half-body card and a round avatar",
+    "artistic_style": "stylized, painterly, bold"
+  }
+}

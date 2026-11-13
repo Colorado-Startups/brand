@@ -1,0 +1,11 @@
+# Blank issues are off, so every issue goes through a form: bug.yml for a bug or error, fix.yml for a quick fix.
+# Ideas and features start in Discussions; an accepted one becomes a card or an issue labeled "idea: accepted".
+# From Git Crafter templates/open/.github/ISSUE_TEMPLATE/config.yml at v7.0.0.
+blank_issues_enabled: false
+contact_links:
+  - name: An idea or a feature
+    url: https://github.com/Colorado-Startups/brand/discussions/categories/ideas
+    about: Start in Discussions; an accepted idea becomes an issue.
+  - name: Security vulnerability
+    url: https://github.com/Colorado-Startups/brand/security/advisories/new
+    about: Report it privately. Do not open a public issue.

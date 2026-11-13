@@ -1,0 +1,69 @@
+{
+  "_about": "FIBO 2.0 VGL template for a home-page hero (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL'.",
+  "template": "hero",
+  "direction": "art/DIRECTION.md v4",
+  "model": "FIBO 2.0",
+  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
+  "tier": 3,
+  "node": {
+    "aspect_ratio": "21:9",
+    "resolution": "1MP",
+    "seed": "{an integer of 1 or more; record it with the render}",
+    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node). Ratios wider than 16:9 render at 1MP only."
+  },
+  "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
+  "fixed": [
+    "/lighting/conditions",
+    "/lighting/shadows",
+    "/aesthetics/composition",
+    "/aesthetics/color_scheme",
+    "/aesthetics/mood_atmosphere",
+    "/photographic_characteristics/depth_of_field",
+    "/photographic_characteristics/focus",
+    "/photographic_characteristics/lens_focal_length",
+    "/style_medium",
+    "/text_render",
+    "/context",
+    "/artistic_style"
+  ],
+  "per_image": [
+    "/short_description",
+    "/objects",
+    "/background_setting",
+    "/lighting/direction",
+    "/photographic_characteristics/camera_angle"
+  ],
+  "keepers": "To show a keeper, add one objects entry pasted verbatim from art/keepers/<id>.yaml objects_entry, then write its location and relationship. At most 5 objects in all (VGL guide).",
+  "structured_prompt": {
+    "short_description": "{the scene in one or two sentences: founders building together in the Hall, with a real Colorado view through it}",
+    "objects": [
+      {
+        "description": "{a small group of human founders of mixed ages and backgrounds in casual Colorado clothes, building something together with laptops, sketches and a prototype}",
+        "location": "{where in the frame, outside the calm upper-left third}",
+        "relationship": "{the focal point of the picture, and how the other objects relate to it}",
+        "relative_size": "{small, medium or large within frame}"
+      }
+    ],
+    "background_setting": "{the carved hall and the one real Colorado view through its arch or doors, as it is; see art/DIRECTION.md, Inside the doors and Real places}",
+    "lighting": {
+      "conditions": "luminous golden light from a low warm sun, glowing lanterns and contained forge fire, with a soft warm underglow from molten-gold channels in the floor",
+      "direction": "{where the warm key light comes from: the low sun through the arch, a hearth or lanterns}",
+      "shadows": "soft, warm bronze shadows"
+    },
+    "aesthetics": {
+      "composition": "wide establishing shot built from two or three large, chunky shapes, with the founders as the focal point and a calm, open, bright, low-detail area across the upper-left third",
+      "color_scheme": "warm cream and honey gold with ember orange, copper and hammered bronze, gold inlaid in cool pink-grey granite, and one clear note of Colorado sky blue",
+      "mood_atmosphere": "bright, glowing, cheerful and welcoming"
+    },
+    "photographic_characteristics": {
+      "depth_of_field": "deep",
+      "focus": "sharp focus on the founders, with a painted, detailed background",
+      "camera_angle": "{eye-level or slightly low}",
+      "lens_focal_length": "wide-angle"
+    },
+    "style_medium": "stylized hand-painted high-fantasy illustration with a few bold, chunky shapes, sturdy exaggerated proportions, thick confident outlines, visible painted brush texture and soft cel shading",
+    "text_render": [],
+    "context": "a wide, full-bleed hero illustration for the top of a community's home page, running edge to edge with no border or frame",
+    "artistic_style": "stylized, painterly, bold"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "_about": "FIBO 2.0 VGL template for a texture tile (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. The website's make-tiles.mjs then removes the wrap seam and maps the tile between its floor and ceiling token roles. Rules: art/DIRECTION.md, 'Texture tiles'.",
+  "template": "tile",
+  "direction": "art/DIRECTION.md v4",
+  "model": "FIBO 2.0",
+  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
+  "tier": 3,
+  "node": {
+    "aspect_ratio": "1:1",
+    "resolution": "1MP",
+    "seed": "{an integer of 1 or more; record it with the render}",
+    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node)"
+  },
+  "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
+  "fixed": [
+    "/objects",
+    "/lighting/conditions",
+    "/lighting/direction",
+    "/lighting/shadows",
+    "/aesthetics/composition",
+    "/aesthetics/mood_atmosphere",
+    "/photographic_characteristics/depth_of_field",
+    "/photographic_characteristics/focus",
+    "/photographic_characteristics/camera_angle",
+    "/photographic_characteristics/lens_focal_length",
+    "/style_medium",
+    "/text_render",
+    "/context",
+    "/artistic_style"
+  ],
+  "per_image": [
+    "/short_description",
+    "/background_setting",
+    "/aesthetics/color_scheme"
+  ],
+  "lessons": "Batch 1's stone and parchment tiles failed: each render lit the surface with a top-to-bottom gradient and left little fine texture (website art/concepts/batch-1.md). The fixed fields below describe flat, even light and one all-over pattern for that reason.",
+  "structured_prompt": {
+    "short_description": "{the material in one or two sentences, such as a flat block of warm sandstone covered in fine chisel strokes and soft sand grain}",
+    "objects": [],
+    "background_setting": "{the surface itself, filling the frame edge to edge, with the same amount of texture in every part}",
+    "lighting": {
+      "conditions": "flat, even, diffuse light",
+      "direction": "even light from directly in front",
+      "shadows": "minimal, soft shadows"
+    },
+    "aesthetics": {
+      "composition": "flat, straight-on close-up that fills the frame edge to edge with one even, all-over pattern and the same brightness everywhere",
+      "color_scheme": "{the material's colors in words, near its floor and ceiling roles, such as warm cream sandstone or cool grey granite}",
+      "mood_atmosphere": "calm, quiet and even"
+    },
+    "photographic_characteristics": {
+      "depth_of_field": "deep",
+      "focus": "even, sharp focus across the whole frame",
+      "camera_angle": "straight-on, square to the surface",
+      "lens_focal_length": "standard lens"
+    },
+    "style_medium": "stylized hand-painted texture with visible painted brush texture and soft, even shading",
+    "text_render": [],
+    "context": "a repeating surface texture for a website background, calm enough to sit behind text",
+    "artistic_style": "painterly, calm, even"
+  }
+}

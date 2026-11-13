@@ -1,0 +1,84 @@
+# art/keepers/resourcus.yaml: the fixed picture sheet for one keeper (owner S7).
+#
+# FIBO 2.0 reads words, so the keeper's look is written once here and pasted
+# verbatim into every caption that shows this keeper: the portrait template
+# (art/prompts/keeper.vgl.json) and any hero or scene. Only `location` and
+# `relationship`, plus the fields in `per_image`, are written per image.
+#
+# Precedence: who the keeper is, and its disclosure, come from
+# baseline/v2/dwarves.yaml (the website's data/team/dwarves.yaml at 18b65a6).
+# If that file and this one disagree, that file wins; fix this one in the same
+# session. Colors are token roles; tokens/brand_tokens.yaml sets the values.
+# Rules: art/DIRECTION.md, "The keepers".
+#
+# Keys
+#   id, name, kind, title  copied from baseline/v2/dwarves.yaml
+#   disclosure             copied verbatim from the same file; it ships beside every picture, in HTML
+#   disclosure_source      where the disclosure text comes from
+#   sheet                  the look in short labels: age, beard or hair, clothing,
+#                          color anchor (a token role), prop and silhouette
+#   objects_entry          FIXED. One VGL `objects` entry. Paste it verbatim, then add
+#                          `location` and `relationship` for the image
+#   per_image              the VGL object fields a caption may also set per image
+#   portrait               FIXED for the portrait template: background and crops
+#   alt_text               alt text for any picture of this keeper; it says the keeper is an AI agent
+#   continuity             the shipped picture this sheet follows, what changed, and why
+#   never                  what never appears in a picture of this keeper
+
+id: resourcus
+name: Resourcus
+kind: gnome
+title: Keeper of the Canvas
+
+disclosure: Resourcus is an AI agent run by Colorado Startups on an open-source model. It can make mistakes, so check each resource before you rely on it.
+disclosure_source: baseline/v2/dwarves.yaml, entry resourcus, field disclosure (website data/team/dwarves.yaml at 18b65a6)
+
+sheet:
+  kind: gnome man
+  age: old
+  beard_or_hair: a long white beard, bushy white eyebrows and a big round nose
+  clothing: a long pine-green coat with many pockets of pencils, rulers and tiny brass tools; a pine-green scarf wound high at the neck; a tall pointed honey-gold hat with brass goggles pushed up on it
+  color_anchor:
+    token: pine
+    with: brass
+    in_words: deep pine green, with polished brass
+  prop: a brass surveyor's compass held over a hand-painted map of the Front Range; a tiny brass gauge on his belt lets off a thin thread of white steam
+  silhouette: small, a tall pointed hat, a long white beard
+
+objects_entry:
+  description: A small, clever, old gnome mapkeeper with a long white beard, bushy white eyebrows and a big round nose. Brass goggles sit pushed up on his tall pointed honey-gold hat. He holds a brass surveyor's compass over a hand-painted map of the Colorado mountains. A tiny brass gauge on his belt lets off a thin thread of white steam.
+  shape_and_color: A small figure under a tall gold cone of a hat, wrapped in deep pine green from scarf to coat hem, with polished brass details.
+  texture: soft wool, brushed felt, polished brass and painted paper
+  clothing: A long pine-green coat with many pockets full of pencils, rulers and tiny brass tools, and a pine-green scarf wound high around his neck.
+  appearance_details: A small glint of warm light catches the brass compass and the goggles.
+  gender: male
+
+per_image: [location, relationship, relative_size, orientation, pose, expression, action]
+
+portrait:
+  background_setting: A cozy map room carved in warm sandstone, with wooden map drawers, a ticking brass orrery and a round window showing the Front Range peaks in warm daylight. The background is soft and low in detail.
+  crops:
+    large: {ratio: "4:5", size: [960, 1200], use: team page and keeper panels, goal: true}
+    small: {ratio: "1:1", size: [320, 320], use: avatars at 40 to 96 px, goal: true}
+    source: baseline/v2/art-DIRECTION.md, Portrait files (website art/DIRECTION.md at 18b65a6, read 2026-11-02)
+
+alt_text: "Resourcus, Keeper of the Canvas, an AI agent run by Colorado Startups, pictured as a gnome with a brass compass over a map of the Colorado mountains."
+
+continuity:
+  follows: keeper-resourcus-1, the shipped pick (website art/concepts/batch-1.md, picked 2026-10-18)
+  changes:
+    - what: A pine-green scarf wound high at the neck, and a longer coat.
+      why: >-
+        His shipped avatar measured 5% pine green, under the 8% goal (source:
+        website art/concepts/batch-1.md, make-finals, 2026-10-18). The coat sat
+        below every crop. A scarf puts green inside the head-and-shoulders crop.
+    - what: A tiny brass gauge on his belt that lets off a thread of steam.
+      why: Gnome brass and steam tinkering (art/DIRECTION.md, rule 3).
+    - what: His age is stated as old.
+      why: The three keepers now read apart by age as well as color (middle-aged, old, young).
+
+never:
+  - a weapon, a vehicle, a mount or a mechanical suit
+  - soot, grime or smoke that hides his face
+  - letters or numbers on the map; place names stay out
+  - an orange apron, which collides with Publicus's ember anchor (website art/concepts/batch-1.md)

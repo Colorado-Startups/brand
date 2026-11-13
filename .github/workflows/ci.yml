@@ -1,0 +1,25 @@
+name: ci
+
+# From Git Crafter templates/ci/ci.yml at v7.0.0: the CI standard on GitHub's standard hosted runners (free on a
+# public repo). ci-ok is the one check the ruleset requires. tools/verify.sh runs every check: dashes, the franchise
+# gate on files that ship, and the vendored leak scan of the tracked tree.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci:
+    uses: SoulCraft-Org/git-crafter/.github/workflows/ci-standard.yml@a9d6b45b7e5ac54091123e2cda1efcfcd2f63696 # v7.0.0
+    with:
+      paths: |
+        **
+      short: bash tools/verify.sh
+      standard: bash tools/verify.sh

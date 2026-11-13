@@ -1,0 +1,173 @@
+# Brand health KPIs (owner S11).
+#
+# Precedence: CLAUDE.md and decisions.md win over this file. governance/survey.md
+# asks the survey questions; governance/audit/ holds the consistency audits. If
+# they disagree with this file on what a KPI measures, this file wins and they
+# get fixed in the same session.
+#
+# Rules: `current` stays null until a reading exists, with its source and date.
+# Every target is a goal set here (goal: true), never a benchmark or a count.
+# No number in this file is invented: a figure carries a source or goal: true.
+#
+# Boundary: channel growth numbers for LinkedIn live in the LinkedIn project
+# (its KPI file, kept by the LinkedIn project's maintainers). This file holds
+# brand health only and does not repeat them.
+
+version: 1
+basis:
+  - name: Brand equity for a nonprofit comes down to awareness, trust and commitment
+    source: "https://onlinelibrary.wiley.com/doi/10.1002/nml.21233 (Boenigk and Becker 2016; read by the research agent 2026-11-02)"
+  - name: Lead with a shape asset; measure each asset's fame and uniqueness
+    source: "Romaniuk's distinctive asset grid, as summarized in the research digest of 2026-11-02 (no URL recorded)"
+  - name: Health metrics list (awareness, asset fame and uniqueness, trust and commitment, member NPS, share of voice, a consistency audit score, Slack weekly active, subscribers, opens and clicks, attendance)
+    source: "the overhaul's private research digest, section 2, 2026-11-02; its sources include the two above"
+
+kpis:
+  - id: unaided-awareness
+    name: Unaided awareness
+    measures: How many people name Colorado Startups without a prompt.
+    method: Share of respondents who name Colorado Startups in survey question 1, reported separately for the members and outside samples.
+    source: governance/survey.md question 1
+    cadence: yearly, plus once after v3.0.0 ships
+    target: {rule: "higher than the first outside reading at every later outside reading", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: aided-awareness
+    name: Aided awareness
+    measures: How many people recognize the name when they see it.
+    method: Share of respondents who tick Colorado Startups in survey question 3, by sample.
+    source: governance/survey.md question 3
+    cadence: yearly, plus once after v3.0.0 ships
+    target: {rule: "higher than the first outside reading at every later outside reading", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: asset-fame
+    name: Lead shape asset fame
+    measures: How many people link the masked mark to Colorado Startups.
+    method: Share of all respondents who name Colorado Startups for the masked asset in survey question 2, by sample. The before reading masks the 2014 shield; later readings mask the v3 mark.
+    source: governance/survey.md question 2
+    cadence: before v3.0.0 if the survey runs, then yearly
+    target: {rule: "the v3 mark matches the shield's first fame reading by its second yearly reading, then rises", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: asset-uniqueness
+    name: Lead shape asset uniqueness
+    measures: Whether the masked mark points to Colorado Startups and no one else.
+    method: Of every organization respondents name for the masked asset in survey question 2, the share that is Colorado Startups.
+    source: governance/survey.md question 2
+    cadence: yearly
+    target: {value: 50, unit: percent, goal: true, note: "set here as a goal, not a benchmark"}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: trust
+    name: Trust
+    measures: Whether people rely on what Colorado Startups shares.
+    method: Mean of survey question 5 on its 1 to 5 scale, among respondents who know Colorado Startups.
+    source: governance/survey.md question 5
+    cadence: yearly
+    target: {value: 4.0, unit: "mean of 1 to 5", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: commitment
+    name: Commitment
+    measures: Whether people plan to keep taking part.
+    method: Mean of survey question 6 on its 1 to 5 scale, among respondents who know Colorado Startups.
+    source: governance/survey.md question 6
+    cadence: yearly
+    target: {value: 4.0, unit: "mean of 1 to 5", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: member-nps
+    name: Member Net Promoter Score
+    measures: Whether members would recommend Colorado Startups to a founder.
+    method: >
+      Share answering 9 or 10 to survey question 4, minus the share answering 0 to 6
+      (https://www.netpromotersystem.com/about/measuring-your-net-promoter-score/,
+      read 2026-11-02). Members sample only.
+    source: governance/survey.md question 4
+    cadence: yearly
+    target: {rule: "above zero at the first reading, then higher each year", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 5)
+
+  - id: share-of-voice
+    name: Share of voice
+    measures: How much of the public talk about Colorado startup communities names Colorado Startups.
+    method: >
+      Each quarter, count public mentions (news articles and LinkedIn posts) of
+      Colorado Startups and of a fixed peer set from data/strategy.yaml's ecosystem
+      map over the same window. Share of voice is our count over the total. Log the
+      search queries, the window and the date with each reading, so the next
+      quarter repeats them exactly.
+    source: public news and LinkedIn search, run by a Claude session
+    cadence: quarterly
+    target: {rule: "higher than the same quarter a year before", goal: true}
+    current: null
+    status: not measured yet; the peer set waits on S1's ecosystem map
+
+  - id: consistency-audit
+    name: Consistency audit score
+    measures: How closely every surface follows the brand.
+    method: Score every surface on the eight rules in governance/audit/rubric.yaml, 0 to 2; report each channel's mean of its non-null scores.
+    source: governance/audit/before.yaml, later governance/audit/after.yaml
+    cadence: at each major release, and yearly
+    target: {rule: "every channel averages 1.5 of 2 or more at the after-audit, and every channel x rule cell beats its before score", goal: true}
+    baseline: {value: 1.5, unit: "overall mean of 0 to 2", source: "governance/audit/before.yaml summary.overall_average, read 2026-11-02 against v2"}
+    current: null
+    status: "baseline only; current waits for the after-audit (S18) against v3.0.0"
+
+  - id: slack-weekly-active
+    name: Slack weekly active members
+    measures: How many Slack members take part in a given week.
+    method: Weekly active members divided by all members, from the workspace's own analytics, read on the first of each month.
+    source: Slack workspace analytics (needs an owner or admin sign-in)
+    cadence: monthly
+    target: {rule: "the first reading sets the baseline; then the trailing three-month mean rises each quarter", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 8)
+
+  - id: newsletter-subscribers
+    name: Newsletter subscribers
+    measures: How many people have opted in to the Startupers newsletter.
+    method: Confirmed subscribers on the first of each month. The website's sign-up adds people to Kit with double opt-in (site/worker/routes/subscribe.ts); older lists sit in Squarespace Email Campaigns. Report the two separately until they merge.
+    source: Kit and Squarespace Email Campaigns account reports
+    cadence: monthly
+    target: {rule: "net growth every quarter", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 8)
+
+  - id: newsletter-opens
+    name: Newsletter open rate
+    measures: How many subscribers open each send.
+    method: Unique opens divided by delivered, per send, from the sending tool's report. Mail privacy features such as Apple Mail Privacy Protection can inflate opens, so compare a send only with the same tool's earlier sends.
+    source: Kit and Squarespace Email Campaigns send reports
+    cadence: per send, reviewed monthly
+    target: {rule: "at or above the median of the same list's previous six sends", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 8)
+
+  - id: newsletter-clicks
+    name: Newsletter click rate
+    measures: How many subscribers act on each send.
+    method: Unique clicks divided by delivered, per send, from the sending tool's report.
+    source: Kit and Squarespace Email Campaigns send reports
+    cadence: per send, reviewed monthly
+    target: {rule: "at or above the median of the same list's previous six sends", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 8)
+
+  - id: event-attendance
+    name: Event attendance
+    measures: How many people show up to Colorado Startups events.
+    method: Checked-in guests per event, and the monthly total, from the Luma calendar's guest lists.
+    source: the Colorado Startups Luma calendar (its connector or a guest export)
+    cadence: monthly
+    target: {rule: "the first three months set the baseline; then each quarter beats the same quarter a year before", goal: true}
+    current: null
+    status: not measured yet (Paul's queue item 8)

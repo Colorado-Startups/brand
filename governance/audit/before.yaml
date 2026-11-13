@@ -1,0 +1,533 @@
+# Before-audit: every current brand surface, scored before the overhaul (owner S11).
+#
+# Rubric: governance/audit/rubric.yaml (version 2), which wins over any note here.
+# Reference release: v2, the brand in force on the read date (baseline/v2/, plus
+# the website's 01_doctrine/ and astro.config.mjs at the commit named below).
+# Every source was read, never changed. Private folders and Artifact links are
+# withheld on purpose.
+#
+# `how` says how each surface was read: source (files read), image (viewed),
+# sampled (pixel colors computed), inferred (not seen directly). The summary at
+# the end is computed from the scores; recompute it if a score changes.
+
+version: 1
+rubric_version: 2
+release: v2
+read_date: "2026-11-02"
+website_commit: c6f10bc (Colorado-Startups/coloradostartups-site origin/main, 2026-11-02 18:29 MT)
+
+# Shared score sets. Pages built from one layout or one template share a set.
+# The partner pages repeat the partner set's scores and differ only in voice-lint.
+score_sets:
+  website: &website
+    logo-variant: {score: 1, note: "The approved shield (site/public/brand/cs-logo-240.png) shows at 44 px in the header with an added drop shadow (SiteHeader.astro). At 44 px its lettering is about 6 px tall (estimated from the 240 px file), and v2 has no small mark. site/public/favicon.ico is a WebP file, not an ICO."}
+    palette: {score: 2, note: "Page and component sources carry no hex value outside site/src/styles/tokens.css, which sync-brand.mjs generates from the v2 tokens. Matches such as #203 are issue numbers in comments."}
+    type: {score: 2, note: "Cinzel for headings and Alegreya Sans for body, self-hosted by the Astro Fonts API (site/astro.config.mjs)."}
+    voice-lint: {score: 2, note: "No em dash or spaced en dash in the sampled page sources. The tagline comes from one constant (site/src/components/hall/org.ts TAGLINE) and matches website decision 46."}
+    clear-space: {score: 2, note: "A 12 px gap (--s-3) beside the 44 px shield, more than a quarter of its height; the header bar pads 12 px above and 16 px below."}
+    contrast: {score: 2, note: "The v2 tokens list every pair with its ratio. Recomputed here: text on ground 15.81, copper link on ground 6.17."}
+    naming: {score: 2, note: "Colorado Startups, the keepers and the outposts are spelled as baseline/v2/lore.md spells them."}
+    register: {score: 2, note: "The Hall on a Hall channel. Keepers are disclosed as AI agents (team page and every keeper card)."}
+  partner: &partner
+    logo-variant: {score: 1, note: "The approved shield (cs-logo-240.png, same hash as the website's) shows at 22 to 34 px in the partner bar, where its lettering cannot be read. v2 has no small mark."}
+    palette: {score: 0, note: "The package palette (Pages/PACKAGE-PALETTE.txt) leads with teal #028EB1 and #02718D, purple #5D4276 and navy #12182B. v2 keeps teal and purple for the logo only, and navy and the greys are off-token."}
+    type: {score: 2, note: "Trebuchet MS only, the State's rule for live web text, which decision 11 keeps for co-branded State pages."}
+    clear-space: {score: 1, note: "An 8 px gap at the 34 px desktop size is just under a quarter of the logo's height; the narrow layouts keep 6 px at 22 px."}
+    contrast: {score: 2, note: "Text sits on #02718D or darker by the package rule. Recomputed here: #5A6472 on #F5F7FA 5.59, #3E4A5C on #F5F7FA 8.37."}
+    naming: {score: 2, note: "Colorado Startups in full, in the order State, Colorado Startups, partner."}
+    register: {score: 1, note: "A plain layout fits these Core pages, but v2 defines no Core register, so the pages improvise one."}
+  oct6_logo: &oct6_logo {score: 0, note: "A standalone social graphic with the name in a letterspaced kicker and no logo."}
+
+surfaces:
+  # Website: a sample of seven pages. The outpost pages are scored under sub-brand-pages.
+  - id: website-home
+    channel: website
+    name: Home page
+    evidence: {url: "https://coloradostartups.org/", path: "coloradostartups-site@c6f10bc:site/src/pages/index.astro"}
+    read: "2026-11-02"
+    how: source; live page fetched with curl (it loads cs-logo-240.png and self-hosted WOFF2 fonts)
+    scores: *website
+  - id: website-community
+    channel: website
+    name: Community page
+    evidence: {url: "https://coloradostartups.org/community/", path: "coloradostartups-site@c6f10bc:site/src/pages/community/index.astro"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: website-founders
+    channel: website
+    name: Founders page
+    evidence: {url: "https://coloradostartups.org/founders/", path: "coloradostartups-site@c6f10bc:site/src/pages/founders/index.astro"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: website-get-involved
+    channel: website
+    name: Get involved page
+    evidence: {url: "https://coloradostartups.org/get-involved/", path: "coloradostartups-site@c6f10bc:site/src/pages/get-involved/index.astro"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: website-leaderboard
+    channel: website
+    name: Leaderboard page
+    evidence: {url: "https://coloradostartups.org/leaderboard/", path: "coloradostartups-site@c6f10bc:site/src/pages/leaderboard/index.astro"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: website-newsletter
+    channel: website
+    name: Newsletter page
+    evidence: {url: "https://coloradostartups.org/newsletter/", path: "coloradostartups-site@c6f10bc:site/src/pages/newsletter/index.astro"}
+    read: "2026-11-02"
+    how: source
+    note: Sets no ogImage, so it shares default.png, which is the same file as home.png.
+    scores: *website
+  - id: website-team
+    channel: website
+    name: Team page (the keepers)
+    evidence: {url: "https://coloradostartups.org/team/", path: "coloradostartups-site@c6f10bc:site/src/pages/team/index.astro"}
+    read: "2026-11-02"
+    how: source
+    note: States that each keeper is an AI agent run by Colorado Startups.
+    scores: *website
+
+  # OG cards: one build script (scripts/og/build.mjs) renders all 13 from one template.
+  - id: og-card-set
+    channel: og-cards
+    name: Website OG cards (13 files)
+    evidence:
+      path: "coloradostartups-site@c6f10bc:site/public/og/*.png"
+      copy: "coloradostartups-site@c6f10bc:art/og/cards.txt"
+    read: "2026-11-02"
+    how: image (home, ecosystem-canvas and space-peak viewed; all 13 hashed and sized); source (build.mjs)
+    note: "default.png and home.png are the same file (same MD5). Every card is 1200 x 630 and under 300 KB, per decision 60. Not a rubric finding; W3 in the plan fixes it."
+    scores:
+      logo-variant: {score: 2, note: "The approved shield at about 100 px, where its lettering reads, with no effect added."}
+      palette: {score: 2, note: "build.mjs reads every color from 01_doctrine/brand_tokens.yaml."}
+      type: {score: 2, note: "Cinzel titles and Alegreya Sans text, set as vector paths from the cached font files."}
+      voice-lint: {score: 2, note: "The canonical tagline; the Resourcus card says 'our AI agent'."}
+      clear-space: {score: 2, note: "Open ground on every side of the logo."}
+      contrast: {score: 2, note: "Text sits on the ground side of a scrim; copper URL on ground 6.17."}
+      naming: {score: 2, note: Names as the release spells them.}
+      register: {score: 2, note: "The Hall, matching the pages the cards preview. build.mjs exits 1 when a keeper card loses its AI-agent disclosure."}
+
+  # LinkedIn kit (a private folder).
+  - id: linkedin-page
+    channel: linkedin-kit
+    name: LinkedIn Page as the kit sets it (logo, cover, tagline, overview)
+    evidence:
+      path: "withheld (a private folder)"
+      url: "https://www.linkedin.com/company/costartups"
+    read: "2026-11-02"
+    how: source; image (cover A viewed). The live Page was not opened; the kit records the Page logo as the shield, uploaded 2023-02-18.
+    scores:
+      logo-variant: {score: 1, note: "The approved shield fills the square avatar slot, which LinkedIn shows small in feeds; v2 has no avatar mark."}
+      palette: {score: 0, note: "Cover A uses teal #02718D and #028EB1, navy #12182B, purple #5D4276 and teal tints on white."}
+      type: {score: 0, note: "Avenir Next (cover.html), a face v2 does not name."}
+      voice-lint: {score: 1, note: "The tagline field holds 'Supporting entrepreneurs building the next generation of Colorado companies.' and the kit proposes 'Uniting and helping Colorado founders since 2014...'. Neither is website decision 46's tagline."}
+      clear-space: {score: 1, note: "The shield runs nearly to the edges of the square avatar, so the rounded crop sits close to it."}
+      contrast: {score: 2, note: "Recomputed: #02718D on white 5.60, #5D4276 on white 8.38, #12182B on white 17.63."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "A plain look fits a Core channel, but v2 defines no Core register."}
+  - id: linkedin-posts
+    channel: linkedin-kit
+    name: LinkedIn posts and Group threads (28 drafts)
+    evidence:
+      path: "withheld (a private folder)"
+    read: "2026-11-02"
+    how: source (mechanical scan of all 28; judgment on the closing lines)
+    scores:
+      logo-variant: {score: null, na: "text posts sit beside the Page's own logo slot"}
+      palette: {score: null, na: LinkedIn sets the colors}
+      type: {score: null, na: LinkedIn sets the type}
+      voice-lint: {score: 1, note: "No dash, hedge or AI tell. 'The future is bright' closes four weekly Friday Colorado Wins threads and the pinned welcome; baseline/v2/voice.md keeps it for big moments only."}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: null, na: LinkedIn sets the colors}
+      naming: {score: 2, note: "Colorado Startups and the Colorado Wins series named consistently."}
+      register: {score: 1, note: "Plain words, which fit a Core channel; v2 defines no Core register."}
+
+  # Email signatures.
+  - id: email-signatures
+    channel: email-signatures
+    name: Email signatures (Paul's block and the staff template)
+    evidence:
+      path: "withheld (a private folder)"
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: null, na: "a text-only signature; v2 sets no signature spec"}
+      palette: {score: 0, note: "Navy #12182B, purple #5D4276 and teal #02718D and #028EB1."}
+      type: {score: 0, note: "Trebuchet MS, Arial, Helvetica: neither v2's families nor its fallback stack."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Recomputed: #02718D on white 5.60, #5D4276 on white 8.38."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "Plain, which fits a Core channel; v2 defines no Core register."}
+
+  # Carousels (LinkedIn documents, one HTML template rendered to PDF).
+  - id: carousel-colorado-wins-2026-10
+    channel: carousels
+    name: Colorado Wins roundup carousel, October 2026
+    evidence:
+      path: "withheld (a private folder)"
+    read: "2026-11-02"
+    how: source; image (cover slide rendered from the PDF and viewed)
+    scores: &carousel
+      logo-variant: {score: 0, note: "A standalone graphic with the name in a kicker ('Colorado Startups · Colorado Wins') and no logo."}
+      palette: {score: 0, note: "Navy #12182B, teal #02718D and #028EB1, purple #5D4276, grey #5B6475 and pale blue rays #BFE0EA."}
+      type: {score: 0, note: "Avenir Next with Helvetica Neue fallbacks."}
+      voice-lint: {score: 2, note: "No finding; every figure carries its source on its slide."}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Recomputed: #5B6475 on #FBFAF7 5.71, #02718D on #FBFAF7 5.37."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "A plain look, which the channel allows; v2 defines no Core register."}
+  - id: carousel-builder-notes-laser-fusion
+    channel: carousels
+    name: Builder notes carousel, laser fusion
+    evidence:
+      path: "withheld (a private folder)"
+    read: "2026-11-02"
+    how: source (same template and colors as the roundup)
+    scores: *carousel
+
+  # Volunteer pages (a private folder), published as Claude Artifacts (links in Roles/urls.json).
+  - id: volunteer-index
+    channel: volunteer-pages
+    name: Volunteer roles index
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source (kit/hall.css, template.html, build.py)
+    scores: &volunteer
+      logo-variant: {score: 1, note: "art/logo.webp at 34 px and the template's 44 px mark are rasters of the traced cs-logo.svg, whose colors drift from the PNG shield (#057F97, #0D5979, #4C3F76, #A7A6CE per the research digest)."}
+      palette: {score: 1, note: "v2 tokens dominate, plus dark shades that are not v2 tokens: #17223F, #2B3B60, #1C2A4A, #0A1124 and others."}
+      type: {score: 2, note: "Cinzel and Alegreya Sans in their roles. They load from Google Fonts because an Artifact cannot self-host."}
+      voice-lint: {score: 2, note: "No dash, hedge or AI tell; figures come from data/facts.json with sources."}
+      clear-space: {score: 2, note: "0.6 to 0.75 rem beside a 34 to 44 px mark, more than a quarter of its height."}
+      contrast: {score: 2, note: "Recomputed: #E9DCC0 on #17223F 11.57, #F0A92B on #17223F 7.79, #FFFBF3 on #2B3B60 10.72."}
+      naming: {score: 2, note: "Colorado Startups and the three outposts as the release spells them."}
+      register: {score: 2, note: "The Hall on a community channel; Communitas is named 'an AI agent' each time it appears."}
+  - id: volunteer-slack-community-lead
+    channel: volunteer-pages
+    name: Slack Community Lead role page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores: *volunteer
+  - id: volunteer-photon-mountain-connector
+    channel: volunteer-pages
+    name: Photon Mountain Connector role page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores: *volunteer
+  - id: volunteer-space-peak-connector
+    channel: volunteer-pages
+    name: Space Peak Connector role page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores: *volunteer
+  - id: volunteer-fusion-canyon-connector
+    channel: volunteer-pages
+    name: Fusion Canyon Connector role page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores: *volunteer
+  - id: volunteer-share-cards
+    channel: volunteer-pages
+    name: Volunteer share cards (5 PNGs)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (index card viewed); source (make_cards.py, index.card.html)
+    scores:
+      logo-variant: {score: 1, note: "The traced cs-logo.svg (make_cards.py), not the approved PNG shield."}
+      palette: {score: 2, note: "index.card.html uses only v2 token values."}
+      type: {score: 2, note: Cinzel and Alegreya Sans in their roles.}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: 2, note: Open space around the logo beside its label.}
+      contrast: {score: 2, note: "Text on parchment and bronze from the v2 contrast pairs."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 2, note: The Hall on a community channel.}
+
+  # Partner pages (a private folder), co-branded State pages published as Claude Artifacts.
+  - id: partner-positioning
+    channel: partner-pages
+    name: Partner positioning page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: 1, note: "See score_sets.partner."}
+      palette: {score: 0, note: "See score_sets.partner."}
+      type: {score: 2, note: "See score_sets.partner."}
+      voice-lint: {score: 2, note: "No finding. A partner project's name matches a word on the AI-tell list; it is a proper noun, not a tell."}
+      clear-space: {score: 1, note: "See score_sets.partner."}
+      contrast: {score: 2, note: "See score_sets.partner."}
+      naming: {score: 2, note: "See score_sets.partner."}
+      register: {score: 1, note: "See score_sets.partner."}
+  - id: partner-a-vision
+    channel: partner-pages
+    name: Partner project A vision page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: 1, note: "See score_sets.partner."}
+      palette: {score: 0, note: "See score_sets.partner."}
+      type: {score: 2, note: "See score_sets.partner."}
+      voice-lint: {score: 2, note: "No finding. A partner project's name matches a word on the AI-tell list; it is a proper noun, not a tell."}
+      clear-space: {score: 1, note: "See score_sets.partner."}
+      contrast: {score: 2, note: "See score_sets.partner."}
+      naming: {score: 2, note: "See score_sets.partner."}
+      register: {score: 1, note: "See score_sets.partner."}
+  - id: partner-a-financing
+    channel: partner-pages
+    name: Partner project A financing page (private Artifact; link withheld)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: 1, note: "See score_sets.partner."}
+      palette: {score: 0, note: "See score_sets.partner."}
+      type: {score: 2, note: "See score_sets.partner."}
+      voice-lint: {score: 0, note: "36 em dashes mark empty cells in the funding table."}
+      clear-space: {score: 1, note: "See score_sets.partner."}
+      contrast: {score: 2, note: "See score_sets.partner."}
+      naming: {score: 2, note: "See score_sets.partner."}
+      register: {score: 1, note: "See score_sets.partner."}
+  - id: partner-b-vision
+    channel: partner-pages
+    name: Partner project B vision page
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: 1, note: "See score_sets.partner."}
+      palette: {score: 0, note: "See score_sets.partner."}
+      type: {score: 2, note: "See score_sets.partner."}
+      voice-lint: {score: 2, note: "No finding. A partner project's name matches a word on the AI-tell list; it is a proper noun, not a tell."}
+      clear-space: {score: 1, note: "See score_sets.partner."}
+      contrast: {score: 2, note: "See score_sets.partner."}
+      naming: {score: 2, note: "See score_sets.partner."}
+      register: {score: 1, note: "See score_sets.partner."}
+  - id: partner-b-financing
+    channel: partner-pages
+    name: Partner project B financing page (private Artifact; link withheld)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: 1, note: "See score_sets.partner."}
+      palette: {score: 0, note: "See score_sets.partner."}
+      type: {score: 2, note: "See score_sets.partner."}
+      voice-lint: {score: 1, note: "One hedge word opens an estimate of how many startups would buy GPU time."}
+      clear-space: {score: 1, note: "See score_sets.partner."}
+      contrast: {score: 2, note: "See score_sets.partner."}
+      naming: {score: 2, note: "See score_sets.partner."}
+      register: {score: 1, note: "See score_sets.partner."}
+
+  # The Oct 6 announcement set (a private folder).
+  # Only the public pieces were read. The set predates the Hall (website decision 21, 2026-10-08).
+  - id: oct6-email
+    channel: oct-6-announcement
+    name: Announcement email to the community, Oct 6
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source (the record of Paul's last version before sending; Paul edited one line in the email tool)
+    scores:
+      logo-variant: {score: null, na: "the campaign's template is not in the folder"}
+      palette: {score: null, na: "the campaign's template is not in the folder"}
+      type: {score: null, na: "the campaign's template is not in the folder"}
+      voice-lint: {score: 2, note: "No finding in the body. The closing line marks a big moment, as v2 allows."}
+      clear-space: {score: null, na: "the campaign's template is not in the folder"}
+      contrast: {score: null, na: "the campaign's template is not in the folder"}
+      naming: {score: 2, note: "Colorado Startups and Startupers as the release spells them."}
+      register: {score: null, na: "the campaign's look is not in the folder"}
+  - id: oct6-teaser-gif
+    channel: oct-6-announcement
+    name: Animated teaser in the email (GIF)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (first frame viewed)
+    scores:
+      logo-variant: *oct6_logo
+      palette: {score: 0, note: "Same palette as the LinkedIn teaser."}
+      type: {score: 0, note: "Same geometric sans as the LinkedIn teaser."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Same colors as the sampled thumbnail, judged by eye."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 0, note: "Sent in the newsletter, a Hall channel, in a plain look. It was made before the Hall existed."}
+  - id: oct6-linkedin-teaser
+    channel: oct-6-announcement
+    name: LinkedIn teaser image
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (viewed)
+    scores:
+      logo-variant: *oct6_logo
+      palette: {score: 0, note: "Teal kicker, navy headline, purple subline, pale blue mountains and rays."}
+      type: {score: 0, note: "A geometric sans that matches neither Cinzel nor Alegreya Sans."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Same colors as the sampled thumbnail, judged by eye (this PNG is palette-indexed and was not sampled)."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "A plain look on LinkedIn, a Core channel by the rubric's map; v2 defines no Core register."}
+  - id: oct6-video-thumbnail
+    channel: oct-6-announcement
+    name: LinkedIn video thumbnail
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (viewed); sampled (contrast)
+    scores:
+      logo-variant: *oct6_logo
+      palette: {score: 0, note: "Teal, purple, navy and gold-tinted rays on white; pale blue mountains."}
+      type: {score: 0, note: "A geometric sans that matches neither Cinzel nor Alegreya Sans."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Sampled: kicker 6.41, subline 8.37, URL on the mountain fill 4.56."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "A plain look on LinkedIn; v2 defines no Core register."}
+  - id: oct6-video
+    channel: oct-6-announcement
+    name: Announcement video (MP4, 14 s, 1080 x 1080)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (one frame, from Quick Look); duration and size from Spotlight metadata. The video was not watched in full.
+    scores:
+      logo-variant: *oct6_logo
+      palette: {score: 0, note: "The frame matches the teaser's palette."}
+      type: {score: 0, note: "The frame matches the teaser's geometric sans."}
+      voice-lint: {score: 2, note: "No finding in the words on the frame."}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Navy on white and the teal kicker, as on the thumbnail (one frame only)."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "A plain look on LinkedIn; v2 defines no Core register."}
+  - id: oct6-signature-image
+    channel: oct-6-announcement
+    name: Signature image in the email (portrait and name)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: image (viewed)
+    scores:
+      logo-variant: {score: null, na: "a portrait and a name; no logo slot"}
+      palette: {score: 0, note: "A teal ring around the portrait and a navy name (judged by eye)."}
+      type: {score: 0, note: "The same geometric sans as the teaser."}
+      voice-lint: {score: null, na: "a name only"}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: 2, note: "Navy name on white."}
+      naming: {score: null, na: "no brand name"}
+      register: {score: null, na: "a portrait and a name carry no register"}
+
+  # Sub-brand pages: the website's three outpost pages, and each outpost's own page.
+  - id: subbrand-website-photon-mountain
+    channel: sub-brand-pages
+    name: Photon Mountain outpost page on the website
+    evidence: {url: "https://coloradostartups.org/regions/photon-mountain/", path: "coloradostartups-site@c6f10bc:site/src/pages/regions/[id].astro and data/regions/photon-mountain.yaml"}
+    read: "2026-11-02"
+    how: source; live page answered 200 to curl
+    scores: *website
+  - id: subbrand-website-space-peak
+    channel: sub-brand-pages
+    name: Space Peak outpost page on the website
+    evidence: {url: "https://coloradostartups.org/regions/space-peak/", path: "coloradostartups-site@c6f10bc:site/src/pages/regions/[id].astro and data/regions/space-peak.yaml"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: subbrand-website-fusion-canyon
+    channel: sub-brand-pages
+    name: Fusion Canyon outpost page on the website
+    evidence: {url: "https://coloradostartups.org/regions/fusion-canyon/", path: "coloradostartups-site@c6f10bc:site/src/pages/regions/[id].astro and data/regions/fusion-canyon.yaml"}
+    read: "2026-11-02"
+    how: source
+    scores: *website
+  - id: subbrand-photon-mountain
+    channel: sub-brand-pages
+    name: Photon Mountain's own page
+    evidence: {path: "Colorado-Startups/photon-mountain (private) main 67d804c: 03_deliverables/infographics/photon_mountain.html"}
+    read: "2026-11-02"
+    how: source (identical to the local copy); judged against its own 01_doctrine/brand_guidelines.md
+    scores:
+      logo-variant: {score: null, na: "v2 defines no endorsement lockup. The page names the endorsement in words: 'a Colorado Startups project in collaboration with Colorado AI'."}
+      palette: {score: 2, note: "Its own locked palette (#131A33, #FF5A36, #C43C1C and the rest). The brand sets no fixed sub-brand rule (decision 21), so its own page is judged against its own spec."}
+      type: {score: 2, note: "Space Grotesk and Inter, its own OFL faces."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no Colorado Startups logo}
+      contrast: {score: 2, note: "Recomputed: #C43C1C on white 5.24, #545B6B on #F6F7FB 6.36."}
+      naming: {score: 2, note: "Photon Mountain and Colorado Startups as spelled."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+  - id: subbrand-space-peak
+    channel: sub-brand-pages
+    name: Space Peak's own page (site map)
+    evidence: {path: "Colorado-Startups/space-peak (private) main 9fade4b: 03_deliverables/infographics/Satellite-Peak-site-map.html"}
+    read: "2026-11-02"
+    how: source (identical to the local copy)
+    scores:
+      logo-variant: {score: null, na: v2 defines no endorsement lockup}
+      palette: {score: 0, note: "Space Peak has no locked palette; the page uses stock UI colors such as #3498DB, #E74C3C and #2ECC71."}
+      type: {score: 0, note: "A system UI stack (-apple-system, Segoe UI, Roboto)."}
+      voice-lint: {score: 0, note: "14 em dashes as HTML entities, the page title included."}
+      clear-space: {score: null, na: no Colorado Startups logo}
+      contrast: {score: 0, note: "White 12 px button text on #FF7A18 is 2.61."}
+      naming: {score: 0, note: "The title says 'Satellite Peak', not Space Peak, though the repo's README publishes under the Space Peak name."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+  - id: subbrand-fusion-canyon
+    channel: sub-brand-pages
+    name: Fusion Canyon's own page (vision draft)
+    evidence: {path: "withheld (a private folder)"}
+    read: "2026-11-02"
+    how: source
+    scores:
+      logo-variant: {score: null, na: v2 defines no endorsement lockup}
+      palette: {score: 0, note: "A draft palette with no locked spec behind it (#0A6A71, #A2521F, greys)."}
+      type: {score: 0, note: "Archivo and DM Mono, with no spec behind them."}
+      voice-lint: {score: 2, note: No finding.}
+      clear-space: {score: null, na: no Colorado Startups logo}
+      contrast: {score: 0, note: "Small captions in --faint: #7A8794 on #E7EBEF 3.06 and on white 3.67 in light mode; #657585 on #101923 3.74 in dark mode."}
+      naming: {score: 2, note: "Fusion Canyon and Photon Mountain as spelled."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+
+  # The public GitHub org profile.
+  - id: github-org-profile
+    channel: github-org-profile
+    name: Colorado-Startups org profile (README and avatar)
+    evidence: {url: "https://github.com/Colorado-Startups", path: "Colorado-Startups/.github main c5511c3: profile/README.md"}
+    read: "2026-11-02"
+    how: source (gh repo view, gh api); inferred (avatar)
+    scores:
+      logo-variant: {score: 0, note: "Inferred, not viewed: the org avatar answers every requested size with the same 3,218-byte PNG (HEAD requests, 2026-11-02), which matches GitHub's default identicon, not the shield."}
+      palette: {score: null, na: "GitHub sets the colors and the README carries no image"}
+      type: {score: null, na: "GitHub sets the type and the README carries no image"}
+      voice-lint: {score: 2, note: "No finding; the first line is website decision 46's positioning."}
+      clear-space: {score: null, na: no logo}
+      contrast: {score: null, na: GitHub sets the colors}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 1, note: "Plain text, which fits a Core channel; v2 defines no Core register."}
+
+# Computed from the surfaces above by parsing this file against the rubric
+# (mean of every non-null score; cells are channel x rule means). A null cell
+# means no surface in that channel could be scored on that rule.
+summary:
+  overall_average: 1.5
+  surfaces: 37
+  scores_counted: 259
+  channels:
+    website: {surfaces: 7, average: 1.88, cells: {logo-variant: 1.0, palette: 2.0, type: 2.0, voice-lint: 2.0, clear-space: 2.0, contrast: 2.0, naming: 2.0, register: 2.0}}
+    og-cards: {surfaces: 1, average: 2.0, cells: {logo-variant: 2.0, palette: 2.0, type: 2.0, voice-lint: 2.0, clear-space: 2.0, contrast: 2.0, naming: 2.0, register: 2.0}}
+    linkedin-kit: {surfaces: 2, average: 1.09, cells: {logo-variant: 1.0, palette: 0.0, type: 0.0, voice-lint: 1.0, clear-space: 1.0, contrast: 2.0, naming: 2.0, register: 1.0}}
+    email-signatures: {surfaces: 1, average: 1.17, cells: {logo-variant: null, palette: 0.0, type: 0.0, voice-lint: 2.0, clear-space: null, contrast: 2.0, naming: 2.0, register: 1.0}}
+    carousels: {surfaces: 2, average: 1.0, cells: {logo-variant: 0.0, palette: 0.0, type: 0.0, voice-lint: 2.0, clear-space: null, contrast: 2.0, naming: 2.0, register: 1.0}}
+    volunteer-pages: {surfaces: 6, average: 1.77, cells: {logo-variant: 1.0, palette: 1.17, type: 2.0, voice-lint: 2.0, clear-space: 2.0, contrast: 2.0, naming: 2.0, register: 2.0}}
+    partner-pages: {surfaces: 5, average: 1.3, cells: {logo-variant: 1.0, palette: 0.0, type: 2.0, voice-lint: 1.4, clear-space: 1.0, contrast: 2.0, naming: 2.0, register: 1.0}}
+    oct-6-announcement: {surfaces: 6, average: 1.0, cells: {logo-variant: 0.0, palette: 0.0, type: 0.0, voice-lint: 2.0, clear-space: null, contrast: 2.0, naming: 2.0, register: 0.75}}
+    sub-brand-pages: {surfaces: 6, average: 1.51, cells: {logo-variant: 1.0, palette: 1.33, type: 1.33, voice-lint: 1.67, clear-space: 2.0, contrast: 1.33, naming: 1.67, register: 2.0}}
+    github-org-profile: {surfaces: 1, average: 1.25, cells: {logo-variant: 0.0, palette: null, type: null, voice-lint: 2.0, clear-space: null, contrast: null, naming: 2.0, register: 1.0}}
+  findings:
+    - The weakest rules across channels are palette and type. Every off-site surface outside the volunteer kit uses the teal, purple and navy package look with Avenir Next, Trebuchet MS or a geometric sans.
+    - "No channel has a logo variant whose lettering reads at avatar or header size, because v2 offers only the full shield with its lettering."
+    - v2 defines no Core register, so every Core channel scores 1 on register at best.
+    - "The worst single surface is Space Peak's own page: a different name in its title, 14 em dashes and white button text at 2.61."
+  observations:
+    - "Not rubric findings: the website's default.png and home.png OG cards are the same file; the volunteer pages load Cinzel and Alegreya Sans from Google Fonts because an Artifact cannot self-host."

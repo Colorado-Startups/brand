@@ -1,0 +1,645 @@
+# data/voice.yaml: how Colorado Startups sounds. Owner: S3 Voice and words.
+#
+# Precedence. The house rules (~/.claude/rules/writing-and-gates.md) win on
+# writing mechanics and gates. On brand voice this file wins over every copy
+# elsewhere: baseline/v2/voice.md, the website's 01_doctrine/voice.md and the
+# LinkedIn project's voice card. A copy that disagrees is fixed from here, in
+# the session that notices it. Three neighbors win on their own subjects, and
+# this file is fixed to match them:
+#   - keeper facts (name, kind, title, voice lines, disclosure): the website's
+#     data/team/dwarves.yaml, copied in baseline/v2/dwarves.yaml;
+#   - world facts (rooms, outposts, towns, rituals): data/world.yaml (S2);
+#   - positioning, mission and tagline: data/strategy.yaml (S1).
+#
+# Numbers. Every number here is a set point the brand chooses, not a
+# measurement. Each mapping that holds one also says goal: true. Facts about
+# the world carry a source instead, by id from meta.sources.
+#
+# Banned words, AI tells, hedges and style rules live in data/words.yaml.
+#
+# Top-level keys:
+#   meta          version, owner, date, and the sources the rest cites by id.
+#   traits        the four voice traits. They never change. Each has a plain
+#                 meaning and more_of / less_of pairs.
+#   archetypes    set points for the guide's archetype radar (guide section 4).
+#   tone          how loud each trait is on each channel, 0 to 100. The traits
+#                 stay the same; only their volume moves.
+#   do_dont       do/don't pairs. Each side is 12 words or fewer.
+#   keepers       the three AI keepers' voices and the disclosure rule.
+#   greeting      "Hi Startupers," and where it goes.
+#   closing       "The future is bright 🔆" and the big moments it marks.
+#   boilerplates  about-text at 25, 50 and 100 words. Marked pending: S1.
+#   vocabulary    the Hall's own words, each with its plain label.
+#   glossary      brand and community terms in plain words.
+
+meta:
+  version: v3 draft
+  owner: S3 Voice and words
+  updated: "2026-11-02"
+  sources:
+    - id: v2-voice
+      what: The v2 voice, baseline/v2/voice.md (website 01_doctrine/voice.md at 18b65a6).
+    - id: voice-card
+      what: The LinkedIn project's voice card, W3-content/voice-card.md, dated 2026-10-08.
+    - id: house
+      what: House rules, ~/.claude/rules/writing-and-gates.md, read 2026-11-02.
+    - id: dwarves
+      what: The keepers, baseline/v2/dwarves.yaml (website data/team/dwarves.yaml at 18b65a6).
+    - id: lore
+      what: The Hall's world, baseline/v2/lore.md.
+    - id: brand-decisions
+      what: This repo's decisions.md, decisions 11 (registers) and 12 (community design).
+    - id: claude-md
+      what: This repo's CLAUDE.md, "Rules that never bend".
+    - id: web-d21
+      what: Website decision 21 (2026-10-08). The brand is gold, fire and light, never dark.
+    - id: web-d43
+      what: Website decision 43 (2026-10-18). People fill every moderator and organizer seat.
+    - id: web-d45
+      what: Website decision 45 (2026-10-18). The three regions and their cities.
+    - id: web-d46
+      what: Website decision 46 (2026-10-18). Founders first; the positioning line and the tagline.
+    - id: web-d67
+      what: Website decision 67 (2026-10-18). Volunteer seat titles and the unpaid line.
+    - id: web-d90
+      what: Website decision 90 (2026-11-02). The towns are the Hall's outside, in art and words only.
+    - id: web-llms
+      what: The website's site/public/llms.txt at origin/main c6f10bc, read 2026-11-02.
+    - id: web-l10
+      what: The website's lane file 00_project_system/lanes/L10-voice.md (the eight welcome-desk doors).
+    - id: web-seats-test
+      what: The website's site/test/dom/l38/seats.test.ts. A sentence that names a keeper must say "AI agent".
+    - id: dispatch-2026-10-06
+      what: The website dispatch "A new chapter for Colorado Startups" (2026-10-06), which closes with the closing line.
+    - id: atlassian
+      url: https://atlassian.design/foundations/content/voice-tone
+      read: "2026-11-02"
+      what: Atlassian's voice traits, each with "when to be more" and "when to be less" lists; tone changes with the situation.
+    - id: nngroup
+      url: https://www.nngroup.com/articles/tone-of-voice-dimensions/
+      read: "2026-11-02"
+      what: Kate Moran, "The Four Dimensions of Tone of Voice" (Nielsen Norman Group, 2016). Each tone dimension is a spectrum.
+    - id: mark-pearson
+      what: Margaret Mark and Carol S. Pearson, The Hero and the Outlaw (McGraw-Hill, 2001). The twelve brand archetypes.
+    - id: s3
+      what: Decided here by S3, 2026-11-02, under decision 4 (Claude decides). The PR body gives the reason.
+
+traits:
+  - id: warm
+    name: Warm
+    means: Kind and glad you came. We thank people by name and never gush.
+    source: [v2-voice, voice-card]
+    pairs:
+      - more_of: Contractions and plain verbs
+        less_of: "Stiff openers such as \"We are pleased to announce\""
+      - more_of: Thanks that name the person and the deed
+        less_of: Blanket shout-outs to everyone
+      - more_of: One exclamation mark on a page, at most
+        less_of: "Hype words: thrilled, amazing, incredible"
+      - more_of: Founders first, then the people who back them, all welcome
+        less_of: Copy that reads like a vendor directory
+
+  - id: direct
+    name: Direct
+    means: Answer first. Short sentences, one idea each, and words that do what they say.
+    source: [v2-voice, voice-card, house]
+    pairs:
+      - more_of: The point in the first line
+        less_of: Warm-up openers and throat-clearing
+      - more_of: One idea per sentence, split past 30 words
+        less_of: Long sentences strung together with dashes
+      - more_of: "Buttons that say what happens: \"Join the Slack\""
+        less_of: "\"Click here\", \"Submit\", \"Learn more\""
+      - more_of: Errors that say what went wrong and how to fix it
+        less_of: Apologies, "Oops" and blame
+      - more_of: Plain statements
+        less_of: "Hedges: perhaps, arguably, somewhat"
+
+  - id: specific
+    name: Specific
+    means: One specific thing beats a general claim. A named founder, company, city or sourced number, stated accurately.
+    source: [v2-voice, voice-card, house]
+    pairs:
+      - more_of: The founder, the company and the city, by name
+        less_of: "\"A local startup\""
+      - more_of: A source and a date beside every figure
+        less_of: Bare numbers and unattributed member counts
+      - more_of: What the company builds, in one plain clause
+        less_of: "Labels such as innovative, disruptive, cutting-edge"
+      - more_of: "\"Colorado\", spelled out"
+        less_of: "\"CO\""
+      - more_of: The word "goal" on every target
+        less_of: Targets dressed up as results
+
+  - id: bright
+    name: Bright
+    means: Hopeful and lit by the Hall's gold, fire and light. The lore is used lightly, and clarity always wins.
+    source: [v2-voice, lore, web-d21, claude-md]
+    pairs:
+      - more_of: Hall words in headings, room names and keeper lines
+        less_of: Lore in forms, buttons, policies and errors
+      - more_of: A plain label beside each lore word on first use
+        less_of: Lore a reader has to decode
+      - more_of: Hope tied to a real win
+        less_of: Hype, or the closing line on an ordinary post
+      - more_of: Colorado's real places, named plainly
+        less_of: Fantasy decoration on places that matter to the Ute and other tribes
+      - more_of: Our own words for our own world
+        less_of: Any name, phrase or accent borrowed from a game or film
+
+archetypes:
+  scale: 0 means absent; 100 means the brand's core.
+  source: [mark-pearson, s3]
+  primary: creator
+  secondary: everyperson
+  axes:
+    - id: creator
+      label: Creator
+      value: 90
+      goal: true
+      why: Founders build companies, and the Hall is a forge.
+    - id: everyperson
+      label: Everyperson
+      note: The book calls it the Regular Guy/Gal.
+      value: 75
+      goal: true
+      why: A community anyone can join, in plain words, under one name.
+    - id: sage
+      label: Sage
+      value: 65
+      goal: true
+      why: Startup Resources and sourced facts. Accuracy is part of the voice.
+    - id: caregiver
+      label: Caregiver
+      value: 55
+      goal: true
+    - id: explorer
+      label: Explorer
+      value: 50
+      goal: true
+    - id: hero
+      label: Hero
+      value: 30
+      goal: true
+      why: Founders are the heroes of each story; the brand is not.
+    - id: jester
+      label: Jester
+      value: 30
+      goal: true
+    - id: innocent
+      label: Innocent
+      value: 25
+      goal: true
+    - id: magician
+      label: Magician
+      value: 20
+      goal: true
+    - id: ruler
+      label: Ruler
+      value: 10
+      goal: true
+      why: Keepers are helpers, not authorities, and people moderate.
+    - id: lover
+      label: Lover
+      value: 10
+      goal: true
+    - id: outlaw
+      label: Outlaw
+      value: 5
+      goal: true
+      why: The brand stays out of fights, politics and stunts.
+
+tone:
+  scale: 0 means the trait is silent on this channel; 100 means it is at full volume.
+  rule: The four traits never change. Only how loud each one is changes, by channel.
+  register_rule: Core is the plain register; Hall adds materials, keepers, art and lore (brand decision 11).
+  source: [atlassian, nngroup, brand-decisions, s3]
+  channels:
+    - id: website
+      label: Website
+      register: hall
+      goal: true
+      warm: 60
+      direct: 80
+      specific: 75
+      bright: 55
+      greeting: None. Each page starts with its point.
+      note: Hall words in headings and room names. Forms, policies and errors stay literal.
+    - id: slack
+      label: Slack
+      register: hall
+      goal: true
+      warm: 85
+      direct: 75
+      specific: 60
+      bright: 45
+      greeting: People write as themselves. Communitas, an AI agent, opens the Monday, Wednesday and Friday threads.
+      note: Short, friendly and useful. Founders first; service providers bring offers to the Wednesday thread.
+    - id: newsletter
+      label: Startupers newsletter
+      register: hall
+      goal: true
+      warm: 75
+      direct: 70
+      specific: 90
+      bright: 50
+      greeting: "\"Hi Startupers,\""
+      note: Colorado wins, a builder lesson and upcoming events, each win with a name, a city and a source.
+    - id: linkedin
+      label: LinkedIn
+      register: core
+      goal: true
+      warm: 55
+      direct: 85
+      specific: 90
+      bright: 25
+      greeting: "None on the Page; start with the news. Paul's profile opens big moments with \"Hi Startupers,\"."
+      note: Sponsors and press read LinkedIn, so the words stay Core; Hall art may appear in images. No engagement bait.
+    - id: sponsor-email
+      label: Sponsor email
+      register: core
+      goal: true
+      warm: 55
+      direct: 85
+      specific: 85
+      bright: 10
+      greeting: "\"Hi\" and the person's first name."
+      note: One ask, stated in the first line. Every figure sourced.
+    - id: state-partner-docs
+      label: State or partner documents
+      register: core
+      goal: true
+      warm: 35
+      direct: 90
+      specific: 95
+      bright: 0
+      greeting: The partner's own convention.
+      note: No lore and no keeper lines. Never imply that a government or partner backs Colorado Startups. Co-branded layouts follow data/architecture.yaml.
+    - id: error-messages
+      label: Error messages
+      register: core
+      goal: true
+      warm: 40
+      direct: 100
+      specific: 80
+      bright: 0
+      greeting: None.
+      note: Say what went wrong and how to fix it. No apology, no blame, no lore.
+    - id: keeper-lines
+      label: Keeper lines
+      register: hall
+      goal: true
+      warm: 75
+      direct: 90
+      specific: 70
+      bright: 70
+      greeting: The keeper's own, short.
+      note: First person, plain modern English, with the keeper's disclosure beside it.
+
+do_dont:
+  rule: Each side is 12 words or fewer.
+  max_words_per_side: 12
+  goal: true
+  pairs:
+    - do: Open with the news and the name.
+      dont: "We're thrilled to share some exciting news!"
+      trait: direct
+      source: voice-card
+    - do: Name the founder, the company and the city.
+      dont: A local startup closed a big round.
+      trait: specific
+      source: voice-card
+    - do: Put a source and a date beside every figure.
+      dont: A bare number with no source.
+      trait: specific
+      source: house
+    - do: Write Colorado.
+      dont: Write CO.
+      trait: specific
+      source: v2-voice
+    - do: Join clauses with a comma, semicolon or period.
+      dont: Join clauses with an em dash.
+      trait: direct
+      source: house
+    - do: "Buttons say what happens: Join the Slack."
+      dont: Buttons that say Click here or Submit.
+      trait: direct
+      source: v2-voice
+    - do: Errors say what went wrong and how to fix it.
+      dont: Oops! Something went wrong. Sorry about that!
+      trait: direct
+      source: v2-voice
+    - do: "Keep forms literal: Your email address."
+      dont: Inscribe thy name upon the great ledger.
+      trait: bright
+      source: v2-voice
+    - do: "Put a plain label beside each lore word: outpost (local chapter)."
+      dont: Leave a lore word for readers to decode.
+      trait: bright
+      source: brand-decisions
+    - do: Communitas, an AI agent, welcomes you.
+      dont: A keeper who passes for a person.
+      trait: specific
+      source: [dwarves, claude-md]
+    - do: Ask a question only when someone will answer it.
+      dont: Comment YES if you agree!
+      trait: warm
+      source: voice-card
+    - do: "Plain verbs: look at, use, build."
+      dont: Delve into a seamless, game-changing tapestry.
+      trait: direct
+      source: house
+    - do: One exclamation mark on a page, at most.
+      dont: Join us!!! It's going to be amazing!
+      trait: warm
+      source: v2-voice
+    - do: Thank people by name, for what they did.
+      dont: Huge shout-out to everyone who made this happen!
+      trait: warm
+      source: voice-card
+    - do: "Honor the deed: hosted the first Golden meetup."
+      dont: Level 5 Builder, top of the points table.
+      trait: bright
+      source: claude-md
+    - do: Save the closing line for big moments.
+      dont: Sign every Slack reply with the closing line.
+      trait: bright
+      source: v2-voice
+    - do: Speak to founders first, then the people who back them.
+      dont: Copy that reads like a vendor directory.
+      trait: warm
+      source: [v2-voice, web-d46]
+    - do: Keepers speak plain, modern English.
+      dont: Aye, lad, the forge be warm tonight!
+      trait: bright
+      source: s3
+
+keepers:
+  source: dwarves
+  copied: "2026-11-02"
+  copied_fields: [id, name, kind, title, voice, disclosure]
+  copied_note: The dwarves source covers only copied_fields. Each keeper's never and sample_line were written here and carry their own source.
+  disclosure_rule:
+    - text: Every surface that shows a keeper, in words or in a picture, shows that keeper's disclosure, word for word from dwarves.yaml.
+      source: [claude-md, dwarves]
+    - text: "Any sentence that names a keeper also says \"AI agent\", as in \"Communitas, an AI agent, welcomes newcomers.\""
+      source: [web-seats-test, web-llms]
+    - text: A keeper portrait carries the disclosure in its caption, and its alt text says "AI agent".
+      source: claude-md
+    - text: Keepers never claim to be people, never moderate and never hold a seat. People do.
+      source: [web-d43, dwarves, lore]
+    - text: Keepers point to people and resources. They never speak for the community or for Paul.
+      source: lore
+    - text: Keepers speak plain, modern English, with no put-on accent, dialect spelling or archaic words.
+      source: s3
+  list:
+    - id: communitas
+      name: Communitas
+      kind: dwarf
+      title: Keeper of the Doors
+      voice:
+        - Warm and brief. One greeting, then the point.
+        - Speaks to founders first, then to the people who back them.
+        - Recommends at most three next steps, never a long list.
+        - Uses the community's own words, such as Startupers.
+        - Never pressures anyone to join anything.
+      never:
+        source: s3
+        items:
+          - Moderates. People do.
+          - Messages anyone unprompted after the first welcome.
+      sample_line:
+        source: s3
+        text: Welcome, Startuper. Tell me what you're building, and I'll point you to the right room.
+      disclosure: Communitas is an AI agent run by Colorado Startups. It can make mistakes, and a person reviews its work.
+    - id: resourcus
+      name: Resourcus
+      kind: gnome
+      title: Keeper of the Canvas
+      voice:
+        - Plain and practical, like a well-read guide.
+        - Answers first, then names the resources that fit and why.
+        - Cites only resources from the Canvas.
+        - Says plainly when the Canvas has no good match.
+      never:
+        source: s3
+        items:
+          - Guesses when the map has no good match.
+          - Cites a resource that is not on the Canvas.
+      sample_line:
+        source: s3
+        text: The map has no good match for that yet, so I won't guess.
+      disclosure: Resourcus is an AI agent run by Colorado Startups on an open-source model. It can make mistakes, so check each resource before you rely on it.
+    - id: publicus
+      name: Publicus
+      kind: dwarf
+      title: Herald of the Hall
+      voice:
+        - News first, in short sentences.
+        - Names the founder, the company and the city.
+        - Puts a source beside every number.
+        - Writes drafts, never publishes them.
+      never:
+        source: s3
+        items:
+          - Posts or publishes anything itself. A person reviews and publishes.
+      sample_line:
+        source: s3
+        text: "Draft for review: a Golden company opened its first lab. Source and date attached."
+      disclosure: Publicus is an AI agent run by Colorado Startups. It can make mistakes, so it only drafts; a person reviews and publishes everything.
+
+greeting:
+  text: "Hi Startupers,"
+  use:
+    - The first line of every Startupers newsletter.
+    - Community-wide emails and Paul's posts on big moments.
+  not:
+    - The LinkedIn Page, which starts with the news.
+    - Error messages, forms, sponsor email, and State or partner documents.
+  source: [voice-card, v2-voice]
+
+closing:
+  text: "The future is bright 🔆"
+  rule: Big moments only.
+  big_moments:
+    - A new chapter for the community, such as the 2026-10-06 announcement.
+    - A launch the whole community will use.
+    - A new region or outpost opening.
+  not:
+    - Routine posts, Slack replies, errors, forms, sponsor email, and State or partner documents.
+  source: [v2-voice, voice-card, dispatch-2026-10-06]
+
+boilerplates:
+  pending: S1
+  pending_note: Written from website decision 46's positioning. When data/strategy.yaml (S1) merges, S3 rewrites these from it.
+  source: [web-d46, web-llms, web-d45]
+  facts_used:
+    - fact: Paul Foley founded Colorado Startups in 2014, and Colorado Startups, Ltd. runs it from Denver.
+      source: web-llms
+    - fact: The three regions are Photon Mountain, Space Peak and Fusion Canyon, from Fort Collins to Colorado Springs.
+      source: web-d45
+  items:
+    - id: short
+      target_words: 25
+      goal: true
+      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too.
+    - id: medium
+      target_words: 50
+      goal: true
+      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014. The community meets in its Slack and LinkedIn Group, and its website charts Colorado startup resources for every stage.
+    - id: long
+      target_words: 100
+      goal: true
+      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014, and Colorado Startups, Ltd. runs it from Denver. The community calls itself Startupers and meets in its Slack and LinkedIn Group. Its website charts startup resources for every stage. Three regions, Photon Mountain, Space Peak and Fusion Canyon, connect founders from Fort Collins to Colorado Springs. AI agents help on the website, and each says it is an AI agent. Only people moderate the groups or hold its seats.
+
+vocabulary:
+  rule: Lore words go in headings, room names, keeper lines and art captions. Forms, buttons, policies and errors use the plain label. On a word's first use on a page, its plain label sits beside it.
+  checked: Every word below is ordinary English, Colorado mining usage, or the Hall's own lore. None was coined by a game or film. data/words.yaml lists the coined words this list steers around.
+  source: [v2-voice, lore, brand-decisions]
+  words:
+    - word: the Hall
+      plain: the Colorado Startups website and the community's world
+      use: Headings, keeper lines, art captions
+      from: lore
+    - word: keeper
+      plain: AI helper (an AI agent run by Colorado Startups)
+      use: Team page, keeper cards, keeper lines; always with the disclosure
+      from: lore
+    - word: outpost
+      plain: local chapter
+      use: Region pages, lockups, event names
+      from: lore
+    - word: town
+      plain: a real Colorado city or town near an outpost
+      use: Region pages, art captions
+      from: lore
+    - word: Startupers
+      plain: the community's members; also the newsletter's name
+      use: Greetings, the newsletter, keeper lines
+      from: v2-voice
+    - word: builders
+      plain: founders and the teams building companies with them
+      use: Headings and newsletter sections
+      from: s3
+    - word: neighbors
+      plain: the wider startup community (talent, investors, lenders and service providers)
+      use: Headings and keeper lines, after founders
+      from: lore
+    - word: the great doors
+      plain: the website's front page and welcome desk
+      use: Home page headings; lines by Communitas, an AI agent
+      from: lore
+    - word: outside the doors
+      plain: in person, in real Colorado places
+      use: Event copy and art captions
+      from: [lore, web-d90]
+    - word: the town square
+      plain: in-person events and meetups
+      use: Event headings
+      from: lore
+    - word: the Great Hall
+      plain: the Community page (the Slack and the LinkedIn Group)
+      use: Community page heading
+      from: lore
+    - word: the Map Room
+      plain: Startup Resources
+      use: Startup Resources page heading; lines by Resourcus, an AI agent
+      from: lore
+    - word: the Leaderboard gallery
+      plain: the Leaderboard page
+      use: Leaderboard page heading
+      from: lore
+    - word: the forge
+      plain: where Paul and the keepers work (the team)
+      use: Team page heading, behind-the-scenes posts
+      from: lore
+    - word: herald
+      plain: the AI agent that drafts news for people to review (Publicus's title)
+      use: Dispatches and the Team page
+      from: dwarves
+    - word: assayed
+      plain: checked against a public source
+      use: Leaderboard method notes
+      from: s3
+      note: From the assay offices of Colorado's mining towns, which tested ore.
+    - word: forge theme
+      plain: the one monthly theme every outpost shares
+      use: Event and newsletter headings
+      from: brand-decisions
+    - word: honor
+      plain: a thank-you that names what someone did; the person can hide it
+      use: Profiles, the newsletter, event recaps
+      from: [claude-md, brand-decisions]
+    - word: crest
+      plain: an outpost's or town's emblem, built from the main logo
+      use: Region pages, event badges, merch
+      from: brand-decisions
+    - word: the mountain's heart
+      plain: the warm, safe glow under the Hall (hot springs and forge vents)
+      use: Art captions only
+      from: [lore, web-d90]
+    - word: the range
+      plain: the Front Range, where the mountains meet the plains
+      use: Headings and keeper lines
+      from: lore
+
+glossary:
+  source: [web-llms, brand-decisions, s3]
+  terms:
+    - term: Colorado Startups
+      means: The community of entrepreneurs building companies in Colorado, and Colorado Startups, Ltd., which runs it. Paul Foley founded it in 2014.
+      source: web-llms
+    - term: Core register
+      means: The plain look and voice (logo, palette, type, plain layout) for sponsors, government and partner documents, press and decks.
+      source: brand-decisions
+    - term: Hall register
+      means: The look and voice with materials, keepers, art and lore, for the website, Slack, the newsletter and events.
+      source: brand-decisions
+    - term: AI-agent disclosure
+      means: The sentence each keeper carries wherever it appears, copied word for word from dwarves.yaml.
+      source: [dwarves, claude-md]
+    - term: region
+      means: "The website's word for the three areas: Photon Mountain (Boulder, Golden, Arvada, Denver), Space Peak (Colorado Springs and the Pikes Peak region) and Fusion Canyon (Fort Collins, Loveland, Windsor, Greeley)."
+      source: web-d45
+    - term: seat
+      means: A role a person fills, such as moderator, organizer, Slack Community Lead or Connector. Keepers never hold one.
+      source: [web-d43, web-d67]
+    - term: Connector
+      means: An unpaid volunteer seat that connects the founders in one region.
+      source: web-d67
+    - term: Startup Resources
+      means: The website's directory of Colorado programs, investors and services, sorted by company stage. It was called the Ecosystem Canvas.
+      source: [web-d46, web-llms]
+    - term: Leaderboard
+      means: Colorado companies the community recognizes, ranked from verified data. It ranks companies, never people.
+      source: [lore, web-llms]
+    - term: Dispatches
+      means: The website's news log, newest first.
+      source: web-llms
+    - term: welcome desk
+      means: The website's first stop. A visitor picks a door, and Communitas, an AI agent, points them to the right room.
+      source: dwarves
+    - term: door
+      means: "One of the eight choices on the welcome desk: idea, building, hiring, talent, investing, service provider, student and curious."
+      source: web-l10
+    - term: lockup
+      means: A fixed arrangement of the logo and a name, such as "Colorado Startups · Golden Outpost".
+      source: brand-decisions
+    - term: endorsement lockup
+      means: The line "a Colorado Startups project", set with Photon Mountain, Space Peak and Fusion Canyon, which keep their own looks.
+      source: brand-decisions
+    - term: plain label
+      means: The everyday word set beside a lore word, such as "outpost (local chapter)".
+      source: brand-decisions
+    - term: boilerplate
+      means: Approved about-text at a fixed length, ready to paste.
+      source: s3
+    - term: tone dial
+      means: How loud one voice trait is on one channel, from 0 to 100.
+      source: s3
+    - term: franchise-name gate
+      means: The check that blocks every term in the never list of data/words.yaml.
+      source: claude-md
+    - term: real-places rule
+      means: Places that matter to the Ute and other tribes, such as Garden of the Gods, are never fantasy decoration.
+      source: [claude-md, lore]

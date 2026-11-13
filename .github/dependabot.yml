@@ -1,0 +1,19 @@
+# From Git Crafter templates/ci/dependabot.yml at v7.0.0. The repo's only ecosystem is GitHub Actions. A 14-day
+# cooldown holds brand-new releases back (security updates bypass it), and one group keeps it to one PR a week.
+# Every PR is merged by hand; nothing auto-merges.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 14
+    groups:
+      actions:
+        patterns: ["*"]
+        applies-to: version-updates
+      actions-security:
+        patterns: ["*"]
+        applies-to: security-updates

@@ -1,0 +1,195 @@
+# Brand consistency audit rubric (owner S11).
+#
+# Precedence: CLAUDE.md and decisions.md win over this file; data/architecture.yaml
+# (S2) wins on which register a channel uses; logo/ (S13) wins on clear space and
+# logo variants once it exists. When one of them disagrees, fix this file in the
+# same session.
+#
+# Every audit (before.yaml, after.yaml) scores each surface on the eight rules
+# below, 0 to 2. A score needs a note when it is below 2 or rests on judgment.
+
+version: 2
+scale: {min: 0, max: 2}
+
+reference: >
+  An audit scores a surface against the brand release in force on its read date.
+  before.yaml uses v2: baseline/v2/ plus the website's 01_doctrine/ and
+  astro.config.mjs at the commit it names. after.yaml will use v3.0.0. Where the
+  release sets no rule, the audit uses this file's default and says so in the note.
+
+not_applicable: >
+  A rule that cannot apply to a surface scores null with an `na` reason, for
+  example clear space on a surface with no logo. Nulls are left out of every
+  average.
+
+averages: >
+  A channel's average is the mean of every non-null score across all its surfaces
+  and rules. A channel x rule cell is the mean of that rule's non-null scores in the
+  channel. The before/after heatmap uses the cells; the KPI `consistency-audit` uses
+  the channel averages.
+
+logo_needed: >
+  A logo is needed on a page header and on any standalone branded graphic, meaning an
+  image that can travel without its page (an OG card, a carousel, a social image, a
+  deck slide, a video). A kicker that spells the name in plain type does not count
+  as a logo. A surface that sits beside the platform's own logo slot (a LinkedIn
+  cover or post, an email body) needs none.
+
+channel_registers:
+  basis: >
+    Decision 11 names the Core channels (sponsors, the State, press, decks) and the
+    Hall channels (website, Slack, newsletter, events). Rows marked `assumed` are S11's
+    working map for channels decision 11 does not name; data/architecture.yaml (S2)
+    wins once it sets them.
+  map:
+    website: {register: hall, basis: decision 11}
+    og-cards: {register: the register of the page the card previews, basis: assumed}
+    linkedin-kit: {register: core, basis: "assumed; sponsors and press read the Page"}
+    email-signatures: {register: core, basis: "assumed; signatures reach sponsors and partners"}
+    carousels: {register: either, basis: "assumed; the plan's S9 row makes LinkedIn carousels in both registers"}
+    volunteer-pages: {register: hall, basis: "assumed; volunteers serve the community and its events"}
+    partner-pages: {register: core, basis: "decision 11: sponsors and the State"}
+    oct-6-announcement: {register: per piece, basis: "the newsletter piece is Hall (decision 11); the LinkedIn pieces follow linkedin-kit"}
+    sub-brand-pages: {register: "hall on the website's outpost pages; none on a sub-brand's own page", basis: "the website pages follow decision 11; the brand sets no fixed sub-brand rule (decision 21)"}
+    github-org-profile: {register: core, basis: "assumed; developers and partners read it"}
+
+rules:
+  - id: logo-variant
+    name: Logo variant
+    checks: >
+      The surface shows an approved logo file from the release, unmodified, in the
+      variant that suits its slot and size. For an endorsed sub-brand's own page, the
+      check is the release's endorsement lockup.
+    method:
+      mechanical: Compare the file the surface loads with the release's logo files (path, hash, format).
+      judgment: View the surface and judge whether the variant reads at its displayed size.
+    scores:
+      2: An approved variant that suits its slot and size, with no added effect.
+      1: >
+        Approved artwork, but unsuited to the slot: lettering too small to read, a
+        format that does not match its file name, an added effect, a release file with
+        known color drift (v2's traced cs-logo.svg), or a release that offers no
+        variant for this slot.
+      0: No logo where one is needed (see logo_needed), or a redrawn, recolored, stretched or unapproved copy.
+    na_when: The surface needs no logo and shows none, or the release defines no lockup for the slot.
+
+  - id: palette
+    name: Palette
+    checks: >
+      Every color comes from the governing palette and is used in its role. The
+      governing palette is the release's tokens, or a sub-brand's own locked palette
+      on that sub-brand's own page (the brand sets no fixed sub-brand rule, decision
+      21). Light and dark grounds score the same: the rule checks palette membership
+      and role, never how light a surface is.
+    method:
+      mechanical: List every hex value in the source and match it against the governing palette.
+      judgment: For images, view the surface and match its main colors by eye or by sampling pixels.
+    scores:
+      2: Every color is a governing-palette value used in its role.
+      1: Palette values dominate, with a few off-palette values or one value used outside its role.
+      0: The dominant colors are off the governing palette, out of role, or there is no governing palette.
+    na_when: The platform sets every color and the surface adds no image of its own.
+
+  - id: type
+    name: Type
+    checks: >
+      Text uses the release's type families in their roles (in v2, Cinzel for
+      headings only and Alegreya Sans for body), or a documented exception such as
+      Trebuchet MS on co-branded State pages (decision 11).
+    method:
+      mechanical: Read the font-family declarations and the fonts the surface loads.
+      judgment: For images, compare the letterforms with the release's families.
+    scores:
+      2: Only the release's families in their roles, or a documented exception.
+      1: The release's families with a stray face or a family used outside its role.
+      0: Families the release does not name.
+    na_when: The platform sets the type and the surface adds no image of its own.
+
+  - id: voice-lint
+    name: Voice lint
+    checks: >
+      The words pass the house voice rules (~/.claude/rules/writing-and-gates.md and
+      the release's voice file): no em dash or spaced en dash, no hedge, no AI tell,
+      every figure sourced or marked as a goal. Where a tagline or closing line
+      appears, it is the release's wording, used where the voice file allows it.
+    method:
+      mechanical: Scan the text for dashes (characters and HTML entities), hedges, AI tells and tagline variants.
+      judgment: Read the text for unsourced figures, and drop false hits such as a proper noun that matches an AI tell.
+    scores:
+      2: No finding.
+      1: One or two findings, or one tagline or closing line used outside the voice file's rule.
+      0: Three or more findings.
+    na_when: The surface carries no words beyond a person's name.
+
+  - id: clear-space
+    name: Clear space
+    checks: Nothing crowds, overlaps or crops the logo.
+    default_until_release_sets_one:
+      clear_space: a quarter of the logo's height, empty on every side
+      goal: true
+      basis: >
+        Set by S11 for the before-audit, because v2 sets no clear space. Spotify's
+        design guidelines use half the icon as precedent
+        (https://developer.spotify.com/documentation/design, read by the research
+        agent 2026-11-02); this default is looser because v2's shield carries its own
+        lettering. logo/ (S13) sets the v3 rule, which then wins.
+    method:
+      mechanical: Read the gap and padding around the logo in the source CSS and compare them with the logo's displayed height.
+      judgment: For images, view the surface and judge the space by eye.
+    scores:
+      2: The clear space is met on every side.
+      1: Met on most sides, or just short of it.
+      0: An element overlaps, crowds or crops the logo.
+    na_when: The surface shows no logo.
+
+  - id: contrast
+    name: Contrast
+    checks: >
+      Text and UI pairs meet WCAG 2.2 AA: 4.5:1 for text, 3:1 for large text (18 pt,
+      or 14 pt bold) and for UI parts and graphics that carry meaning
+      (https://www.w3.org/TR/WCAG22/, success criteria 1.4.3 and 1.4.11, read
+      2026-11-02).
+    method:
+      mechanical: Compute the ratio for each text pair from its hex values; for images, sample the pixels.
+      judgment: Decide which pairs carry text and which are decoration.
+    scores:
+      2: Every text and UI pair checked meets its minimum.
+      1: Only large text, a UI part or a decorative pair misses its minimum.
+      0: A pair carrying body or small text misses 4.5:1.
+    na_when: The platform sets every color.
+
+  - id: naming
+    name: Naming
+    checks: >
+      Names follow the release: "Colorado Startups" in full; the outposts, keepers,
+      towns and the community name ("Startupers") as the release spells them;
+      "Colorado", never "CO", in prose; no franchise name.
+    method:
+      mechanical: Scan for the release's names and their known misspellings.
+      judgment: Read titles, headings and alt text for a name the release does not use.
+    scores:
+      2: Every name follows the release.
+      1: One minor slip, such as a casing or a short form in body text.
+      0: A wrong name in a title or heading, or a franchise name.
+    na_when: The surface carries no brand name.
+
+  - id: register
+    name: Register
+    checks: >
+      The surface uses the register its channel calls for (channel_registers),
+      without mixing in the other. Every keeper shown carries its AI-agent disclosure,
+      and lore words carry a plain label. A register is its materials, keepers, lore
+      and layout; neither register implies a light or a dark ground.
+    method:
+      mechanical: Scan for keeper names and their disclosure, and for Hall materials or lore words.
+      judgment: View the surface and judge its look against its channel's register.
+    scores:
+      2: The channel's register, as the release defines it, with no mixing; keepers disclosed.
+      1: >
+        The register's intent shows (plain for Core, Hall materials for Hall), but the
+        release does not define that register yet, or pieces of the other register
+        leak in, or a lore word lacks its plain label.
+      0: The opposite register, or a keeper shown without its AI-agent disclosure.
+    na_when: >
+      The surface is a sub-brand's own page, because the brand sets no fixed
+      sub-brand rule (decision 21), or it shows nothing that carries a register.

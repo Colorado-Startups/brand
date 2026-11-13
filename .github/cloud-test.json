@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "scripts": {
+    "verify": { "run": ["bash", "tools/verify.sh"], "timeout": 5 }
+  }
+}

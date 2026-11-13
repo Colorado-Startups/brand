@@ -1,0 +1,10 @@
+[
+  {
+    "id": "deploy.waiting_merges",
+    "params": {
+      "comment": "GitHub Pages, deployed by pages.yml on every push to main (as Git Crafter's own config/quality/targets/deploy.json).",
+      "platform": "pages",
+      "branch": "origin/main"
+    }
+  }
+]

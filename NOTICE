@@ -1,0 +1,22 @@
+Colorado Startups brand
+Copyright 2026 Colorado Startups.
+
+Code is licensed under the Apache License, Version 2.0 (LICENSE). Writing and data
+are licensed under CC BY 4.0 (LICENSES/CC-BY-4.0.txt). LICENSING.md says which
+applies to which path. The name, marks and keepers are reserved (TRADEMARKS.md).
+
+The ai_tells and hedges patterns in data/words.yaml, and the workflow, quality and
+process templates in .github/ and quality/, come from Git Crafter
+(https://github.com/SoulCraft-Org/git-crafter), licensed under the Apache License,
+Version 2.0. Each copied file names its source commit in its header.
+Git Crafter: Copyright 2026 The Git Crafter Authors. Published by SoulCraft.
+
+Files in tools/vendor/ come from Colorado-Startups/coloradostartups.org at the
+commit named in each file's header.
+
+The influences named in art/ and data/ (World of Warcraft, The Lord of the Rings,
+The Legend of Zelda: Ocarina of Time) belong to their owners. This brand borrows no
+name, emblem, silhouette, item, script or picture from them, and is not affiliated
+with or endorsed by Blizzard Entertainment, the Tolkien Estate, Middle-earth
+Enterprises or Nintendo. It is not affiliated with or endorsed by the State of
+Colorado.

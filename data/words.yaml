@@ -1,0 +1,583 @@
+# data/words.yaml: the brand's word lists. Owner: S3 Voice and words.
+#
+# This is the one data file allowed to name the franchises, because it is the
+# banned list. Decision 30 also names them in art/DIRECTION.md and NOTICE, which
+# never ship to dist/. S10's never-words check reads `never` and searches every
+# tracked text file for it. It exempts this file, art/DIRECTION.md and NOTICE.
+#
+# Precedence.
+#   - ai_tells and hedges restate the house rules
+#     (~/.claude/rules/writing-and-gates.md). The house rules win any
+#     disagreement; fix this file in the same session.
+#   - never and never_samples copy the website's franchise-name rule
+#     (04_tools/cs_site_rules.json, origin/main c6f10bc, read 2026-11-02).
+#     Until Wave 3 (W1) points the website's gate at this file, the website
+#     rule wins and this file is fixed to match it. After W1, this file wins.
+#   - banned_seat_words copies website decision 67. The website wins until W1.
+#   - Everything else here wins over every copy elsewhere.
+#
+# People may get points, levels and ranks (decisions.md, decision 22), so no
+# list here bans those words.
+#
+# Top-level keys:
+#   meta                  version, owner, date, and the sources cited by id.
+#   franchises            an id for each of the three franchises, and the
+#                         generic words public files use for it.
+#   never                 franchise names. Nothing in the brand uses them.
+#   never_samples         sentences the never list must catch (hit) and must
+#                         pass (miss), for any gate's self-test.
+#   watch                 franchise-coined words that stay out of `never`
+#                         because each is also a real name or common word.
+#                         Advisory: a gate may warn on them, never block.
+#   banned_seat_words     words no volunteer seat uses, with the rule's scope.
+#   ai_tells              phrasing that reads as machine-written (warn).
+#   hedges                hedge words (warn).
+#   off_limits_topics     subjects the brand never covers.
+#   style                 spelling, punctuation and naming rules.
+#
+# How to read a `never` entry:
+#   term            the display form, for people and for the guide's chips.
+#   pattern         the regex. It runs in Python re and in JavaScript RegExp
+#                   with the u flag, and carries no inline flags.
+#   case_sensitive  false: match ignoring case.
+#   franchise       an id from `franchises`.
+# Order and patterns match the website rule exactly. To rebuild that rule's
+# regex: join the case-insensitive patterns with "|" inside "(?i:" and ")",
+# then append "|" and the case-sensitive patterns joined with "|". The PR
+# that added this file proves the rebuild matches byte for byte.
+#
+# The research digest behind the brand names no franchise term this list
+# misses. It notes that bare "Zelda" does not block; that is on purpose (see
+# watch), so this list adds nothing beyond the website rule.
+
+meta:
+  version: v3 draft
+  owner: S3 Voice and words
+  updated: "2026-11-04"
+  sources:
+    - id: web-franchise-rule
+      what: The website's franchise-name rule in 04_tools/cs_site_rules.json, origin/main c6f10bc, read 2026-11-02. Its _note gives the reason for each case-sensitive term and each name left out.
+    - id: web-d90
+      what: Website decision 90 (2026-11-02), which extended the rule to more franchise names.
+    - id: web-d44
+      what: Website decision 44 (2026-10-18). Open positions; no "paid" or "hiring" wording.
+    - id: web-d67
+      what: Website decision 67 (2026-10-18). Seat titles, the unpaid line and the banned seat words.
+    - id: web-seats-test
+      what: The website's site/test/dom/l38/seats.test.ts, whose BANNED pattern this file copies.
+    - id: house
+      what: House rules, ~/.claude/rules/writing-and-gates.md, read 2026-11-02. Canonical for ai_tells and hedges.
+    - id: voice-lint
+      what: voice_lint.py (Claude-OS tools/voice_lint.py; the website's copy is 04_tools/voice_lint.py at c6f10bc). The gate that warns on AI tells and hedges. Patterns here are copied from it.
+    - id: web-site-rules
+      what: The website's 04_tools/cs_site_rules.json, rule silicon-valley-of and voice_lint.rules.max_words.
+    - id: v2-voice
+      what: The v2 voice, baseline/v2/voice.md.
+    - id: voice-card
+      what: The LinkedIn project's voice card, W3-content/voice-card.md, dated 2026-10-08.
+    - id: claude-md
+      what: This repo's CLAUDE.md, "Rules that never bend".
+    - id: check-dashes
+      what: tools/check_dashes.py, which blocks em dashes and spaced en dashes in this repo.
+    - id: s3
+      what: Decided here by S3, 2026-11-02, under decision 4 (Claude decides). The PR body gives the reason.
+
+franchises:
+  source: claude-md
+  items:
+    - id: warcraft
+      generic: a fantasy MMO's dwarves and gnomes and their forge city
+    - id: zelda
+      generic: a classic adventure game's fire mountain and its town
+    - id: tolkien
+      generic: high fantasy's mountain dwarves
+
+never:
+  # Case-insensitive, in the website rule's order.
+  - term: Ironforge
+    pattern: '\bironforge\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Erebor
+    pattern: '\berebor\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Khazad-dûm
+    pattern: '\bkhazad[\s-]?d(?:u\u0302?|\u00fb)m\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Moria
+    pattern: '\bmoria\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Middle-earth
+    pattern: '\bmiddle-earth\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Tolkien
+    pattern: '\btolkien\w*'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Warcraft
+    pattern: '\bwarcraft\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Durin
+    pattern: '\bdurin(?:''s|\u2019s)?\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Gnomeregan
+    pattern: '\bgnomeregan\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Azeroth
+    pattern: '\bazeroth\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Stormwind
+    pattern: '\bstormwind\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Dun Morogh
+    pattern: '\bdun\s+morogh\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Khaz Modan, Loch Modan
+    pattern: '\b(?:khaz|loch)\s+modan\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Nintendo
+    pattern: '\bnintendo\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Legend of Zelda
+    pattern: '\blegend\s+of\s+zelda\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Hyrule
+    pattern: '\bhyrule\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Hylian
+    pattern: '\bhylians?\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Kakariko
+    pattern: '\bkakariko\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Goron
+    pattern: '\bgorons?\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Kokiri
+    pattern: '\bkokiri\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Sheikah
+    pattern: '\bsheikah\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Triforce
+    pattern: '\btriforce\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Ocarina of Time
+    pattern: '\bocarina\s+of\s+time\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Majora's Mask
+    pattern: '\bmajora(?:''s|\u2019s)\s+mask\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Lon Lon
+    pattern: '\blon\s+lon\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Darunia
+    pattern: '\bdarunia\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Dodongo
+    pattern: '\bdodongos?\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Lord of the Rings
+    pattern: '\blord[\s-]+of[\s-]+the[\s-]+rings\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: LOTR
+    pattern: '\blotr\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Hobbiton
+    pattern: '\bhobbiton\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Gandalf
+    pattern: '\bgandalf\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Frodo
+    pattern: '\bfrodo\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Bilbo
+    pattern: '\bbilbo\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Sauron
+    pattern: '\bsauron\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Mount Doom
+    pattern: '\bm(?:oun)?t\.?\s+doom\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Dwarrowdelf
+    pattern: '\bdwarrowdelf\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Mordor
+    pattern: '\bmordor\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Gondor
+    pattern: '\bgondor\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Rivendell
+    pattern: '\brivendell\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Hobbit
+    pattern: '\bhobbits?\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Balrog
+    pattern: '\bbalrogs?\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Bronzebeard
+    pattern: '\bbronzebeards?\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Mekkatorque
+    pattern: '\bmekkatorque\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Deeprun
+    pattern: '\bdeeprun\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Orgrimmar
+    pattern: '\borgrimmar\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Kalimdor
+    pattern: '\bkalimdor\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Ganondorf
+    pattern: '\bganondorf\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Gerudo
+    pattern: '\bgerudo\b'
+    case_sensitive: false
+    franchise: zelda
+  - term: Korok
+    pattern: '\bkoroks?\b'
+    case_sensitive: false
+    franchise: zelda
+  # Case-sensitive, because the lowercase words are ordinary English:
+  # "a great forge", "a lonely mountain road", "misty mountains at dawn".
+  - term: Middle Earth
+    pattern: '\bMiddle\s+Earth\b'
+    case_sensitive: true
+    franchise: tolkien
+  - term: Great Forge
+    pattern: '\bGreat\s+Forge\b'
+    case_sensitive: true
+    franchise: warcraft
+  - term: Lonely Mountain
+    pattern: '\bLonely\s+Mountain\b'
+    case_sensitive: true
+    franchise: tolkien
+  - term: Blizzard Entertainment
+    pattern: '\bBlizzard\s+(?:Entertainment|Games?)\b'
+    case_sensitive: true
+    franchise: warcraft
+  - term: Death Mountain
+    pattern: '\bDeath\s+Mountain\b'
+    case_sensitive: true
+    franchise: zelda
+  - term: Breath of the Wild
+    pattern: '\bBreath\s+of\s+the\s+Wild\b'
+    case_sensitive: true
+    franchise: zelda
+  - term: Tears of the Kingdom
+    pattern: '\bTears\s+of\s+the\s+Kingdom\b'
+    case_sensitive: true
+    franchise: zelda
+  - term: Misty Mountains
+    pattern: '\bMisty\s+Mountains\b'
+    case_sensitive: true
+    franchise: tolkien
+
+never_samples:
+  source: web-franchise-rule
+  hit:
+    - Welcome to Ironforge.
+    - The Great Forge is open late.
+    - Meet us under the Lonely Mountain.
+    - Khazad-dûm vibes all week.
+    - A Khazad-dum style hall.
+    - Erebor had nothing on this.
+    - Speak friend and enter Moria.
+    - Straight out of Middle-earth.
+    - A Tolkien-inspired room.
+    - Like a World of Warcraft raid.
+    - Blizzard Entertainment made it.
+    - Happy Durin's Day.
+    - Welcome to Hyrule.
+    - Kakariko Village vibes on Pearl Street.
+    - A Goron city in the foothills.
+    - Grab the Triforce by the door.
+    - Just like Ocarina of Time.
+    - A Legend of Zelda town.
+    - Nintendo made it.
+    - Meet us on Death Mountain.
+    - Gnomeregan engineers built the lifts.
+    - Stormwind has nothing on Denver.
+    - Snow like Dun Morogh.
+    - Halls like the Dwarrowdelf.
+    - Cozy as a hobbit hole.
+    - Ride the Deeprun Tram.
+    - The Bronzebeard clan says hello.
+    - Hike past Mordor.
+    - Like the Misty Mountains at dawn.
+    - Mount Doom glows tonight.
+    - A Lord of the Rings feel.
+    - Darunia would approve.
+    - A Lord-of-the-Rings vibe.
+    - LOTR fans welcome.
+    - Halls like Hobbiton.
+    - Gandalf would approve.
+    - The mt. doom of paperwork.
+    - A Majora's Mask mood.
+    - Orgrimmar has nothing on us.
+    - A Korok in the aspens.
+    - Snow over Azeroth.
+    - Mines like Khaz Modan.
+    - Lakes like Loch Modan.
+    - A Hylian shield on the wall.
+    - Kokiri forest vibes.
+    - A Sheikah slate for notes.
+    - Milk from Lon Lon Ranch.
+    - A Dodongo in the cave.
+    - Frodo would hike it.
+    - Bilbo's birthday party.
+    - Sauron watches the pass.
+    - A Gondor-style wall.
+    - Rest in Rivendell.
+    - A Balrog in the mine.
+    - Mekkatorque built the lift.
+    - Across Kalimdor.
+    - Ganondorf would hate it.
+    - Gerudo desert vibes.
+    - Like Breath of the Wild.
+    - Like Tears of the Kingdom.
+    - A trip to Middle Earth.
+  miss:
+    - Founders forge great companies here.
+    - A blizzard closed I-70 on Tuesday.
+    - Blizzard warnings closed the pass.
+    - Work continued during the storm.
+    - The iron forge at the Hall runs hot.
+    - A lonely mountain road leads to Leadville.
+    - Zelda, our new volunteer, starts Monday.
+    - Link your calendar to the Slack.
+    - The ocarina class meets on Tuesday.
+    - A death on the mountain closed the trail.
+    - A mountain town at golden hour.
+    - The mountains were misty at dawn.
+    - Mount Blue Sky glows tonight.
+    - Gimli is a town in Manitoba.
+    - Thorin joined as a volunteer.
+    - Majora Carter spoke at the summit.
+    - Mithril Capital led the round.
+    - The misty mountains at dawn.
+    - A death mountain of paperwork.
+    - A breath of the wild air.
+    - The tears of the kingdom ran dry.
+
+watch:
+  rule: Never use these as a Hall name, place, material, title or item. Each stays out of `never` because it is also a real name or a common word, and a gate blocks only on the certain. A gate may warn on them.
+  source: [web-franchise-rule, claude-md, s3]
+  items:
+    - term: Zelda
+      franchise: zelda
+      why: A real first name. The series' full title blocks instead.
+    - term: Link
+      franchise: zelda
+      why: A common word. Never name a character or keeper Link.
+    - term: Ocarina
+      franchise: zelda
+      why: A real instrument. Only "Ocarina of Time" blocks.
+    - term: Majora
+      franchise: zelda
+      why: A real given name. Only "Majora's Mask" blocks.
+    - term: Gimli
+      franchise: tolkien
+      why: Also a town in Manitoba, and a name from Norse myth.
+    - term: Thorin
+      franchise: tolkien
+      why: A name from Norse myth that people carry.
+    - term: mithril
+      franchise: tolkien
+      why: Mithril Capital is a real investor. Never call a Hall metal mithril.
+    - term: Arkenstone
+      franchise: tolkien
+      why: An iconic item. Name a real Colorado mineral instead.
+    - term: Hearthstone
+      franchise: warcraft
+      why: A game's name and an iconic item, though "hearth" and "hearthstone" are common words. Say "hearth".
+    - term: Tinker Town
+      franchise: warcraft
+      why: The MMO's gnome district. Say "workshop" or "the Map Room".
+    - term: Mountain King
+      franchise: warcraft
+      why: A title of the MMO's dwarves, and an old song title. Never a keeper or seat title.
+    - term: Cirth
+      franchise: tolkien
+      why: The film dwarves' runic script. The brand draws no runes and names none.
+    - term: Khuzdul
+      franchise: tolkien
+      why: The dwarves' invented language. The brand uses no invented-language words.
+
+banned_seat_words:
+  scope: Volunteer seat titles, seat pages, the seat application form and seat entries on the Team page. Elsewhere these words keep their ordinary use; "hiring" is a welcome-desk door for founders.
+  words: [paid, pay, salary, stipend, hiring, hire, job]
+  pattern: '\b(?:paid|pays?|salar(?:y|ies)|stipends?|hiring|hires?|hired|jobs?|contributors?)\b'
+  case_sensitive: false
+  allowed: [unpaid, reimbursed, volunteer]
+  rules:
+    - Costs a seat holder is repaid for are "reimbursed", never "paid".
+    - '"Contributor" means a Startupers writer or a code contributor. It never names a community seat, so the pattern also catches it.'
+    - 'Each of the four application seats, and the application form, says once: "An unpaid volunteer role."'
+    - '"Volunteer" is allowed on the four application seats only: Slack Community Lead and the Photon Mountain, Fusion Canyon and Space Peak Connectors. The other four seats keep website decision 44 until Paul says they are unpaid.'
+  source: [web-d67, web-d44, web-seats-test]
+
+ai_tells:
+  severity: warn
+  flags: [ignorecase, multiline]
+  source: [house, voice-lint]
+  items:
+    - tell: delve
+      instead: look at, dig into
+      pattern: '\bdelve\b'
+    - tell: tapestry
+      instead: cut the spatial metaphor
+      pattern: '\btapestry\b'
+    - tell: plethora
+      instead: many, a lot of
+      pattern: '\bplethora\b'
+    - tell: seamless, seamlessly
+      instead: say what actually happens
+      pattern: '\bseamless(ly)?\b'
+    - tell: game-changer
+      instead: name the specific change
+      pattern: '\bgame[- ]changer\b'
+    - tell: a testament to
+      instead: state the fact directly
+      pattern: '\ba testament to\b'
+    - tell: it's important to note
+      instead: just say the thing
+      pattern: 'it(?:''|’)?s important to note|it is important to note'
+    - tell: in today's fast-paced / ever-evolving world
+      instead: cut the opener
+      pattern: 'in (today(?:''|’)?s|an?) (fast-paced|ever-evolving|rapidly evolving)'
+    - tell: navigating the complexities
+      instead: say what you do
+      pattern: 'navigat(e|ing) the complexit'
+    - tell: look no further
+      instead: cut it
+      pattern: 'look no further'
+    - tell: Certainly, Absolutely, Of course as an opener
+      instead: start with the answer
+      pattern: '^\s*(Certainly|Absolutely|Of course)[,!]'
+    - tell: In conclusion, In summary, In essence
+      instead: stop when you are done
+      pattern: '(^|\s)(in conclusion|in summary|in essence)[,:]'
+    - tell: it's not just X, it's Y
+      instead: write the affirmative
+      pattern: 'it(?:''|’)?s not (just|only) .{1,60}, it(?:''|’)?s'
+
+hedges:
+  severity: warn
+  rule: Cut the hedge. Say the thing, or say you do not know.
+  source: house
+  words: [arguably, perhaps, somewhat, potentially, seemingly, essentially, basically, virtually, sort of, more or less, to some extent]
+  gate_also_warns:
+    note: voice_lint.py warns on these too. "Rather" and "quite" have honest uses, so the gate warns and never blocks.
+    source: [voice-lint, web-site-rules]
+    words: [probably, maybe, fairly, rather, quite, relatively, appears to, seems to, could be, might be, may be, kind of, generally, in some sense]
+
+off_limits_topics:
+  rule: The brand never covers these. The website's and LinkedIn's own gates enforce them.
+  topics:
+    - Political or election content.
+    - Fund talk, or anything that asks people to invest.
+    - The terms of the leadership transition.
+    - Unattributed member counts.
+    - Any claim that a partner or government backs Colorado Startups, unless it is signed.
+  source: [v2-voice, voice-card]
+
+style:
+  - id: colorado-not-co
+    rule: Write "Colorado", never "CO".
+    pattern: '\bCO\b'
+    case_sensitive: true
+    severity: warn
+    except: Postal addresses, where the post office expects the abbreviation.
+    source: [v2-voice, voice-card]
+  - id: no-em-dash
+    rule: No em dashes and no spaced en dashes. Use a comma, semicolon, period or parentheses. An unspaced en dash in a range is fine.
+    characters: [U+2014 em dash, U+2013 en dash with a space on each side]
+    severity: block
+    source: [house, check-dashes]
+  - id: sentence-length
+    rule: One idea per sentence. Split any sentence past 30 words.
+    max_words: 30
+    severity: warn
+    source: [house, web-site-rules]
+  - id: figures
+    rule: Every figure carries its source in the same sentence, or the word "goal".
+    severity: warn
+    source: [house, claude-md]
+  - id: exclamations
+    rule: At most one exclamation mark on a page.
+    max_per_page: 1
+    source: v2-voice
+  - id: sentence-case
+    rule: UI copy is in sentence case. Buttons say exactly what happens, such as "Join the Slack" or "Nominate a company".
+    source: v2-voice
+  - id: startupers
+    rule: Write "Startupers" as one word with a capital S.
+    source: v2-voice
+  - id: full-name
+    rule: Write "Colorado Startups" in public copy. "CS" is for internal notes only.
+    source: s3
+  - id: no-silicon-valley
+    rule: Never call any place "the Silicon Valley of" anything. Say what its founders build.
+    pattern: '\bsilicon\s+valley\s+of\b'
+    case_sensitive: false
+    severity: block
+    source: web-site-rules
+  - id: keeper-disclosure
+    rule: A sentence that names a keeper also says "AI agent". The full rule is keepers.disclosure_rule in data/voice.yaml.
+    source: claude-md
+  - id: lore-literal
+    rule: Lore words stay out of forms, buttons, policies and errors. The vocabulary rule in data/voice.yaml says where they go.
+    source: v2-voice

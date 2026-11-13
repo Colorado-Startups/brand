@@ -1,0 +1,87 @@
+{
+  "_about": "FIBO 2.0 VGL template for a region or town scene (owner S7). Pick a kind, copy structured_prompt, set context to that kind's value, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL', 'Outside the doors: the towns' and 'Real places'.",
+  "template": "scene",
+  "direction": "art/DIRECTION.md v4",
+  "model": "FIBO 2.0",
+  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
+  "tier": 3,
+  "node": {
+    "aspect_ratio": "16:9",
+    "resolution": "{1MP, or 4MP after an estimate}",
+    "seed": "{an integer of 1 or more; record it with the render}",
+    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node). Comfy's price list does not say whether 4MP costs more, so estimate before a 4MP run (same source)."
+  },
+  "kinds": {
+    "region": {
+      "context": "a wide illustration of one of the Hall's outposts, an open workshop where founders build, with its real Colorado landscape in view",
+      "use": "Photon Mountain, Space Peak and Fusion Canyon. Each region's theme and view: baseline/v2/art-DIRECTION.md, The regions, until data/world.yaml lands"
+    },
+    "town": {
+      "context": "a wide illustration of a real Colorado town just outside the Hall's doors, where founders meet their neighbors",
+      "use": "One real town per scene, true to that town (art/DIRECTION.md, Outside the doors)"
+    }
+  },
+  "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
+  "fixed": [
+    "/lighting/conditions",
+    "/lighting/shadows",
+    "/aesthetics/composition",
+    "/aesthetics/color_scheme",
+    "/aesthetics/mood_atmosphere",
+    "/photographic_characteristics/depth_of_field",
+    "/photographic_characteristics/focus",
+    "/photographic_characteristics/lens_focal_length",
+    "/style_medium",
+    "/text_render",
+    "/artistic_style"
+  ],
+  "fixed_per_kind": [
+    "/context"
+  ],
+  "per_image": [
+    "/short_description",
+    "/objects",
+    "/background_setting",
+    "/lighting/direction",
+    "/photographic_characteristics/camera_angle"
+  ],
+  "keepers": "To show a keeper, add one objects entry pasted verbatim from art/keepers/<id>.yaml objects_entry, then write its location and relationship. At most 5 objects in all (VGL guide).",
+  "structured_prompt": {
+    "short_description": "{the scene in one or two sentences: founders at work in the outpost, or founders and neighbors in the town square}",
+    "objects": [
+      {
+        "description": "{human founders of mixed ages and backgrounds in casual Colorado clothes, building or talking together}",
+        "location": "{where in the frame, below the calm top quarter}",
+        "relationship": "{the focal point of the picture, and how the other objects relate to it}",
+        "relative_size": "{small, medium or large within frame}"
+      },
+      {
+        "description": "{optional: a few dwarf or gnome Hall folk helping, in plain clothes and leather aprons}",
+        "location": "{where in the frame}",
+        "relationship": "{supporting the founders, never the focal point}",
+        "relative_size": "{small or medium within frame}"
+      }
+    ],
+    "background_setting": "{for a region: the outpost workshop and its real landscape. For a town: its real main street, square, creek or skyline, as it is, with no readable signs}",
+    "lighting": {
+      "conditions": "luminous golden light from a low warm sun, glowing lanterns and contained forge fire, with a soft warm underglow",
+      "direction": "{where the warm key light comes from}",
+      "shadows": "soft, warm bronze shadows"
+    },
+    "aesthetics": {
+      "composition": "wide scene at eye level built from two or three large, chunky shapes, with the founders as the focal point and a calm, bright, low-detail band across the top quarter",
+      "color_scheme": "warm cream and honey gold with ember orange, copper and hammered bronze, gold inlaid in cool pink-grey granite, and one clear note of Colorado sky blue",
+      "mood_atmosphere": "bright, glowing, cheerful and welcoming"
+    },
+    "photographic_characteristics": {
+      "depth_of_field": "deep",
+      "focus": "sharp focus on the founders, with a painted, detailed background",
+      "camera_angle": "{eye-level, or slightly high for a town square}",
+      "lens_focal_length": "wide-angle"
+    },
+    "style_medium": "stylized hand-painted high-fantasy illustration with a few bold, chunky shapes, sturdy exaggerated proportions, thick confident outlines, visible painted brush texture and soft cel shading",
+    "text_render": [],
+    "context": "{kinds.region.context or kinds.town.context, verbatim}",
+    "artistic_style": "stylized, painterly, bold"
+  }
+}

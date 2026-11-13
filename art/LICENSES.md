@@ -1,0 +1,54 @@
+# Model licences for the brand's art
+
+**Precedence.** `decisions.md` wins (decision 31 sets the lanes; decision 8 sets how model-made media are labelled). The licence text at each source wins over these summaries. A model with no row here is not used. This is a record, not legal advice.
+
+```mermaid
+flowchart LR
+  S("New still") --> F{"FIBO 2.0"}
+  F -->|"FIBO 2 Free plan, self-hosted, ≤ 2,000 calls/mo"| W("Waits: card on file, $0.04/call above 2,000")
+  F -->|"Open weights alone"| N1("✗ CC BY-NC 4.0")
+  V("New clip") --> L{"LTX-2.5"}
+  L -->|"Modal credit or own ZeroGPU Space"| Y2("✓ with duties")
+  L -->|"This Mac"| N3("✗ never")
+  U("2x upscale") --> Y3("SeedVR2 3B: ✓")
+```
+
+## Register
+
+| Model | Licence | Verdict | Duties |
+|---|---|---|---|
+| **FIBO 2.0** (Bria), `briaai/Fibo-2.0-dev`, `-edit-turbo` | Bria FIBO 2 Free plan: self-hosted, buyers under $2M revenue, 2,000 calls a month free, IP warranty on outputs. Card required; $0.04 per call above 2,000, never blocked (platform.bria.ai pricing, read 2026-11-13) | **Waits for Paul's billing call** (per-usage on a card is off by the house money rule unless a capped spend exception exists). The open weights alone are CC BY-NC 4.0: ✗ | Keep Bria's attribution, watermark and metadata. Never train on outputs. Label every picture AI-made. Feed in only the Hall's own art |
+| **LTX-2.5** (Lightricks), image-to-video and first-last-frame | LTX-2.x Community License (2026-08-11): commercial use free under $10M revenue, counted across companies under common control (§1.3, §1.6, §2.1) | **✓** The company is under the line (owner, 2026-11-02; confirmed yearly) | Label clips machine-generated (Att. A item 5). Keep watermarks and provenance (§6, item 19). Never train on outputs (item 18). No commercial fine-tune without a paid licence (§2.2(c)). Real places shown as they are. Follow `art/motion.md` |
+| **SeedVR2 3B** (ByteDance Seed), 2x upscale | Apache-2.0 (`ByteDance-Seed/SeedVR2-3B`, read 2026-11-02) | **✓** | An upscaled AI-made still stays AI-made |
+| **Anima** (CircleStone Labs) | Model use non-commercial; §2(e) lets the site use its images | Shipped website art stays; nothing new renders | Keep the AI-made label |
+
+## Lanes ($0 only)
+
+| Lane | Status | Guard |
+|---|---|---|
+| Modal, included monthly credit | ✓ approved lane | spend limit = credit |
+| Own ZeroGPU Space (HF) | ✓ if the account can host one (PRO, $9/mo, not bought) | free daily quota |
+| HF Jobs | included credit only | balance read before and after |
+| Bria and LTX websites | only if free-tier terms grant commercial rights to outputs (Bria's trial: personal use) | terms quoted here first |
+| This Mac | ✗ no video, no GPU | `rules/compute.md` |
+
+Each render batch runs after one yes in chat with its estimate.
+
+## Not used
+
+| Model | Why |
+|---|---|
+| MiniMax H3 | Its licence excludes the United States |
+| Qwen-Image, Qwen-Image Edit | FIBO 2.0 makes the edits |
+| Z-Image, Krea 2 | Not used (Paul, 2026-10-18) |
+| Comfy Cloud Bria nodes | Superseded by decision 31 |
+
+## Duties before anything ships
+
+| Duty | Status |
+|---|---|
+| AI-made label on every model-made image and clip | Rule |
+| Provenance and watermarks kept | Rule |
+| No training on outputs | Rule |
+| Revenue under both lines, confirmed yearly | Due 2027-11-02 |
+| FIBO billing call | Open (Paul) |

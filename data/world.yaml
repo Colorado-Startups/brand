@@ -1,0 +1,660 @@
+# data/world.yaml: the Hall's world. Influences, materials, rooms, outposts, towns,
+# crests, keepers, rituals and the real-places rule.
+#
+# Owner: S2 Architecture and world (CLAUDE.md, folder ownership). Readers: S7 (art
+# direction), S8 (guide section 13, The Hall world, and the outpost crests in section 5),
+# S9 (templates), S12 (outpost colors, Wave 2) and S13 (crests, Wave 2).
+#
+# Precedence: decisions.md wins over this file. baseline/v2/dwarves.yaml (the website's
+# data/team/dwarves.yaml) wins on every keeper field. baseline/v2/lore.md wins on the
+# Hall's lore where this file restates it. S3's data/voice.yaml wins on Hall vocabulary.
+# tokens/brand_tokens.yaml wins on every final hex; the colors here are proposals.
+# When one of them disagrees with this file, fix this file in the same session.
+#
+# Top-level keys:
+#   meta         version, owner, date, source conventions
+#   influences   the influence map: each influence's public phrase, a join key to its
+#                name in data/words.yaml, its traits, their original Colorado
+#                translation and where each lands
+#   colorado_cues  fresh and overused Colorado cues
+#   materials    what the Hall is made of (from baseline/v2/lore.md)
+#   rooms        the Hall's rooms and the outside square, with plain labels
+#   outposts     the three outposts, each with a real Colorado stone and a color proposal
+#   towns        every town in lore.md plus the Wave 1 additions, with sourced facts
+#   crests       the rules for building every outpost and town crest from the master mark
+#   keepers      name, kind, title, role and disclosure, copied from baseline/v2/dwarves.yaml
+#   rituals      the monthly forge theme, the newcomer's stone and honors
+#   real_places  the real-places rule
+#
+# Figures: a fact about the world carries `source:` (a URL or a named file, with the date
+# it was read). A target that nobody has measured yet carries `goal: true`. Contrast
+# ratios and color distances were computed by S2 on 2026-11-02 and say "computed here".
+
+meta:
+  version: 3.0.0-wave1
+  owner: S2 Architecture and world
+  date: "2026-11-02"
+  decided_by: Claude, under decision 4 (Claude makes every design call and logs it)
+  sources_note: >-
+    "Read 2026-11-02" means the session opened the page or file that day. "Via the
+    research digest" means the fact comes from the orchestrator's private research digest
+    of 2026-11-02 and S2 did not re-read it. Local files are named by repo and path.
+
+influences:
+  rule: >-
+    Anything that ships publicly names these influences only by `public_phrase`.
+    Inspiration is free; names, emblems, silhouettes, iconic items, invented scripts and
+    screenshots are not, and no franchise picture is ever a reference image
+    (baseline/v2/lore.md; decision 30).
+  names: >-
+    Decision 30 names the influences openly in art/DIRECTION.md. In data/ their names live
+    in one place, data/words.yaml `franchises` (S3), joined here by `franchise_generic`,
+    which equals that file's `generic` text. They stay out of this file for two reasons.
+    S10's never-words check scans every tracked file except data/words.yaml, with a test
+    that the exemption cannot widen. S10's build also merges every data/*.yaml into
+    dist/brand.json, which consumers pull into the website's franchise-gated paths.
+  traits_source: >-
+    Traits are described from the orchestrator's private research digest (section 3,
+    2026-11-02). Its sources name the franchises in their URLs, so they are not linked here.
+  list:
+    - id: forge-city
+      public_phrase: a fantasy MMO's dwarves and their forge city
+      franchise_generic: a fantasy MMO's dwarves and gnomes and their forge city
+      traits:
+        - trait: Few, large, chunky shapes; two or three big forms where a realist would draw five
+          colorado: The tilted slabs of the Fountain Formation, the red-orange arkose of the Flatirons, laid down about 300 million years ago and tilted about 50 degrees
+          colorado_source: https://coloradosun.com/2026/10/06/boulder-flatirons-geology-tour/ (read 2026-11-02)
+          lands: [mark silhouette, icons, buttons drawn as forged slabs]
+        - trait: Warm, saturated, painterly color
+          colorado: Pink feldspar sandstone and coarse, pink Pikes Peak granite
+          colorado_source: https://en.wikipedia.org/wiki/Pikes_Peak_granite (read 2026-11-02)
+          lands: [texture tiles, hero art]
+        - trait: A great forge at the heart of a hall carved into a mountain, with glowing channels and cozy hearths
+          colorado: Mine tunnels and headframes from the Pikes Peak Gold Rush, which ran from July 1858 to about February 1861
+          colorado_source: https://en.wikipedia.org/wiki/Pikes_Peak_Gold_Rush (read 2026-11-02)
+          lands: [hero art, section dividers, the forge room]
+      never: [the city's name, its gates or halls copied, its banners or emblems, its folk's costumes]
+
+    - id: gnome-city
+      public_phrase: a fantasy MMO's gnomes and their engineering city
+      franchise_generic: a fantasy MMO's dwarves and gnomes and their forge city
+      traits:
+        - trait: Steam, gears, brass and wrought iron, in a comic, tinkering tone
+          colorado: >-
+            Mine hoists and assay-lab gear in Golden and at the Colorado School of Mines,
+            and the cog railway from Manitou Springs to the top of Pikes Peak
+          colorado_source: https://en.wikipedia.org/wiki/Golden,_Colorado and https://en.wikipedia.org/wiki/Manitou_Springs,_Colorado (read 2026-11-02)
+          lands: [Resourcus the gnome keeper, loading states, data viz]
+      never: [the city's name, its machines, vehicles or mounts, grime]
+
+    - id: fire-mountain
+      public_phrase: a classic adventure game's fire mountain and its town
+      franchise_generic: a classic adventure game's fire mountain and its town
+      traits:
+        - trait: Round terraces around a glowing, open center
+          colorado: Terraced hot-spring pools, drawn as the Hall's own invented springs
+          colorado_source: baseline/v2/lore.md (the mountain's heart feeds the forges and the hot springs)
+          lands: [outpost map, honor rings]
+        - trait: Rough, rounded carving lit warmly from below
+          colorado: Ember light on red rock
+          colorado_source: baseline/v2/art-DIRECTION.md (the vocabulary of the Hall)
+          lands: [accent glow, hover states, motion]
+      never:
+        - the dot-in-a-circle emblem
+        - a folk made of living rock (website decision 90)
+        - an erupting volcano, a crater or lava flows
+        - the town's round layout copied
+        - a real spring that matters to the Ute and other tribes (real_places)
+
+    - id: mountain-dwarves
+      public_phrase: high fantasy's mountain dwarves
+      franchise_generic: high fantasy's mountain dwarves
+      traits:
+        - trait: Straight-line carved ornament, made to be cut with a chisel
+          colorado: Original glyphs built from miners' claim-stake marks and survey cuts
+          colorado_source: plan, influence map (2026-11-02); the gold rush above
+          lands: [display details, badges, borders]
+        - trait: Monumental symmetry in tall, geometric halls
+          colorado: >-
+            The white "M" above Golden. Each new Colorado School of Mines student climbs
+            Mount Zion and adds a rock to it, a tradition since 1908, and the M has been
+            lit since 1932.
+          colorado_source: https://en.wikipedia.org/wiki/Mount_Zion_(Colorado) (read 2026-11-02)
+          lands: [the newcomer's stone ritual, the type system's display details]
+        - trait: Gold set into cool stone
+          colorado: Aspen gold on granite
+          colorado_source: baseline/v2/art-DIRECTION.md (aspen gold is an art-only color)
+          lands: [palette, honors]
+      never: [their script or runes, any named hall, door, gate or map style, their heraldry]
+
+colorado_cues:
+  source: >-
+    Via the research digest, section 3 (2026-11-02), citing
+    https://fanclubbrands.co/blog/colorado-design-agency and
+    https://dcs.colorado.gov/ids/state-branding-guidelines/quick-look-overview
+  fresh:
+    - mining heritage (headframes, assay labs, ore carts, stamp mills)
+    - the Mines "M" participation ritual
+    - the plains towns of Northern Colorado
+  overused:
+    - mountain logos, the Flatirons above all
+    - brown and forest green
+    - "Colorado blue"
+    - peak, summit and altitude names
+    - a pine tree beside a mountain
+    - the Colorado flag's "C" as a motif, and the State's own "C" logo, which is for State departments and programs
+
+materials:
+  source: baseline/v2/lore.md (The Hall; Made here, borrowed from no one) and baseline/v2/art-DIRECTION.md (the vocabulary table)
+  list:
+    - id: halls
+      lore: Vast carved halls lit by lanterns, great hearths and forges
+      looks_like: Red sandstone and granite carved into soaring arches; thick timber beams; long stairs; stone bridges over lit channels
+      never: [a cave, a dungeon, a dark mine, a fortress wall]
+    - id: metalwork
+      lore: Molten-gold channels, hammered bronze doors and banners
+      looks_like: Glowing channels behind brass rails; tall open bronze doors with geometric relief; banners in gold, ember and sky blue
+      never: [lava flows, runes or inscriptions, locked gates, lettering or heraldry on banners]
+    - id: workshops
+      lore: Gnome workshops ticking with brass clockwork; the cog railways and mine lifts the gnomes run through the range
+      looks_like: Brass gears, orreries, telescopes, small cranes, ore carts, mine lifts
+      never: [steam-punk grime, any game's machines or mounts]
+    - id: mountains-heart
+      lore: The range's own warmth rises under the Hall, feeds the forges and the hot springs, and is always safe and contained
+      looks_like: Warm pools and soft steam; glowing vents behind brass rails
+      never: [eruptions, a crater, danger]
+    - id: stone
+      lore: Front Range granite and sandstone, and Colorado mining heritage
+      looks_like: Pink granite, red sandstone, stamp mills, headframes, ore carts
+      never: [generic fantasy peaks, desert, mesas]
+
+rooms:
+  source: baseline/v2/lore.md (The Hall; Outside the doors) for the rooms; data/voice.yaml (vocabulary, S3) and website decision 46 (the header) for the plain labels
+  inside:
+    - id: great-hall
+      lore_name: the Great Hall of the Community
+      plain_label: the Community page (the Slack and the LinkedIn Group)
+      what: Just inside the doors, where founders meet the people already building here.
+    - id: map-room
+      lore_name: the Map Room
+      plain_label: Startup Resources
+      what: Where Startup Resources are charted for every stage of a company, kept by Resourcus.
+    - id: leaderboard-gallery
+      lore_name: the Leaderboard gallery
+      plain_label: the Leaderboard
+      what: Where the fastest-growing Colorado companies are recorded, from verified data.
+    - id: forge
+      lore_name: the forge
+      plain_label: the Team page
+      what: Deepest in the mountain, where the people who run the Hall and the keepers work.
+    - id: doors
+      lore_name: the great bronze doors
+      plain_label: the website's front page and welcome desk
+      what: Where Communitas meets every newcomer and points them to the right room.
+  outside:
+    - id: town-square
+      lore_name: the town square
+      plain_label: in-person events and meetups
+      what: Outside the doors, where founders meet their neighbors, trade help and set out again. It is for people, not scores.
+
+outposts:
+  rule: >-
+    Each outpost gets one real Colorado stone or mineral from inside its own area, and
+    one color proposal drawn from it. The color marks the outpost's crest field and its
+    map dot. The outpost's name always rides beside the color, because color alone is a
+    weak recognition asset (digest section 2, Fame x Uniqueness).
+  method: >-
+    Each color answers the six questions of the orchestrator's color method (2026-11-02):
+    role, distinctiveness, heritage equity, concept fit, access and cliche check.
+  colors_status: >-
+    Proposals for S12 (Wave 2). S12 sets the final hex values against the v3 palette and
+    keeps each outpost color clearly apart from every v3 role.
+  list:
+    - id: photon-mountain
+      name: Photon Mountain
+      plain_label: the Colorado Startups chapter for Boulder, Golden, Arvada and Denver
+      towns: [boulder, golden, arvada, denver]
+      area_source: website data/regions/photon-mountain.yaml (origin/main c6f10bc), read 2026-11-02
+      stone:
+        name: Jamestown fluorite
+        what: >-
+          Purple fluorspar, mined in the Jamestown district of Boulder County, in the
+          hills northwest of Boulder.
+        sources:
+          - https://westernmininghistory.com/mine-detail/10117714/ (USGS Mineral Resources Data System record for the Allied Jamestown mine; ore "coarse gr. and fine gr. purple fluorspar"; read 2026-11-02)
+          - Hild, J. H., Investigation of Jamestown Fluorite Deposits, Boulder County, Colo., U.S. Bureau of Mines RI 4483, 1949, https://onetunnel.org/documents/ri-4483-investigation-of-jamestown-fluorite-deposits-boulder-county-colo- (read 2026-11-02)
+        story: >-
+          Fluorite gave fluorescence its name: George Gabriel Stokes coined the word from
+          "fluor-spar" in 1852. A light word for the outpost named for light.
+        story_source: https://en.wikipedia.org/wiki/Fluorescence (read 2026-11-02)
+      color_proposal:
+        name: fluorite violet
+        hex: "#4A2C84"
+        mark_ink: ground role, 10.25:1 on this field (computed here)
+        contrast_vs_v2_ground: 10.25 (computed here, WCAG 2.2 relative luminance)
+        rationale:
+          role: data and wayfinding; the crest field and the map dot for this outpost
+          distinctiveness: >-
+            The only violet among the three outposts. Assumed distinct from Colorado
+            ecosystem peers until the color audit in research/color/ arrives.
+          heritage_equity: >-
+            Sits near the 2014 shield's purple (OKLab distance 0.076 from v2 brand-purple,
+            computed here). If the winning concept keeps that purple as an accent, S12
+            moves this toward blue-violet so an outpost never reads as the master's color.
+          concept_fit: A deep jewel note, set in the crest only, inside the Hall's forge world of gold, fire and light.
+          access: Ground-colored ink on it reaches 10.25:1; the crest rim carries the boundary on any ground.
+          cliche_check: Not brown, forest green, "Colorado blue" or flag red and gold.
+
+    - id: space-peak
+      name: Space Peak
+      plain_label: the Colorado Startups chapter for Colorado Springs and the Pikes Peak region
+      towns: [colorado-springs, manitou-springs]
+      area_source: website data/regions/space-peak.yaml (origin/main c6f10bc), read 2026-11-02
+      stone:
+        name: Pikes Peak granite
+        what: >-
+          The granite that makes up Pikes Peak, the mountain this outpost sits under. It is
+          1.08 billion years old, very coarse-grained, and ranges from light pink to almost
+          red, mostly from its microcline feldspar.
+        sources:
+          - https://en.wikipedia.org/wiki/Pikes_Peak_granite (read 2026-11-02)
+        story: The outpost's color is the rock of its own landmark.
+      color_proposal:
+        name: granite pink
+        hex: "#C0707A"
+        mark_ink: text role, 4.54:1 on this field (computed here)
+        contrast_vs_v2_ground: 3.48 (computed here, WCAG 2.2 relative luminance)
+        rationale:
+          role: data and wayfinding; the crest field and the map dot for this outpost
+          distinctiveness: >-
+            The lightest of the three, so it separates from the other two by value as well
+            as hue. Assumed distinct from ecosystem peers until the color audit arrives.
+          heritage_equity: No overlap with the 2014 shield's teal or purple.
+          concept_fit: Warm, and close to the alpenglow the art already paints on the peaks.
+          access: Clears 3:1 on the v2 ground for a map dot; bronze text ink on it reaches 4.54:1.
+          cliche_check: Not brown, forest green, "Colorado blue" or flag red and gold.
+        alternate_considered:
+          name: amazonite
+          hex: "#33998C"
+          what: >-
+            The blue-green microcline of the same Pikes Peak batholith. Its Crystal Peak
+            area near Lake George is "world-renowned" for amazonite and smoky quartz (Kile
+            and Eberl, 1999, https://pubs.usgs.gov/publication/70021621, read 2026-11-02).
+          why_not_first: >-
+            Crystal Peak lies outside the outpost's towns, while Pikes Peak granite is the
+            outpost's own landmark. Amazonite also sits near the 2014 teal (OKLab distance
+            0.129 from v2 brand-teal, computed here).
+          keep_for: >-
+            S12 may swap it in if the v3 palette needs one cool outpost note. It separates
+            from the other two at least as well (minimum OKLab distance 0.110 across
+            normal and simulated vision, computed here).
+
+    - id: fusion-canyon
+      name: Fusion Canyon
+      plain_label: the Colorado Startups chapter for Fort Collins, Loveland, Windsor and Greeley
+      towns: [fort-collins, loveland, windsor, greeley]
+      area_source: website data/regions/fusion-canyon.yaml (origin/main c6f10bc), read 2026-11-02
+      note: Named for the canyon. Built on the plain. Copy never places it inside a canyon.
+      stone:
+        name: Stout sandstone
+        what: >-
+          The red sandstone quarried west of Fort Collins at Stout, the quarry town now
+          under Horsetooth Reservoir. Fort Collins built with it. The Avery House went up
+          in 1879 "of red sandstone from the Stout quarry". In 1880, 40 to 50 men worked
+          six quarries west of town.
+        sources:
+          - https://history.fcgov.com/timeline/ (Fort Collins History Connection, read 2026-11-02)
+          - https://history.fcgov.com/newsflashback/stout (read 2026-11-02)
+          - https://en.wikipedia.org/wiki/Stout,_Colorado (abandoned in 1949 for Horsetooth Reservoir; read 2026-11-02)
+        story: >-
+          Stone cut in the foothills and built into the towns of the plain, as the outpost
+          is named for the canyon and built on the plain.
+      color_proposal:
+        name: Stout red
+        hex: "#8C4A3F"
+        mark_ink: ground role, 6.43:1 on this field (computed here)
+        contrast_vs_v2_ground: 6.43 (computed here, WCAG 2.2 relative luminance)
+        rationale:
+          role: data and wayfinding; the crest field and the map dot for this outpost
+          distinctiveness: >-
+            The middle value of the three, so it separates from granite pink by value as
+            well as hue. Assumed distinct from ecosystem peers until the color audit arrives.
+          heritage_equity: No overlap with the 2014 shield's teal or purple.
+          concept_fit: >-
+            Fire-warm, and it echoes the "sandstone rim" accent in Fusion Canyon's own
+            draft palette (Fusion Canyon project_context.md, read 2026-11-02).
+          access: Ground-colored ink on it reaches 6.43:1.
+          cliche_check: >-
+            A brick red, not flag red; it never appears beside flag gold as a flag. It sits
+            near the v2 bronze and copper roles (OKLab distance 0.051 and 0.057, computed
+            here), so S12 keeps it apart from the v3 equivalents.
+
+  separation_check:
+    what: >-
+      Pairwise OKLab distance between the three proposals, in normal vision and in
+      protan, deutan, tritan and achromat simulation (Machado, Oliveira and Fernandes
+      2009 matrices at full severity).
+    minimum: 0.110 (fluorite violet against Stout red, achromat; computed here)
+    pairs:
+      photon-vs-space: {normal: 0.298, protan: 0.252, deutan: 0.313, tritan: 0.299, achromat: 0.257}
+      photon-vs-fusion: {normal: 0.205, protan: 0.178, deutan: 0.218, tritan: 0.175, achromat: 0.110}
+      space-vs-fusion: {normal: 0.152, protan: 0.149, deutan: 0.150, tritan: 0.149, achromat: 0.146}
+    source: computed here, 2026-11-02, against the v2 ground #FFFBF3 from baseline/v2/brand_tokens.yaml
+
+  elsewhere:
+    name: Elsewhere in Colorado
+    plain_label: founders outside the three outposts
+    rule: Shown with the master mark and no crest or stone color.
+    source: website decision 45
+
+towns:
+  rule: >-
+    Towns are real places, shown as they are, outside the Hall's doors (website decision
+    90). The facts below are the ones art and copy may lean on; each is sourced.
+  list:
+    - id: boulder
+      name: Boulder
+      outpost: photon-mountain
+      facts:
+        - fact: Founded in late 1858 when prospectors arrived at Boulder Canyon.
+          source: https://en.wikipedia.org/wiki/Boulder,_Colorado (read 2026-11-02)
+        - fact: The Flatirons west of the city are tilted Fountain Formation slabs, laid down some 300 million years ago.
+          source: https://coloradosun.com/2026/10/06/boulder-flatirons-geology-tour/ (read 2026-11-02)
+        - fact: Boulder Creek flows through the center of the city, which is home to the University of Colorado Boulder.
+          source: https://en.wikipedia.org/wiki/Boulder,_Colorado (read 2026-11-02)
+      as_drawn: The Flatirons as three tilted slabs of reddish rock, seen from outside; footbridges over Boulder Creek.
+      as_drawn_source: baseline/v2/art-DIRECTION.md (the vocabulary of the Hall)
+
+    - id: golden
+      name: Golden
+      outpost: photon-mountain
+      facts:
+        - fact: Founded on June 16, 1859, during the Pikes Peak Gold Rush, along Clear Creek at the base of the Front Range.
+          source: https://en.wikipedia.org/wiki/Golden,_Colorado (read 2026-11-02)
+        - fact: Home of the Colorado School of Mines, between Lookout Mountain and the two Table Mountains.
+          source: https://en.wikipedia.org/wiki/Golden,_Colorado (read 2026-11-02)
+        - fact: Each new Mines student adds a rock to the white "M" on Mount Zion, a tradition since 1908.
+          source: https://en.wikipedia.org/wiki/Mount_Zion_(Colorado) (read 2026-11-02)
+      as_drawn: Brick main street on Clear Creek, mine headframes on the hills, assay-lab brass in the gnome workshops.
+      as_drawn_source: baseline/v2/lore.md; baseline/v2/art-DIRECTION.md
+
+    - id: arvada
+      name: Arvada
+      outpost: photon-mountain
+      facts:
+        - fact: The first documented gold discovery in the Rocky Mountain region was made here by Lewis Ralston on June 22, 1850.
+          source: https://en.wikipedia.org/wiki/Arvada,_Colorado (read 2026-11-02)
+        - fact: The find lies along Ralston Creek in the city's Gold Strike Park; Olde Town Arvada is the historic heart of the city.
+          source: https://en.wikipedia.org/wiki/Arvada,_Colorado (read 2026-11-02)
+      as_drawn: Olde Town's brick storefronts and the creek where the first gold turned up.
+      as_drawn_source: baseline/v2/art-DIRECTION.md (town main streets)
+
+    - id: denver
+      name: Denver
+      outpost: photon-mountain
+      facts:
+        - fact: Founded in 1858, during the gold rush, where Cherry Creek meets the South Platte River.
+          source: https://en.wikipedia.org/wiki/Denver (read 2026-11-02)
+        - fact: The Mile High City's official elevation is one mile above sea level.
+          source: https://en.wikipedia.org/wiki/Denver (read 2026-11-02)
+      as_drawn: City lights on the plain, seen from the mountain.
+      as_drawn_source: baseline/v2/lore.md
+
+    - id: colorado-springs
+      name: Colorado Springs
+      outpost: space-peak
+      facts:
+        - fact: Laid out in 1871 as the Fountain Colony and renamed Colorado Springs that year, near the base of Pikes Peak.
+          source: https://en.wikipedia.org/wiki/Colorado_Springs,_Colorado (read 2026-11-02)
+        - fact: Pikes Peak is made almost entirely of pink Pikes Peak granite.
+          source: https://en.wikipedia.org/wiki/Pikes_Peak_granite (read 2026-11-02)
+      as_drawn: Pikes Peak rising behind a sunny town; the cog railway climbing the mountain.
+      as_drawn_source: baseline/v2/art-DIRECTION.md (the regions)
+      real_places_note: Garden of the Gods, on the city's western edge, is never fantasy decoration (real_places).
+
+    - id: manitou-springs
+      name: Manitou Springs
+      outpost: space-peak
+      facts:
+        - fact: The town sits at the foot of Pikes Peak, and the Manitou and Pike's Peak Railway runs from it to the summit.
+          source: https://en.wikipedia.org/wiki/Manitou_Springs,_Colorado (read 2026-11-02)
+        - fact: Its mineral springs were sacred grounds; the Ute, Arapaho, Cheyenne and other plains tribes came to the area and spent winters there.
+          source: https://en.wikipedia.org/wiki/Manitou_Mineral_Springs (read 2026-11-02)
+      as_drawn: A mountain town of red sandstone and timber at the foot of the peak, shown as it is.
+      as_drawn_source: baseline/v2/lore.md
+      real_places_note: The springs are never drawn as, or named for, the Hall's hot springs (real_places).
+
+    - id: fort-collins
+      name: Fort Collins
+      outpost: fusion-canyon
+      facts:
+        - fact: The city began in 1864 as an army post; the original fort site sits beside today's historic Old Town.
+          source: https://en.wikipedia.org/wiki/Fort_Collins,_Colorado (read 2026-11-02)
+        - fact: The Cache la Poudre River runs through the city, which is home to Colorado State University.
+          source: https://en.wikipedia.org/wiki/Fort_Collins,_Colorado (read 2026-11-02)
+        - fact: Horsetooth Rock, a pegmatite summit 7 miles west of downtown, appears on the city seal.
+          source: https://en.wikipedia.org/wiki/Horsetooth_Mountain (read 2026-11-02)
+        - fact: The Avery House was built in 1879 of red sandstone from the Stout quarry.
+          source: https://history.fcgov.com/timeline/ (read 2026-11-02)
+      as_drawn: Old Town's brick and red sandstone, footbridges over the Poudre, plains windpumps.
+      as_drawn_source: baseline/v2/lore.md; baseline/v2/art-DIRECTION.md
+
+    - id: loveland
+      name: Loveland
+      outpost: fusion-canyon
+      facts:
+        - fact: A large population of artists has drawn three foundries to the city.
+          source: https://en.wikipedia.org/wiki/Loveland,_Colorado (read 2026-11-02)
+        - fact: Over 150 pieces of the city's sculpture stand in Benson Sculpture Garden.
+          source: https://en.wikipedia.org/wiki/Loveland,_Colorado (read 2026-11-02)
+        - fact: The town was laid out near the railroad's crossing of the Big Thompson River.
+          source: https://en.wikipedia.org/wiki/Loveland,_Colorado (read 2026-11-02)
+      as_drawn: Bronze sculpture in the park and a working foundry, the plain's own forge.
+      as_drawn_source: this file (S2, 2026-11-02), from the facts above
+
+    - id: windsor
+      name: Windsor
+      outpost: fusion-canyon
+      facts:
+        - fact: Platted in 1882, between Greeley and Fort Collins.
+          source: https://en.wikipedia.org/wiki/Windsor,_Colorado (read 2026-11-02)
+        - fact: A factory for making sugar from sugar beets was built here in 1903.
+          source: https://en.wikipedia.org/wiki/Windsor,_Colorado (read 2026-11-02)
+      as_drawn: Open plains, irrigated fields and a brick factory stack by the lake.
+      as_drawn_source: this file (S2, 2026-11-02), from the facts above
+
+    - id: greeley
+      name: Greeley
+      outpost: fusion-canyon
+      facts:
+        - fact: Founded in 1869 as the Union Colony by Nathan C. Meeker, and later renamed for Horace Greeley.
+          source: https://en.wikipedia.org/wiki/Greeley,_Colorado (read 2026-11-02)
+        - fact: The Cache la Poudre River flows through north Greeley, which is home to the University of Northern Colorado.
+          source: https://en.wikipedia.org/wiki/Greeley,_Colorado (read 2026-11-02)
+      as_drawn: Plains windpumps, irrigation ditches and a brick main street under a wide sky.
+      as_drawn_source: baseline/v2/art-DIRECTION.md (plains and creeks)
+
+crests:
+  status: >-
+    Rules now. The geometry arrives with the master mark in Wave 2. S13 builds every crest
+    in logo/ from one SVG template and this file, so a new town adds a row, not a drawing.
+  parts:
+    - id: rim
+      rule: >-
+        One closed outline shape, the same for every crest, drawn by S13 from the master
+        mark's geometry. The rim carries the 3:1 boundary: the text role on light
+        grounds, the on-night role on night bands.
+    - id: field
+      rule: The outpost's stone color (outposts.list[].color_proposal until S12 sets the token).
+    - id: mark
+      rule: The master mark, unchanged in shape, centered in the field, in the field's mark ink.
+    - id: band
+      rule: >-
+        Town crests only, and only at 64 px and up: a ledge under the field in the rim
+        ink, carrying the town's real name in Core type. Below that size the town crest
+        is its outpost's crest.
+  variation:
+    allowed: [the field color (one per outpost), the town name on the band]
+    reason: >-
+      MIT Media Lab's generative logo had 40,000 variants that looked too alike to tell
+      its groups apart, and was replaced after about three years. Mozilla lets
+      communities pick colors and imagery while the logo and type stay fixed.
+    source: >-
+      https://gizmodo.com/why-mit-media-lab-scrapped-its-old-logo-after-just-thre-1651927638
+      (read 2026-11-02); Mozilla via the research digest, section 3
+  sizes:
+    min_crest_px: 24
+    band_from_px: 64
+    goal: true
+    note: Targets until S13 tests the drawn crests; below 24 px use the master mark alone.
+  variants:
+    one_color: Rim and mark in one ink, field left empty; the name beside it carries the outpost.
+    reversed: On a night band the rim switches to the on-night role; field and mark stay.
+  never:
+    - A landmark picture (the Flatirons, Pikes Peak, Horsetooth Rock) or any real place drawn in a crest.
+    - A project's mark (such as Summit Sun) inside a crest.
+    - A keeper, a sponsor's logo or a second stone color inside a crest.
+    - Crowns, swords, shields from any real house, runes or a dot-in-a-circle.
+    - A gradient in the field; the crest must print in flat colors.
+  source: decisions.md, decisions 11 and 12
+
+keepers:
+  source: >-
+    baseline/v2/dwarves.yaml (the website's data/team/dwarves.yaml at origin/main 18b65a6),
+    copied verbatim on 2026-11-02. That file wins; change it there first.
+  disclosure_rule: >-
+    Every keeper says it is an AI agent wherever it appears, in words or in a picture,
+    with the disclosure below beside it (CLAUDE.md, Rules that never bend).
+  never:
+    - A keeper never moderates (baseline/v2/dwarves.yaml, Communitas).
+    - A keeper never organizes an outpost (baseline/v2/lore.md).
+    - A keeper never gives an honor (rituals.honors).
+  list:
+    - id: communitas
+      name: Communitas
+      kind: dwarf
+      title: Keeper of the Doors
+      role: Welcomes founders and the people who back them, and points each newcomer to the right room.
+      room: doors
+      disclosure: Communitas is an AI agent run by Colorado Startups. It can make mistakes, and a person reviews its work.
+    - id: resourcus
+      name: Resourcus
+      kind: gnome
+      title: Keeper of the Canvas
+      role: Answers questions about Colorado startup resources, for founders and the people who back them.
+      room: map-room
+      disclosure: Resourcus is an AI agent run by Colorado Startups on an open-source model. It can make mistakes, so check each resource before you rely on it.
+    - id: publicus
+      name: Publicus
+      kind: dwarf
+      title: Herald of the Hall
+      role: Drafts news about Colorado founders and the community for people to review and publish.
+      room: forge
+      disclosure: Publicus is an AI agent run by Colorado Startups. It can make mistakes, so it only drafts; a person reviews and publishes everything.
+
+rituals:
+  forge_theme:
+    lore_name: forge theme
+    plain_label: the one monthly theme every outpost shares
+    rule: >-
+      One theme a month, the same in every outpost. Each outpost runs one gathering or
+      one Slack thread on it, in whatever format its organizer picks.
+    precedent: >-
+      Every CreativeMornings chapter gathers around the same global theme each month, and
+      a chapter proposes each month's theme.
+    precedent_source: https://www.pcma.org/creativemornings-global-community-connection-loneliness/ (search excerpt read 2026-11-02); decisions.md, decision 12
+    who_picks: >-
+      Colorado Startups' organizers set the year's themes, and any outpost may propose one.
+      Publicus may draft the theme note; a person reviews and publishes it.
+    never:
+      - A theme never ranks outposts or scores a contest.
+      - No theme is about politics or fund talk (baseline/v2/voice.md, Never).
+    calendar_status: A proposal; organizers may swap any month. S3's vocabulary wins on the words.
+    calendar:
+      - {month: January, theme: Prospect, plain_label: "finding a problem worth solving", door: idea}
+      - {month: February, theme: Assay, plain_label: "testing an idea with real customers", door: idea}
+      - {month: March, theme: Blueprint, plain_label: "planning the first version", door: building}
+      - {month: April, theme: Smelt, plain_label: "building and shipping the first version", door: building}
+      - {month: May, theme: Crew, plain_label: "hiring the first team", door: hiring}
+      - {month: June, theme: Apprentice, plain_label: "students and first jobs at startups", door: student}
+      - {month: July, theme: Trade, plain_label: "first sales and first customers", door: building}
+      - {month: August, theme: Backers, plain_label: "meeting the people who invest in founders", door: investing}
+      - {month: September, theme: Toolmakers, plain_label: "the service providers who help founders", door: service-provider}
+      - {month: October, theme: Lantern, plain_label: "finding and joining a startup", door: talent}
+      - {month: November, theme: Hearth, plain_label: "founder health and the people around founders", door: curious}
+      - {month: December, theme: Ledger, plain_label: "looking back at the year's work", door: building}
+    doors_source: website 00_project_system/lanes/L10-voice.md (the eight welcome-desk doors), read 2026-11-02
+
+  set_a_stone:
+    lore_name: Set a stone
+    plain_label: the newcomer's welcome
+    inspiration: >-
+      At the Colorado School of Mines, each new student climbs Mount Zion and adds a rock
+      to the white "M", and may take it home at graduation.
+    inspiration_source: https://en.wikipedia.org/wiki/Mount_Zion_(Colorado) (read 2026-11-02)
+    ritual:
+      - At a newcomer's first outpost gathering, they take one stone from a bowl by the door.
+      - They set it in a shallow tray cut in the shape of the master mark, and say one line about what they are building or how they help builders.
+      - Over the year the stones fill the mark. Online, the outpost page draws the filling mark, one stone for each person who chose to set one, with no names.
+      - At the year's last gathering, anyone may take their stone home.
+    rules:
+      - Setting a stone is optional and never recorded against a person.
+      - No count is shown, and no outpost's mark is compared with another's.
+      - The stones come from a garden-supply bag, never from parks, open space or tribal land.
+      - 'The ritual copies no part of the Mines "M": not the letter, the mountain or the name.'
+    source: decisions.md, decision 12 (participation ritual); this file (S2, 2026-11-02)
+
+  honors:
+    lore_name: honor
+    plain_label: a thank-you that names what someone did; the person can hide it
+    rules:
+      - An honor names one deed in one sentence, with its outpost and month.
+      - A person gives it; a keeper never does.
+      - The member decides whether it shows and can hide it at any time.
+      - No tiers, counts, totals, levels or streaks, and honors are never ranked.
+      - Every honor draws as the same small carved ring in the outpost's stone color, so no honor looks bigger than another.
+    form: "{Hall phrase}: {the deed in plain words}, {outpost}, {month and year}"
+    examples:
+      - "Opened the doors: welcomed newcomers at the Golden Outpost gathering, March 2027"
+      - "Lit a lantern: helped a founder make a first hire, Space Peak Outpost, May 2027"
+      - "Carried the banner: hosted an outpost gathering, Fusion Canyon Outpost, June 2027"
+      - "Charted the map: added a resource to Startup Resources, Photon Mountain Outpost, July 2027"
+    examples_note: The dates are illustrations of the format, not records.
+    sources:
+      - Hanus, M. D. and Fox, J., Computers and Education, 2015, https://www.sciencedirect.com/science/article/abs/pii/S0360131514002000 (badges and a leaderboard lowered motivation and exam scores; via the research digest, the page refused automated reads on 2026-11-02)
+      - https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/manage-visibility-settings-for-private-contributions-and-achievements (a user can hide each achievement; search excerpt read 2026-11-02)
+      - decisions.md, decision 12
+
+real_places:
+  rule: Real places keep their real names and their meaning.
+  source: baseline/v2/lore.md (Made here, borrowed from no one); CLAUDE.md, Rules that never bend
+  rules:
+    - Towns appear as they are, with their real names, streets and landmarks; the Hall never renames a real place.
+    - >-
+      Places that matter to the Ute and other tribes are never fantasy decoration. Garden
+      of the Gods is one: Ute oral traditions tell of their creation there
+      (https://en.wikipedia.org/wiki/Garden_of_the_Gods, read 2026-11-02).
+    - >-
+      Manitou Springs' mineral springs were sacred grounds
+      (https://en.wikipedia.org/wiki/Manitou_Mineral_Springs, read 2026-11-02). The Hall's
+      hot springs are invented and are never drawn as, or named for, a real spring.
+    - >-
+      The Hall is carved into an unnamed stretch of the range. It is never carved into a
+      named landmark such as the Flatirons, Pikes Peak or Horsetooth Rock; those stay as
+      they are, in view outside the doors.
+    - Fusion Canyon is named for the canyon and built on the plain; nothing places it inside a canyon.
+    - >-
+      Real institutions appear only as themselves, with no lore name, no crest and no
+      implied partnership. The Colorado School of Mines, CU Boulder, Colorado State
+      University and the University of Northern Colorado are among them.
+    - Stones for the newcomer's ritual never come from parks, open space or tribal land.
+    - >-
+      Pikes Peak is Tavá Kaa-vi, Sun Mountain, to the Ute: the first peak the dawn reaches
+      (Southern Ute Cultural Department via https://www.pikes-peak.com/the-ute-and-pikes-peak/,
+      read 2026-11-13). It appears only as a real backdrop, never as Hall ground.
+    - >-
+      The Ute today are three sovereign nations: the Southern Ute Indian Tribe, the Ute
+      Mountain Ute Tribe, and the Ute Indian Tribe of the Uintah and Ouray Reservation. The
+      Arapaho and Cheyenne also hold the Front Range as homeland. No tribe has been
+      consulted on this brand, so the brand claims no tribal meaning, symbol or blessing.
+    - A picture from a game or film is never a reference image for a real place or for the Hall.

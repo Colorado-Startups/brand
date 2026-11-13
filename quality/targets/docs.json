@@ -1,0 +1,154 @@
+[
+  {
+    "id": "docs.dead_paths",
+    "params": {
+      "doc_set_left_out": [
+        {
+          "glob": ".github/pull_request_template.md",
+          "why": "the PR form; PR bodies are scored on the Pull requests tab"
+        },
+        {
+          "glob": "baseline/**",
+          "why": "a read-only copy of the v2 brand; never edited (CLAUDE.md)"
+        },
+        {
+          "glob": "concepts/README.md",
+          "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        },
+        {
+          "glob": "dist/README.md",
+          "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        },
+        {
+          "glob": "logo/README.md",
+          "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        },
+        {
+          "glob": "templates/README.md",
+          "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        },
+        {
+          "glob": "tokens/README.md",
+          "why": "a placeholder for a folder Wave 2 fills; mapped once it holds files"
+        }
+      ],
+      "skip_dirs": [
+        "worktrees",
+        "site",
+        "quality"
+      ],
+      "areas": [
+        {
+          "doc": "README.md",
+          "area": [
+            "data/",
+            "tokens/",
+            "logo/",
+            "dist/",
+            "guide/"
+          ]
+        },
+        {
+          "doc": "CLAUDE.md",
+          "area": [
+            ".claude/",
+            ".github/workflows/",
+            "tools/"
+          ]
+        },
+        {
+          "doc": "AGENTS.md",
+          "area": [
+            "CLAUDE.md"
+          ]
+        },
+        {
+          "doc": "CONTRIBUTING.md",
+          "area": [
+            ".github/ISSUE_TEMPLATE/",
+            ".github/dco.yml"
+          ]
+        },
+        {
+          "doc": "SUPPORT.md",
+          "area": [
+            ".github/ISSUE_TEMPLATE/",
+            ".github/DISCUSSION_TEMPLATE/"
+          ]
+        },
+        {
+          "doc": "SECURITY.md",
+          "area": [
+            "tools/vendor/",
+            ".github/workflows/"
+          ]
+        },
+        {
+          "doc": "THREAT-MODEL.md",
+          "area": [
+            "tools/",
+            ".github/workflows/"
+          ]
+        },
+        {
+          "doc": "GOVERNANCE.md",
+          "area": [
+            ".github/CODEOWNERS"
+          ]
+        },
+        {
+          "doc": "MAINTAINERS.md",
+          "area": [
+            ".github/CODEOWNERS"
+          ]
+        },
+        {
+          "doc": "CODE_OF_CONDUCT.md",
+          "area": []
+        },
+        {
+          "doc": "LICENSING.md",
+          "area": [
+            "LICENSE",
+            "LICENSES/"
+          ]
+        },
+        {
+          "doc": "TRADEMARKS.md",
+          "area": [
+            "logo/"
+          ]
+        },
+        {
+          "doc": "decisions.md",
+          "area": []
+        },
+        {
+          "doc": "art/*.md",
+          "area": [
+            "art/"
+          ]
+        },
+        {
+          "doc": "research/strategy/candidates.md",
+          "area": [
+            "data/strategy.yaml"
+          ]
+        },
+        {
+          "doc": "governance/*.md",
+          "area": [
+            "governance/",
+            "data/kpis.yaml"
+          ]
+        },
+        {
+          "doc": "**",
+          "area": [
+            "{dir}/"
+          ]
+        }
+      ]
+    }
+  }
+]

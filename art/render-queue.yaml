@@ -1,0 +1,369 @@
+# art/render-queue.yaml: every render the brand needs, in run order (owner S7).
+#
+# Nothing here has run. Items run on the $0 lanes in art/LICENSES.md (decision 31):
+# LTX-2.5 clips now, FIBO 2.0 stills after Paul's billing call on Bria's Free plan.
+# `route` below still names the old Comfy node; S14 maps each to its lane. Every
+# batch asks in chat first, with its estimate, and reads the lane's balance
+# before and after (~/.claude/rules/compute.md).
+#
+# Precedence: art/LICENSES.md wins on routes; ~/.claude/rules/compute.md wins on
+# tiers and on asking before each run; art/DIRECTION.md and art/motion.md win
+# on the look. If they disagree with this file, fix this file in the same session.
+#
+# Every figure carries a source, says "computed here", or is marked goal: true.
+#
+# Keys
+#   rates      the prices every estimate uses, each with its source
+#   totals     the queue's sums, computed here from rates and items
+#   items      one entry per render job, in run order:
+#     id         a stable name; the render's files and provenance record use it
+#     phase      pilot (compare FIBO 2.0 with the shipped art first), still, edit, upscale or clip
+#     what       the picture or clip, in plain words
+#     replaces   the shipped website file it would replace (website art/finals.json), or null
+#     template   the art/prompts template, or the approved stills it starts from
+#     keeper     for a keeper portrait, the sheet in art/keepers/
+#     model      the model, as named in art/LICENSES.md
+#     route      the Comfy Cloud node or template
+#     tier       the run tier in ~/.claude/rules/compute-detail.md
+#     size       the node or clip settings
+#     takes      how many renders to choose from: a plan, so goal: true
+#     estimate   credits for the item, with the rate it uses
+#     needed_if  a condition; an item without one is always needed
+#     status     "blocked: paul-queue-1-2" until both queue items clear
+
+rates:
+  bria_node_run:
+    credits: 12.07
+    source: "Comfy Partner Node pricing (https://docs.comfy.org/tutorials/partner-nodes/pricing), per run of a Bria FIBO 2.0 node, as recorded in the website's art/LICENSES.md at origin/main c6f10bc, read 2026-11-02"
+  credits_per_dollar:
+    value: 211
+    source: "Computed in the website's art/LICENSES.md from `comfy cloud status` (4,082 credits for $19.35), 2026-11-02"
+  open_weight_gpu_time:
+    credits: null
+    source: "Comfy publishes no per-run rate for template runs; plan credits pay for active GPU time (comfy.org/pricing, per the website's art/LICENSES.md, read 2026-11-02). The first approved run measures it."
+  ltx_paid_node_reference:
+    credits_per_second_720p: 27.16
+    source: "Comfy Partner Node pricing, LTX-2.5 Fast node, per the website's art/LICENSES.md, read 2026-11-02"
+    note: "A ceiling for comparison only. This queue uses the open-weight templates, not this node. At this rate one 9.7 s take would cost about 264 credits (computed here)."
+
+totals:
+  computed: here, from rates and the items below
+  bria_runs: 55
+  bria_credits: 663.85
+  bria_dollars: 3.15
+  bria_runs_if_no_conditional: 51
+  bria_credits_if_no_conditional: 615.57
+  gpu_jobs: 22
+  gpu_credits: null
+  gpu_credits_note: "No published rate for open-weight template runs (rates.open_weight_gpu_time). The pilot clip measures it before any batch."
+
+items:
+  # Pilot: one hero and one keeper, checked against the shipped Anima art before
+  # any batch (the "first run" in baseline/v2/art-DIRECTION.md).
+  - id: pilot-hero-hall
+    phase: pilot
+    what: The great hall with founders at a long table and the Flatirons through the arch, to compare with the shipped hero
+    replaces: null
+    template: art/prompts/hero.vgl.json
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "21:9", resolution: 1MP}
+    takes: {count: 1, goal: true}
+    estimate: {credits: 12.07, basis: "1 take x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: pilot-keeper-communitas
+    phase: pilot
+    what: Communitas at the open doors, to check that the fixed sheet holds her look
+    replaces: null
+    template: art/prompts/keeper.vgl.json
+    keeper: art/keepers/communitas.yaml
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "3:4", resolution: 1MP}
+    takes: {count: 1, goal: true}
+    estimate: {credits: 12.07, basis: "1 take x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  # Stills
+  - id: still-hero-hall
+    phase: still
+    what: Home hero, the great hall carved in granite, founders at work, a real Front Range view through the arch
+    replaces: hero/hall
+    template: art/prompts/hero.vgl.json
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "21:9", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-region-photon-mountain
+    phase: still
+    what: Photon Mountain's light works above Boulder, with the Flatirons and the plains to Denver
+    replaces: regions/photon-mountain
+    template: art/prompts/scene.vgl.json (kind region)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-region-space-peak
+    phase: still
+    what: Space Peak's observatory workshop above Colorado Springs, with Pikes Peak behind
+    replaces: regions/space-peak
+    template: art/prompts/scene.vgl.json (kind region)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-region-fusion-canyon
+    phase: still
+    what: Fusion Canyon's sun forge on the open plain near Fort Collins, with the canyon mouth far off
+    replaces: regions/fusion-canyon
+    template: art/prompts/scene.vgl.json (kind region)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-keeper-communitas
+    phase: still
+    what: Communitas, Keeper of the Doors, half body
+    replaces: agents/communitas and agents/communitas-small
+    template: art/prompts/keeper.vgl.json
+    keeper: art/keepers/communitas.yaml
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "3:4", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-keeper-resourcus
+    phase: still
+    what: Resourcus, Keeper of the Canvas, half body
+    replaces: agents/resourcus and agents/resourcus-small
+    template: art/prompts/keeper.vgl.json
+    keeper: art/keepers/resourcus.yaml
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "3:4", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-keeper-publicus
+    phase: still
+    what: Publicus, Herald of the Hall, half body
+    replaces: agents/publicus and agents/publicus-small
+    template: art/prompts/keeper.vgl.json
+    keeper: art/keepers/publicus.yaml
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "3:4", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-boulder
+    phase: still
+    what: Boulder's main street and creek under the Flatirons, founders and neighbors in the square
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-golden
+    phase: still
+    what: Golden on Clear Creek between the Table Mountains, with the School of Mines on the hill and no lettered landmark
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-denver
+    phase: still
+    what: Denver's lights and skyline on the plain, seen from the foothills at dusk with warm windows
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-colorado-springs
+    phase: still
+    what: Colorado Springs under Pikes Peak, with the cog railway on the mountain
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-manitou-springs
+    phase: still
+    what: Manitou Springs' Victorian main street at the foot of Pikes Peak, its springs shown as they are
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-fort-collins
+    phase: still
+    what: Old Town Fort Collins by the Cache la Poudre, with Horsetooth Mountain on the western skyline
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-town-greeley
+    phase: still
+    what: Greeley on the High Plains, farms and windpumps under a wide sky, the Front Range low in the west
+    replaces: null
+    template: art/prompts/scene.vgl.json (kind town)
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "16:9", resolution: 1MP}
+    takes: {count: 2, goal: true}
+    estimate: {credits: 24.14, basis: "2 takes x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  - id: still-tile-granite
+    phase: still
+    what: A daylight granite tile, cool pink-grey with fine grain, for a granite ground
+    replaces: null
+    template: art/prompts/tile.vgl.json
+    model: FIBO 2.0
+    route: Comfy Cloud Bria node api_bria_fibo2_t2i
+    tier: 3
+    size: {aspect_ratio: "1:1", resolution: 1MP}
+    takes: {count: 3, goal: true}
+    estimate: {credits: 36.21, basis: "3 takes x rates.bria_node_run", computed: here}
+    needed_if: The chosen concept or the v3 tokens use a granite ground in daylight. The shipped stone, parchment and night-stone tiles regrade without a new render (art/DIRECTION.md, Texture tiles).
+    status: "blocked: paul-queue-1-2"
+
+  # Edits
+  - id: edit-fixes
+    phase: edit
+    what: One masked FIBO 2.0 Edit pass per approved still, for hands, drift in a keeper's look and cleanup
+    replaces: null
+    template: The approved stills, with edit_instruction (art/DIRECTION.md, Edits)
+    model: FIBO 2.0 Edit
+    route: Comfy Cloud Bria node api_bria_image_edit
+    tier: 3
+    size: {aspect_ratio: as the source still}
+    takes: {count: 15, goal: true, basis: "one per final still: 1 hero, 3 regions, 3 keepers, 7 towns and 1 tile"}
+    estimate: {credits: 181.05, basis: "15 runs x rates.bria_node_run", computed: here}
+    status: "blocked: paul-queue-1-2"
+
+  # Upscales
+  - id: upscale-finals
+    phase: upscale
+    what: A 2x upscale of each approved hero, region, keeper and town still, before the website's make-finals crops them
+    replaces: null
+    template: The approved stills
+    model: SeedVR2 3B
+    route: Comfy Cloud template utility_seedvr2_3b_int8_upscale_image
+    tier: 2
+    size: {scale: 2}
+    takes: {count: 14, goal: true, basis: "1 hero, 3 regions, 3 keepers and 7 towns"}
+    estimate: {credits: null, basis: rates.open_weight_gpu_time}
+    status: "blocked: paul-queue-1-2"
+
+  # Clips (art/motion.md)
+  - id: clip-hero-hall-loop
+    phase: clip
+    what: The home hero's ambient loop, with lantern light, embers, the molten channel and banners
+    replaces: null
+    template: The approved still-hero-hall
+    model: LTX-2.5
+    route: Comfy Cloud template video_ltx2_5_flf2v, the same frame first and last
+    tier: 2
+    size: {render: [1280, 736], ship: [1280, 720], fps: 24, frames: 233, generate_audio: false, source: art/motion.md, Frame and size math}
+    takes: {count: 2, goal: true}
+    estimate: {credits: null, basis: rates.open_weight_gpu_time}
+    status: "blocked: paul-queue-1-2"
+
+  - id: clip-region-photon-mountain-loop
+    phase: clip
+    what: Photon Mountain's loop, with light moving through prisms in warm rainbows, and lanterns glowing
+    replaces: null
+    template: The approved still-region-photon-mountain
+    model: LTX-2.5
+    route: Comfy Cloud template video_ltx2_5_flf2v, the same frame first and last
+    tier: 2
+    size: {render: [1280, 736], ship: [1280, 720], fps: 24, frames: 233, generate_audio: false, source: art/motion.md, Frame and size math}
+    takes: {count: 2, goal: true}
+    estimate: {credits: null, basis: rates.open_weight_gpu_time}
+    status: "blocked: paul-queue-1-2"
+
+  - id: clip-region-space-peak-loop
+    phase: clip
+    what: Space Peak's loop, with the telescope dome turning slowly and an orrery ticking
+    replaces: null
+    template: The approved still-region-space-peak
+    model: LTX-2.5
+    route: Comfy Cloud template video_ltx2_5_flf2v, the same frame first and last
+    tier: 2
+    size: {render: [1280, 736], ship: [1280, 720], fps: 24, frames: 233, generate_audio: false, source: art/motion.md, Frame and size math}
+    takes: {count: 2, goal: true}
+    estimate: {credits: null, basis: rates.open_weight_gpu_time}
+    status: "blocked: paul-queue-1-2"
+
+  - id: clip-region-fusion-canyon-loop
+    phase: clip
+    what: Fusion Canyon's loop, with the small sun glowing softly in its brass coils and grass moving on the plain
+    replaces: null
+    template: The approved still-region-fusion-canyon
+    model: LTX-2.5
+    route: Comfy Cloud template video_ltx2_5_flf2v, the same frame first and last
+    tier: 2
+    size: {render: [1280, 736], ship: [1280, 720], fps: 24, frames: 233, generate_audio: false, source: art/motion.md, Frame and size math}
+    takes: {count: 2, goal: true}
+    estimate: {credits: null, basis: rates.open_weight_gpu_time}
+    status: "blocked: paul-queue-1-2"

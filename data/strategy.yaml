@@ -1,0 +1,581 @@
+# Colorado Startups brand strategy. Owner: S1 Strategy (CLAUDE.md folder table).
+#
+# Precedence: decisions.md wins over this file. This file wins over every copy
+# of the strategy elsewhere (the website, the LinkedIn kit, decks); fix a copy
+# that disagrees from here. The candidates, rubric scores and blind reviews
+# behind purpose, mission, vision and tagline live in
+# research/strategy/candidates.md.
+#
+# Figures: every number about the world carries `source:` (a URL or a repo
+# path, plus the date it was read) or `goal: true`. Dates are quoted strings so
+# every YAML loader reads them the same way. Website paths point at
+# Colorado-Startups/coloradostartups-site, origin/main c6f10bc.
+#
+# Top-level keys
+#   meta          Status, owner, date and how this file was made.
+#   purpose       Why Colorado Startups exists: the belief under everything else.
+#   vision        The future the community works toward.
+#   mission       What Colorado Startups does now, and for whom.
+#   values        Five values. Each has a proof behavior (what the community
+#                 visibly does) and a one-word icon idea.
+#   positioning   The one-sentence positioning statement, its parts, and the
+#                 plain descriptor and boilerplate opener.
+#   promise       What a founder gets on coming in (the live homepage line).
+#   tagline       The line beside the name, its score, and the line it replaces.
+#   pyramid       Layer order, base to peak, for the guide's "Purpose to
+#                 promise" mountain.
+#   audiences     Rings with founders at the center, mapped to the eight
+#                 welcome-desk doors.
+#   personas      Four personas built from the doors: need, door, proof point
+#                 and best channel.
+#   entry_points  Category entry points: the moments someone should think of
+#                 Colorado Startups.
+#   messaging     The messaging pyramid: the promise, three pillars, and
+#                 sourced proof points.
+#   landscape     A 2x2 positioning map of Colorado ecosystem organizations:
+#                 the two axes and why, each placement, its evidence and source.
+#   guardrails    Topics and claims this strategy never uses.
+
+meta:
+  owner: "S1 Strategy"
+  status: "Proposed in Wave 1. Decisions 23 to 26 in decisions.md log the choices."
+  updated: "2026-11-02"
+  method: "Every statement was chosen from research. Purpose, mission, vision and tagline were scored with a written rubric, then by two rounds of three blind reviewer agents; see research/strategy/candidates.md."
+
+purpose:
+  statement: "Founders build better companies when they learn from founders who have been there."
+  kind: "A belief. It explains why the community exists; the mission says what Colorado Startups does about it."
+  proof:
+    - text: "Brad Feld's Boulder Thesis, from his book Startup Communities, holds that entrepreneurs must lead a startup community."
+      source: { url: "https://feld.com/archives/2014/04/empirical-support-boulder-thesis/", read: "2026-11-02" }
+    - text: "A Kauffman Foundation study, summarized in the same post, found high demand among entrepreneurs for peer-based learning and networking."
+      source: { url: "https://feld.com/archives/2014/04/empirical-support-boulder-thesis/", read: "2026-11-02" }
+
+vision:
+  statement: "Every Colorado founder knows where to turn."
+  score:
+    total: 10
+    of: 10
+    basis: "Median of the round 2 blind review; the author scored it 10 too."
+    source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
+  proof:
+    - text: "The welcome desk offers eight doors, from an idea to just curious, and points each visitor to a first step."
+      source: { url: "https://coloradostartups.org/", read: "2026-11-02" }
+    - text: "Startup Resources maps Colorado help by company stage, from a first idea to a growing company."
+      source: { url: "https://coloradostartups.org/ecosystem-canvas/", read: "2026-11-02" }
+  source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
+  measure: "Unaided recall. Ask Colorado founders where they would turn for help building a company, and count who names Colorado Startups. A question for S11's survey; this file sets no target."
+
+mission:
+  statement: "Unite and help founders as they build the next generation of Colorado companies."
+  score:
+    total: 10
+    of: 10
+    basis: "Median of both blind-review rounds; the author scored it 10 too."
+    source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
+  proof:
+    - text: "The founder's bio on the Team page names the same focus: uniting and helping founders as they build the next generation of Colorado companies."
+      source: { url: "https://coloradostartups.org/team/", read: "2026-11-02" }
+    - text: "The Oct 6, 2026 dispatch names uniting and helping founders as the focus now."
+      source: { url: "https://coloradostartups.org/dispatches/2026-10-06-a-new-chapter/", read: "2026-11-02" }
+
+values:
+  - id: founders-first
+    name: "Founders first"
+    means: "Every page, line and channel speaks to founders before anyone else."
+    proof_behavior: "The welcome desk opens with the three founder doors (idea, building, hiring), and the founders forum is for founders only."
+    icon: "anvil"
+    source:
+      - { url: "https://coloradostartups.org/", read: "2026-11-02" }
+      - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+  - id: a-door-for-everyone
+    name: "A door for everyone"
+    means: "The people who back founders, and anyone curious, are welcome and shown where they fit."
+    proof_behavior: "The welcome desk has eight doors, from founders to students and the just curious, and the Slack is free to join."
+    icon: "door"
+    source:
+      - { url: "https://coloradostartups.org/", read: "2026-11-02" }
+      - { url: "https://www.launchpass.com/colorado-startups", read: "2026-11-02" }
+  - id: ask-and-offer
+    name: "Ask and offer"
+    means: "Bring what you need, give what you can, and do both in the open."
+    proof_behavior: "Every Wednesday, asks and offers go in one thread in the Slack and the LinkedIn Group, where founders answer founders."
+    icon: "handshake"
+    source:
+      - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+      - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+  - id: show-the-source
+    name: "Show the source"
+    means: "Every claim can be checked: a link for each listing, a source for each figure."
+    proof_behavior: "Every Leaderboard listing links to the sources used, and Resourcus cites only resources on the map and says so when nothing fits."
+    icon: "assay"
+    icon_note: "An assay balance, from Colorado's mining heritage: the tool that tests what is real."
+    source:
+      - { url: "https://coloradostartups.org/leaderboard/", read: "2026-11-02" }
+      - { path: "baseline/v2/dwarves.yaml", read: "2026-11-02" }
+  - id: people-lead
+    name: "People lead"
+    means: "People run the community. The AI keepers help, say they are AI, and never moderate."
+    proof_behavior: "Every moderator and organizer seat is for a person, and the site's footer names each keeper as an AI agent."
+    icon: "lantern"
+    source:
+      - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+      - { url: "https://coloradostartups.org/", read: "2026-11-02" }
+
+positioning:
+  statement: "For founders building in Colorado, Colorado Startups is the open community, free to join and there every day, where founders meet founders and find what their company needs next."
+  target: "Founders building companies in Colorado. Talent, capital and service providers are welcome and come second (website decision 46)."
+  frame_of_reference: "A startup community."
+  point_of_difference: "Open, founders-first and always on. Its nearest neighbors on the landscape map meet once a year, meet weekly in one city, serve rural Colorado only, or list resources with no community around them."
+  reasons_to_believe: "The three messaging pillars and their proof points (messaging.pillars)."
+  descriptor: "A community of founders building companies in Colorado."
+  descriptor_use: "The plain line that says what Colorado Startups is. Use it in meta descriptions, directory listings, the LinkedIn tagline field, and anywhere a literal label serves better than the tagline. It was the tagline until this file (website decision 46)."
+  boilerplate_opener: "Colorado Startups is a community of founders building companies in Colorado."
+  boilerplate_opener_note: "The first sentence of every boilerplate (S3). It changes decision 46's 'entrepreneurs' to 'founders', so the opener, the descriptor and the founders-first rule share one word."
+  source:
+    - { path: "00_project_system/decisions.md, decision 46 (website)", read: "2026-11-02" }
+    - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+    - { url: "https://www.launchpass.com/colorado-startups", read: "2026-11-02" }
+
+promise:
+  statement: "Come in, meet the founders already building here and find what your company needs next."
+  note: "Kept word for word from the live homepage, so the site and the strategy make one promise."
+  source: { url: "https://coloradostartups.org/", read: "2026-11-02" }
+
+tagline:
+  line: "Colorado founders, in good company."
+  replaces: "A community of founders building companies in Colorado."
+  replaces_source: { path: "00_project_system/decisions.md, decision 46 (website)", read: "2026-11-02" }
+  why: "It beat decision 46's line on the rubric. 'In good company' means two things at once: founders among good people, and founders among good companies. It says no founder is alone without borrowing the 'not alone' wording two peers already use. The old line stays as the descriptor."
+  score:
+    total: 10
+    of: 10
+    replaced_line_total: 9
+    basis: "Median of the round 2 blind review; the author scored it 10 and the old line 9."
+    source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
+  clearance: "No Colorado founder community uses the line (web search, 2026-11-02). The idiom is common in other trades, so S13's USPTO knockout search covers the tagline with the mark."
+  source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
+  reverse: "Put the descriptor back as the tagline. Wave 3 (W2) edits the website's footer, OG cards and tests either way."
+
+pyramid:
+  order: [purpose, vision, mission, values, positioning, promise]
+  note: "Base to peak. The guide's mountain draws one layer per key; a click on a layer shows that key's proof."
+
+audiences:
+  rule: "Founders come first in every page and line. The wider startup community is welcome and comes second."
+  source:
+    - { path: "00_project_system/decisions.md, decision 46 (website)", read: "2026-11-02" }
+    - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+  rings:
+    - ring: 1
+      label: "Founders"
+      who: "People with an idea, people building a company, and founders hiring for one."
+      segments:
+        - id: founders
+          label: "Founders"
+          doors: [idea, building, hiring]
+    - ring: 2
+      label: "The startup community that backs founders"
+      segments:
+        - id: talent
+          label: "Talent"
+          who: "People who want to join a startup, or already work at one."
+          doors: [talent]
+        - id: capital
+          label: "Capital"
+          who: "Angels, VCs and banks who back Colorado companies."
+          doors: [investing]
+          rule: "Never point capital at the Leaderboard (website decision 17)."
+        - id: service-providers
+          label: "Service providers"
+          who: "Lawyers, accountants, agencies and others who serve startups."
+          doors: [service-provider]
+          rule: "Offers go in the Wednesday Asks and Offers thread, the one place for offers."
+    - ring: 3
+      label: "People finding their way in"
+      segments:
+        - id: students
+          label: "Students"
+          doors: [student]
+        - id: curious
+          label: "The curious"
+          doors: [curious]
+  doors:
+    note: "The eight welcome-desk doors, in the order the homepage shows them."
+    source:
+      - { url: "https://coloradostartups.org/", read: "2026-11-02" }
+      - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    list:
+      - { id: idea, label: "I have an idea for a company", ring: 1 }
+      - { id: building, label: "I'm building a company", ring: 1 }
+      - { id: hiring, label: "I'm hiring for my startup", ring: 1 }
+      - { id: talent, label: "I want to work at a startup", ring: 2 }
+      - { id: investing, label: "I invest in or lend to startups", ring: 2 }
+      - { id: service-provider, label: "I offer services to startups", ring: 2 }
+      - { id: student, label: "I'm a student", ring: 3 }
+      - { id: curious, label: "I'm just curious", ring: 3 }
+
+personas:
+  - id: first-time-founder
+    label: "The first-time founder"
+    ring: 1
+    source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    door: idea
+    doors: [idea, student]
+    need: "Test an idea, and learn who in Colorado has done this before."
+    proof_point:
+      text: "The Idea stage of Startup Resources lists 71 Educate resources and 45 Validate resources."
+      source: { url: "https://coloradostartups.org/ecosystem-canvas/", read: "2026-11-02" }
+    best_channel:
+      name: "Startup Resources, Idea stage"
+      why: "The idea and student doors both send visitors there first; the idea door then points to the Slack for early questions."
+      source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+  - id: building-founder
+    label: "The building founder"
+    ring: 1
+    source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    door: building
+    doors: [building, hiring]
+    need: "Answers, introductions and first hires this week, from people who have been there."
+    proof_point:
+      text: "In the Wednesday Asks and Offers thread, founders answer founders and post their open roles."
+      source:
+        - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+        - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+    best_channel:
+      name: "The Slack"
+      why: "Everyday conversation with founders across Colorado; the building and hiring doors both send founders there first."
+      source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+  - id: startup-joiner
+    label: "The startup joiner"
+    ring: 2
+    source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    door: talent
+    doors: [talent, curious]
+    need: "Find a way into Colorado startups: a role, a first meetup, or a feel for the place."
+    proof_point:
+      text: "Founders post open roles in the Wednesday Asks and Offers thread in the Slack."
+      source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    best_channel:
+      name: "The Slack's Wednesday thread"
+      why: "The talent door starts there. The curious door starts with the Startupers newsletter, which arrives every other Tuesday from Nov 17, 2026."
+      source:
+        - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+        - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+  - id: backer
+    label: "The backer"
+    ring: 2
+    source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    door: investing
+    doors: [investing, service-provider]
+    need: "Meet founders and offer help without crowding the channels founders use."
+    proof_point:
+      text: "Offers have one home, the Wednesday Asks and Offers thread, and the Launch stage of Startup Resources lists 157 service providers for founders to find."
+      source:
+        - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+        - { url: "https://coloradostartups.org/ecosystem-canvas/", read: "2026-11-02" }
+    best_channel:
+      name: "Community events for investors; the Wednesday thread for service providers"
+      why: "The investing door starts with events and the Startupers newsletter; the service-provider door starts with the Wednesday thread."
+      source: { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+    rule: "Never point investors at the Leaderboard (website decision 17)."
+
+entry_points:
+  note: "Category entry points: the moments someone should think of Colorado Startups first. Each names its door and where the community answers."
+  source:
+    - { url: "https://coloradostartups.org/", read: "2026-11-02" }
+    - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+    - { path: "data/communitas/routes.yaml (website)", read: "2026-11-02" }
+  list:
+    - moment: "I have an idea and want to know who in Colorado has done this before."
+      door: idea
+      answer: "Startup Resources, Idea stage; then early questions in the Slack."
+    - moment: "I'm stuck on something this week and need someone who has been there."
+      door: building
+      answer: "The Wednesday Asks and Offers thread."
+    - moment: "I need a cofounder or my first hire."
+      door: hiring
+      answer: "The Slack, and the open-roles post in the Wednesday thread."
+    - moment: "I need a lawyer, accountant or agency that works with startups."
+      door: building
+      answer: "The service providers in Startup Resources; ask Resourcus."
+    - moment: "Which program or investor fits my stage?"
+      door: building
+      answer: "Startup Resources, sorted by stage; ask Resourcus."
+    - moment: "I'm new to Colorado, or new to startups, and want to meet founders."
+      door: curious
+      answer: "The Monday Welcome thread and the event calendar."
+    - moment: "We hit a milestone and want to tell people."
+      door: building
+      answer: "The Friday Colorado Wins thread, and a Leaderboard nomination."
+    - moment: "I want to work at a Colorado startup."
+      door: talent
+      answer: "Open roles in the Wednesday thread."
+    - moment: "Startup week is over. Where does the conversation keep going?"
+      door: building
+      answer: "The Slack, every day of the year."
+
+messaging:
+  promise: "Come in, meet the founders already building here and find what your company needs next."
+  source: { url: "https://coloradostartups.org/", read: "2026-11-02" }
+  rule: "Proof points carry a source in the same entry. No member counts anywhere, sourced or not, until S11 measures them."
+  pillars:
+    - id: meet
+      pillar: "Meet the founders building here"
+      line: "Founders across Colorado, in the Slack every day and in person on the Front Range."
+      proof_points:
+        - text: "The Slack is free to join."
+          source: { url: "https://www.launchpass.com/colorado-startups", read: "2026-11-02" }
+        - text: "Three weekly threads: Monday Welcome, Wednesday Asks and Offers, and Friday Colorado Wins."
+          source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+        - text: "Three regional outposts, Photon Mountain, Space Peak and Fusion Canyon, each with a seat for a person to organize it."
+          source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+        - text: "Founded in 2014 by Paul Foley."
+          source: { url: "https://coloradostartups.org/llms.txt", read: "2026-11-02" }
+    - id: find
+      pillar: "Find what your company needs next"
+      line: "Colorado help for every stage, from a first idea to a growing company."
+      proof_points:
+        - text: "Startup Resources lists 529 Colorado resources, sorted by company stage."
+          source: { url: "https://coloradostartups.org/ecosystem-canvas/", read: "2026-11-02" }
+        - text: "Resourcus, an AI agent, answers from that map and says plainly when nothing fits."
+          source: { path: "baseline/v2/dwarves.yaml", read: "2026-11-02" }
+        - text: "Startup events across Colorado sit on one calendar."
+          source: { url: "https://coloradostartups.org/event-calendar/", read: "2026-11-02" }
+    - id: see
+      pillar: "See what Colorado founders are building"
+      line: "Wins, news and the companies growing here, each with its source."
+      proof_points:
+        - text: "As of 2026-10-18, the Leaderboard's edition lists 115 Colorado companies, each linked to its sources."
+          source: { url: "https://coloradostartups.org/leaderboard/", read: "2026-11-02" }
+        - text: "Founders post their wins in the Friday Colorado Wins thread."
+          source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+        - text: "The Startupers newsletter carries founder wins, new resources and Leaderboard editions, every other Tuesday from Nov 17, 2026."
+          source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+      rule: "The Leaderboard recognizes companies; it never connects to investing."
+
+landscape:
+  read: "2026-11-02"
+  source: { note: "Each organization below carries its own URL and read date.", path: "data/strategy.yaml#landscape.organizations", read: "2026-11-02" }
+  method: "Each organization was placed from its own pages, read on 2026-11-02. Positions run from 0 to 100 on each axis. They are S1's placements from the cited evidence, not measurements."
+  axes:
+    x:
+      label: "Who it centers"
+      low: "The wider ecosystem: industry, investors, researchers or small businesses of every type"
+      high: "Founders building companies"
+      why: "Founders first is the brand's core rule (website decision 46), and it is the first choice every visitor makes at the welcome desk: which door is mine?"
+    y:
+      label: "How you get in"
+      low: "Selective or paid: apply by a deadline, pitch, or pay dues"
+      high: "Open and free: anyone can join today"
+      why: "It is the second question every visitor asks. It is also where Colorado's organizations split most: accelerators and investor networks select, associations charge dues, and the weeks and meetups stay open."
+  axes_not_chosen: "Reach (one city or the whole state) and rhythm (every day or once a year) also separate the field. They ride on each dot instead, because a map drawn on them would sort events from communities rather than show what founders choose between."
+  quadrants:
+    top_right: "Open, for founders"
+    top_left: "Open, for the whole ecosystem"
+    bottom_right: "Selective, for founders"
+    bottom_left: "Selective or paid, for the industry"
+  read_out: "Colorado Startups shares the open, founders-first corner with Boulder Startup Week, 1 Million Cups Denver, Startup Colorado, Colorado Startup Resources and, at its edge, Exponential Impact. Rhythm and reach set it apart. The week meets once a year, the meetups meet weekly in one city, Startup Colorado serves rural Colorado, and the directory has no community around it. On this map, only Colorado Startups is open, founders-first and running every day across the state."
+  name_risk: "Three neighbors carry near-mirror names: Startup Colorado, Colorado Startup Week (Denver's startup week until it took the Colorado name in 2025) and Colorado Startup Resources. The name alone cannot carry recognition here, so the mark has to (an input for the concept judgment and S13)."
+  organizations:
+    - id: colorado-startups
+      name: "Colorado Startups"
+      self: true
+      kind: "Community"
+      x: 90
+      y: 90
+      rhythm: "Every day (the Slack), weekly threads, a newsletter every other Tuesday"
+      reach: "Statewide online; outposts on the Front Range"
+      x_why: "Founders first; the people who back them are welcome second."
+      y_why: "The Slack is free to join through an invite form; a person approves each LinkedIn Group member."
+      source:
+        - { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
+        - { url: "https://www.launchpass.com/colorado-startups", read: "2026-11-02" }
+        - { url: "https://coloradostartups.org/llms.txt", read: "2026-11-02" }
+    - id: colorado-startup-week
+      name: "Colorado Startup Week"
+      kind: "Annual event"
+      x: 45
+      y: 100
+      rhythm: "Once a year, five days in September"
+      reach: "Denver venue, statewide name"
+      x_why: "Speaks to entrepreneurs, investors, creatives and changemakers alike."
+      y_why: "Free and open to all."
+      evidence: "Began as Denver's startup week and took the Colorado name in 2025; calls itself the largest free event of its kind in North America."
+      source:
+        - { url: "https://www.costartupweek.com/", read: "2026-11-02" }
+    - id: boulder-startup-week
+      name: "Boulder Startup Week"
+      kind: "Annual event"
+      x: 65
+      y: 100
+      rhythm: "Once a year, five days in May"
+      reach: "Boulder"
+      x_why: "Bills itself as a conference for entrepreneurs."
+      y_why: "Free."
+      source:
+        - { url: "https://boulderstartupweek.com/", read: "2026-11-02" }
+    - id: one-million-cups-denver
+      name: "1 Million Cups Denver"
+      kind: "Weekly meetup"
+      x: 80
+      y: 95
+      rhythm: "Every Wednesday morning"
+      reach: "Denver"
+      x_why: "A Kauffman Foundation program for local entrepreneurs, with a Denver chapter."
+      y_why: "A public morning meetup on the community calendar; no fee is listed."
+      source:
+        - { url: "https://coloradostartups.org/event-calendar/", read: "2026-11-02" }
+        - { url: "https://feld.com/archives/2014/04/empirical-support-boulder-thesis/", read: "2026-11-02" }
+    - id: startup-colorado
+      name: "Startup Colorado"
+      kind: "Nonprofit community and programs"
+      x: 70
+      y: 80
+      rhythm: "Year-round, plus annual startup weeks and days"
+      reach: "Rural Colorado"
+      x_why: "Serves rural founders and the ecosystem builders who support them."
+      y_why: "An online community anyone can join; program fees are not stated on its pages."
+      evidence: "A 501(c)(3) nonprofit for entrepreneurs and ecosystem builders in rural Colorado counties. Its name mirrors ours."
+      source:
+        - { url: "https://startupcolorado.org/", read: "2026-11-02" }
+        - { url: "https://startupcolorado.org/about/", read: "2026-11-02" }
+        - { url: "https://startupcolorado.org/join-the-community/", read: "2026-11-02" }
+    - id: colorado-startup-resources
+      name: "Colorado Startup Resources"
+      kind: "Online directory"
+      x: 75
+      y: 90
+      rhythm: "Always on (a website)"
+      reach: "Statewide, sorted by region"
+      x_why: "Built for Colorado founders, with listings organizations can claim."
+      y_why: "Free basic accounts; a paid partner plan for listed organizations."
+      evidence: "A project of Humans In Common listing about 2,200 resources; its name sits close to our Startup Resources page."
+      source:
+        - { url: "https://coloradostartupresources.com/", read: "2026-11-02" }
+    - id: exponential-impact
+      name: "Exponential Impact"
+      kind: "Accelerator and weekly meetup"
+      x: 85
+      y: 55
+      rhythm: "Weekly Tech Connect; accelerator cohorts"
+      reach: "Colorado Springs"
+      x_why: "Calls itself founder-first, for emerging-tech founders."
+      y_why: "The weekly Tech Connect coffee is open; the accelerator takes founders by application."
+      source:
+        - { url: "https://exponentialimpact.com/", read: "2026-11-02" }
+    - id: techstars-boulder
+      name: "Techstars Boulder Accelerator"
+      kind: "Accelerator"
+      x: 95
+      y: 10
+      rhythm: "One cohort a year, about three months"
+      reach: "Boulder"
+      x_why: "Backs founders and their companies."
+      y_why: "Founders apply by a deadline and are selected into a cohort."
+      source:
+        - { url: "https://www.techstars.com/accelerators/boulder", read: "2026-11-02" }
+        - { url: "https://www.techstars.com/accelerators", read: "2026-11-02" }
+    - id: innosphere
+      name: "Innosphere"
+      kind: "Science and technology accelerator"
+      x: 70
+      y: 20
+      rhythm: "Program cohorts, year-round"
+      reach: "Fort Collins and the wider region"
+      x_why: "Serves science and technology startups, plus regional ecosystem programs."
+      y_why: "Companies apply to its accelerator."
+      source:
+        - { url: "https://innosphere.org/", read: "2026-11-02" }
+    - id: venture-partners-cu-boulder
+      name: "Venture Partners at CU Boulder"
+      kind: "University commercialization office"
+      x: 55
+      y: 50
+      rhythm: "Year-round programs"
+      reach: "Boulder campus"
+      x_why: "Serves university researchers, inventors and creators."
+      y_why: "Several workshops are open to anyone; others are for teams commercializing CU work."
+      source:
+        - { url: "https://www.colorado.edu/venturepartners/", read: "2026-11-02" }
+    - id: new-tech-colorado
+      name: "New Tech Colorado"
+      kind: "Monthly meetup"
+      x: 40
+      y: 85
+      rhythm: "Monthly"
+      reach: "Boulder, with events in other Front Range cities"
+      x_why: "For technologists, founders, investors and students who want to see what is next in tech."
+      y_why: "A public Meetup group with RSVPs; no fee is listed."
+      source:
+        - { url: "https://www.meetup.com/bdnewtech/", read: "2026-11-02" }
+    - id: colorado-sbdc
+      name: "Colorado SBDC Network"
+      kind: "Public advising network"
+      x: 30
+      y: 85
+      rhythm: "Year-round"
+      reach: "Statewide: 14 service centers and 25+ satellites"
+      x_why: "Serves small businesses of every type; startups are one group among many."
+      y_why: "No-cost, confidential advising for any eligible small business."
+      source:
+        - { url: "https://sbdc.colorado.gov/no-cost-advising", read: "2026-11-02" }
+    - id: built-in-colorado
+      name: "Built In Colorado"
+      kind: "Tech jobs and news site"
+      x: 15
+      y: 70
+      rhythm: "Always on (a website)"
+      reach: "Colorado, online"
+      x_why: "Serves tech professionals and the employers hiring them."
+      y_why: "Free to browse; employers reach candidates through a paid hiring membership (inferred from its Hire Now link)."
+      source:
+        - { url: "https://www.builtincolorado.com/", read: "2026-11-02" }
+    - id: colorado-technology-association
+      name: "Colorado Technology Association"
+      kind: "Industry association"
+      x: 15
+      y: 20
+      rhythm: "Year-round"
+      reach: "Statewide"
+      x_why: "Speaks for the tech industry, from startups to major employers, including on policy."
+      y_why: "Paid membership tiers."
+      source:
+        - { url: "https://www.coloradotechnology.org/", read: "2026-11-02" }
+        - { url: "https://www.coloradotechnology.org/membership", read: "2026-11-02" }
+    - id: rockies-venture-club
+      name: "Rockies Venture Club"
+      kind: "Angel investor network"
+      x: 25
+      y: 20
+      rhythm: "Monthly investor forums"
+      reach: "Colorado"
+      x_why: "Built around angel investors; startups apply to pitch them."
+      y_why: "Membership tiers for investors, startups and companies; startups apply to pitch."
+      source:
+        - { url: "https://www.rockiesventureclub.org/", read: "2026-11-02" }
+        - { url: "https://www.rockiesventureclub.org/membership", read: "2026-11-02" }
+    - id: elevate-quantum
+      name: "Elevate Quantum"
+      kind: "Regional tech hub"
+      x: 10
+      y: 30
+      rhythm: "Year-round"
+      reach: "Colorado, New Mexico and Wyoming"
+      x_why: "Serves the quantum industry: shared lab space, facilities and workforce training."
+      y_why: "Companies lease lab space and join its workforce consortium."
+      source:
+        - { url: "https://www.elevatequantum.org/", read: "2026-11-02" }
+
+guardrails:
+  note: "This strategy, and every line built from it, stays clear of these."
+  list:
+    - "Political or election content."
+    - "Fund or fundraising talk, and the terms of the leadership transition."
+    - "Member counts without a source in the same sentence."
+    - "Any link between the Leaderboard and investing."
+    - "Partnership or endorsement claims that are not true."
+    - "Franchise names, and anything that imitates a game or film franchise."
+  source:
+    - { path: "baseline/v2/voice.md", read: "2026-11-02" }
+    - { path: "CLAUDE.md", read: "2026-11-02" }

@@ -1,0 +1,13 @@
+[
+  {
+    "id": "issues.open_bugs",
+    "params": {
+      "repo": "Colorado-Startups/brand",
+      "area_labels": ["code", "documentation", "design", "usability", "security", "ci"],
+      "project_columns": ["Ideas", "Next", "Doing", "Done"],
+      "site_url": "https://colorado-startups.github.io/brand/",
+      "threat_model_covers": ["tools/", ".github/workflows/"],
+      "project_title": "Brand"
+    }
+  }
+]
