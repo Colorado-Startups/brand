@@ -5,25 +5,35 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yml': []
     '.github/workflows/claude-review.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'anthropics/claude-code-action@v1.0.257'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'anthropics/claude-code-action@aa8a7738e48bf30a40ee499ce818bef081c5ab5e'
     '.github/workflows/cloud-test.yml': []
     '.github/workflows/pages.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/deploy-pages@v5.0.1'
-        - 'actions/setup-node@v7.1.0'
-        - 'actions/upload-pages-artifact@v5.0.0'
-        - 'soulcraft-org/git-crafter@v7.0.0'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346'
+        - 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1'
+        - 'actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9'
+        - 'soulcraft-org/git-crafter@a9d6b45b7e5ac54091123e2cda1efcfcd2f63696'
     '.github/workflows/scorecard.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'github/codeql-action@v4.39.1'
-        - 'ossf/scorecard-action@v2.5.0'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
+        - 'ossf/scorecard-action@fa7117db83c52d787ae5a89f350999701505d78e'
 dependencies:
+    'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
+        ref: 'v7.0.1'
+        commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
+        owner_id: 44036562
+        repo_id: 197814629
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
+    'actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346':
+        ref: 'v5.0.1'
+        commit: 'sha1-368f82528645a54fb793d4d04e342629a3f51346'
+        owner_id: 44036562
+        repo_id: 438112499
     'actions/deploy-pages@v5.0.1':
         ref: 'v5.0.1'
         commit: 'sha1-368f82528645a54fb793d4d04e342629a3f51346'
@@ -34,6 +44,11 @@ dependencies:
         commit: 'sha1-9000827ccba6bdab643e8b6fd33ac0654aef8333'
         owner_id: 44036562
         repo_id: 192626254
+    'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1':
+        ref: 'v7.1.0'
+        commit: 'sha1-949feb2413d6458794dcd2491c4babbbce0c15c1'
+        owner_id: 44036562
+        repo_id: 189476904
     'actions/setup-node@v7.1.0':
         ref: 'v7.1.0'
         commit: 'sha1-949feb2413d6458794dcd2491c4babbbce0c15c1'
@@ -49,6 +64,13 @@ dependencies:
         commit: 'sha1-cf430e030ddbb5b0abf93d22962f4752f3646cd9'
         owner_id: 44036562
         repo_id: 192625955
+    'actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9':
+        ref: 'v5.0.0'
+        commit: 'sha1-fc324d3547104276b827a68afc52ff2a11cc49c9'
+        owner_id: 44036562
+        repo_id: 496012378
+        uses:
+            - 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f'
     'actions/upload-pages-artifact@v5.0.0':
         ref: 'v5.0.0'
         commit: 'sha1-fc324d3547104276b827a68afc52ff2a11cc49c9'
@@ -56,6 +78,13 @@ dependencies:
         repo_id: 496012378
         uses:
             - 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f'
+    'anthropics/claude-code-action@aa8a7738e48bf30a40ee499ce818bef081c5ab5e':
+        ref: 'v1.0.257'
+        commit: 'sha1-aa8a7738e48bf30a40ee499ce818bef081c5ab5e'
+        owner_id: 76263028
+        repo_id: 986421638
+        uses:
+            - 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6'
     'anthropics/claude-code-action@v1.0.257':
         ref: 'v1.0.257'
         commit: 'sha1-aa8a7738e48bf30a40ee499ce818bef081c5ab5e'
@@ -63,11 +92,21 @@ dependencies:
         repo_id: 986421638
         uses:
             - 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6'
+    'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370':
+        ref: 'v4.39.1'
+        commit: 'sha1-9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
+        owner_id: 9919
+        repo_id: 259445878
     'github/codeql-action@v4.39.1':
         ref: 'v4.39.1'
         commit: 'sha1-9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
         owner_id: 9919
         repo_id: 259445878
+    'ossf/scorecard-action@fa7117db83c52d787ae5a89f350999701505d78e':
+        ref: 'v2.5.0'
+        commit: 'sha1-fa7117db83c52d787ae5a89f350999701505d78e'
+        owner_id: 67707773
+        repo_id: 421101922
     'ossf/scorecard-action@v2.5.0':
         ref: 'v2.5.0'
         commit: 'sha1-fa7117db83c52d787ae5a89f350999701505d78e'
@@ -78,6 +117,14 @@ dependencies:
         commit: 'sha1-0c5077e51419868618aeaa5fe8019c62421857d6'
         owner_id: 108928776
         repo_id: 512644635
+    'soulcraft-org/git-crafter@a9d6b45b7e5ac54091123e2cda1efcfcd2f63696':
+        ref: 'v7.0.0'
+        commit: 'sha1-a9d6b45b7e5ac54091123e2cda1efcfcd2f63696'
+        owner_id: 343296826
+        repo_id: 1454989683
+        uses:
+            - 'actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333'
+            - 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9'
     'soulcraft-org/git-crafter@v7.0.0':
         ref: 'v7.0.0'
         commit: 'sha1-a9d6b45b7e5ac54091123e2cda1efcfcd2f63696'
