@@ -68,31 +68,37 @@ NEGATIVE_EDIT = json.dumps({"short_description": "", "objects": [], "background_
 # Place art (Paul, 2026-11-13): each real landmark blended with its paired city from the influences (decision 30),
 # so a viewer sees both at once ("that's the Flatirons, and that's the dragon city"). Borrowed and blended, never a
 # copy: the archetype's cues, with no crest, emblem, exact building or name from any franchise.
-#   Boulder (Photon Mountain)       Flatirons      + Valdrakken  dragons
-#   Golden (Photon Mountain)        Table Mountain + Ironforge   dwarves and gnomes, the School of Mines
-#   Denver (Photon Mountain)        skyline        + Stormwind   humans
-#   Colorado Springs (Space Peak)   Pikes Peak     + Aerie Peak  gryphon-riding dwarves and gnome flying machines
-#   Fort Collins (Fusion Canyon)    Poudre Canyon  + Gnomeregan  gnome science
-DRAGONS = ("a soaring dragon city built onto the mountain: tall terraces and slender towers of pale stone with gold domes and "
-           "teal and crimson roofs climbing between the rock slabs, vast open stone landing platforms and great arched roosts "
-           "where huge dragons perch, two great dragons gliding above the slabs, crystal lanterns and beams of warm golden "
-           "light, elegant artisans' halls, luminous and majestic; warm and welcoming")
-DWARVES = ("a colossal dwarven mountain city carved into the heart of the mountain: a gigantic gate of angular, square-cut "
-           "dwarven stonework set deep into the rock, flanked by two colossal stone statues of bearded dwarf warriors leaning "
-           "on great war hammers, a broad stone stairway and causeway climbing to it, massive iron-banded doors standing open "
-           "with warm molten forge light pouring out, heavy square towers and terraced halls climbing the rock face with rows "
-           "of warm golden windows, mine headframes and ore carts, gnome clockwork lifts and brass gears beside the gate, "
-           "braziers and small torches, plain crimson and gold banners, light snow on the ledges, all carved from the "
-           "mountain's own rock; warm and welcoming, no large fire")
-HUMANS = ("a grand white-stone human capital: high white walls and round towers with deep blue slate roofs, a great keep "
-          "with tall spires, stone bridges over canals, plain blue and gold banners, warm lamplit windows; majestic and welcoming")
+#   Boulder (Photon Mountain)       Flatirons      + Valdrakken + Rivendell          dragons and elves
+#   Golden (Photon Mountain)        Table Mountain + Ironforge  + Erebor             dwarves and gnomes, the School of Mines
+#   Denver (Photon Mountain)        skyline        + Stormwind  + Edoras             men
+#   Colorado Springs (Space Peak)   Pikes Peak     + Aerie Peak + the Eagles' eyrie  gryphons, eagles, gnome flying machines
+#   Fort Collins (Fusion Canyon)    Poudre Canyon  + Gnomeregan + the Shire          gnomes and hobbits
+# (decisions 39 and 40)
+DRAGONS = ("a luminous city of dragons and elves built onto the mountain: tall terraces and slender towers of pale stone with "
+           "gold domes and teal and crimson roofs climbing between the rock slabs, graceful elven halls with tall pointed "
+           "arches, open colonnades and flowing leaf-like carvings, slender bridges over small waterfalls, vast stone landing "
+           "platforms and great arched roosts where huge dragons perch, two great dragons gliding above the slabs, crystal "
+           "lanterns and beams of warm golden light; a refuge of learning, majestic, warm and welcoming")
+DWARVES = ("a colossal dwarven mountain kingdom carved into the heart of the mountain: a gigantic gate of angular, square-cut "
+           "dwarven stonework set deep into the rock, flanked by two colossal stone statues of bearded dwarf kings leaning "
+           "on great war hammers, a clear stream flowing out from beneath the gate, a broad stone stairway and causeway "
+           "climbing to it, massive iron-banded doors standing open with warm golden light and glints of gold pouring out, "
+           "heavy square towers and terraced halls climbing the rock face with rows of warm golden windows, mine headframes "
+           "and ore carts, gnome clockwork lifts and brass gears beside the gate, braziers and small torches, plain crimson "
+           "and gold banners, light snow on the ledges, all carved from the mountain's own rock; warm and welcoming, no large fire")
+HUMANS = ("a grand capital of men: high white stone walls and a massive square-towered keep with deep blue slate roofs, and "
+          "on a green hill within the walls a great timber hall with a shining golden roof and carved horse-head gables, "
+          "stone bridges over canals, horses and riders on the open plain, plain blue, green and gold banners, warm lamplit "
+          "windows; majestic, sturdy and welcoming")
 GRYPHONS = ("a high dwarven aerie on the mountain: halls and towers of stone and timber carved into the upper cliffs, great "
-            "stone roosts where gryphons nest and launch, gryphons in flight around the peak, small gnome flying machines "
-            "and gyrocopters circling, rope lifts and wooden platforms, warm windows and braziers, plain green and gold "
-            "banners; adventurous and welcoming")
-GNOMES = ("a bright gnome city of science built into both canyon walls: brass and steel workshops with round porthole "
-          "windows, great gears and water wheels turned by the river, pipes, catwalks and lifts spanning the canyon, glowing "
-          "teal-blue energy cores, small gyrocopters, warm windows; clever, bright and welcoming")
+            "stone roosts where gryphons nest and launch and wide eyries on the summit ledges where great eagles perch, "
+            "gryphons and great eagles in flight around the peak, small gnome flying machines and gyrocopters circling, rope "
+            "lifts and wooden platforms, warm windows and braziers, plain green and gold banners; adventurous and welcoming")
+GNOMES = ("a bright village of gnome science and hobbit homes along both canyon walls: brass and steel workshops with round "
+          "porthole windows, great gears and water wheels turned by the river, pipes, catwalks and lifts spanning the canyon, "
+          "glowing teal-blue energy cores, small gyrocopters, and lower down round green and yellow doors set into grassy "
+          "banks, flower and vegetable gardens, a stone bridge over the river and a cosy inn with warm windows; clever, "
+          "homely and welcoming")
 
 
 def place(photo, crop, city, where, extra, landmark, background):
