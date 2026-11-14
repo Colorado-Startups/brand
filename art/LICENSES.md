@@ -5,7 +5,7 @@
 ```mermaid
 flowchart LR
   S("New still") --> F{"FIBO 2.0"}
-  F -->|"FIBO 2 Free plan, self-hosted"| W("✓ ≤ 1,950 calls/mo, guarded by tools/fibo_budget.py")
+  F -->|"FIBO 2 Free plan, own ZeroGPU Space, Modal fallback"| W("✓ ≤ 1,950 calls/mo, guarded by tools/fibo_budget.py")
   F -->|"Open weights alone"| N1("✗ CC BY-NC 4.0")
   V("New clip") --> L{"LTX-2.5"}
   L -->|"Modal credit or own ZeroGPU Space"| Y2("✓ with duties")
@@ -26,10 +26,11 @@ flowchart LR
 
 | Lane | Status | Guard |
 |---|---|---|
-| Modal, included monthly credit | ✓ approved lane | spend limit = credit |
-| Own ZeroGPU Space (HF), or a public demo Space | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13); the org is `colorado-startups` | PRO's daily ZeroGPU quota |
+| Own ZeroGPU Space `paul-co-startups/brand-fibo` (HF PRO) | ✓ primary FIBO lane (decision 41): text to image on Fibo-2.0-dev, edits by Bria's method (its VGL step, then Fibo-2.0-edit-turbo). Source `art/render/space/`; client `python3 art/render/fibo_cards.py <entry>` | PRO's 40 daily minutes (`xlarge` spends them at 2x), then the included $2.00 credit until it reads $0, then stop; recharge stays off (huggingface.co/settings/billing, read 2026-11-13). The VGL step uses Bria's third-party demo Space and receives each source photo. Read minutes and credit before and after a batch |
+| Modal, included monthly credit | ✓ fallback lane: `modal run art/render/fibo_cards.py::<entry>` | spend limit = credit |
+| Public demo Spaces | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13). The org `colorado-startups` is on HF's free plan, which hosts no ZeroGPU Space | PRO's daily ZeroGPU quota |
 | HF Jobs | included credit only | balance read before and after |
-| Bria's hosted API and website | ✓ Paul, 2026-11-13: free for companies under $2M revenue, which Colorado Startups is. bria.ai/pricing (read 2026-11-13): Free is 100 generations, cloud-only, API included; pay-as-you-go from $0.018 per generation | confirm the plan on platform.bria.ai before a batch over 100 |
+| Bria's hosted API and website | ✗ waits for Paul's billing call. Paul, 2026-11-13: free for companies under $2M revenue. But his platform.bria.ai account reads "7.00 free credits remaining (Pay-as-you-go)", and its Credits tab says "When credits run out, PAYG continues automatically" on the card on file (read 2026-11-13). A one-time credit with card billing after it is not a free tier. Attribution calls are not generation: they run under the FIBO 2 Free self-hosted licence, and Usage read $0.00 and 0 billable units this cycle after every one so far (read 2026-11-14) | none yet, so hosted generation is not used |
 | This Mac | ✗ no video, no GPU | `rules/compute.md` |
 
 Each render batch runs after one yes in chat with its estimate.
