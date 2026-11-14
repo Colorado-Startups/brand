@@ -42,10 +42,8 @@ meta:
 
 influences:
   rule: >-
-    Anything that ships publicly names these influences only by `public_phrase`.
-    Inspiration is free; names, emblems, silhouettes, iconic items, invented scripts and
-    screenshots are not, and no franchise picture is ever a reference image
-    (baseline/v2/lore.md; decision 30).
+    Shipped files use `public_phrase`. Franchise art is copyrighted, so it never ships and is
+    never an image input to shipped art (the law; decision 38).
   names: >-
     Decision 30 names the influences openly in art/DIRECTION.md. In data/ their names live
     in one place, data/words.yaml `franchises` (S3), joined here by `franchise_generic`,
@@ -626,36 +624,20 @@ rituals:
       - decisions.md, decision 12
 
 real_places:
-  rule: Real places keep their real names and their meaning.
-  source: baseline/v2/lore.md (Made here, borrowed from no one); CLAUDE.md, Rules that never bend
-  rules:
-    - Towns appear as they are, with their real names, streets and landmarks; the Hall never renames a real place.
+  note: Facts about real places, kept as facts; the rules that were here are deleted (decision 38).
+  facts:
     - >-
-      Places that matter to the Ute and other tribes are never fantasy decoration. Garden
-      of the Gods is one: Ute oral traditions tell of their creation there
+      Ute oral traditions tell of their creation at Garden of the Gods
       (https://en.wikipedia.org/wiki/Garden_of_the_Gods, read 2026-11-02).
     - >-
       Manitou Springs' mineral springs were sacred grounds
-      (https://en.wikipedia.org/wiki/Manitou_Mineral_Springs, read 2026-11-02). The Hall's
-      hot springs are invented and are never drawn as, or named for, a real spring.
-    - >-
-      The Hall is carved into an unnamed stretch of the range. It is never carved into a
-      named landmark such as the Flatirons (Boulder), North and South Table Mountains or Lookout
-      Mountain (Golden), Horsetooth Rock (Fort Collins) or Pikes Peak (Colorado Springs); those stay as
-      they are, in view outside the doors.
-    - Fusion Canyon is named for the canyon and built on the plain; nothing places it inside a canyon.
-    - >-
-      Real institutions appear only as themselves, with no lore name, no crest and no
-      implied partnership. The Colorado School of Mines, CU Boulder, Colorado State
-      University and the University of Northern Colorado are among them.
-    - Stones for the newcomer's ritual never come from parks, open space or tribal land.
+      (https://en.wikipedia.org/wiki/Manitou_Mineral_Springs, read 2026-11-02).
     - >-
       Pikes Peak is Tavá Kaa-vi, Sun Mountain, to the Ute: the first peak the dawn reaches
       (Southern Ute Cultural Department via https://www.pikes-peak.com/the-ute-and-pikes-peak/,
-      read 2026-11-13). It appears only as a real backdrop, never as Hall ground.
+      read 2026-11-13).
     - >-
       The Ute today are three sovereign nations: the Southern Ute Indian Tribe, the Ute
       Mountain Ute Tribe, and the Ute Indian Tribe of the Uintah and Ouray Reservation. The
       Arapaho and Cheyenne also hold the Front Range as homeland. No tribe has been
-      consulted on this brand, so the brand claims no tribal meaning, symbol or blessing.
-    - A picture from a game or film is never a reference image for a real place or for the Hall.
+      consulted on this brand.

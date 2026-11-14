@@ -18,16 +18,9 @@ Paul is the vision and the community manager. Claude makes every design, researc
 2. Read the plan section for your session (search the plan for your session number, such as `S4`).
 3. Work only in the folders your row owns. If you need a change anywhere else, put it in your report as a `REQUEST:` line.
 
-## Rules that never bend
+## What binds
 
-- **Original only in what ships.** Anything public borrows no name, emblem, silhouette, iconic item, script, rune, font or picture from a game or film franchise, and passes the website's franchise gate. Never use a franchise picture as an AI reference image (`baseline/v2/lore.md`). The influences are named openly here (decision 30); what ships borrows nothing from them.
-- **Every keeper says it is an AI agent** wherever it appears, in words or in a picture. The disclosure text comes from the website's data/team/dwarves.yaml (copy in `baseline/v2/`).
-- **Colors come from evidence, not preference** (decision 20): every main color carries a rationale against the six-point method.
-- **Real places keep their meaning.** Places that matter to the Ute and other tribes, such as Garden of the Gods, are never fantasy decoration.
-- **Accessibility.** WCAG 2.2 AA: 4.5:1 for text, 3:1 for large text and UI parts. Motion that starts on its own stops within 5 s or has a pause control. Nothing flashes more than three times a second.
-- **Fonts must be properly licensed.** A font that costs money waits for Paul's spend approval.
-- **Nothing heavy runs on this Mac.** Never install Playwright browsers locally; image renders of templates run in GitHub Actions. Run `df -h /` before any install. Renders run only on the free lanes in `art/LICENSES.md` (decision 31), each batch after Paul's yes.
-- **Compute:** cloud first, the Mac last and small (Paul, 2026-11-02). CI, test suites, builds, browsers, e2e, renders and GPU jobs run in the cloud (`.github/workflows/cloud-test.yml` here). The MacBook Air runs only rare, seconds-long checks, such as one test file or one lint. House rule: `~/.claude/rules/compute.md` (canonical: Code-OS rules/compute.md), which wins any disagreement.
+Paul's calls in `decisions.md`, the house rules in `~/.claude/rules/` (compute: cloud first, renders on the free lanes in `art/LICENSES.md` after Paul's yes), and the law: copyright and trademark (no franchise names or art in what ships, and no copyrighted art as an image input without a licence), and font licences. Everything else is Claude's design judgment, logged in `decisions.md` (decision 38).
 
 ## Data conventions
 
