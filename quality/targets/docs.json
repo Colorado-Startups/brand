@@ -38,6 +38,14 @@
         {
           "glob": "CODE_OF_CONDUCT.md",
           "why": "the Contributor Covenant 2.1, kept verbatim"
+        },
+        {
+          "glob": "research/strategy/candidates.md",
+          "why": "a scored record of candidates, kept whole as evidence"
+        },
+        {
+          "glob": "governance/survey.md",
+          "why": "the survey instrument, its questions verbatim"
         }
       ],
       "skip_dirs": [
@@ -148,6 +156,37 @@
           "area": [
             "governance/",
             "data/kpis.yaml"
+          ]
+        },
+        {
+          "doc": "art/direction/*.md",
+          "area": [
+            "art/"
+          ]
+        },
+        {
+          "doc": "art/motion/*.md",
+          "area": [
+            "art/"
+          ]
+        },
+        {
+          "doc": "governance/owners/*.md",
+          "area": [
+            "governance/"
+          ]
+        },
+        {
+          "doc": "governance/releases/*.md",
+          "area": [
+            "governance/"
+          ]
+        },
+        {
+          "doc": "governance/folders.md",
+          "area": [
+            ".github/workflows/",
+            "tools/"
           ]
         },
         {

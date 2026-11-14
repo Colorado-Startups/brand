@@ -1,9 +1,9 @@
 # data/words.yaml: the brand's word lists. Owner: S3 Voice and words.
 #
 # This is the one data file allowed to name the franchises, because it is the
-# banned list. Decision 30 also names them in art/DIRECTION.md and NOTICE, which
+# banned list. Decision 30 also names them in art/DIRECTION.md, art/direction/ and NOTICE, which
 # never ship to dist/. S10's never-words check reads `never` and searches every
-# tracked text file for it. It exempts this file, art/DIRECTION.md and NOTICE.
+# tracked text file for it. It exempts this file, art/DIRECTION.md, art/direction/ and NOTICE.
 #
 # Precedence.
 #   - ai_tells and hedges restate the house rules

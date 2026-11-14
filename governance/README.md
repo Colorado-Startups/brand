@@ -1,3 +1,11 @@
 # governance
 
-Owners, the release process, KPIs, the survey and the brand audits (owner S11).
+| File | Holds |
+|---|---|
+| `folders.md` | Folder ownership and which checks fire |
+| `owners.md` | Who does what, and Paul's queue |
+| `releases.md` | The release process |
+| `survey.md` | The community survey |
+| `audit/` | Before and after brand audits |
+
+Owner: S11.
