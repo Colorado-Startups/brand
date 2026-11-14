@@ -3,8 +3,8 @@ name: pages
 # From Colorado-Startups/coloradostartups.org .github/workflows/pages.yml at b8d3a92 (itself Git Crafter
 # templates/ci/pages.yml at v7.0.0). One public Pages site (decision 33): the guide at /, the Process page at
 # /quality/ and the Quality, Speed and Consumption page at /quality/metrics.html. A pull request builds and scans
-# both; only main publishes. ADMIN_READ_TOKEN reaches the collect step on main only; unset, the metrics that need it
-# read not measured. The vendored leak scan and the franchise gate check the built site before upload.
+# both; only main publishes. The quality-reader App's token reaches the collect step on main only; unset, the metrics
+# that need it read not measured. The vendored leak scan and the franchise gate check the built site before upload.
 on:
   push:
     branches: [main]
@@ -47,12 +47,31 @@ jobs:
         with:
           node-version: 26
 
+      # From Colorado-Startups/coloradostartups.org pages.yml at cc02c02: the read-only "Colorado Startups quality
+      # reader" App's token, main only, one hour, this repo only. It runs once QUALITY_APP_CLIENT_ID is set, which
+      # happens in the same sitting QUALITY_APP_KEY arrives; until then the admin metrics read not measured.
+      - id: admin-app
+        if: github.ref == 'refs/heads/main' && vars.QUALITY_APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.QUALITY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.QUALITY_APP_KEY }}
+          permission-administration: read
+          permission-environments: read
+          permission-secrets: read
+          permission-secret-scanning-alerts: read
+          permission-security-events: read
+          permission-vulnerability-alerts: read
+          permission-organization-administration: read
+          permission-members: read
+          permission-organization-projects: read
+
       - uses: SoulCraft-Org/git-crafter/actions/pages@a9d6b45b7e5ac54091123e2cda1efcfcd2f63696 # v7.0.0
         with:
           pages: process quality
           config: quality/process/config.json
           quality-config: quality/config.json
-          admin-read-token: ${{ github.ref == 'refs/heads/main' && secrets.ADMIN_READ_TOKEN || '' }}
+          admin-read-token: ${{ github.ref == 'refs/heads/main' && steps.admin-app.outputs.token || '' }}
 
       - name: Assemble the site
         run: |
