@@ -74,13 +74,14 @@ NEGATIVE_EDIT = json.dumps({"short_description": "", "objects": [], "background_
 #   Colorado Springs (Space Peak)   Pikes Peak     + Aerie Peak + the Eagles' eyrie  gryphons, eagles, gnome flying machines
 #   Fort Collins (Fusion Canyon)    Poudre Canyon  + Gnomeregan + the Shire          gnomes and hobbits
 # (decisions 39 and 40)
-DRAGONS = ("a luminous city of dragons and elves built onto the mountain: tall terraces and slender towers of pale stone with "
-           "gold domes and teal and crimson roofs climbing between the rock slabs, graceful elven halls with tall pointed "
-           "arches, open colonnades and flowing leaf-like carvings, slender bridges over small waterfalls, vast stone landing "
-           "platforms and great arched roosts, crystal lanterns and beams of warm golden light; and three dragons: a long "
-           "wingless serpent dragon with mossy green scales coiled along the ridge between the slabs, a great winged dragon "
-           "whose scales are the red-brown and ochre of the Flatirons sandstone, and a white-and-gold winged dragon glowing "
-           "softly with light; a refuge of learning, majestic, warm and welcoming")
+DRAGONS = ("a single luminous city of elves and dragon-folk built onto the mountain in one shared style: pale stone and "
+           "gold, flowing leaf-like arches, slender towers with gold domes and teal and crimson roofs, elven halls and slender "
+           "bridges over small waterfalls, wide stone terraces and landing platforms; high elves with long fair hair in flowing "
+           "robes and dragon-folk (upright, horned, scaled humanoids with small wings) walking the terraces and bridges; and "
+           "only three massive dragons: a huge long serpentine green dragon without wings flying in a great S-curve through "
+           "the sky above the slabs, its horned, bearded head and face clearly visible and its tail tapering to a fine tip, a "
+           "great winged dragon with scales the red-brown and ochre of the Flatirons sandstone perched on a slab, and a "
+           "white-and-gold winged dragon glowing softly with light; a refuge of learning, majestic, warm and welcoming")
 DWARVES = ("a colossal dwarven mountain kingdom carved into the heart of the mountain: a gigantic gate of angular, square-cut "
            "dwarven stonework set deep into the rock, flanked by two colossal stone statues of bearded dwarf kings leaning "
            "on great war hammers, a clear stream flowing out from beneath the gate, a broad stone stairway and causeway "
@@ -93,11 +94,12 @@ HUMANS = ("one grand citadel of men that blends two styles into a single buildin
           "horse-head gables, standing on a green hill on the plain in front of the city, with stone bridges, horses and "
           "riders on the open plain, plain blue, green and gold banners and warm lamplit windows; majestic, sturdy and welcoming")
 GRYPHONS = ("a high dwarven aerie on the mountain: halls and towers of stone and timber carved into the upper cliffs, great "
-            "stone roosts where gryphons nest and launch, four gryphons in flight around the peak, each a four-legged beast with "
-            "the head, wings and front talons of an eagle and the tawny body, hind legs and tufted tail of a lion, two golden "
-            "eagles perched on the crags with all-dark-brown plumage and golden napes and no white heads, small "
-            "gnome flying machines and gyrocopters circling, rope lifts and wooden platforms, warm windows and braziers, plain "
-            "green and gold banners; adventurous and welcoming")
+            "stone roosts where gryphons nest and launch; dwarves with braided beards and gnomes in goggles walking the timber "
+            "walkways, terraces and rope bridges, clearly visible; four gryphons in flight, each a four-legged beast with the "
+            "head, wings and front talons of an eagle and the tawny body, hind legs and tufted tail of a lion, and two giant "
+            "golden eagles with all-dark-brown plumage and golden napes; no other birds; small gnome flying machines and "
+            "gyrocopters circling, rope lifts and wooden platforms, warm windows and braziers, plain green and gold banners; "
+            "adventurous and welcoming")
 GNOMES = ("a bright village of gnome science and hobbit homes along both canyon walls: brass and steel workshops with round "
           "porthole windows, great gears and water wheels turned by the river, pipes, catwalks and lifts spanning the canyon, "
           "glowing teal-blue energy cores, small gyrocopters, and lower down round green and yellow doors set into grassy "
@@ -123,7 +125,7 @@ def place(photo, crop, city, where, extra, landmark, background):
 EDITS = {
     "boulder": place("flatirons-2007-pd.jpg", (0.07, 0.22, 1.0, 0.84), DRAGONS,
                      "the mountain between and below the tilted Flatirons slabs, with dragons perched on top of the slabs",
-                     "Remove the stadium floodlight tower at the left edge. The dragons are green, sandstone-coloured and white-and-gold; none is black.",
+                     "Remove the stadium floodlight tower at the left edge. Show only three dragons, none black; the green serpent dragon flies in the sky with its whole body, head and face visible, like the creature in the second reference image.",
                      "the Flatirons' tilted red-brown rock slabs and the mountain's outline",
                      "the Flatirons above Boulder, Colorado: tilted red-brown sandstone slabs on the forested east face of Green Mountain, with leafy trees in the foreground"),
     "golden": place("table-mountains-golden-ccby.jpg", (0.1, 0.05, 0.9, 0.79), DWARVES,
@@ -138,7 +140,7 @@ EDITS = {
                     "Downtown Denver, Colorado: the city's towers on the plain, with the Front Range mountains rising behind and golden cottonwoods in the foreground"),
     "springs": place("pikes-peak-colorado-springs-ccby.jpg", (0.0, 0.0, 1.0, 0.667), GRYPHONS,
                      "the upper slopes of Pikes Peak below the summit",
-                     "Replace the houses in the lower part of the frame with pine forest. Show only two golden eagles, perched, with no bald eagles; every bird-like flyer is a four-legged gryphon with a lion's body and tail, and the rest are gnome gyrocopters.",
+                     "Replace the houses in the lower part of the frame with pine forest. Every flying creature is either a four-legged gryphon like the creature in the second reference image or a giant golden eagle; no other birds. Show dwarves and gnomes walking the walkways, and gnome gyrocopters in the air.",
                      "the summit of Pikes Peak, its pink granite, its snow and its outline",
                      "Pikes Peak above Colorado Springs, Colorado: the broad pink-granite summit with snowfields above forested foothills"),
     "fortcollins": place("poudre-canyon-greyrock-ccby.jpg", (0.0, 0.15, 1.0, 0.8167), GNOMES,
