@@ -39,7 +39,7 @@ Paul is the vision and the community manager. Claude makes every design, researc
 
 - Work in your own worktree on a branch named for your session. Commits are signed.
 - Never push to `main`, never force-push, never merge. Open a PR to `main` as soon as `bash tools/verify.sh` passes.
-- Outside PRs: before merging, the orchestrator runs `gh pr view <n> --json authorAssociation`. Anyone not `OWNER`, `MEMBER` or `COLLABORATOR` waits for Paul's yes in chat, quoted in the PR (decision 34).
+- Outside PRs: before merging, the orchestrator runs `gh pr view <n> --json authorAssociation`. Anyone not `OWNER`, `MEMBER` or `COLLABORATOR` waits for Paul's yes in chat, quoted in the PR (decision 34). `dependabot[bot]` does not wait; it gets the normal review (decision 36).
 - The PR body lists what changed, the decisions you appended to `decisions.md`, and the commands that prove it.
 - End your turn with a short report. Put open questions on `QUESTION:` lines. The orchestrator, the session that started you, answers them.
 
