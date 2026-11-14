@@ -1,9 +1,12 @@
-"""art/render/fibo_cards.py: the five social cards, rendered with FIBO 2.0 on Modal (decisions 31, 35, 37).
+"""art/render/fibo_cards.py: the brand's FIBO 2.0 art, rendered on Modal (decisions 31, 35, 37, 39).
 
 Lane: Modal's included credit, an L40S. Weights: briaai/Fibo-2.0-dev, gated (Modal Secret fibo-hf). Every image is
 sent to Bria's attribution API (Modal Secret fibo-bria), which keeps commercial use covered under the FIBO 2 Free
 plan and counts one call. Reserve the calls first: python3 tools/fibo_budget.py reserve N.
-Run: modal run art/render/fibo_cards.py [--limit N] [--skip N]   (writes art/render/out/<card>-<seed>.png, raw art, no text)
+  modal run art/render/fibo_cards.py::edit_all --cards boulder,golden --seed 31      place art, edits of real photos
+  modal run art/render/fibo_cards.py::character --cards claudius --seed 7            project characters
+  modal run art/render/fibo_cards.py::compose_all --seed 31 --cards-only brand       wordmark, label, credit -> dist/social
+Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
 import base64, io, json, pathlib
 import modal
@@ -13,43 +16,10 @@ weights = modal.Volume.from_name("fibo-weights", create_if_missing=True)
 image = (modal.Image.debian_slim(python_version="3.12")
          .pip_install("diffusers>=0.42.0", "torch", "torchvision", "transformers", "accelerate", "requests", "pillow"))
 
-# The State palette (research/color/state.yaml) with the forge glow; real places as they are (data/world.yaml).
-COMMON = {
-    "lighting": {"conditions": "golden hour, a low warm sun, with a warm ember glow from a carved stone forge hall in the foreground foothill",
-                 "direction": "low sun from the right, ember light from below in the foreground", "shadows": "long, soft, warm shadows"},
-    "aesthetics": {"composition": "wide 2:1 landscape; the left 45 percent of the frame is calm, empty, open sky over a soft distant ridge; the landmark and the glowing forge doorway sit in the right half",
-                   "color_scheme": "deep navy blue upper sky (#001970) fading through blue to warm gold (#ffd100) at the horizon, red sandstone (#c3002f tones), dark pine green (#245d38), blue-teal mountain haze (#35647e), and a warm ember-orange forge glow",
-                   "mood_atmosphere": "grand, warm, welcoming, inviting"},
-    "photographic_characteristics": {"depth_of_field": "deep", "focus": "sharp throughout", "camera_angle": "eye-level, slightly low", "lens_focal_length": "wide-angle"},
-    "style_medium": "cinematic photorealistic landscape photograph with a subtle fantasy touch",
-    "text_render": [],
-    "context": "a social media preview card background for a Colorado founders community; text is added later, so the image contains no text, letters, logos, flags, emblems or signage",
-    "artistic_style": "photorealistic, cinematic, natural",
-}
-FORGE = ("a tall arched doorway carved directly into a weathered rock face of an unnamed foothill in the right foreground, warm orange "
-         "forge light glowing from deep inside, two iron lanterns beside it, worn stone steps; no building, no people, no characters, no symbols")
-CARDS = {
-    "coloradostartups.org": ("The Flatirons above Boulder, Colorado, at golden hour, with a small glowing forge hall in an unnamed foothill nearby",
-                             "the Flatirons above Boulder, Colorado: three huge flat triangular slabs of red-brown sandstone tilted steeply back against the east face of Green Mountain, rising out of dark pine forest above a green meadow, exactly as seen from Chautauqua Park"),
-    "brand": ("North Table Mountain and Lookout Mountain above Golden, Colorado, at golden hour, with a glowing forge hall in a nearby foothill",
-              "North Table Mountain above Golden, Colorado: a long flat-topped mesa with a dark basalt cap and steep grassy slopes, with forested Lookout Mountain beyond, exactly as they are"),
-    "claudius": ("Horsetooth Rock above Fort Collins, Colorado, at golden hour, with a glowing forge hall in a nearby foothill",
-                 "Horsetooth Rock west of Fort Collins, Colorado: a rocky summit with two blunt granite knobs like a horse's molar on a long forested ridge above the blue water of Horsetooth Reservoir, exactly as it is"),
-    "link": ("Pikes Peak seen from Colorado Springs at golden hour, with a glowing forge hall in an unnamed foothill far from the peak",
-             "Pikes Peak, the pink-granite summit seen from Colorado Springs, Colorado, shown exactly as it is, untouched, distant"),
-    "legallas": ("The Colorado Front Range at dawn seen from the plains, with a glowing forge hall in a nearby foothill",
-                 "the snow-capped Colorado Front Range at dawn seen across the high plains, shown exactly as it is"),
-}
-SEEDS = (11, 23, 37)
 # Bria's recommended text-to-image negative (Fibo-2.0-dev model card) with text, titles and watermarks added.
 NEGATIVE = json.dumps({"short_description": "", "objects": [{"description": "the main subject", "texture": "smooth, featureless, plastic-like, airbrushed, no fine surface detail", "appearance_details": "soft blurred edges, simplified shapes, no fine detail"}], "background_setting": "a plain seamless studio backdrop, featureless", "lighting": {}, "aesthetics": {"artifacts": ["visible text", "caption", "title", "letters", "words", "watermark", "logo", "signage", "oversaturated colours", "neon colour cast", "overexposed highlights", "lens flare", "slight blur", "haze"]}, "photographic_characteristics": {"depth_of_field": "shallow, heavy bokeh", "focus": "soft, out of focus"}, "style_medium": "", "context": "", "artistic_style": ""})
 
 
-def scene(card):
-    short, landmark = CARDS[card]
-    return json.dumps({"short_description": short,
-                       "objects": [{"description": FORGE, "location": "right foreground, lower third", "relationship": "a small warm accent below the real landmark", "relative_size": "small within frame"}],
-                       "background_setting": landmark, **COMMON}, ensure_ascii=False)
 
 
 @app.cls(image=image, gpu="L40S", timeout=1800, volumes={"/cache": weights},
@@ -87,15 +57,10 @@ class Fibo:
 
     @modal.method()
     def render(self, prompt: str, seed: int) -> dict:
-        import os, requests, torch
+        import torch
         img = self.pipe(prompt=prompt, negative_prompt=NEGATIVE, width=1440, height=720, num_inference_steps=50, guidance_scale=5.0, fonts=self.fonts,
                         generator=torch.Generator("cuda").manual_seed(seed)).images[0]
-        buf = io.BytesIO(); img.save(buf, "PNG"); png = buf.getvalue()
-        r = requests.post("https://engine.prod.bria-api.com/v2/image/attribution/by_image",
-                          headers={"api_token": os.environ["BRIA_API_KEY"], "Content-Type": "application/json"},
-                          json={"image": base64.b64encode(png).decode(), "model": "image_fibo:2", "agent": "colorado-startups-brand", "sync": True},
-                          timeout=120)
-        return {"png": png, "attribution_status": r.status_code, "attribution": r.json().get("request_id") if r.ok else r.text[:200]}
+        return self._attribute(img)
 
 
 NEGATIVE_EDIT = json.dumps({"short_description": "", "objects": [], "background_setting": "", "lighting": {}, "aesthetics": {}, "photographic_characteristics": {}, "style_medium": "", "context": "", "artistic_style": ""})
@@ -174,19 +139,10 @@ EDITS = {
 }
 
 
-@app.local_entrypoint()
-def main(limit: int = 0, skip: int = 0):
-    out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
-    jobs = [(c, s) for c in CARDS for s in SEEDS][skip:]
-    jobs = jobs[:limit] if limit else jobs
-    log = []
-    for (card, seed), res in zip(jobs, Fibo().render.starmap([(scene(c), s) for c, s in jobs])):
-        (out / f"{card}-{seed}.png").write_bytes(res["png"])
-        log.append({"card": card, "seed": seed, "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
-        print(card, seed, "attribution", res["attribution_status"])
+def log_runs(out, entries):
     runs = out / "runs.json"
-    old = json.loads(runs.read_text()) if runs.exists() else []
-    runs.write_text(json.dumps(old + log, indent=1) + "\n")
+    rows = (json.loads(runs.read_text()) if runs.exists() else []) + entries
+    runs.write_text("[\n" + ",\n".join(json.dumps(r) for r in rows) + "\n]\n")
 
 
 @app.local_entrypoint()
@@ -201,9 +157,7 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
         (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
         log.append({"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
         print(c, seed, "edit attribution", res["attribution_status"])
-    runs = out / "runs.json"
-    old = json.loads(runs.read_text()) if runs.exists() else []
-    runs.write_text(json.dumps(old + log, indent=1) + "\n")
+    log_runs(out, log)
 
 
 # Each project repo's card is its own character (Paul, 2026-11-13). Borrow and blend: the look of the named
@@ -250,22 +204,7 @@ def character(cards: str = "claudius", seed: int = 7):
         (out / f"{c}-char-{seed}.png").write_bytes(res["png"])
         log.append({"card": c, "seed": seed, "mode": "character", "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
         print(c, seed, "character attribution", res["attribution_status"])
-    runs = out / "runs.json"
-    runs.write_text(json.dumps((json.loads(runs.read_text()) if runs.exists() else []) + log, indent=1) + "\n")
-
-
-@app.local_entrypoint()
-def edit_main(card: str = "boulder", seed: int = 11):
-    e = EDITS[card]
-    here = pathlib.Path(__file__).parent
-    out = here / "out"; out.mkdir(exist_ok=True)
-    prompt = json.dumps({**e["scene"], "edit_instruction": e["edit_instruction"]}, ensure_ascii=False)
-    res = Fibo().edit.remote((here / "src" / e["photo"]).read_bytes(), e["crop"], prompt, seed)
-    (out / f"{card}-edit-{seed}.png").write_bytes(res["png"])
-    runs = out / "runs.json"
-    old = json.loads(runs.read_text()) if runs.exists() else []
-    runs.write_text(json.dumps(old + [{"card": card, "seed": seed, "mode": "edit", "photo": e["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}], indent=1) + "\n")
-    print(card, seed, "edit attribution", res["attribution_status"])
+    log_runs(out, log)
 
 
 # The wordmark, composited after (decision 37: no text inside the art). Aileron ships with FIBO 2.0's own files.
