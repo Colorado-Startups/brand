@@ -93,8 +93,9 @@ HUMANS = ("one grand citadel of men that blends two styles into a single buildin
           "horse-head gables, standing on a green hill on the plain in front of the city, with stone bridges, horses and "
           "riders on the open plain, plain blue, green and gold banners and warm lamplit windows; majestic, sturdy and welcoming")
 GRYPHONS = ("a high dwarven aerie on the mountain: halls and towers of stone and timber carved into the upper cliffs, great "
-            "stone roosts where gryphons nest and launch, four gryphons with eagle heads and wings and lion bodies and tails "
-            "flying around the peak, two golden eagles with dark brown plumage and golden napes perched on the crags, small "
+            "stone roosts where gryphons nest and launch, four gryphons in flight around the peak, each a four-legged beast with "
+            "the head, wings and front talons of an eagle and the tawny body, hind legs and tufted tail of a lion, two golden "
+            "eagles perched on the crags with all-dark-brown plumage and golden napes and no white heads, small "
             "gnome flying machines and gyrocopters circling, rope lifts and wooden platforms, warm windows and braziers, plain "
             "green and gold banners; adventurous and welcoming")
 GNOMES = ("a bright village of gnome science and hobbit homes along both canyon walls: brass and steel workshops with round "
@@ -137,7 +138,7 @@ EDITS = {
                     "Downtown Denver, Colorado: the city's towers on the plain, with the Front Range mountains rising behind and golden cottonwoods in the foreground"),
     "springs": place("pikes-peak-colorado-springs-ccby.jpg", (0.0, 0.0, 1.0, 0.667), GRYPHONS,
                      "the upper slopes of Pikes Peak below the summit",
-                     "Replace the houses in the lower part of the frame with pine forest. Show only two golden eagles; the other flyers are gryphons and gnome gyrocopters.",
+                     "Replace the houses in the lower part of the frame with pine forest. Show only two golden eagles, perched, with no bald eagles; every bird-like flyer is a four-legged gryphon with a lion's body and tail, and the rest are gnome gyrocopters.",
                      "the summit of Pikes Peak, its pink granite, its snow and its outline",
                      "Pikes Peak above Colorado Springs, Colorado: the broad pink-granite summit with snowfields above forested foothills"),
     "fortcollins": place("poudre-canyon-greyrock-ccby.jpg", (0.0, 0.15, 1.0, 0.8167), GNOMES,
