@@ -382,7 +382,7 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-edit", "brand": "golden-edit", "claudius": "claudius-char", "link": "link-char", "legallas": "legallas-char"}
+CARD_ART = {"coloradostartups.org": "boulder-game", "brand": "golden-game", "claudius": "claudius-char", "link": "link-char", "legallas": "legallas-char"}
 
 
 @app.function(image=image, volumes={"/cache": weights}, secrets=[modal.Secret.from_name("fibo-hf")], timeout=600)
@@ -436,7 +436,7 @@ def compose_all(seed: int = 11, cards_only: str = ""):
     names = [c for c, p in src.items() if p.exists()]
     def prov(c):
         art = CARD_ART[c].rsplit("-", 1)
-        if art[1] == "edit":
+        if art[1] in ("edit", "game", "film"):  # every place image starts from a real photo
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed, "source": f"edit of art/render/src/{EDITS[art[0]]['photo']}"}
         return {"type": "trainedAlgorithmicMedia", "seed": seed, "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
@@ -444,7 +444,23 @@ def compose_all(seed: int = 11, cards_only: str = ""):
         print(c, len(jpg) // 1024, "KB")
 
 
-ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted}
+def places(lean: str = "game", seed: int = 43):
+    """dist/places/<place>.jpg: each place's painting (decision 43), 1440x720 JPEG with IPTC provenance, no wordmark.
+    Runs locally in seconds (Pillow only); credits for the CC BY photos are in dist/README.md."""
+    from PIL import Image
+    here = pathlib.Path(__file__).parent
+    dest = here.parent.parent / "dist" / "places"; dest.mkdir(parents=True, exist_ok=True)
+    for c in EDITS:
+        img = Image.open(here / "out" / f"{c}-{lean}-{seed}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
+        buf = io.BytesIO(); img.save(buf, "JPEG", quality=86, optimize=True, progressive=True)
+        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed,
+                                               "source": f"edit of art/render/src/{EDITS[c]['photo']}"})
+        (dest / f"{c}.jpg").write_bytes(jpg)
+        print(c, len(jpg) // 1024, "KB")
+
+
+ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
+           "places": places}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}
