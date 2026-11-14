@@ -49,10 +49,11 @@ def render(prompt: str, negative: str, seed: int, width: int, height: int, steps
     return _attribute(_run(prompt, negative, int(seed), None, int(width), int(height), int(steps), float(guidance)))
 
 
-def edit(photo: str, crop: str, prompt: str, negative: str, seed: int, width: int, height: int, steps: int, guidance: float):
+def edit(photo: str, crop: str, ref: str | None, prompt: str, negative: str, seed: int, width: int, height: int, steps: int, guidance: float):
     src = Image.open(photo).convert("RGB"); w, h = src.size; c = json.loads(crop)
     src = src.crop((int(c[0] * w), int(c[1] * h), int(c[2] * w), int(c[3] * h))).resize((int(width), int(height)), Image.LANCZOS)
-    return _attribute(_run(prompt, negative, int(seed), src, int(width), int(height), int(steps), float(guidance)))
+    image = [src, Image.open(ref).convert("RGB")] if ref else src  # Bria's own Space: the source first, then references
+    return _attribute(_run(prompt, negative, int(seed), image, int(width), int(height), int(steps), float(guidance)))
 
 
 num = lambda label, v: gr.Number(v, label=label, precision=None if isinstance(v, float) else 0)
@@ -61,6 +62,7 @@ base = lambda: [gr.Textbox(label="prompt"), gr.Textbox(label="negative"), num("s
         num("steps", 50), num("guidance", 5.0)]
 demo = gr.TabbedInterface(
     [gr.Interface(render, base(), out(), api_name="render"),
-     gr.Interface(edit, [gr.File(label="photo", type="filepath"), gr.Textbox(label="crop", value="[0,0,1,1]")] + base(), out(), api_name="edit")],
+     gr.Interface(edit, [gr.File(label="photo", type="filepath"), gr.Textbox(label="crop", value="[0,0,1,1]"),
+                         gr.File(label="ref", type="filepath")] + base(), out(), api_name="edit")],
     ["render", "edit"], title="FIBO 2.0 for the Colorado Startups brand")
 demo.queue(default_concurrency_limit=1).launch()

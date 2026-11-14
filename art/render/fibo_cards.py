@@ -154,28 +154,45 @@ EDITS = {
                          "the canyon's rocky walls, its ridgelines and its pines",
                          "Poudre Canyon west of Fort Collins, Colorado: steep granite canyon walls with ponderosa pines and a far ridge"),
 }
+# Creatures the edit model cannot draw from words alone get an original reference image, rendered first by text to
+# image through the same attributed lane and kept in art/render/refs/ (`reference` entrypoint). Bria's own editing
+# Space takes references the same way: its VGL step sees them, and edit-turbo runs on [source, reference].
+EDITS["boulder"]["ref"], EDITS["springs"]["ref"] = "serpent", "gryphon"
+REFS = {
+    "serpent": ("A colossal long serpentine green dragon without wings flying in a sweeping S-curve across a golden-hour sky, its "
+                "horned, bearded head and fierce face clearly visible in three-quarter view, mossy green scales with a pale gold "
+                "belly, four small clawed legs, the long body tapering to a fine tail tip. Photorealistic epic fantasy, sharp "
+                "detail, plain sky background.", 11),
+    "gryphon": ("A majestic gryphon in flight against a clear golden-hour sky, full body side view: a four-legged creature with "
+                "the head, feathered neck, broad wings and front talons of a golden eagle, and the tawny furred body, muscular "
+                "hind legs with paws and long tufted tail of a lion. Photorealistic wildlife photograph, sharp detail, plain sky "
+                "background.", 7),
+}
 
 
 def fibo_map(method, args):
     """Fibo.<method> over args: Modal under `modal run`, else the ZeroGPU Space, which returns the same dict."""
-    if LANE == "modal":
-        return getattr(Fibo(), method).starmap(args)
+    if LANE == "modal":  # Modal's Fibo.edit takes no reference
+        return getattr(Fibo(), method).starmap([a[:4] for a in args] if method == "edit" else args)
     import httpx
     from gradio_client import Client, handle_file
     from PIL import Image
     client = Client(SPACE)  # the hf CLI's signed-in account, so its PRO quota
     def call(a):
         if method == "edit":  # Bria's method: its VGL step writes the edit JSON from the instruction, then edit-turbo
-            photo, crop, prompt, seed = a
+            photo, crop, prompt, seed, ref = a
             src = Image.open(io.BytesIO(photo)).convert("RGB"); w, h = src.size
             src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize(SIZE, Image.LANCZOS)
             path = tempfile.NamedTemporaryFile(suffix=".png", delete=False).name; src.save(path)
             vgl = Client(VGL)  # Bria's public Space; its /vgl runs on Bria's token and no GPU
-            up = httpx.post(vgl.upload_url, files=[("files", ("src.png", open(path, "rb"), "image/png"))], headers=vgl.headers, timeout=60)
-            up.raise_for_status()
-            edit = vgl.predict(json.loads(prompt)["edit_instruction"], up.json()[0], None, None, None, None, max(seed, 1), api_name="/vgl")["json_instruction"]
+            def upload(p):
+                r = httpx.post(vgl.upload_url, files=[("files", (pathlib.Path(p).name, open(p, "rb"), "image/png"))], headers=vgl.headers, timeout=60)
+                r.raise_for_status(); return r.json()[0]
+            edit = vgl.predict(json.loads(prompt)["edit_instruction"], upload(path), upload(ref) if ref else None, None, None, None,
+                               max(seed, 1), api_name="/vgl")["json_instruction"]
             edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
-            png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", edit, "", seed, *SIZE, EDIT_STEPS, EDIT_GUIDANCE, api_name="/edit")
+            png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", handle_file(ref) if ref else None, edit, "", seed,
+                                                      *SIZE, EDIT_STEPS, EDIT_GUIDANCE, api_name="/edit")
         else:
             prompt, seed = a
             png, status, attribution = client.predict(prompt, NEGATIVE, seed, *SIZE, STEPS, GUIDANCE, api_name="/render")
@@ -195,11 +212,28 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
     out = here / "out"; out.mkdir(exist_ok=True)
     names = cards.split(",")
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({**EDITS[c]["scene"], "edit_instruction": EDITS[c]["edit_instruction"]}, ensure_ascii=False), seed) for c in names]
+             json.dumps({**EDITS[c]["scene"], "edit_instruction": EDITS[c]["edit_instruction"]}, ensure_ascii=False), seed,
+             str(here / "refs" / f"{EDITS[c]['ref']}.png") if EDITS[c].get("ref") else None) for c in names]
     for c, res in zip(names, fibo_map("edit", args)):  # each row logged as it lands, so a failed later call loses none
         (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
         log_runs(out, [{"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
         print(c, seed, "edit attribution", res["attribution_status"])
+
+
+@app.local_entrypoint()
+def reference(names: str = "serpent,gryphon"):
+    """Render REFS (text to image, attributed) into art/render/refs/<name>.png; edit_all reads them from there."""
+    here = pathlib.Path(__file__).parent
+    out, refs = here / "out", here / "refs"; out.mkdir(exist_ok=True); refs.mkdir(exist_ok=True)
+    picked = names.split(",")
+    scenes = [json.dumps({"short_description": REFS[n][0], "objects": [], "background_setting": "a plain golden-hour sky",
+                          **{k: CHAR_STYLE[k] for k in ("lighting", "photographic_characteristics", "text_render")},
+                          "style_medium": "photograph, photorealistic", "context": "a reference image of one creature; no text",
+                          "artistic_style": "photorealistic"}, ensure_ascii=False) for n in picked]
+    for n, res in zip(picked, fibo_map("render", [(sc, REFS[n][1]) for n, sc in zip(picked, scenes)])):
+        (refs / f"{n}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": f"ref-{n}", "seed": REFS[n][1], "mode": "reference", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(n, "reference attribution", res["attribution_status"])
 
 
 # Each project repo's card is its own character (Paul, 2026-11-13). Borrow and blend: the look of the named
