@@ -184,12 +184,10 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
     names = cards.split(",")
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
              json.dumps({**EDITS[c]["scene"], "edit_instruction": EDITS[c]["edit_instruction"]}, ensure_ascii=False), seed) for c in names]
-    log = []
-    for c, res in zip(names, fibo_map("edit", args)):
+    for c, res in zip(names, fibo_map("edit", args)):  # each row logged as it lands, so a failed later call loses none
         (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
-        log.append({"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
+        log_runs(out, [{"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
         print(c, seed, "edit attribution", res["attribution_status"])
-    log_runs(out, log)
 
 
 # Each project repo's card is its own character (Paul, 2026-11-13). Borrow and blend: the look of the named
@@ -231,12 +229,10 @@ def character(cards: str = "claudius", seed: int = 7):
     """modal run art/render/fibo_cards.py::character --cards claudius,link,legallas --seed 7  (one FIBO call per card)"""
     out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
     names = cards.split(",")
-    log = []
     for c, res in zip(names, fibo_map("render", [(json.dumps(CHARACTERS[c], ensure_ascii=False), seed) for c in names])):
         (out / f"{c}-char-{seed}.png").write_bytes(res["png"])
-        log.append({"card": c, "seed": seed, "mode": "character", "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
+        log_runs(out, [{"card": c, "seed": seed, "mode": "character", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
         print(c, seed, "character attribution", res["attribution_status"])
-    log_runs(out, log)
 
 
 # The wordmark, composited after (decision 37: no text inside the art). Aileron ships with FIBO 2.0's own files.

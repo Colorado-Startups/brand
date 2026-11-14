@@ -30,7 +30,7 @@ flowchart LR
 | Modal, included monthly credit | ✓ fallback lane: `modal run art/render/fibo_cards.py::<entry>` | spend limit = credit |
 | Public demo Spaces | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13). The org `colorado-startups` is on HF's free plan, which hosts no ZeroGPU Space | PRO's daily ZeroGPU quota |
 | HF Jobs | included credit only | balance read before and after |
-| Bria's hosted API and website | ✗ waits for Paul's billing call. Paul, 2026-11-13: free for companies under $2M revenue. But his platform.bria.ai account reads "7.00 free credits remaining (Pay-as-you-go)", and its Credits tab says "When credits run out, PAYG continues automatically" on the card on file (read 2026-11-13). A one-time credit with card billing after it is not a free tier | none yet, so it is not used |
+| Bria's hosted API and website | ✗ waits for Paul's billing call. Paul, 2026-11-13: free for companies under $2M revenue. But his platform.bria.ai account reads "7.00 free credits remaining (Pay-as-you-go)", and its Credits tab says "When credits run out, PAYG continues automatically" on the card on file (read 2026-11-13). A one-time credit with card billing after it is not a free tier. Attribution calls are not generation: they run under the FIBO 2 Free self-hosted licence, and Usage read $0.00 and 0 billable units this cycle after every one so far (read 2026-11-14) | none yet, so hosted generation is not used |
 | This Mac | ✗ no video, no GPU | `rules/compute.md` |
 
 Each render batch runs after one yes in chat with its estimate.
