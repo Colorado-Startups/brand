@@ -4,20 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Colorado Startups brand</title>
+<link rel="stylesheet" href="tokens.css">
 <style>
-  :root { color-scheme: light; --ground:#FFFBF3; --ink:#2B1D12; --gold:#F0A92B; --night:#14223F; }
-  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--ground); color:var(--ink);
-         font:18px/1.5 system-ui, -apple-system, sans-serif; padding:24px; box-sizing:border-box; }
-  main { max-width:36rem; text-align:center; }
-  .bar { height:8px; border-radius:4px; background:linear-gradient(90deg,var(--gold),#E2561C); margin:24px auto; width:60%; }
-  a { color:#A3400F; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--ground); color: var(--ink);
+         font: 1.125rem/1.5 "Trebuchet MS", system-ui, sans-serif; padding: var(--space); box-sizing: border-box; }
+  main { max-width: 36rem; text-align: center; }
+  .bar { height: var(--bar); border-radius: var(--bar); margin: var(--space) auto; width: 60%;
+         background: linear-gradient(90deg, var(--co-blue), var(--co-tree-green), var(--co-yellow), var(--co-red)); }
+  a { color: var(--link); }
 </style>
 </head>
 <body>
 <main>
   <h1>Colorado Startups brand</h1>
   <div class="bar" aria-hidden="true"></div>
-  <p>The new brand guide is being forged. The source is open on <a href="https://github.com/Colorado-Startups/brand">GitHub</a>.</p>
+  <p>The new brand guide is being built in the open. See the source on <a href="https://github.com/Colorado-Startups/brand">GitHub</a>, or the <a href="quality/">Quality</a> and <a href="quality/process.html">Process</a> pages.</p>
 </main>
 </body>
 </html>

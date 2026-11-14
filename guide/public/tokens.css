@@ -1,0 +1,16 @@
+/* The State of Colorado primaries (research/color/state.yaml, decision 29). The v3 tokens (S12) replace this file. */
+:root {
+  color-scheme: light;
+  --co-blue: #001970;
+  --co-red: #c3002f;
+  --co-yellow: #ffd100;
+  --co-tree-green: #245d38;
+  --co-purple: #6d3a5d;
+  --co-left-mountain-green: #7a853b;
+  --co-right-mountain-teal: #35647e;
+  --ground: #ffffff;
+  --ink: var(--co-blue);
+  --link: var(--co-red);
+  --space: 1.5rem;
+  --bar: 0.5rem;
+}

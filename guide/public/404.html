@@ -3,18 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not found: Colorado Startups brand</title>
+<title>Page not found</title>
+<link rel="stylesheet" href="tokens.css">
 <style>
-  :root { color-scheme: light; }
-  body { margin:0; min-height:100vh; display:grid; place-items:center; background:#FFFBF3; color:#2B1D12;
-         font:18px/1.5 system-ui, -apple-system, sans-serif; padding:24px; box-sizing:border-box; text-align:center; }
-  a { color:#A3400F; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--ground); color: var(--ink);
+         font: 1.125rem/1.5 "Trebuchet MS", system-ui, sans-serif; padding: var(--space); box-sizing: border-box; }
+  main { max-width: 36rem; text-align: center; }
+  .bar { height: var(--bar); border-radius: var(--bar); margin: var(--space) auto; width: 60%;
+         background: linear-gradient(90deg, var(--co-blue), var(--co-tree-green), var(--co-yellow), var(--co-red)); }
+  a { color: var(--link); }
 </style>
 </head>
 <body>
 <main>
-  <h1>No room by that name</h1>
-  <p><a href="/">Back to the brand guide</a></p>
+  <h1>Page not found</h1>
+  <div class="bar" aria-hidden="true"></div>
+  <p>Go to the <a href="/brand/">brand guide</a>.</p>
 </main>
 </body>
 </html>
