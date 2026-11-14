@@ -7,7 +7,8 @@ first: python3 tools/fibo_budget.py reserve N. Space (R is uv run --no-project -
 gradio_client==2.7.2 --with pillow python3; Modal is the same with `modal run art/render/fibo_cards.py::<entry>`):
   R art/render/fibo_cards.py edit_all --cards boulder,golden --seed 31        place art, edits of real photos
   R art/render/fibo_cards.py character --cards claudius --seed 7              project characters
-  R art/render/fibo_cards.py compose_all --seed 31 --cards-only brand         wordmark, label, credit -> dist/social
+  R art/render/fibo_cards.py compose_all --cards-only brand                   wordmark, label, credit -> dist/social
+Place art since decision 43: R ... painted --cards golden --leans game --seed 43, then R ... places.
 Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
 import base64, io, json, os, pathlib, sys, tempfile
@@ -382,7 +383,15 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-game", "brand": "golden-game", "claudius": "claudius-char", "link": "link-char", "legallas": "legallas-char"}
+CARD_ART = {"coloradostartups.org": "boulder-game-43", "brand": "golden-game-43", "claudius": "claudius-char-13",
+            "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
+PLACE_CREDIT = {
+    "boulder": "AI-made image from a public-domain photo by Jimbo Herndan",
+    "golden": "AI-made image from a photo by James St. John, CC BY 2.0",
+    "denver": "AI-made image from a public-domain photo by USFWS Mountain-Prairie",
+    "springs": "AI-made image from a photo by Huttarl, CC BY 2.5",
+    "fortcollins": "AI-made image from a photo by Charles Willgren, CC BY 2.0",
+}
 
 
 @app.function(image=image, volumes={"/cache": weights}, secrets=[modal.Secret.from_name("fibo-hf")], timeout=600)
@@ -400,16 +409,24 @@ def compose(png: bytes, title: str, subtitle: str, credit: str, prov: dict) -> b
     d.rectangle((76, 56, 196, 62), fill=(195, 0, 47, 255))
     d.text((76, 72), title, font=big, fill=(255, 255, 255, 255))
     d.text((76, 168), subtitle, font=small, fill=(255, 238, 190, 255))
-    # Credit chip, bottom right: navy at 72% keeps cream text above 4.5:1 even over the brightest gold sky.
-    tiny = ImageFont.truetype(font, 17)
-    x0, y0, x1, y1 = d.textbbox((0, 0), credit, font=tiny)
-    w, h = x1 - x0 + 24, y1 - y0 + 14
-    chip = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(chip).rounded_rectangle((1280 - 20 - w, 640 - 18 - h, 1280 - 20, 640 - 18), radius=8, fill=(0, 10, 40, 184))
-    img = Image.alpha_composite(img, chip); d = ImageDraw.Draw(img)
-    d.text((1280 - 20 - w + 12 - x0, 640 - 18 - h + 7 - y0), credit, font=tiny, fill=(255, 238, 190, 255))
+    img = label(img, credit, font)
     buf = io.BytesIO(); img.convert("RGB").save(buf, "JPEG", quality=88, optimize=True, progressive=True)
     return with_provenance(buf.getvalue(), prov)
+
+
+def label(img, credit, font):
+    """The AI-made label and photo credit, a chip at the bottom right (decisions 8 and 39). Navy at 72% keeps cream
+    text above 4.5:1 even over the brightest gold sky."""
+    from PIL import Image, ImageDraw, ImageFont
+    img = img.convert("RGBA"); W, H = img.size
+    tiny = ImageFont.truetype(font, 17)
+    x0, y0, x1, y1 = ImageDraw.Draw(img).textbbox((0, 0), credit, font=tiny)
+    w, h = x1 - x0 + 24, y1 - y0 + 14
+    chip = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(chip).rounded_rectangle((W - 20 - w, H - 18 - h, W - 20, H - 18), radius=8, fill=(0, 10, 40, 184))
+    img = Image.alpha_composite(img, chip)
+    ImageDraw.Draw(img).text((W - 20 - w + 12 - x0, H - 18 - h + 7 - y0), credit, font=tiny, fill=(255, 238, 190, 255))
+    return img
 
 
 # Decision 8: model-made images keep their AI-made label in metadata. Only the IPTC AI fields and the art namespace,
@@ -429,16 +446,19 @@ def with_provenance(jpg: bytes, prov: dict) -> bytes:
 
 
 @app.local_entrypoint()
-def compose_all(seed: int = 11, cards_only: str = ""):
+def compose_all(cards_only: str = ""):
     here = pathlib.Path(__file__).parent
     out = here / "out"; cards = here.parent.parent / "dist" / "social"; cards.mkdir(parents=True, exist_ok=True)
-    src = {c: out / f"{CARD_ART[c]}-{seed}.png" for c in (cards_only.split(",") if cards_only else CARD_TEXT)}
-    names = [c for c, p in src.items() if p.exists()]
+    names = cards_only.split(",") if cards_only else list(CARD_TEXT)
+    src = {c: out / f"{CARD_ART[c]}.png" for c in names}
+    missing = [str(p) for p in src.values() if not p.exists()]
+    if missing:
+        raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
-        art = CARD_ART[c].rsplit("-", 1)
-        if art[1] in ("edit", "game", "film"):  # every place image starts from a real photo
-            return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed, "source": f"edit of art/render/src/{EDITS[art[0]]['photo']}"}
-        return {"type": "trainedAlgorithmicMedia", "seed": seed, "source": "text to image"}
+        source, kind, seed = CARD_ART[c].rsplit("-", 2)
+        if kind in ("edit", "game", "film"):  # every place image starts from a real photo
+            return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": f"edit of art/render/src/{EDITS[source]['photo']}"}
+        return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
         (cards / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")
@@ -448,10 +468,13 @@ def places(lean: str = "game", seed: int = 43):
     """dist/places/<place>.jpg: each place's painting (decision 43), 1440x720 JPEG with IPTC provenance, no wordmark.
     Runs locally in seconds (Pillow only); credits for the CC BY photos are in dist/README.md."""
     from PIL import Image
+    from huggingface_hub import hf_hub_download
+    font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts")
     here = pathlib.Path(__file__).parent
     dest = here.parent.parent / "dist" / "places"; dest.mkdir(parents=True, exist_ok=True)
     for c in EDITS:
         img = Image.open(here / "out" / f"{c}-{lean}-{seed}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
+        img = label(img, PLACE_CREDIT[c], font).convert("RGB")
         buf = io.BytesIO(); img.save(buf, "JPEG", quality=86, optimize=True, progressive=True)
         jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed,
                                                "source": f"edit of art/render/src/{EDITS[c]['photo']}"})
