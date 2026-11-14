@@ -100,28 +100,45 @@ class Fibo:
 
 NEGATIVE_EDIT = json.dumps({"short_description": "", "objects": [], "background_setting": "", "lighting": {}, "aesthetics": {}, "photographic_characteristics": {}, "style_medium": "", "context": "", "artistic_style": ""})
 
-# Place art (Paul, 2026-11-13): each real landmark blended with the mountain dwarf city of the influences (decision 30),
-# so a viewer sees both at once: "that's the Flatirons, and that's Ironforge". Borrowed and blended, never a copy:
-# the cues are the archetype (giant gate in the mountain, colossal dwarf guardian statues, square-cut stone, snow,
-# forge glow), with no crest, emblem, exact building or name from any franchise.
-CITY = ("a colossal dwarven mountain city carved into the heart of the mountain: a gigantic gate of angular, square-cut "
-        "dwarven stonework set deep into the rock, flanked by two colossal stone statues of bearded dwarf warriors leaning "
-        "on great war hammers, a broad stone stairway and causeway climbing to it, massive iron-banded doors standing open "
-        "with warm molten forge light pouring out, heavy square towers and terraced halls climbing the rock face at many "
-        "levels with rows of warm golden windows, braziers and small torches, plain crimson and gold banners, light snow on "
-        "the ledges, all carved from the mountain's own rock so it looks grown from it, clearly vast and cavernous inside; "
-        "warm and welcoming, no large fire")
+# Place art (Paul, 2026-11-13): each real landmark blended with its paired city from the influences (decision 30),
+# so a viewer sees both at once ("that's the Flatirons, and that's the dragon city"). Borrowed and blended, never a
+# copy: the archetype's cues, with no crest, emblem, exact building or name from any franchise.
+#   Boulder (Photon Mountain)       Flatirons      + Valdrakken  dragons
+#   Golden (Photon Mountain)        Table Mountain + Ironforge   dwarves and gnomes, the School of Mines
+#   Denver (Photon Mountain)        skyline        + Stormwind   humans
+#   Colorado Springs (Space Peak)   Pikes Peak     + Aerie Peak  gryphon-riding dwarves and gnome flying machines
+#   Fort Collins (Fusion Canyon)    Poudre Canyon  + Gnomeregan  gnome science
+DRAGONS = ("a soaring dragon city built onto the mountain: tall terraces and slender towers of pale stone with gold domes and "
+           "teal and crimson roofs climbing between the rock slabs, vast open stone landing platforms and great arched roosts "
+           "where huge dragons perch, two great dragons gliding above the slabs, crystal lanterns and beams of warm golden "
+           "light, elegant artisans' halls, luminous and majestic; warm and welcoming")
+DWARVES = ("a colossal dwarven mountain city carved into the heart of the mountain: a gigantic gate of angular, square-cut "
+           "dwarven stonework set deep into the rock, flanked by two colossal stone statues of bearded dwarf warriors leaning "
+           "on great war hammers, a broad stone stairway and causeway climbing to it, massive iron-banded doors standing open "
+           "with warm molten forge light pouring out, heavy square towers and terraced halls climbing the rock face with rows "
+           "of warm golden windows, mine headframes and ore carts, gnome clockwork lifts and brass gears beside the gate, "
+           "braziers and small torches, plain crimson and gold banners, light snow on the ledges, all carved from the "
+           "mountain's own rock; warm and welcoming, no large fire")
+HUMANS = ("a grand white-stone human capital: high white walls and round towers with deep blue slate roofs, a great keep "
+          "with tall spires, stone bridges over canals, plain blue and gold banners, warm lamplit windows; majestic and welcoming")
+GRYPHONS = ("a high dwarven aerie on the mountain: halls and towers of stone and timber carved into the upper cliffs, great "
+            "stone roosts where gryphons nest and launch, gryphons in flight around the peak, small gnome flying machines "
+            "and gyrocopters circling, rope lifts and wooden platforms, warm windows and braziers, plain green and gold "
+            "banners; adventurous and welcoming")
+GNOMES = ("a bright gnome city of science built into both canyon walls: brass and steel workshops with round porthole "
+          "windows, great gears and water wheels turned by the river, pipes, catwalks and lifts spanning the canyon, glowing "
+          "teal-blue energy cores, small gyrocopters, warm windows; clever, bright and welcoming")
 
 
-def place(photo, crop, where, extra, landmark, background):
+def place(photo, crop, city, where, extra, landmark, background):
     return {"photo": photo, "crop": crop,
-            "edit_instruction": f"Carve {CITY}, into {where}. {extra} Change the light to golden hour with a deep navy upper sky fading to gold at the horizon. Keep {landmark} exactly as it is and clearly recognisable. Add no text, letters or signs.",
+            "edit_instruction": f"Blend in {city}, built into {where}. {extra} Change the light to golden hour with a deep navy upper sky fading to gold at the horizon. Keep {landmark} exactly as it is and clearly recognisable. Add no text, letters or signs.",
             "scene": {
-                "short_description": f"{background.split(':')[0]} at golden hour, blended with a colossal dwarven mountain city carved into the rock",
-                "objects": [{"description": CITY, "location": where, "relationship": "carved into the real mountain, which stays recognisable", "relative_size": "very large within frame"}],
+                "short_description": f"{background.split(':')[0]} at golden hour, blended with a fantasy city built into the landscape",
+                "objects": [{"description": city, "location": where, "relationship": "built into the real place, which stays recognisable", "relative_size": "very large within frame"}],
                 "background_setting": background,
-                "lighting": {"conditions": "golden hour, warm golden window and forge light from the city", "direction": "low sun from the left, warm light from the gate and windows", "shadows": "long and warm"},
-                "aesthetics": {"composition": "wide 2:1 landscape, the landmark and the great gate centred, calm sky across the top", "color_scheme": "deep navy upper sky (#001970) fading to warm gold (#ffd100), the mountain's own rock colours, dark pine green (#245d38), warm golden window and forge light, crimson banners", "mood_atmosphere": "grand, warm, welcoming, inviting"},
+                "lighting": {"conditions": "golden hour, warm golden window light from the city", "direction": "low sun from the left, warm light from the windows", "shadows": "long and warm"},
+                "aesthetics": {"composition": "wide 2:1 landscape, the landmark and the city centred, calm sky across the top", "color_scheme": "deep navy upper sky (#001970) fading to warm gold (#ffd100), the place's own colours, dark pine green (#245d38), warm golden window light", "mood_atmosphere": "grand, warm, welcoming, inviting"},
                 "photographic_characteristics": {"depth_of_field": "deep", "focus": "sharp throughout", "camera_angle": "eye-level", "lens_focal_length": "standard"},
                 "style_medium": "photograph, photorealistic", "text_render": [],
                 "context": "fantasy place art for a Colorado founders community; the image contains no text",
@@ -129,26 +146,31 @@ def place(photo, crop, where, extra, landmark, background):
 
 
 EDITS = {
-    "boulder": place("flatirons-2007-pd.jpg", (0.07, 0.22, 1.0, 0.84),
-                     "the mountain below and between the tilted Flatirons slabs, the great gate at the centre and the two statues standing against the slabs",
+    "boulder": place("flatirons-2007-pd.jpg", (0.07, 0.22, 1.0, 0.84), DRAGONS,
+                     "the mountain between and below the tilted Flatirons slabs, with dragons perched on top of the slabs",
                      "Remove the stadium floodlight tower at the left edge.",
                      "the Flatirons' tilted red-brown rock slabs and the mountain's outline",
                      "the Flatirons above Boulder, Colorado: tilted red-brown sandstone slabs on the forested east face of Green Mountain, with leafy trees in the foreground"),
-    "golden": place("table-mountains-golden-ccby.jpg", (0.1, 0.05, 0.9, 0.79),
+    "golden": place("table-mountains-golden-ccby.jpg", (0.1, 0.05, 0.9, 0.79), DWARVES,
                     "the steep flank of South Table Mountain on the right, below its basalt cap",
                     "Replace the golf course in the foreground with natural grassland and sandstone.",
                     "both mesas' flat basalt-capped outlines",
                     "North and South Table Mountains above Golden, Colorado: two flat-topped mesas with dark basalt caps and grassy slopes, sandstone outcrops in the foreground"),
-    "springs": place("pikes-peak-colorado-springs-ccby.jpg", (0.0, 0.0, 1.0, 0.667),
-                     "the lower slopes of Pikes Peak itself, the great gate and statues at the foot of the summit's granite face, towers and halls climbing toward the summit",
+    "denver": place("denver-skyline-usfws-pd.jpg", (0.4, 0.25, 1.0, 0.701), HUMANS,
+                    "the downtown skyline and the plain in front of it, the keep rising where the tallest towers stand, so the skyline's outline stays recognisable",
+                    "Keep the golden cottonwood trees and the grassland in the foreground.",
+                    "the Front Range mountains behind the city",
+                    "Downtown Denver, Colorado: the city's towers on the plain, with the Front Range mountains rising behind and golden cottonwoods in the foreground"),
+    "springs": place("pikes-peak-colorado-springs-ccby.jpg", (0.0, 0.0, 1.0, 0.667), GRYPHONS,
+                     "the upper slopes of Pikes Peak below the summit",
                      "Replace the houses in the lower part of the frame with pine forest.",
                      "the summit of Pikes Peak, its pink granite, its snow and its outline",
                      "Pikes Peak above Colorado Springs, Colorado: the broad pink-granite summit with snowfields above forested foothills"),
-    "fortcollins": place("horsetooth-rock-usfws-pd.jpg", (0.1, 0.12, 0.9, 0.653),
-                         "Horsetooth Rock and the ridge below it, the great gate and statues at the foot of the rock's two-toothed summit, halls climbing the ridge",
-                         "Replace the road, the buildings, the power lines and the signs with natural grassland and pines.",
-                         "Horsetooth Rock's distinctive two-toothed granite summit and the ridge outline",
-                         "Horsetooth Rock above Fort Collins, Colorado: a two-toothed granite summit on a long forested ridge above grassy foothills"),
+    "fortcollins": place("poudre-canyon-greyrock-ccby.jpg", (0.0, 0.15, 1.0, 0.8167), GNOMES,
+                         "both walls of the canyon, with a clear mountain river running along the canyon floor",
+                         "Add the river along the canyon floor.",
+                         "the canyon's rocky walls, its ridgelines and its pines",
+                         "Poudre Canyon west of Fort Collins, Colorado: steep granite canyon walls with ponderosa pines and a far ridge"),
 }
 
 
@@ -168,7 +190,7 @@ def main(limit: int = 0, skip: int = 0):
 
 
 @app.local_entrypoint()
-def edit_all(cards: str = "boulder,golden,springs,fortcollins", seed: int = 11):
+def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int = 11):
     here = pathlib.Path(__file__).parent
     out = here / "out"; out.mkdir(exist_ok=True)
     names = cards.split(",")
@@ -202,18 +224,18 @@ CHARACTERS = {
         "aesthetics": {"composition": "wide 2:1; the dwarf in the right half; the left 45 percent is the calm, darker depth of the hall", "color_scheme": "deep navy shadows (#001970), warm gold light (#ffd100), forge orange, iron grey, the blue glow of the slate", "mood_atmosphere": "warm, wise, welcoming, capable"},
         **CHAR_STYLE},
     "link": {
-        "short_description": "Link, a young adventurer hero, on a trail in the red-rock foothills of Colorado",
-        "objects": [{"description": "a young adventurer hero with an elven face, long pointed ears and tousled sandy-blond hair, a forest-green tunic with a long green pointed cap, a brown leather belt, bracers and boots, a plain original sword on his back and a round wooden shield with a brass rim and a carved columbine flower, a brass chain-link pendant on his chest, a short green travelling cloak with gold trim, brave, kind, ready for the road",
-                     "location": "right half, waist up", "relationship": "the hero of the frame, on the trail", "relative_size": "large within frame"}],
+        "short_description": "Linken, a small gnome warrior hero, on a trail in the red-rock foothills of Colorado",
+        "objects": [{"description": "a small, sturdy gnome warrior hero with large pointed ears, a big friendly nose, bright eyes and tousled sandy-blond hair, a forest-green tunic and a long green pointed cap, a brown leather belt, bracers and boots, a short sword of original design, a round wooden shield with a brass rim and a carved columbine flower, a curved wooden boomerang at his hip, a brass chain-link pendant on his chest, brave and cheerful",
+                     "location": "right half, full figure", "relationship": "the hero of the frame, on the trail", "relative_size": "large within frame"}],
         "background_setting": "Colorado's Front Range foothills: tilted red sandstone slabs, golden aspens and dark pines, a winding dirt trail, a wide open sky",
-        "aesthetics": {"composition": "wide 2:1; the hero in the right half; the left 45 percent is open sky above soft distant foothills", "color_scheme": "deep navy upper sky (#001970) fading to gold (#ffd100), forest green, red sandstone, aspen gold", "mood_atmosphere": "adventurous, hopeful, bright"},
+        "aesthetics": {"composition": "wide 2:1; the gnome hero in the right half; the left 45 percent is open sky above soft distant foothills", "color_scheme": "deep navy upper sky (#001970) fading to gold (#ffd100), forest green, red sandstone, aspen gold", "mood_atmosphere": "adventurous, plucky, bright, a little funny"},
         **CHAR_STYLE},
     "legallas": {
         "short_description": "Legallas, an elf ranger, in a golden aspen grove below snowy Colorado peaks",
-        "objects": [{"description": "a tall, graceful elf ranger with long straight platinum-blond hair, long elegant swept-back pointed ears and a calm, focused face, fitted ranger armour of deep blue leather with burnished gold filigree plates, a flowing crimson-and-gold cloak, an ornate recurved longbow of pale aspen wood with gold fittings, a quiver of white-fletched arrows, a slim leather scroll case at the hip",
+        "objects": [{"description": "a tall, graceful elf ranger with long straight platinum-blond hair, long elegant swept-back pointed ears and a calm, keen face, fitted crimson-and-gold ranger armour with burnished gold leaf-shaped plates, a grey-green elven travelling cloak fastened with an aspen-leaf clasp, an ornate recurved longbow of pale wood with gold fittings, a quiver of white-fletched arrows, twin long white-handled knives crossed at his back, a slim leather scroll case at the hip",
                      "location": "right half, waist up", "relationship": "the hero of the frame, among the aspens", "relative_size": "large within frame"}],
         "background_setting": "a high Colorado aspen grove in autumn gold, white trunks, snow-capped Front Range peaks beyond",
-        "aesthetics": {"composition": "wide 2:1; the ranger in the right half; the left 45 percent is soft gold aspens and sky", "color_scheme": "deep navy upper sky (#001970), aspen gold (#ffd100), crimson, deep blue leather, white aspen bark", "mood_atmosphere": "graceful, vigilant, noble"},
+        "aesthetics": {"composition": "wide 2:1; the ranger in the right half; the left 45 percent is soft gold aspens and sky", "color_scheme": "deep navy upper sky (#001970), aspen gold (#ffd100), crimson and gold armour, grey-green cloak, white aspen bark", "mood_atmosphere": "graceful, vigilant, noble"},
         **CHAR_STYLE},
 }
 
@@ -253,14 +275,14 @@ CARD_TEXT = {
     "coloradostartups.org": ("Colorado Startups", "Colorado founders, in good company.", "AI-made image from a public-domain photo by Jimbo Herndan"),
     "brand": ("Colorado Startups", "The open-source brand", "AI-made image from a photo by James St. John, CC BY 2.0"),
     "claudius": ("Claudius", "A Colorado Startups project", "AI-made image"),
-    "link": ("Link", "A Colorado Startups project", "AI-made image"),
+    "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
 CARD_ART = {"coloradostartups.org": "boulder-edit", "brand": "golden-edit", "claudius": "claudius-char", "link": "link-char", "legallas": "legallas-char"}
 
 
 @app.function(image=image, volumes={"/cache": weights}, secrets=[modal.Secret.from_name("fibo-hf")], timeout=600)
-def compose(png: bytes, title: str, subtitle: str, credit: str) -> bytes:
+def compose(png: bytes, title: str, subtitle: str, credit: str, prov: dict) -> bytes:
     from PIL import Image, ImageDraw, ImageFilter, ImageFont
     from huggingface_hub import hf_hub_download
     font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts", cache_dir="/cache")
@@ -283,7 +305,23 @@ def compose(png: bytes, title: str, subtitle: str, credit: str) -> bytes:
     img = Image.alpha_composite(img, chip); d = ImageDraw.Draw(img)
     d.text((1280 - 20 - w + 12 - x0, 640 - 18 - h + 7 - y0), credit, font=tiny, fill=(255, 238, 190, 255))
     buf = io.BytesIO(); img.convert("RGB").save(buf, "JPEG", quality=88, optimize=True, progressive=True)
-    return buf.getvalue()
+    return with_provenance(buf.getvalue(), prov)
+
+
+# Decision 8: model-made images keep their AI-made label in metadata. Only the IPTC AI fields and the art namespace,
+# the provenance packet tools/vendor/export_scan.py accepts (#691); no EXIF, no camera or location data.
+def with_provenance(jpg: bytes, prov: dict) -> bytes:
+    from xml.sax.saxutils import quoteattr
+    iptc = "http://cv.iptc.org/newscodes/digitalsourcetype/"
+    attrs = {"Iptc4xmpExt:DigitalSourceType": iptc + prov["type"], "Iptc4xmpExt:AISystemUsed": "FIBO 2.0 (Bria), briaai/Fibo-2.0-dev",
+             "csart:Seed": str(prov["seed"]), "csart:Source": prov["source"], "csart:ModelLicense": "Bria FIBO 2 Free plan"}
+    packet = ('<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+              '<rdf:Description rdf:about="" xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" '
+              'xmlns:csart="https://coloradostartups.org/ns/art/1.0/" '
+              + " ".join(f"{k}={quoteattr(v)}" for k, v in attrs.items()) + "/></rdf:RDF></x:xmpmeta>").encode()
+    seg = b"http://ns.adobe.com/xap/1.0/\x00" + packet
+    at = 4 + int.from_bytes(jpg[4:6], "big") if jpg[2:4] == b"\xff\xe0" else 2  # after the JFIF header
+    return jpg[:at] + b"\xff\xe1" + (len(seg) + 2).to_bytes(2, "big") + seg + jpg[at:]
 
 
 @app.local_entrypoint()
@@ -292,6 +330,11 @@ def compose_all(seed: int = 11, cards_only: str = ""):
     out = here / "out"; cards = here.parent.parent / "dist" / "social"; cards.mkdir(parents=True, exist_ok=True)
     src = {c: out / f"{CARD_ART[c]}-{seed}.png" for c in (cards_only.split(",") if cards_only else CARD_TEXT)}
     names = [c for c, p in src.items() if p.exists()]
-    for c, jpg in zip(names, compose.starmap([(src[c].read_bytes(), *CARD_TEXT[c]) for c in names])):
+    def prov(c):
+        art = CARD_ART[c].rsplit("-", 1)
+        if art[1] == "edit":
+            return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed, "source": f"edit of art/render/src/{EDITS[art[0]]['photo']}"}
+        return {"type": "trainedAlgorithmicMedia", "seed": seed, "source": "text to image"}
+    for c, jpg in zip(names, compose.starmap([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
         (cards / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")

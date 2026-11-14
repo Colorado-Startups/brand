@@ -27,9 +27,9 @@ flowchart LR
 | Lane | Status | Guard |
 |---|---|---|
 | Modal, included monthly credit | ✓ approved lane | spend limit = credit |
-| Own ZeroGPU Space (HF) | ✓ if the account can host one (PRO, $9/mo, not bought) | free daily quota |
+| Own ZeroGPU Space (HF), or a public demo Space | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13); the org is `colorado-startups` | PRO's daily ZeroGPU quota |
 | HF Jobs | included credit only | balance read before and after |
-| Bria and LTX websites | only if free-tier terms grant commercial rights to outputs (Bria's trial: personal use) | terms quoted here first |
+| Bria's hosted API and website | ✓ Paul, 2026-11-13: free for companies under $2M revenue, which Colorado Startups is. bria.ai/pricing (read 2026-11-13): Free is 100 generations, cloud-only, API included; pay-as-you-go from $0.018 per generation | confirm the plan on platform.bria.ai before a batch over 100 |
 | This Mac | ✗ no video, no GPU | `rules/compute.md` |
 
 Each render batch runs after one yes in chat with its estimate.
@@ -53,4 +53,4 @@ No SVG or hand-drawn artwork ships (decision 37); data charts are not artwork.
 | Provenance and watermarks kept | Rule |
 | No training on outputs | Rule |
 | Revenue under both lines, confirmed yearly | Due 2027-11-02 |
-| Paul accepts the Free plan and adds the card on platform.bria.ai; accepts the `briaai/Fibo-2.0-dev` gate | Open (Paul) |
+| Paul accepts the Free plan and adds the card on platform.bria.ai; accepts the `briaai/Fibo-2.0-dev` gate | Done (Paul, 2026-11-13) |
