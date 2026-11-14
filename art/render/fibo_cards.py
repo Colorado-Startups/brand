@@ -1,17 +1,21 @@
-"""art/render/fibo_cards.py: the brand's FIBO 2.0 art, rendered on Modal (decisions 31, 35, 37, 39).
+"""art/render/fibo_cards.py: the brand's FIBO 2.0 art (decisions 31, 35, 37, 39, 41).
 
-Lane: Modal's included credit, an L40S. Weights: briaai/Fibo-2.0-dev, gated (Modal Secret fibo-hf). Every image is
-sent to Bria's attribution API (Modal Secret fibo-bria), which keeps commercial use covered under the FIBO 2 Free
-plan and counts one call. Reserve the calls first: python3 tools/fibo_budget.py reserve N.
-  modal run art/render/fibo_cards.py::edit_all --cards boulder,golden --seed 31      place art, edits of real photos
-  modal run art/render/fibo_cards.py::character --cards claudius --seed 7            project characters
-  modal run art/render/fibo_cards.py::compose_all --seed 31 --cards-only brand       wordmark, label, credit -> dist/social
+Lanes: the ZeroGPU Space paul-co-startups/brand-fibo (art/render/space/, on HF PRO's daily quota) first; Modal's
+included credit, an L40S, as the fallback. Weights: briaai/Fibo-2.0-dev, gated. Every image is sent to Bria's
+attribution API, which keeps commercial use covered under the FIBO 2 Free plan and counts one call. Reserve the calls
+first: python3 tools/fibo_budget.py reserve N. Space (R is uv run --no-project --with modal==1.6.3 --with
+gradio_client==2.7.2 --with pillow python3; Modal is the same with `modal run art/render/fibo_cards.py::<entry>`):
+  R art/render/fibo_cards.py edit_all --cards boulder,golden --seed 31        place art, edits of real photos
+  R art/render/fibo_cards.py character --cards claudius --seed 7              project characters
+  R art/render/fibo_cards.py compose_all --seed 31 --cards-only brand         wordmark, label, credit -> dist/social
 Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
-import base64, io, json, pathlib
+import base64, io, json, os, pathlib, sys, tempfile
 import modal
 
 app = modal.App("brand-fibo-cards")
+SPACE, SIZE, STEPS, GUIDANCE = "paul-co-startups/brand-fibo", (1440, 720), 50, 5.0
+LANE = "modal"  # "space" when run with python3, below
 weights = modal.Volume.from_name("fibo-weights", create_if_missing=True)
 image = (modal.Image.debian_slim(python_version="3.12")
          .pip_install("diffusers>=0.42.0", "torch", "torchvision", "transformers", "accelerate", "requests", "pillow"))
@@ -41,8 +45,8 @@ class Fibo:
         from PIL import Image
         src = Image.open(io.BytesIO(photo)).convert("RGB")
         w, h = src.size
-        src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize((1440, 720), Image.LANCZOS)
-        img = self.pipe(prompt=prompt, negative_prompt=NEGATIVE_EDIT, image=src, num_inference_steps=50, guidance_scale=5.0,
+        src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize(SIZE, Image.LANCZOS)
+        img = self.pipe(prompt=prompt, negative_prompt=NEGATIVE_EDIT, image=src, num_inference_steps=STEPS, guidance_scale=GUIDANCE,
                         fonts=self.fonts, generator=torch.Generator("cuda").manual_seed(seed)).images[0]
         return self._attribute(img)
 
@@ -58,7 +62,7 @@ class Fibo:
     @modal.method()
     def render(self, prompt: str, seed: int) -> dict:
         import torch
-        img = self.pipe(prompt=prompt, negative_prompt=NEGATIVE, width=1440, height=720, num_inference_steps=50, guidance_scale=5.0, fonts=self.fonts,
+        img = self.pipe(prompt=prompt, negative_prompt=NEGATIVE, width=SIZE[0], height=SIZE[1], num_inference_steps=STEPS, guidance_scale=GUIDANCE, fonts=self.fonts,
                         generator=torch.Generator("cuda").manual_seed(seed)).images[0]
         return self._attribute(img)
 
@@ -139,6 +143,25 @@ EDITS = {
 }
 
 
+def fibo_map(method, args):
+    """Fibo.<method> over args: Modal under `modal run`, else the ZeroGPU Space, which returns the same dict."""
+    if LANE == "modal":
+        return getattr(Fibo(), method).starmap(args)
+    from gradio_client import Client, handle_file
+    client = Client(SPACE)  # the hf CLI's signed-in account, so its PRO quota
+    def call(a):
+        if method == "edit":
+            photo, crop, prompt, seed = a
+            with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as f:
+                f.write(photo)
+            png, status, attribution = client.predict(handle_file(f.name), json.dumps(crop), prompt, NEGATIVE_EDIT, seed, *SIZE, STEPS, GUIDANCE, api_name="/edit")
+        else:
+            prompt, seed = a
+            png, status, attribution = client.predict(prompt, NEGATIVE, seed, *SIZE, STEPS, GUIDANCE, api_name="/render")
+        return {"png": pathlib.Path(png).read_bytes(), "attribution_status": int(status), "attribution": attribution}
+    return map(call, args)
+
+
 def log_runs(out, entries):
     runs = out / "runs.json"
     rows = (json.loads(runs.read_text()) if runs.exists() else []) + entries
@@ -153,7 +176,7 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
              json.dumps({**EDITS[c]["scene"], "edit_instruction": EDITS[c]["edit_instruction"]}, ensure_ascii=False), seed) for c in names]
     log = []
-    for c, res in zip(names, Fibo().edit.starmap(args)):
+    for c, res in zip(names, fibo_map("edit", args)):
         (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
         log.append({"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
         print(c, seed, "edit attribution", res["attribution_status"])
@@ -200,7 +223,7 @@ def character(cards: str = "claudius", seed: int = 7):
     out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
     names = cards.split(",")
     log = []
-    for c, res in zip(names, Fibo().render.starmap([(json.dumps(CHARACTERS[c], ensure_ascii=False), seed) for c in names])):
+    for c, res in zip(names, fibo_map("render", [(json.dumps(CHARACTERS[c], ensure_ascii=False), seed) for c in names])):
         (out / f"{c}-char-{seed}.png").write_bytes(res["png"])
         log.append({"card": c, "seed": seed, "mode": "character", "attribution_status": res["attribution_status"], "attribution": res["attribution"]})
         print(c, seed, "character attribution", res["attribution_status"])
@@ -224,7 +247,7 @@ CARD_ART = {"coloradostartups.org": "boulder-edit", "brand": "golden-edit", "cla
 def compose(png: bytes, title: str, subtitle: str, credit: str, prov: dict) -> bytes:
     from PIL import Image, ImageDraw, ImageFilter, ImageFont
     from huggingface_hub import hf_hub_download
-    font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts", cache_dir="/cache")
+    font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts", cache_dir="/cache" if os.path.isdir("/cache") else None)
     img = Image.open(io.BytesIO(png)).convert("RGB").resize((1280, 640), Image.LANCZOS)
     big, small = ImageFont.truetype(font, 76), ImageFont.truetype(font, 34)
     shadow = Image.new("RGBA", img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(shadow)
@@ -274,6 +297,13 @@ def compose_all(seed: int = 11, cards_only: str = ""):
         if art[1] == "edit":
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed, "source": f"edit of art/render/src/{EDITS[art[0]]['photo']}"}
         return {"type": "trainedAlgorithmicMedia", "seed": seed, "source": "text to image"}
-    for c, jpg in zip(names, compose.starmap([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
+    for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
         (cards / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")
+
+
+ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all}
+if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
+    LANE = "space"
+    kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}
+    ENTRIES[sys.argv[1]](**{k: int(v) if k == "seed" else v for k, v in kw.items()})

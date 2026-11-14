@@ -1,0 +1,7 @@
+diffusers==0.42.1
+transformers==5.21.1
+accelerate==1.15.0
+torch==2.13.0
+torchvision
+requests
+pillow

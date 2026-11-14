@@ -98,3 +98,7 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - The place art takes its Middle-earth cues at its next render. Ocarina of Time pairings are on hold (Paul).
 
     Reverse: drop the Middle-earth column, or rerender Claudius from decision 39's brief.
+41. **2026-11-14, orchestrator. FIBO 2.0 renders on an own ZeroGPU Space first, Modal second.** Paul: "Use Hugging Face Spaces, ZeroGPU, Jobs ... all for free" and "we have Hugging Face Pro" (2026-11-13). The Space `paul-co-startups/brand-fibo` is private and runs `art/render/space/app.py`, which mirrors `Fibo.render` and `Fibo.edit`. The client sends the prompt, negative, size, steps and guidance, so `art/render/fibo_cards.py` stays their one source. `python3 art/render/fibo_cards.py <entry>` uses the Space, and `modal run` still uses Modal, logging to `art/render/out/runs.json` the same way.
+    - The Space sits under Paul's PRO account because the `colorado-startups` org is on HF's free plan, which hosts no ZeroGPU Space (huggingface.co/docs/hub/spaces-zerogpu, read 2026-11-13).
+    - Bria's hosted API is not a lane. Paul's platform.bria.ai account is Pay-as-you-go: a one-time $7.00 credit, then card billing that continues automatically. It waits for Paul's billing call.
+    - Reverse: run every batch with `modal run`, and delete the Space.
