@@ -26,7 +26,7 @@ flowchart LR
 
 | Lane | Status | Guard |
 |---|---|---|
-| Own ZeroGPU Space `paul-co-startups/brand-fibo` (HF PRO) | ✓ primary FIBO lane (decision 41): text to image on Fibo-2.0-dev, edits by Bria's method (its VGL step, then Fibo-2.0-edit-turbo). Source `art/render/space/`; client `python3 art/render/fibo_cards.py <entry>` | PRO's 40 daily minutes, then the included $2 credit with automatic recharge off (huggingface.co/settings/billing, read 2026-11-13). Read both before and after a batch |
+| Own ZeroGPU Space `paul-co-startups/brand-fibo` (HF PRO) | ✓ primary FIBO lane (decision 41): text to image on Fibo-2.0-dev, edits by Bria's method (its VGL step, then Fibo-2.0-edit-turbo). Source `art/render/space/`; client `python3 art/render/fibo_cards.py <entry>` | PRO's 40 daily minutes (`xlarge` spends them at 2x), then the included $2.00 credit until it reads $0, then stop; recharge stays off (huggingface.co/settings/billing, read 2026-11-13). The VGL step uses Bria's third-party demo Space and receives each source photo. Read minutes and credit before and after a batch |
 | Modal, included monthly credit | ✓ fallback lane: `modal run art/render/fibo_cards.py::<entry>` | spend limit = credit |
 | Public demo Spaces | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13). The org `colorado-startups` is on HF's free plan, which hosts no ZeroGPU Space | PRO's daily ZeroGPU quota |
 | HF Jobs | included credit only | balance read before and after |
