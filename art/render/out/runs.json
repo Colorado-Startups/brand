@@ -106,5 +106,12 @@
   "photo": "longs-peak-meeker-pd.jpg",
   "attribution_status": 200,
   "attribution": "a38c8c24d52d4622b7caf915f90cc45b"
+ },
+ {
+  "card": "claudius",
+  "seed": 7,
+  "mode": "character",
+  "attribution_status": 200,
+  "attribution": "7e6338274ee242ce8cf3e3bb23709dca"
  }
 ]
