@@ -1,0 +1,110 @@
+[
+ {
+  "card": "coloradostartups.org",
+  "seed": 11,
+  "attribution_status": 200,
+  "attribution": "94b09ad7e49b4ca5af06e549e5f3f334"
+ },
+ {
+  "card": "coloradostartups.org",
+  "seed": 11,
+  "attribution_status": 200,
+  "attribution": "2d5d0cafda69496cac93556c9a8a941a"
+ },
+ {
+  "card": "coloradostartups.org",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "flatirons-2007-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "9e132372f9424296a0015afaeace0e17"
+ },
+ {
+  "card": "brand",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "table-mountains-golden-ccby.jpg",
+  "attribution_status": 200,
+  "attribution": "698ee8a6ecf44e82ab3a86050fe003ca"
+ },
+ {
+  "card": "claudius",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "horsetooth-mountain-view-ccbysa.jpg",
+  "attribution_status": 200,
+  "attribution": "5dbae8438b774e4fa1a58848c9150662"
+ },
+ {
+  "card": "link",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "pikes-peak-colorado-springs-ccby.jpg",
+  "attribution_status": 200,
+  "attribution": "ac5c3a23f73145e0a0f48bbf1b575dfb"
+ },
+ {
+  "card": "legallas",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "longs-peak-meeker-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "6356cf790b804c598158848cf7b9b33d"
+ },
+ {
+  "card": "legallas",
+  "seed": 23,
+  "mode": "edit",
+  "photo": "longs-peak-meeker-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "374d801bb29b48b8be785639df42804b"
+ },
+ {
+  "card": "coloradostartups.org",
+  "seed": 11,
+  "mode": "edit",
+  "photo": "flatirons-2007-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "a878aea4ac5842528fed538157d1d5f4"
+ },
+ {
+  "card": "coloradostartups.org",
+  "seed": 29,
+  "mode": "edit",
+  "photo": "flatirons-2007-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "d36f46141d3b42578af6173ea6c1a566"
+ },
+ {
+  "card": "brand",
+  "seed": 29,
+  "mode": "edit",
+  "photo": "table-mountains-golden-ccby.jpg",
+  "attribution_status": 200,
+  "attribution": "38aefd4c05fb43c09d25b7e3817091c3"
+ },
+ {
+  "card": "claudius",
+  "seed": 29,
+  "mode": "edit",
+  "photo": "horsetooth-mountain-view-ccbysa.jpg",
+  "attribution_status": 200,
+  "attribution": "52ed9149f1544b2aab4c9a88e814e30d"
+ },
+ {
+  "card": "link",
+  "seed": 29,
+  "mode": "edit",
+  "photo": "pikes-peak-colorado-springs-ccby.jpg",
+  "attribution_status": 200,
+  "attribution": "2e4b8e691afe47ae902ecd2569439336"
+ },
+ {
+  "card": "legallas",
+  "seed": 29,
+  "mode": "edit",
+  "photo": "longs-peak-meeker-pd.jpg",
+  "attribution_status": 200,
+  "attribution": "a38c8c24d52d4622b7caf915f90cc45b"
+ }
+]
