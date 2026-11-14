@@ -1,7 +1,9 @@
 """FIBO 2.0 on ZeroGPU for the Colorado Startups brand (decisions 31, 35, 37, 41).
 
-Mirrors Fibo.render and Fibo.edit in art/render/fibo_cards.py. The client sends the prompt, negative, size, steps and
-guidance, so the brand's values live in one file. Each image goes to Bria's attribution API before it is returned.
+render mirrors Fibo.render in art/render/fibo_cards.py (Fibo-2.0-dev). edit follows Bria's own editing method: the
+client brings a structured edit JSON from Bria's VGL step, and Fibo-2.0-edit-turbo runs it in 4 guidance-free steps.
+The client sends the prompt, negative, size, steps and guidance, so the brand's values live in one file. Each image
+goes to Bria's attribution API before it is returned. Both pipelines (about 50 GB) need the full GPU: xlarge.
 """
 import base64, io, json, os, tempfile
 import gradio as gr
@@ -14,18 +16,22 @@ from PIL import Image
 
 MODEL = "briaai/Fibo-2.0-dev"
 pipe = BriaFibo2Pipeline.from_pretrained(MODEL, dtype=torch.bfloat16).to("cuda")
+edit_pipe = BriaFibo2Pipeline.from_pretrained("briaai/Fibo-2.0-edit-turbo", dtype=torch.bfloat16).to("cuda")
 fonts = [hf_hub_download(MODEL, n, subfolder="fonts") for n in ("Aileron-Regular.otf", "DejaVuSans.ttf")]
 
 
-def gpu_seconds(*a):  # a[-2] is steps in both entry points; a generous guess per step plus the load
-    return int(a[-2] * 2.5) + 30
+def gpu_seconds(*a):  # a[-2] is steps; a guess per step plus the load. xlarge doubles what the quota check sees
+    return int(a[-2] * 1.2) + 30
 
 
-@spaces.GPU(duration=gpu_seconds)
+@spaces.GPU(duration=gpu_seconds, size="xlarge")
 def _run(prompt, negative, seed, image, width, height, steps, guidance):
-    kw = {"image": image} if image is not None else {"width": width, "height": height}
-    return pipe(prompt=prompt, negative_prompt=negative, num_inference_steps=steps, guidance_scale=guidance, fonts=fonts,
-                generator=torch.Generator("cuda").manual_seed(seed), **kw).images[0]
+    kw = {"image": image} if image is not None else {"width": width, "height": height, "fonts": fonts}
+    if negative:
+        kw["negative_prompt"] = negative  # edit-turbo is guidance-free; Bria sends it no negative
+    with torch.inference_mode():
+        return (edit_pipe if image is not None else pipe)(prompt=prompt, num_inference_steps=steps, guidance_scale=guidance,
+                                                          generator=torch.Generator("cuda").manual_seed(seed), **kw).images[0]
 
 
 def _attribute(img):  # on CPU, outside the GPU call, so it spends no quota

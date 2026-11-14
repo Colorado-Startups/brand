@@ -15,6 +15,7 @@ import modal
 
 app = modal.App("brand-fibo-cards")
 SPACE, SIZE, STEPS, GUIDANCE = "paul-co-startups/brand-fibo", (1440, 720), 50, 5.0
+VGL, EDIT_STEPS, EDIT_GUIDANCE = "briaai/Fibo-2.0-editing", 4, 1.0  # Bria's editing method (decision 41)
 LANE = "modal"  # "space" when run with python3, below
 weights = modal.Volume.from_name("fibo-weights", create_if_missing=True)
 image = (modal.Image.debian_slim(python_version="3.12")
@@ -147,14 +148,22 @@ def fibo_map(method, args):
     """Fibo.<method> over args: Modal under `modal run`, else the ZeroGPU Space, which returns the same dict."""
     if LANE == "modal":
         return getattr(Fibo(), method).starmap(args)
+    import httpx
     from gradio_client import Client, handle_file
+    from PIL import Image
     client = Client(SPACE)  # the hf CLI's signed-in account, so its PRO quota
     def call(a):
-        if method == "edit":
+        if method == "edit":  # Bria's method: its VGL step writes the edit JSON from the instruction, then edit-turbo
             photo, crop, prompt, seed = a
-            with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as f:
-                f.write(photo)
-            png, status, attribution = client.predict(handle_file(f.name), json.dumps(crop), prompt, NEGATIVE_EDIT, seed, *SIZE, STEPS, GUIDANCE, api_name="/edit")
+            src = Image.open(io.BytesIO(photo)).convert("RGB"); w, h = src.size
+            src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize(SIZE, Image.LANCZOS)
+            path = tempfile.NamedTemporaryFile(suffix=".png", delete=False).name; src.save(path)
+            vgl = Client(VGL)  # Bria's public Space; its /vgl runs on Bria's token and no GPU
+            up = httpx.post(vgl.upload_url, files=[("files", ("src.png", open(path, "rb"), "image/png"))], headers=vgl.headers, timeout=60)
+            up.raise_for_status()
+            edit = vgl.predict(json.loads(prompt)["edit_instruction"], up.json()[0], None, None, None, None, max(seed, 1), api_name="/vgl")["json_instruction"]
+            edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
+            png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", edit, "", seed, *SIZE, EDIT_STEPS, EDIT_GUIDANCE, api_name="/edit")
         else:
             prompt, seed = a
             png, status, attribution = client.predict(prompt, NEGATIVE, seed, *SIZE, STEPS, GUIDANCE, api_name="/render")
