@@ -275,6 +275,24 @@ PAINTED = {
                 "sky above the slabs, its horned head and face visible, and one white-and-gold winged dragon perched on the "
                 "highest tower, glowing softly. A few tiny elves on the bridges show the scale. Remove the stadium floodlight "
                 "tower. Add no text, letters or signs.", "serpent"),
+    "denver": ("Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes and places, and "
+               "the golden cottonwood trees at the sides. On a green hill on the plain in front of the city, build one grand "
+               "citadel of men that blends two styles into a single building: a white stone keep with square towers and blue "
+               "slate roofs, whose great central hall is carved timber with a shining golden roof and horse-head gables. A "
+               "stone road winds up the hill, with a few tiny riders on horses. Plain blue, green and gold banners. Add no "
+               "text, letters or signs.", None),
+    "springs": ("Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On the "
+                "forested crags in front of the peak, build one grand dwarven aerie: stone and timber halls and towers carved "
+                "into the rocks, wooden walkways and rope bridges, and great stone roosts. Put three gryphons like the "
+                "creature in <image_2> flying around the aerie, one giant golden eagle perched on the highest roost, and two "
+                "small gnome gyrocopters in the sky. A few tiny dwarves and gnomes on the walkways show the scale. Replace "
+                "the houses at the bottom with pine forest. Add no text, letters or signs.", "gryphon"),
+    "fortcollins": ("Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along the "
+                    "canyon floor, add a clear mountain river and one village of gnome science and hobbit homes: a big brass "
+                    "workshop with round porthole windows, a great water wheel turned by the river and softly glowing teal "
+                    "energy cores, and beside it round green and yellow doors set into grassy banks, flower gardens and a "
+                    "stone bridge over the river. A few tiny gnomes and hobbits on the paths and one small gnome gyrocopter "
+                    "in the sky. Add no text, letters or signs.", None),
 }
 
 
