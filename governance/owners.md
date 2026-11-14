@@ -43,7 +43,7 @@ Nothing waits on these; each has a default. The orchestrator lists them once, wi
 
 | # | Item | Default if untouched |
 |---|---|---|
-| 1 | Send Comfy the commercial-use request drafted at `art/requests/comfy-bria-commercial-use.md` | No FIBO renders; the shipped art is regraded |
+| 1 | Send Comfy the commercial-use request drafted at the Comfy request (dropped by decision 31) | No FIBO renders; the shipped art is regraded |
 | 2 | Set a Comfy Cloud credit budget for brand renders and video | No new renders or video |
 | 3 | Upload the new LinkedIn logo and cover, the Slack icon and the Kit template; paste the new email signature | The files and one-page steps wait in `templates/` |
 | 4 | Sign in to Canva or Figma, if the connector is not on the Colorado Startups account | The kit ships as files |
