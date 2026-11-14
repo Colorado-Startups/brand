@@ -13,7 +13,7 @@
 | 5 | [Palette by token role](direction/05-palette-by-token-role.md) | 288 |
 | 6 | [Inside the doors: the Hall](direction/06-inside-the-doors-the-hall.md) | 218 |
 | 7 | [Outside the doors: the towns](direction/07-outside-the-doors-the-towns.md) | 336 |
-| 8 | [Real places; No borrowed pictures](direction/08-real-places.md) | 276 |
+| 8 | [Real places; Image inputs](direction/08-real-places.md) | 276 |
 | 9 | [The keepers](direction/09-the-keepers.md) | 227 |
 | 10 | [Prompts: FIBO 2.0 in VGL; Motion](direction/10-prompts-fibo-2-0-in-vgl.md) | 387 |
 | 11 | [Renders and runs; Texture tiles; Files; Sources](direction/11-renders-and-runs.md) | 411 |

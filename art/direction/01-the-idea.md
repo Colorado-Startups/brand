@@ -16,4 +16,4 @@ Colorado's founders build their companies in the Hall, a bright forge-kingdom ca
 | Each keeper described anew in each prompt | One fixed sheet per keeper in `art/keepers/`, pasted verbatim into every caption |
 | Motion rules dropped by a website merge | Restored and extended in `art/motion.md` |
 | The towns in `lore.md` | Those towns plus Golden with the Colorado School of Mines, Fort Collins and Greeley |
-| No rule for reference pictures | No borrowed pictures, reference images included |
+| No rule for reference pictures | Image inputs: anything we have the rights to (decision 38) |
