@@ -1,0 +1,6 @@
+# art/bria-credit.yaml: spend on Bria's hosted API, against Paul's one-time $7.00 free credit (decision 42).
+# Bria bills the card on file automatically when the credit reaches $0 (platform.bria.ai Usage & Billing, read
+# 2026-11-14), so `python3 tools/fibo_budget.py reserve-bria N` refuses past cap_mills, a $1.00 margin. Mills: $0.001.
+cap_mills: 6000
+price_mills: 32
+spent_mills: 0

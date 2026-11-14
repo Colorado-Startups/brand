@@ -25,8 +25,10 @@ def gpu_seconds(*a):  # a[-2] is steps; a guess per step plus the load. xlarge d
 
 
 @spaces.GPU(duration=gpu_seconds, size="xlarge")
-def _run(prompt, negative, seed, image, width, height, steps, guidance):
+def _run(prompt, negative, seed, image, mask, width, height, steps, guidance):
     kw = {"image": image} if image is not None else {"width": width, "height": height, "fonts": fonts}
+    if mask is not None:
+        kw["mask"] = mask  # white is regenerated, black kept (Bria-AI/vgl best practices); one source image only
     if negative:
         kw["negative_prompt"] = negative  # edit-turbo is guidance-free; Bria sends it no negative
     with torch.inference_mode():
@@ -46,13 +48,15 @@ def _attribute(img):  # on CPU, outside the GPU call, so it spends no quota
 
 
 def render(prompt: str, negative: str, seed: int, width: int, height: int, steps: int, guidance: float):
-    return _attribute(_run(prompt, negative, int(seed), None, int(width), int(height), int(steps), float(guidance)))
+    return _attribute(_run(prompt, negative, int(seed), None, None, int(width), int(height), int(steps), float(guidance)))
 
 
-def edit(photo: str, crop: str, prompt: str, negative: str, seed: int, width: int, height: int, steps: int, guidance: float):
+def edit(photo: str, crop: str, ref: str | None, mask: str | None, prompt: str, negative: str, seed: int, width: int, height: int, steps: int, guidance: float):
     src = Image.open(photo).convert("RGB"); w, h = src.size; c = json.loads(crop)
     src = src.crop((int(c[0] * w), int(c[1] * h), int(c[2] * w), int(c[3] * h))).resize((int(width), int(height)), Image.LANCZOS)
-    return _attribute(_run(prompt, negative, int(seed), src, int(width), int(height), int(steps), float(guidance)))
+    image = [src, Image.open(ref).convert("RGB")] if ref else src  # Bria's own Space: the source first, then references
+    m = Image.open(mask).convert("L").resize(src.size) if mask and not ref else None  # Bria allows a mask with one image only
+    return _attribute(_run(prompt, negative, int(seed), image, m, int(width), int(height), int(steps), float(guidance)))
 
 
 num = lambda label, v: gr.Number(v, label=label, precision=None if isinstance(v, float) else 0)
@@ -61,6 +65,7 @@ base = lambda: [gr.Textbox(label="prompt"), gr.Textbox(label="negative"), num("s
         num("steps", 50), num("guidance", 5.0)]
 demo = gr.TabbedInterface(
     [gr.Interface(render, base(), out(), api_name="render"),
-     gr.Interface(edit, [gr.File(label="photo", type="filepath"), gr.Textbox(label="crop", value="[0,0,1,1]")] + base(), out(), api_name="edit")],
+     gr.Interface(edit, [gr.File(label="photo", type="filepath"), gr.Textbox(label="crop", value="[0,0,1,1]"),
+                         gr.File(label="ref", type="filepath"), gr.File(label="mask", type="filepath")] + base(), out(), api_name="edit")],
     ["render", "edit"], title="FIBO 2.0 for the Colorado Startups brand")
 demo.queue(default_concurrency_limit=1).launch()
