@@ -2,4 +2,4 @@
 # tools/fibo_budget.py reserve N adds N here before a batch runs, and refuses past 1,950.
 # The Bria FIBO 2 Free plan bills $0.04 per call above 2,000 a month and never blocks.
 limit: 1950
-months: {"2026-11": 28}
+months: {"2026-11": 41}

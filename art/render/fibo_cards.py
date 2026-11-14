@@ -240,12 +240,57 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
         log_runs(out, [{"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
         print(c, seed, "edit attribution", res["attribution_status"])
         if c in CREATURES and LANE != "modal":  # pass 2: the referenced creatures, on pass 1's image
+            (out / f"{c}-edit-{seed}-pass1.png").write_bytes(res["png"])  # kept, so a weak pass 2 reruns alone
             ref, instruction = CREATURES[c]
             res = next(iter(fibo_map("edit", [(res["png"], [0, 0, 1, 1], json.dumps({"edit_instruction": instruction}), seed,
                                                 str(here / "refs" / f"{ref}.png"), None)])))
             (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
             log_runs(out, [{"card": c, "seed": seed, "mode": "edit-creatures", "ref": ref, "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
             print(c, seed, "creatures attribution", res["attribution_status"])
+
+
+# Painted (decision 43, test): the whole photo repainted in one light, no mask, so the landmark and the fantasy share
+# one style. One hero structure at huge scale carved into the landmark, a few tiny figures for scale, and the
+# atmosphere spelled out. Two leans per place: "film" (grand, misty, naturalistic) and "game" (hand-painted,
+# bold, stylized). Styles are described, never named.
+LEANS = {
+    "film": ("Repaint this whole photo as an epic fantasy matte painting in the grand, naturalistic style of classic fantasy "
+             "film concept art: muted earthy colours, soft golden evening light with long shadows, mist in the low ground and "
+             "depth haze toward the horizon, painterly brushwork, one consistent light across the whole scene."),
+    "game": ("Repaint this whole photo as a hand-painted high-fantasy illustration in a stylized video-game look: bold "
+             "saturated colours, chunky slightly exaggerated shapes, painterly hand-painted textures, warm magical evening "
+             "light with glowing highlights, one consistent light across the whole scene."),
+}
+PAINTED = {
+    "golden": ("Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. Into the steep face "
+               "of the right-hand mesa, carve one colossal dwarven gate rising most of the mesa's height: a towering square-cut "
+               "stone portal flanked by two giant statues of helmeted dwarf kings resting on war hammers, warm golden light "
+               "glowing from deep inside, a river flowing out from beneath it, and a long stone causeway leading to it. A few "
+               "tiny dwarves on the causeway show the immense scale. Replace the golf course, houses and town with wild "
+               "grassland, rocks and the river. Add no text, letters or signs.", None),
+    "boulder": ("Keep the five tilted Flatirons rock slabs and the mountain's outline exactly in their shapes and places. On "
+                "the forested slopes below the slabs, build one grand sanctuary of elves and dragons: pale stone halls with "
+                "tall slender arches and towers with gold domes climbing the slope between waterfalls that fall from the "
+                "slabs, linked by terraces and bridges. Put the long green serpent dragon from <image_2> coiling through the "
+                "sky above the slabs, its horned head and face visible, and one white-and-gold winged dragon perched on the "
+                "highest tower, glowing softly. A few tiny elves on the bridges show the scale. Remove the stadium floodlight "
+                "tower. Add no text, letters or signs.", "serpent"),
+}
+
+
+@app.local_entrypoint()
+def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43):
+    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png."""
+    here = pathlib.Path(__file__).parent
+    out = here / "out"; out.mkdir(exist_ok=True)
+    jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
+    args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0]}, ensure_ascii=False), seed,
+             str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
+    for (c, l), res in zip(jobs, fibo_map("edit", args)):
+        (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{l}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(c, l, seed, "painted attribution", res["attribution_status"])
 
 
 @app.local_entrypoint()
@@ -381,7 +426,7 @@ def compose_all(seed: int = 11, cards_only: str = ""):
         print(c, len(jpg) // 1024, "KB")
 
 
-ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference}
+ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}
