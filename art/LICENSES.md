@@ -36,6 +36,8 @@ Each render batch runs after one yes in chat with its estimate.
 
 ## Not used
 
+No SVG or hand-drawn artwork ships (decision 37); data charts are not artwork.
+
 | Model | Why |
 |---|---|
 | MiniMax H3 | Its licence excludes the United States |
