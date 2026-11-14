@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="Colorado Startups: Colorado founders, in good company.">
+  <rect width="1280" height="640" fill="#ffffff"/>
+  <circle cx="1010" cy="250" r="70" fill="#ffd100"/>
+  <path d="M0 640 L0 470 L170 330 L300 430 L470 300 L640 420 L760 330 L930 470 L1080 360 L1280 480 L1280 640 Z" fill="#35647e"/>
+  <path d="M0 640 L0 540 L210 430 L380 520 L560 400 L760 530 L960 440 L1140 530 L1280 490 L1280 640 Z" fill="#245d38"/>
+  <path d="M0 640 L0 590 L300 540 L640 600 L980 545 L1280 590 L1280 640 Z" fill="#001970"/>
+  <rect x="96" y="96" width="120" height="10" fill="#c3002f"/>
+  <text x="96" y="190" font-family="Trebuchet MS, sans-serif" font-size="76" font-weight="700" fill="#001970">Colorado Startups</text>
+  <text x="96" y="252" font-family="Trebuchet MS, sans-serif" font-size="38" fill="#001970">Colorado founders, in good company.</text>
+</svg>
