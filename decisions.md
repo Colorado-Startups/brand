@@ -78,7 +78,7 @@ The brand's decision log. Any session appends its decisions here in its own PR (
 
     - Project cards: Claudius is a dwarf agent. Linken is a gnome hero blending Ocarina of Time's Link with World of Warcraft's gnome Linken; the name also reads as short for LinkedIn. Legallas blends The Lord of the Rings' Legolas with Silvermoon's Ranger-General, Halduron Brightwing. The `coloradostartups.org` card is the Boulder place art and the `brand` card is the Golden place art.
     - Left out: the Dark Iron dwarves and their forge city. Photon Mountain is about light, and no place here is a dark one.
-    - Blended, never copied: no crest, emblem, signature item or exact building from any franchise, and no actor's likeness. Franchise names stay out of files that ship (decision 30); the card names pass the gate.
+    - Blended, never copied: the characters borrow costume cues (Linken's green cap and tunic, boomerang, sword and shield; Legallas's platinum hair, longbow and twin knives) and the places borrow each city's look, but nothing carries a crest, emblem, exact building or actor's likeness. Franchise names stay out of files that ship (decision 30); the card names pass the gate.
     - Every card says it is AI-made twice: a small label on the image (with the photo credit where the photo is CC BY), and IPTC provenance metadata in the file (decision 8). Photo sources and licences: `art/render/src/SOURCES.md`.
 
     Supersedes the fortress-on-every-card renders of the same day. Reverse: pair a place with another city in `art/render/fibo_cards.py` and rerender.
