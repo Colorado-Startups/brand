@@ -4,9 +4,23 @@
     "params": {
       "origin": "https://colorado-startups.github.io/brand",
       "site_dir": "site",
-      "key_pages": ["/", "/quality/"],
-      "widths": [1280, 375],
-      "src_dirs": ["guide/public"]
+      "key_pages": [
+        "/",
+        "/quality/"
+      ],
+      "widths": [
+        1280,
+        375
+      ],
+      "src_dirs": [
+        "guide/public"
+      ],
+      "raw_scan_exempt": [
+        {
+          "file": "guide/public/tokens.css",
+          "why": "the token file: the State palette, decision 29"
+        }
+      ]
     }
   }
 ]
