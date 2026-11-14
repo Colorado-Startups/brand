@@ -7,7 +7,8 @@ first: python3 tools/fibo_budget.py reserve N. Space (R is uv run --no-project -
 gradio_client==2.7.2 --with pillow python3; Modal is the same with `modal run art/render/fibo_cards.py::<entry>`):
   R art/render/fibo_cards.py edit_all --cards boulder,golden --seed 31        place art, edits of real photos
   R art/render/fibo_cards.py character --cards claudius --seed 7              project characters
-  R art/render/fibo_cards.py compose_all --seed 31 --cards-only brand         wordmark, label, credit -> dist/social
+  R art/render/fibo_cards.py compose_all --cards-only brand                   wordmark, label, credit -> dist/social
+Place art since decision 43: R ... painted --cards golden --leans game --seed 43, then R ... places.
 Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
 import base64, io, json, os, pathlib, sys, tempfile
@@ -240,12 +241,75 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
         log_runs(out, [{"card": c, "seed": seed, "mode": "edit", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
         print(c, seed, "edit attribution", res["attribution_status"])
         if c in CREATURES and LANE != "modal":  # pass 2: the referenced creatures, on pass 1's image
+            (out / f"{c}-edit-{seed}-pass1.png").write_bytes(res["png"])  # kept, so a weak pass 2 reruns alone
             ref, instruction = CREATURES[c]
             res = next(iter(fibo_map("edit", [(res["png"], [0, 0, 1, 1], json.dumps({"edit_instruction": instruction}), seed,
                                                 str(here / "refs" / f"{ref}.png"), None)])))
             (out / f"{c}-edit-{seed}.png").write_bytes(res["png"])
             log_runs(out, [{"card": c, "seed": seed, "mode": "edit-creatures", "ref": ref, "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
             print(c, seed, "creatures attribution", res["attribution_status"])
+
+
+# Painted (decision 43, test): the whole photo repainted in one light, no mask, so the landmark and the fantasy share
+# one style. One hero structure at huge scale carved into the landmark, a few tiny figures for scale, and the
+# atmosphere spelled out. Two leans per place: "film" (grand, misty, naturalistic) and "game" (hand-painted,
+# bold, stylized). Styles are described, never named.
+LEANS = {
+    "film": ("Repaint this whole photo as an epic fantasy matte painting in the grand, naturalistic style of classic fantasy "
+             "film concept art: muted earthy colours, soft golden evening light with long shadows, mist in the low ground and "
+             "depth haze toward the horizon, painterly brushwork, one consistent light across the whole scene."),
+    "game": ("Repaint this whole photo as a hand-painted high-fantasy illustration in a stylized video-game look: bold "
+             "saturated colours, chunky slightly exaggerated shapes, painterly hand-painted textures, warm magical evening "
+             "light with glowing highlights, one consistent light across the whole scene."),
+}
+PAINTED = {
+    "golden": ("Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. Into the steep face "
+               "of the right-hand mesa, carve one colossal dwarven gate rising most of the mesa's height: a towering square-cut "
+               "stone portal flanked by two giant statues of helmeted dwarf kings resting on war hammers, warm golden light "
+               "glowing from deep inside, a river flowing out from beneath it, and a long stone causeway leading to it. A few "
+               "tiny dwarves on the causeway show the immense scale. Replace the golf course, houses and town with wild "
+               "grassland, rocks and the river. Add no text, letters or signs.", None),
+    "boulder": ("Keep the five tilted Flatirons rock slabs and the mountain's outline exactly in their shapes and places. On "
+                "the forested slopes below the slabs, build one grand sanctuary of elves and dragons: pale stone halls with "
+                "tall slender arches and towers with gold domes climbing the slope between waterfalls that fall from the "
+                "slabs, linked by terraces and bridges. Put the long green serpent dragon from <image_2> coiling through the "
+                "sky above the slabs, its horned head and face visible, and one white-and-gold winged dragon perched on the "
+                "highest tower, glowing softly. A few tiny elves on the bridges show the scale. Remove the stadium floodlight "
+                "tower. Add no text, letters or signs.", "serpent"),
+    "denver": ("Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes and places, and "
+               "the golden cottonwood trees at the sides. On a green hill on the plain in front of the city, build one grand "
+               "citadel of men that blends two styles into a single building: a white stone keep with square towers and blue "
+               "slate roofs, whose great central hall is carved timber with a shining golden roof and horse-head gables. A "
+               "stone road winds up the hill, with a few tiny riders on horses. Plain blue, green and gold banners. Add no "
+               "text, letters or signs.", None),
+    "springs": ("Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On the "
+                "forested crags in front of the peak, build one grand dwarven aerie: stone and timber halls and towers carved "
+                "into the rocks, wooden walkways and rope bridges, and great stone roosts. Put three gryphons like the "
+                "creature in <image_2> flying around the aerie, one giant golden eagle perched on the highest roost, and two "
+                "small gnome gyrocopters in the sky. A few tiny dwarves and gnomes on the walkways show the scale. Replace "
+                "the houses at the bottom with pine forest. Add no text, letters or signs.", "gryphon"),
+    "fortcollins": ("Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along the "
+                    "canyon floor, add a clear mountain river and one village of gnome science and hobbit homes: a big brass "
+                    "workshop with round porthole windows, a great water wheel turned by the river and softly glowing teal "
+                    "energy cores, and beside it round green and yellow doors set into grassy banks, flower gardens and a "
+                    "stone bridge over the river. A few tiny gnomes and hobbits on the paths and one small gnome gyrocopter "
+                    "in the sky. Add no text, letters or signs.", None),
+}
+
+
+@app.local_entrypoint()
+def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43):
+    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png."""
+    here = pathlib.Path(__file__).parent
+    out = here / "out"; out.mkdir(exist_ok=True)
+    jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
+    args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0]}, ensure_ascii=False), seed,
+             str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
+    for (c, l), res in zip(jobs, fibo_map("edit", args)):
+        (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{l}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(c, l, seed, "painted attribution", res["attribution_status"])
 
 
 @app.local_entrypoint()
@@ -319,7 +383,15 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-edit", "brand": "golden-edit", "claudius": "claudius-char", "link": "link-char", "legallas": "legallas-char"}
+CARD_ART = {"coloradostartups.org": "boulder-game-43", "brand": "golden-game-43", "claudius": "claudius-char-13",
+            "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
+PLACE_CREDIT = {
+    "boulder": "AI-made image from a public-domain photo by Jimbo Herndan",
+    "golden": "AI-made image from a photo by James St. John, CC BY 2.0",
+    "denver": "AI-made image from a public-domain photo by USFWS Mountain-Prairie",
+    "springs": "AI-made image from a photo by Huttarl, CC BY 2.5",
+    "fortcollins": "AI-made image from a photo by Charles Willgren, CC BY 2.0",
+}
 
 
 @app.function(image=image, volumes={"/cache": weights}, secrets=[modal.Secret.from_name("fibo-hf")], timeout=600)
@@ -337,16 +409,24 @@ def compose(png: bytes, title: str, subtitle: str, credit: str, prov: dict) -> b
     d.rectangle((76, 56, 196, 62), fill=(195, 0, 47, 255))
     d.text((76, 72), title, font=big, fill=(255, 255, 255, 255))
     d.text((76, 168), subtitle, font=small, fill=(255, 238, 190, 255))
-    # Credit chip, bottom right: navy at 72% keeps cream text above 4.5:1 even over the brightest gold sky.
-    tiny = ImageFont.truetype(font, 17)
-    x0, y0, x1, y1 = d.textbbox((0, 0), credit, font=tiny)
-    w, h = x1 - x0 + 24, y1 - y0 + 14
-    chip = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(chip).rounded_rectangle((1280 - 20 - w, 640 - 18 - h, 1280 - 20, 640 - 18), radius=8, fill=(0, 10, 40, 184))
-    img = Image.alpha_composite(img, chip); d = ImageDraw.Draw(img)
-    d.text((1280 - 20 - w + 12 - x0, 640 - 18 - h + 7 - y0), credit, font=tiny, fill=(255, 238, 190, 255))
+    img = label(img, credit, font)
     buf = io.BytesIO(); img.convert("RGB").save(buf, "JPEG", quality=88, optimize=True, progressive=True)
     return with_provenance(buf.getvalue(), prov)
+
+
+def label(img, credit, font):
+    """The AI-made label and photo credit, a chip at the bottom right (decisions 8 and 39). Navy at 72% keeps cream
+    text above 4.5:1 even over the brightest gold sky."""
+    from PIL import Image, ImageDraw, ImageFont
+    img = img.convert("RGBA"); W, H = img.size
+    tiny = ImageFont.truetype(font, 17)
+    x0, y0, x1, y1 = ImageDraw.Draw(img).textbbox((0, 0), credit, font=tiny)
+    w, h = x1 - x0 + 24, y1 - y0 + 14
+    chip = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(chip).rounded_rectangle((W - 20 - w, H - 18 - h, W - 20, H - 18), radius=8, fill=(0, 10, 40, 184))
+    img = Image.alpha_composite(img, chip)
+    ImageDraw.Draw(img).text((W - 20 - w + 12 - x0, H - 18 - h + 7 - y0), credit, font=tiny, fill=(255, 238, 190, 255))
+    return img
 
 
 # Decision 8: model-made images keep their AI-made label in metadata. Only the IPTC AI fields and the art namespace,
@@ -366,22 +446,44 @@ def with_provenance(jpg: bytes, prov: dict) -> bytes:
 
 
 @app.local_entrypoint()
-def compose_all(seed: int = 11, cards_only: str = ""):
+def compose_all(cards_only: str = ""):
     here = pathlib.Path(__file__).parent
     out = here / "out"; cards = here.parent.parent / "dist" / "social"; cards.mkdir(parents=True, exist_ok=True)
-    src = {c: out / f"{CARD_ART[c]}-{seed}.png" for c in (cards_only.split(",") if cards_only else CARD_TEXT)}
-    names = [c for c, p in src.items() if p.exists()]
+    names = cards_only.split(",") if cards_only else list(CARD_TEXT)
+    src = {c: out / f"{CARD_ART[c]}.png" for c in names}
+    missing = [str(p) for p in src.values() if not p.exists()]
+    if missing:
+        raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
-        art = CARD_ART[c].rsplit("-", 1)
-        if art[1] == "edit":
-            return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed, "source": f"edit of art/render/src/{EDITS[art[0]]['photo']}"}
-        return {"type": "trainedAlgorithmicMedia", "seed": seed, "source": "text to image"}
+        source, kind, seed = CARD_ART[c].rsplit("-", 2)
+        if kind in ("edit", "game", "film"):  # every place image starts from a real photo
+            return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": f"edit of art/render/src/{EDITS[source]['photo']}"}
+        return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
         (cards / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")
 
 
-ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference}
+def places(lean: str = "game", seed: int = 43):
+    """dist/places/<place>.jpg: each place's painting (decision 43), 1440x720 JPEG with IPTC provenance, no wordmark.
+    Runs locally in seconds (Pillow only); credits for the CC BY photos are in dist/README.md."""
+    from PIL import Image
+    from huggingface_hub import hf_hub_download
+    font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts")
+    here = pathlib.Path(__file__).parent
+    dest = here.parent.parent / "dist" / "places"; dest.mkdir(parents=True, exist_ok=True)
+    for c in EDITS:
+        img = Image.open(here / "out" / f"{c}-{lean}-{seed}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
+        img = label(img, PLACE_CREDIT[c], font).convert("RGB")
+        buf = io.BytesIO(); img.save(buf, "JPEG", quality=86, optimize=True, progressive=True)
+        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed,
+                                               "source": f"edit of art/render/src/{EDITS[c]['photo']}"})
+        (dest / f"{c}.jpg").write_bytes(jpg)
+        print(c, len(jpg) // 1024, "KB")
+
+
+ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
+           "places": places}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}

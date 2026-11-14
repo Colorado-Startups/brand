@@ -26,5 +26,21 @@
 {"card": "golden", "seed": 41, "mode": "edit", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "30a67bede92243c4bc384a049fbc9da5"},
 {"card": "denver", "seed": 41, "mode": "edit", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "067fc891498c4e67b3bdf7ecd7b09e0b"},
 {"card": "springs", "seed": 41, "mode": "edit", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "366aa9eb778847afb3d6b9c6585cdc87"},
-{"card": "fortcollins", "seed": 41, "mode": "edit", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "caaec495e0394c628f5319b81c54b3c5"}
+{"card": "fortcollins", "seed": 41, "mode": "edit", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "caaec495e0394c628f5319b81c54b3c5"},
+{"card": "ref-serpent", "seed": 11, "mode": "reference", "attribution_status": 200, "attribution": "67acd94745694494888a9ea99d10f150"},
+{"card": "ref-gryphon", "seed": 7, "mode": "reference", "attribution_status": 200, "attribution": "e67f2263a64d4aa8aa45d8faa1cf26ca"},
+{"card": "boulder", "seed": 41, "mode": "edit", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "30ed4ee5e4a04f839f513d3508174d84"},
+{"card": "boulder", "seed": 41, "mode": "edit-creatures", "ref": "serpent", "attribution_status": 200, "attribution": "8daccfaefb464cb2bc34e4c2bec4c6ba"},
+{"card": "golden", "seed": 41, "mode": "edit", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "505ff7ec2acb4f41add08b4da521fa9f"},
+{"card": "denver", "seed": 41, "mode": "edit", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "0170e27f2595419a94e143b3496db7ab"},
+{"card": "springs", "seed": 41, "mode": "edit", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "48e49edc58444fd38c3000f4a44f2ef7"},
+{"card": "springs", "seed": 41, "mode": "edit-creatures", "ref": "gryphon", "attribution_status": 200, "attribution": "825e4ffeb8ee45449140c70c64f56b83"},
+{"card": "fortcollins", "seed": 41, "mode": "edit", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "a6dce7cf043f44b3ab73fc78fa4012d7"},
+{"card": "golden", "seed": 43, "mode": "painted-film", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "82d22e6adb32470da39c4e39e83b04a0"},
+{"card": "golden", "seed": 43, "mode": "painted-game", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "6bad351f197c4e808419c86af0074765"},
+{"card": "boulder", "seed": 43, "mode": "painted-film", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "41299b8491084cbcabcd6b65f41596b4"},
+{"card": "boulder", "seed": 43, "mode": "painted-game", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "e992b289c7f3421fa7d9d2665b68fe71"},
+{"card": "denver", "seed": 43, "mode": "painted-game", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "6ad874544ce445d2b08126a65b000e65"},
+{"card": "springs", "seed": 43, "mode": "painted-game", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "7d88e0e4daf749e79ee32788dcac7512"},
+{"card": "fortcollins", "seed": 43, "mode": "painted-game", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "df822e00cc8a46159daecdadcc12cbaa"}
 ]
