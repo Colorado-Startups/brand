@@ -42,5 +42,6 @@
 {"card": "boulder", "seed": 43, "mode": "painted-game", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "e992b289c7f3421fa7d9d2665b68fe71"},
 {"card": "denver", "seed": 43, "mode": "painted-game", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "6ad874544ce445d2b08126a65b000e65"},
 {"card": "springs", "seed": 43, "mode": "painted-game", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "7d88e0e4daf749e79ee32788dcac7512"},
-{"card": "fortcollins", "seed": 43, "mode": "painted-game", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "df822e00cc8a46159daecdadcc12cbaa"}
+{"card": "fortcollins", "seed": 43, "mode": "painted-game", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "df822e00cc8a46159daecdadcc12cbaa"},
+{"card": "boulder", "seed": 44, "mode": "painted-game", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "845c73049d6844afb2deb0feadd57577"}
 ]

@@ -269,13 +269,17 @@ PAINTED = {
                "glowing from deep inside, a river flowing out from beneath it, and a long stone causeway leading to it. A few "
                "tiny dwarves on the causeway show the immense scale. Replace the golf course, houses and town with wild "
                "grassland, rocks and the river. Add no text, letters or signs.", None),
-    "boulder": ("Keep the five tilted Flatirons rock slabs and the mountain's outline exactly in their shapes and places. On "
-                "the forested slopes below the slabs, build one grand sanctuary of elves and dragons: pale stone halls with "
-                "tall slender arches and towers with gold domes climbing the slope between waterfalls that fall from the "
-                "slabs, linked by terraces and bridges. Put the long green serpent dragon from <image_2> coiling through the "
-                "sky above the slabs, its horned head and face visible, and one white-and-gold winged dragon perched on the "
-                "highest tower, glowing softly. A few tiny elves on the bridges show the scale. Remove the stadium floodlight "
-                "tower. Add no text, letters or signs.", "serpent"),
+    "boulder": ("Keep the five tilted red-brown sandstone Flatirons slabs and the mountain's outline exactly in their shapes "
+                "and places. On the forested slopes below the slabs, build one grand elven sanctuary woven into the forest: "
+                "graceful pale stone halls with tall slender arches and flowing leaf carvings, set among colossal ancient "
+                "trees whose great roots and boughs hold terraces and walkways, waterfalls falling from the slabs into "
+                "softly glowing silver-blue pools, and slender bridges. Dragons live in the city: a great green winged "
+                "dragon resting on a wide stone terrace, a white-and-gold winged dragon glowing softly on a high bough, and "
+                "the long green serpent dragon from <image_2> coiling through the sky above the slabs, its horned head and "
+                "face visible. A few tiny elves walk the bridges: tall elves with long silver or dark hair in flowing grey "
+                "and green robes, and tall elves with lavender skin and long swept-back ears. Golden evening light with the "
+                "first stars and a pale moon rising. Remove the stadium floodlight tower. Add no text, letters or signs.",
+                "serpent"),
     "denver": ("Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes and places, and "
                "the golden cottonwood trees at the sides. On a green hill on the plain in front of the city, build one grand "
                "citadel of men that blends two styles into a single building: a white stone keep with square towers and blue "
@@ -383,8 +387,10 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-game-43", "brand": "golden-game-43", "claudius": "claudius-char-13",
+CARD_ART = {"coloradostartups.org": "boulder-game-44", "brand": "golden-game-43", "claudius": "claudius-char-13",
             "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
+PLACE_ART = {"boulder": "boulder-game-44", "golden": "golden-game-43", "denver": "denver-game-43",
+             "springs": "springs-game-43", "fortcollins": "fortcollins-game-43"}  # <place>-<lean>-<seed> in art/render/out/
 PLACE_CREDIT = {
     "boulder": "AI-made image from a public-domain photo by Jimbo Herndan",
     "golden": "AI-made image from a photo by James St. John, CC BY 2.0",
@@ -464,7 +470,7 @@ def compose_all(cards_only: str = ""):
         print(c, len(jpg) // 1024, "KB")
 
 
-def places(lean: str = "game", seed: int = 43):
+def places():
     """dist/places/<place>.jpg: each place's painting (decision 43), 1440x720 JPEG with IPTC provenance, no wordmark.
     Runs locally in seconds (Pillow only); credits for the CC BY photos are in dist/README.md."""
     from PIL import Image
@@ -473,10 +479,10 @@ def places(lean: str = "game", seed: int = 43):
     here = pathlib.Path(__file__).parent
     dest = here.parent.parent / "dist" / "places"; dest.mkdir(parents=True, exist_ok=True)
     for c in EDITS:
-        img = Image.open(here / "out" / f"{c}-{lean}-{seed}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
+        img = Image.open(here / "out" / f"{PLACE_ART[c]}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
         img = label(img, PLACE_CREDIT[c], font).convert("RGB")
         buf = io.BytesIO(); img.save(buf, "JPEG", quality=86, optimize=True, progressive=True)
-        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed,
+        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(PLACE_ART[c].rsplit("-", 1)[1]),
                                                "source": f"edit of art/render/src/{EDITS[c]['photo']}"})
         (dest / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")
