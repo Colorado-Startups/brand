@@ -20,5 +20,6 @@
 {"card": "springs", "seed": 31, "mode": "edit", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "a1ca731ac8614624a8448aae7a992c4e"},
 {"card": "fortcollins", "seed": 31, "mode": "edit", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "1531c01631ab4b2a84402af5fa0cb240"},
 {"card": "link", "seed": 7, "mode": "character", "attribution_status": 200, "attribution": "a16ace8ecb6a42fc83345e5a5a6e799e"},
-{"card": "legallas", "seed": 7, "mode": "character", "attribution_status": 200, "attribution": "5bc662ba25fa443689575905cd3708a4"}
+{"card": "legallas", "seed": 7, "mode": "character", "attribution_status": 200, "attribution": "5bc662ba25fa443689575905cd3708a4"},
+{"card": "claudius", "seed": 13, "mode": "character", "attribution_status": 200, "attribution": "0ceb2b36f3ff41f9819ec8aef4d8f077"}
 ]
