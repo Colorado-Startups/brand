@@ -82,3 +82,19 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Every card says it is AI-made twice: a small label on the image (with the photo credit where the photo is CC BY), and IPTC provenance metadata in the file (decision 8). Photo sources and licences: `art/render/src/SOURCES.md`.
 
     Supersedes the fortress-on-every-card renders of the same day. Reverse: pair a place with another city in `art/render/fibo_cards.py` and rerender.
+40. **2026-11-13, Paul. Each place also blends a Middle-earth place, and Claudius is a gnome.** Paul chose these after weighing each city against Middle-earth; they add to decision 39's World of Warcraft pairings.
+
+    | Place | World of Warcraft | Middle-earth | People |
+    |---|---|---|---|
+    | Boulder | Valdrakken | Rivendell | Dragons and elves: light, crafters, scholars, protectors |
+    | Golden | Ironforge | Erebor | Dwarves, with a few gnomes |
+    | Denver | Stormwind | Edoras | Men: capitals, horses, mountains at their backs |
+    | Colorado Springs | Aerie Peak | The Eagles' eyrie | Gryphons, eagles, dwarves and gnome gyrocopters. Glen Eyrie, the castle of the city's founder, already carries the name |
+    | Fort Collins | Gnomeregan | The Shire | Gnomes and hobbits: tech, nature and beer |
+
+    - Left out, with the Dark Iron dwarves and their forge city: Moria. Both are fallen and dark, and Photon Mountain is light.
+    - Claudius is a gnome blending Samwise (the loyal companion) and Mimiron (the titan-forged master engineer), the way Legallas blends Legolas and Halduron Brightwing. Supersedes decision 39's dwarf agent.
+    - The repo keeps the name Claudius (Paul: "Keep Claudius"). Weighed first: Anthropic used "Claudius" only as a research nickname (Project Vend, 2025), not a product, and asked Clawdbot to rename in January 2026 for sounding like Claude. ClaudeWise and Gamgear were the alternatives.
+    - The place art takes its Middle-earth cues at its next render. Ocarina of Time pairings are on hold (Paul).
+
+    Reverse: drop the Middle-earth column, or rerender Claudius from decision 39's brief.

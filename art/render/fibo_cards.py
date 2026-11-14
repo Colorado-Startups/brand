@@ -171,11 +171,11 @@ CHAR_STYLE = {
 }
 CHARACTERS = {
     "claudius": {
-        "short_description": "Claudius, a friendly dwarf agent, in a vast warm hall carved inside a Colorado mountain",
-        "objects": [{"description": "a stout, broad-shouldered dwarf with a long braided copper-red beard bound in brass rings, bright kind eyes and a warm wise smile, heavy riveted iron pauldrons over a leather miner's apron, a deep blue wool tunic with gold trim, a brass mining lantern at his belt, holding up a thin slate of glowing blue light with lines of light flowing across it, a helpful agent at work",
-                     "location": "right half, waist up", "relationship": "the hero of the frame, in front of the great hall", "relative_size": "large within frame"}],
-        "background_setting": "a colossal hall carved deep inside a mountain: massive square stone columns with carved geometric bands, iron walkways and bridges, rows of warm glowing windows, braziers and a distant great forge glowing gold, vast and cavernous",
-        "aesthetics": {"composition": "wide 2:1; the dwarf in the right half; the left 45 percent is the calm, darker depth of the hall", "color_scheme": "deep navy shadows (#001970), warm gold light (#ffd100), forge orange, iron grey, the blue glow of the slate", "mood_atmosphere": "warm, wise, welcoming, capable"},
+        "short_description": "Claudius, a gnome engineer and loyal companion, in a cosy gnome workshop in a green Colorado river canyon",
+        "objects": [{"description": "a small, sturdy, kind-faced gnome engineer and loyal companion with large pointed ears, a big friendly nose, curly sandy-brown hair and a short trimmed beard, brass goggles pushed up on his forehead, a brass mechanical gauntlet on his right hand, rolled-up sleeves and a leather waistcoat, a tool belt of small brass gadgets, a travelling pack with a coil of grey rope and a small cooking pan hanging from it, holding up a thin slate of glowing blue light with lines of light flowing across it, a helpful agent at work, a warm, steady, loyal smile",
+                     "location": "right half, waist up", "relationship": "the hero of the frame, in his workshop", "relative_size": "large within frame"}],
+        "background_setting": "a cosy gnome workshop built into a green river canyon: a round wooden door and round windows, brass gears, pipes and softly glowing teal energy cores, a small vegetable garden, warm lamplight, the canyon wall and pines beyond",
+        "aesthetics": {"composition": "wide 2:1; the gnome in the right half; the left 45 percent is the calm, softly lit depth of the workshop and canyon", "color_scheme": "deep navy shadows (#001970), warm gold lamplight (#ffd100), brass, garden green, the blue glow of the slate and teal cores", "mood_atmosphere": "warm, loyal, clever, homely"},
         **CHAR_STYLE},
     "link": {
         "short_description": "Linken, a small gnome warrior hero, on a trail in the red-rock foothills of Colorado",
