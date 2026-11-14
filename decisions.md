@@ -94,7 +94,7 @@ The brand's decision log. Any session appends its decisions here in its own PR (
 
     - Left out, with the Dark Iron dwarves and their forge city: Moria. Both are fallen and dark, and Photon Mountain is light.
     - Claudius is a gnome blending Samwise (the loyal companion) and Mimiron (the titan-forged master engineer), the way Legallas blends Legolas and Halduron Brightwing. Supersedes decision 39's dwarf agent.
-    - The repo keeps the name Claudius (Paul: "Keep Claudius"). Weighed first: Anthropic used "Claudius" only as a research nickname (Project Vend, 2025), not a product, and asked Clawdbot to rename in January 2026 for sounding like Claude. ClaudeWise and Gamgear were the alternatives.
+    - The repo keeps the name Claudius (Paul: "Keep Claudius"). Weighed first: Anthropic used "Claudius" only as a research nickname ([Project Vend](https://www.anthropic.com/research/project-vend-1), June 2025), not a product, and asked Clawdbot to rename on January 27, 2026 for sounding like Claude ([OpenClaw](https://en.wikipedia.org/wiki/OpenClaw), read 2026-11-13). ClaudeWise and Gamgear were the alternatives.
     - The place art takes its Middle-earth cues at its next render. Ocarina of Time pairings are on hold (Paul).
 
     Reverse: drop the Middle-earth column, or rerender Claudius from decision 39's brief.
