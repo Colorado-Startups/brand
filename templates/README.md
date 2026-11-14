@@ -1,3 +1,7 @@
 # templates
 
-Every application template, driven by tokens (owner S9). HTML sources here; PNG and PDF renders run in GitHub Actions, never on the Mac.
+| Item | Value |
+|---|---|
+| Holds | Every application template, driven by tokens (owner S9) |
+| Sources | HTML, here |
+| Renders | PNG and PDF in GitHub Actions, never on the Mac |
