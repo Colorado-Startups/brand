@@ -14,6 +14,7 @@ The logo as a loud clan crest, the banner that flies it, and Claudius's icon (de
 
 ### Changed
 - `dist/logo/emblem-512.png`, `emblem-1024.png` and `dist/templates/square-512.png`: the emblem is a loud winged crest in royal blue and gold, keeping the 2014 shield, the C and its peak.
+- `dist/brand.json` and `dist/README.md` list the banner and the Claudius icon, and describe the new emblem.
 
 ## [3.1.1] - 2026-11-15
 
