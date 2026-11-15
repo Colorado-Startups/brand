@@ -20,6 +20,9 @@ run python3 -I tools/franchise_gate.py
 run python3 -I tools/vendor/export_scan.py --self-test
 run python3 -I tools/fibo_budget.py --self-test
 run python3 -I tools/fibo_budget.py check
+# dist/brand.json, tokens.css and tokens.json match their sources, and every recorded contrast ratio is true.
+# Needs PyYAML; without it this exits 3 and is reported as a note, not a finding.
+run python3 -I tools/build_guide_data.py --check
 # The public tree, as git would publish it: names, keys, private links, image metadata.
 tree=$(mktemp -d)
 git ls-files -z | tar --null -T - -cf - | tar -xf - -C "$tree"

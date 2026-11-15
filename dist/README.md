@@ -11,6 +11,15 @@
 
 Everything the [brand guide](https://colorado-startups.github.io/brand/) shows, one top-level key per line, with each image's sha256. Built by `tools/build_guide_data.py` (decision 47).
 
+## Tokens (`tokens.css`, `tokens.json`)
+
+The design tokens, built by `tools/build_guide_data.py` from `tokens/` (decision 50). The State of Colorado palette leads; every role name, space, radius, line and size value is the website's v2.
+
+| File | Holds |
+|---|---|
+| `tokens.css` | `:root` custom properties (`--co-*` State primaries, `--c-*` roles, `--s-*`, `--r-*`, `--line-*`, `--size-*`, `--sh-*`, `--t-*`), then the night set under `prefers-color-scheme: dark` and `[data-theme="dark"]` |
+| `tokens.json` | The same tokens in the Design Tokens format (DTCG 2025.10), with each role's night value and contrast records in `$extensions` |
+
 ## Social cards (`social/`, 1280×640 JPEG)
 
 Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no tagline (decision 46). The AI-made label and photo credit are in its IPTC metadata (decisions 8 and 46). Built by `art/render/fibo_cards.py` (decision 39); photo sources in `art/render/src/SOURCES.md`.
