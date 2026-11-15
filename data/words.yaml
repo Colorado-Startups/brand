@@ -348,7 +348,7 @@ never:
     case_sensitive: false
     franchise: warcraft
   - term: Bel'ameth
-    pattern: '\bbel'?ameth\b'
+    pattern: '\bbel''?ameth\b'
     case_sensitive: false
     franchise: warcraft
   - term: Stromgarde

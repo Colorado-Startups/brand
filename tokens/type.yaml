@@ -1,4 +1,7 @@
-# The type in use until the v3 tokens (S12) set the full scale. Each family names its licence (font licences are law).
+# The type in use. Each family names its licence (font licences are law).
+# The scale below is the v2 scale, carried over unchanged (decision 51): the website's code reads --t-step-* and
+# --t-measure, so dropping them would break it. No new scale was cut; tools/build_guide_data.py writes it to
+# dist/tokens.css and dist/tokens.json.
 display:
   family: Aileron
   weight: Regular
@@ -10,3 +13,13 @@ text:
   use: Web text, body and captions
   licence: System font, never shipped here  # on macOS and Windows
   source: {path: research/color/state.yaml, read: "2026-11-14"}
+scale:  # the classic scale (Bringhurst): 15, 18, 21, 24, 36, 48, 60, 72 px; measure is characters per line
+  step--1: "0.9375rem"
+  step-0: "1.125rem"
+  step-1: "1.3125rem"
+  step-2: "1.5rem"
+  step-3: "2.25rem"
+  step-4: "3rem"
+  step-5: "3.75rem"
+  step-6: "4.5rem"
+  measure: "68ch"
