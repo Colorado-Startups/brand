@@ -9,6 +9,7 @@ gradio_client==2.7.2 --with pillow python3; Modal is the same with `modal run ar
   R art/render/fibo_cards.py character --cards claudius --seed 7              project characters
   R art/render/fibo_cards.py compose_all --cards-only brand                   wordmark only -> dist/social
 Place art since decision 43: R ... painted --cards golden --leans game --seed 43, then R ... places.
+Region crests (decision 60): R ... region_crest --seeds 7,11, then R ... crest_export --picks <region>=<seed>,... (creatures; the symbol set used seeds 5 and 9).
 Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
 import base64, io, json, os, pathlib, sys, tempfile
@@ -566,6 +567,65 @@ def banner(crest: str = "crest-w-5", seeds: str = "5,9"):
         print("banner", s, "attribution", res["attribution_status"])
 
 
+# Region crests (decision 60): the game's factions fly one banner and each race has its own crest, so each region's
+# crest is an edit of the master crest (dist/logo/emblem-1024.png, our own file). The frame stays, so the family reads
+# as one: gold rim, gold wings, the shield's outline, the navy ground. Only the field takes the region's stone color
+# (data/world.yaml regions) and the charge becomes the region's own symbol. No project mark (the Summit Sun is Photon
+# Mountain's project mark, data/architecture.yaml lockups.endorsement.never), no sun, no letters.
+REGION_CREST_STYLE = {**STYLE["wow"], "context": "World of Warcraft race crest for one region of a community; no text, no letters"}
+REGION_KEEP = ("Keep the thick gleaming gold rim, the two great golden wings, the shield's outline, size and position, the soft "
+               "golden glow and the plain deep navy background exactly as they are. Remove the C, its round disc and the mountains "
+               "inside the shield; the new emblem is the only thing inside the rim. No sun, no text, no letters, no numbers.")
+REGION_CREST = {  # creatures, Paul's call of 2026-11-15 (decision 60); the built set (symbols) is kept in git history
+    "photon-mountain": "Inside the gold rim, the shield's enamel field becomes deep fluorite violet (#4A2C84), glossy like polished "
+                       "purple fluorite crystal. The new emblem inside it: one bold white-and-gold light dragon, only its head and "
+                       "long neck in profile rising from the bottom, with gleaming white scales and gold horns and a gold mane, "
+                       "and bright golden rays of light radiating from behind it. One single clear silhouette with a bold dark "
+                       "outline. Bold saturated colours, heroic warm light.",
+    "space-peak": "Inside the gold rim, the shield's enamel field becomes the rose pink of Pikes Peak granite (#C0707A), a glossy "
+                  "speckled pink stone enamel. The new emblem inside it: one bold golden eagle seen from the front with its head "
+                  "turned in profile and both great wings spread wide, gold feathers with a bold dark outline, and one bright "
+                  "white four-pointed star above its head. One single clear silhouette. Bold saturated colours, heroic warm light.",
+    "fusion-canyon": "Inside the gold rim, the shield's enamel field becomes deep Stout sandstone red (#8C4A3F), a glossy brick-red "
+                     "stone enamel. The new emblem inside it: one bold crimson-and-gold phoenix rising with its wings spread wide, "
+                     "flame-tipped feathers, and a glowing white-gold star set in its chest. One single clear silhouette with a "
+                     "bold dark outline. Bold saturated colours, heroic warm light.",
+}
+MASTER_CREST = "dist/logo/emblem-1024.png"
+
+
+@app.local_entrypoint()
+def region_crest(regions: str = "photon-mountain,space-peak,fusion-canyon", seeds: str = "7,11"):
+    """Region crest candidates, each a FIBO edit of the master crest; writes out/crest-<region>-<seed>.png."""
+    here = pathlib.Path(__file__).parent
+    out = here / "out"; out.mkdir(exist_ok=True)
+    master = (here.parent.parent / MASTER_CREST).read_bytes()
+    jobs = [(r, int(s)) for r in regions.split(",") for s in seeds.split(",")]
+    prompt = lambda r: json.dumps({"edit_instruction": REGION_CREST[r] + " " + REGION_KEEP, "style": REGION_CREST_STYLE}, ensure_ascii=False)
+    for (r, s), res in zip(jobs, fibo_map("edit", [(master, (0, 0, 1, 1), prompt(r), s, None, None, LOGO_SIZE) for r, s in jobs])):
+        (out / f"crest-{r}-{s}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": f"crest-{r}", "seed": s, "mode": "region-crest", "photo": MASTER_CREST, "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("region crest", r, s, "attribution", res["attribution_status"])
+
+
+def crest_export(picks: str = ""):
+    """dist/crests/<region>-1024.png and -512.png from the picked seeds, e.g. photon-mountain=5,space-peak=9. The AI-made
+    label rides in an XMP iTXt chunk, as in logo_export."""
+    from PIL import Image
+    from PIL.PngImagePlugin import PngInfo
+    here = pathlib.Path(__file__).parent
+    dest = here.parent.parent / "dist" / "crests"; dest.mkdir(parents=True, exist_ok=True)
+    for pair in picks.split(","):
+        r, seed = pair.split("=")
+        img = Image.open(here / "out" / f"crest-{r}-{seed}.png").convert("RGB")
+        prov = {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed),
+                "source": f"edit of {MASTER_CREST} (decision 59), itself an edit of {SHIELD}, the 2014 shield"}
+        info = PngInfo(); info.add_itxt("XML:com.adobe.xmp", xmp_packet(prov).decode())
+        for s in (1024, 512):
+            img.resize((s, s), Image.LANCZOS).save(dest / f"{r}-{s}.png", "PNG", optimize=True, pnginfo=info)
+            print(f"{r}-{s}.png", (dest / f"{r}-{s}.png").stat().st_size // 1024, "KB")
+
+
 # Claudius's square icon for the Claude Code plugin directory (Paul in the Claudius session, 2026-11-15: "You gotta make
 # the image of the dude"): his chosen card art (decision 50) cropped to head and shoulders, then a FIBO edit at 1024.
 CLAUDIUS_CROP = (870 / 1440, 30 / 720, 1330 / 1440, 490 / 720)
@@ -891,7 +951,7 @@ def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5", banner: str =
 
 
 ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
-           "places": places, "logo": logo, "crest": crest, "banner": banner, "claudius_icon": claudius_icon, "repo_cards": repo_cards, "logo_export": logo_export, "hall": hall, "hall_export": hall_export}
+           "places": places, "logo": logo, "crest": crest, "banner": banner, "region_crest": region_crest, "crest_export": crest_export, "claudius_icon": claudius_icon, "repo_cards": repo_cards, "logo_export": logo_export, "hall": hall, "hall_export": hall_export}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}

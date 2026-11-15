@@ -78,7 +78,7 @@ jobs:
         run: |
           mkdir -p site/quality
           cp -R guide/public/. site/
-          mkdir -p site/dist && cp -R dist/brand.json dist/tokens.css dist/tokens.json dist/social dist/places dist/logo dist/website dist/templates dist/clips site/dist/
+          mkdir -p site/dist && cp -R dist/brand.json dist/tokens.css dist/tokens.json dist/social dist/places dist/logo dist/crests dist/website dist/templates dist/clips site/dist/
           cp dist/logo/favicon.ico dist/logo/apple-touch-icon.png site/
           cp -R quality/dist/. site/quality/
 

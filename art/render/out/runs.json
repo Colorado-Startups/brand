@@ -117,5 +117,17 @@
 {"card": "banner", "seed": 9, "mode": "banner", "photo": "out/crest-w-9.png", "attribution_status": 200, "attribution": "8fd49eed77214c5480113c31dbbec5c4"},
 {"card": "claudius-icon", "seed": 7, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "a4eb3fb0991349f68b0a3e2d47bdf587"},
 {"card": "claudius-icon", "seed": 13, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "526a54e5976042a7958dd2f4e47d83ed"},
-{"card": "claudius-icon", "seed": 21, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "ca8af22da03f44ad9ed2307e6b9db2ee"}
+{"card": "claudius-icon", "seed": 21, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "ca8af22da03f44ad9ed2307e6b9db2ee"},
+{"card": "crest-photon-mountain", "seed": 5, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "db8d8b7240c54fe3aea791c67cef1e95"},
+{"card": "crest-photon-mountain", "seed": 9, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "6458a87bede94700b759adf8fcaf14c8"},
+{"card": "crest-space-peak", "seed": 5, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "3351b0fb8efa4bd09d30f2b33ee5890f"},
+{"card": "crest-space-peak", "seed": 9, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "00baa938b9ce40169740266b143ac046"},
+{"card": "crest-fusion-canyon", "seed": 5, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "4990de2eb7de460bad819c902ea48d26"},
+{"card": "crest-fusion-canyon", "seed": 9, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "01edf595c5a748ec82ab96ff14c60afa"},
+{"card": "crest-photon-mountain", "seed": 7, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "53606eca64fc4d6b81989e6595dab82a"},
+{"card": "crest-photon-mountain", "seed": 11, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "c7516e2f7aa14c589abe7c2d67624f60"},
+{"card": "crest-space-peak", "seed": 7, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "b21ccbb679194c00a039621f1f972bfd"},
+{"card": "crest-space-peak", "seed": 11, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "319b3f9aa65a4bedaf2b632bc738541b"},
+{"card": "crest-fusion-canyon", "seed": 7, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "0d6a23bd81dd4ebcbbd6b3dd8e3e5691"},
+{"card": "crest-fusion-canyon", "seed": 11, "mode": "region-crest", "photo": "dist/logo/emblem-1024.png", "attribution_status": 200, "attribution": "85fb91ca5bd5466283c5e00487128400"}
 ]

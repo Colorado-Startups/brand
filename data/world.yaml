@@ -20,7 +20,7 @@
 #   materials    what the world's magic is made of (from baseline/v2/lore.md)
 #   regions      the three regions, each with a real Colorado stone and a color proposal
 #   towns        every town in lore.md plus the Wave 1 additions, with sourced facts
-#   crests       how each region and town crest is built from the logo, once it ships
+#   crests       how each region and town crest is built from the master crest (decision 60)
 #   keepers      name, kind, title, role and disclosure, copied from baseline/v2/dwarves.yaml
 #   rituals      the monthly forge theme, the newcomer's stone and honors
 #   real_places  facts about real places (decision 38 deleted the rules)
@@ -36,7 +36,7 @@ meta:
   version: 3.0.0-wave1
   owner: S2 Architecture and world
   date: "2026-11-02"
-  updated: "2026-11-14: place_art gains people, creature and mount (decision 44); notes that decisions 37 to 48 replaced are gone"
+  updated: "2026-11-15: the three region crests ship and the crests take a charge per region (decision 60)"
   decided_by: Claude, under decision 4 (Claude makes every design call and logs it)
   sources_note: >-
     "Read 2026-11-02" means the session opened the page or file that day. "Via the
@@ -409,41 +409,58 @@ towns:
 
 crests:
   status: >-
-    Waits on the logo (decision 48). Once the emblem ships, every crest is built from it and
-    this file, so a new town adds a row, not a new design.
+    The three region crests ship in dist/crests/ as <region>-1024.png and -512.png
+    (decision 60). Each is a FIBO 2.0 edit of the master crest (dist/logo/emblem-1024.png,
+    decision 59), as each race in the game carries its own crest under the faction's
+    banner. Town crests wait; a town adds a row, not a new design.
   parts:
     - id: rim
       rule: >-
-        One closed outline shape, the same for every crest, taken from the emblem's
-        outline. The rim carries the 3:1 boundary: the text role on light grounds, the
-        on-night role on night bands.
+        The master crest's frame, the same on every crest: the gold rim, the two gold
+        wings and the 2014 shield's outline, on the crest's own deep navy ground. The
+        navy ground and the gold rim carry the boundary on any page (decisions 59 and 60).
     - id: field
-      rule: The region's stone color (regions.list[].color_proposal until S12 sets the token).
-    - id: mark
-      rule: The master mark, unchanged in shape, centered in the field, in the field's mark ink.
+      rule: The region's stone color (regions.list[].color_proposal until S12 sets the token), as glossy enamel.
+    - id: charge
+      rule: >-
+        The region's own creature, described in our own words (decision 60). Photon
+        Mountain: a white-and-gold light dragon. Space Peak: a golden eagle under a
+        white star. Fusion Canyon: a ring of fire in a canyon; its phoenix did not
+        read at 48 px, so it fell back. Never a project mark such as the Summit Sun, never a sun, never letters
+        (data/architecture.yaml lockups.endorsement.never). Only the master crest
+        carries the C. Decision 60 replaced the earlier rule of the master mark in
+        every field.
     - id: band
       rule: >-
         Town crests only, and only at 64 px and up: a ledge under the field in the rim
         ink, carrying the town's real name in Core type. Below that size the town crest
         is its region's crest.
   variation:
-    allowed: [the field color (one per region), the town name on the band]
+    allowed: [the field color (one per region), the charge (one per region), the town name on the band]
     reason: >-
       MIT Media Lab's generative logo had 40,000 variants that looked too alike to tell
       its groups apart, and was replaced after about three years. Mozilla lets
-      communities pick colors and imagery while the logo and type stay fixed.
+      communities pick colors and imagery while the logo and type stay fixed. The
+      game's race crests each carry their own symbol (decision 59's research), so each
+      region varies its field and its charge, and the frame stays fixed.
     source: >-
       https://gizmodo.com/why-mit-media-lab-scrapped-its-old-logo-after-just-thre-1651927638
       (read 2026-11-02); Mozilla via the research digest, section 3
   sizes:
-    min_crest_px: 24
+    min_crest_px: 32
     band_from_px: 64
     goal: true
-    note: Targets until the crests exist; below 24 px use the logo's icon alone.
+    note: >-
+      Checked by eye at 128, 48 and 32 px on art/render/sheets/region-crests.png
+      (decision 60). The dragon and eagle read at 48 px; at 32 px each keeps its field color
+      and a bird or dragon shape, and Space Peak's gold on pink is the weakest. The
+      earlier goal of 24 px was never checked, so below 32 px use the logo's icon alone.
   variants:
-    one_color: Rim and mark in one ink, field left empty; the name beside it carries the region.
-    reversed: On a night band the rim switches to the on-night role; field and mark stay.
-  source: decisions.md, decisions 11 and 12
+    one_color: >-
+      Not made: the crests are painted, not drawn (decision 37). Where one ink is
+      needed, use the logo's icon with the region's name beside it.
+    reversed: Not needed; each crest carries its own deep navy ground.
+  source: decisions.md, decisions 11, 12, 59 and 60
 
 keepers:
   source: >-
