@@ -67,5 +67,12 @@
 {"card": "golden", "seed": 49, "mode": "painted-game", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "6cf85cb7ed90462990568db4268aed6c"},
 {"card": "denver", "seed": 49, "mode": "painted-game", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "3d84d6140f1948e1baf88fecca8b2eab"},
 {"card": "springs", "seed": 49, "mode": "painted-game", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "20862d519a0b4658bab58d00aeefcb08"},
-{"card": "fortcollins", "seed": 49, "mode": "painted-game", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "6e6eb3c61456408fbacead11703b4872"}
+{"card": "fortcollins", "seed": 49, "mode": "painted-game", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "6e6eb3c61456408fbacead11703b4872"},
+{"card": "golden", "seed": 49, "mode": "painted-wow", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "eadd30cb10a8456b8bb9c51c15d93574"},
+{"card": "golden", "seed": 49, "mode": "painted-wowlike", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "2f92dbbda63d412f97829f7111ea36ed"},
+{"card": "boulder", "seed": 50, "mode": "painted-wow", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "ea3cb889d3d44efeba5f6d75ce0fab0c"},
+{"card": "golden", "seed": 50, "mode": "painted-wow", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "3aca55e4915a477ca6cbb5e5c62e513f"},
+{"card": "denver", "seed": 50, "mode": "painted-wow", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "833c31b61f534c9bafeec8c4c49b19db"},
+{"card": "springs", "seed": 50, "mode": "painted-wow", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "f474bb5d85b84599a3fa10b80d2cca18"},
+{"card": "fortcollins", "seed": 50, "mode": "painted-wow", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "e9e99e3acbf1448ab91605d95a6fa7a9"}
 ]

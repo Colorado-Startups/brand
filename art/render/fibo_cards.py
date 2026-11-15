@@ -216,6 +216,9 @@ def fibo_map(method, args):
                 r.raise_for_status(); return r.json()[0]
             edit = vgl.predict(json.loads(prompt)["edit_instruction"], upload(path), upload(ref) if ref else None, None, None,
                                upload(mask) if mask else None, max(seed, 1), api_name="/vgl")["json_instruction"]
+            style = json.loads(prompt).get("style")
+            if style:  # set the style fields directly rather than leaving them to the VGL step's paraphrase
+                edit = {**(json.loads(edit) if isinstance(edit, str) else edit), **style}
             edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
             png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", handle_file(ref) if ref else None,
                                                       handle_file(mask) if mask else None, edit, "", seed,
@@ -260,12 +263,40 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
 # atmosphere spelled out. Two leans per place: "film" (grand, misty, naturalistic) and "game" (hand-painted,
 # bold, stylized). Styles are described, never named.
 LEANS = {
+    "wow": ("Repaint this whole photo in the art style of World of Warcraft: Blizzard's hand-painted, stylized game look, with "
+            "chunky, slightly exaggerated shapes, oversized architecture with thick walls and heavy ornament, bold saturated "
+            "colours, painterly hand-painted textures and warm magical light, one consistent light across the whole scene."),
+    "wowlike": ("Repaint this whole photo as hand-painted MMO game concept art in a stylized, heroic, slightly cartoony look: "
+                "chunky exaggerated proportions, massive oversized architecture with thick stone walls, giant rivets, huge "
+                "ornamental trims and bold geometric carvings, bold saturated jewel-tone colours, painterly hand-painted "
+                "textures with soft highlights, stylized foliage in big leaf clumps, and warm glowing magical light, one "
+                "consistent light across the whole scene."),
     "film": ("Repaint this whole photo as an epic fantasy matte painting in the grand, naturalistic style of classic fantasy "
              "film concept art: muted earthy colours, soft golden evening light with long shadows, mist in the low ground and "
              "depth haze toward the horizon, painterly brushwork, one consistent light across the whole scene."),
     "game": ("Repaint this whole photo as a hand-painted high-fantasy illustration in a stylized video-game look: bold "
              "saturated colours, chunky slightly exaggerated shapes, painterly hand-painted textures, warm magical evening "
              "light with glowing highlights, one consistent light across the whole scene."),
+}
+STYLE = {
+    "wow": {"style_medium": "digital illustration",
+            "artistic_style": "World of Warcraft game art: Blizzard's hand-painted, stylized high-fantasy MMO look, chunky "
+                              "exaggerated proportions, oversized ornate architecture, bold saturated colours, painterly "
+                              "textures and warm magical light"},
+}
+# Named models (decision 44): with the "wow" lean, each place's prompt also names what it blends, so the model lands
+# on the games' look instead of generic fantasy. Names stay in art/ prompts; nothing shipped carries them.
+NAMES = {
+    "boulder": "Model the city on World of Warcraft's Mount Hyjal and its World Tree blended with The Lord of the Rings' "
+               "Rivendell, and the elves on World of Warcraft's night elves blended with The Lord of the Rings' Noldor elves.",
+    "golden": "Model the kingdom on World of Warcraft's Ironforge blended with The Lord of the Rings' Erebor, and the people "
+              "on World of Warcraft's Ironforge dwarves and gnomes blended with The Lord of the Rings' dwarves.",
+    "denver": "Model the town on World of Warcraft's Stromgarde blended with The Lord of the Rings' Edoras, and the people on "
+              "World of Warcraft's humans blended with The Lord of the Rings' Rohirrim.",
+    "springs": "Model the town on World of Warcraft's Aerie Peak blended with The Lord of the Rings' Eagles' Eyrie, and the "
+               "people on World of Warcraft's Wildhammer dwarves.",
+    "fortcollins": "Model the village on World of Warcraft's New Tinkertown blended with The Lord of the Rings' Shire, and the "
+                   "little folk on World of Warcraft's gnomes blended with The Lord of the Rings' hobbits.",
 }
 PAINTED = {  # place first, community second, creatures as small accents (decision 44); heroes kept for later
     "boulder": ("A wide, epic establishing view. Keep the five tilted red-brown sandstone Flatirons slabs and the mountain's outline exactly in "
@@ -331,7 +362,8 @@ def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int =
     out = here / "out"; out.mkdir(exist_ok=True)
     jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0]}, ensure_ascii=False), seed,
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if l == "wow" else ""),
+                         "style": STYLE.get(l)}, ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
         (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
