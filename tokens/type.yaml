@@ -8,9 +8,14 @@ display:
   use: The name on art and social cards
   licence: CC0 1.0, public domain  # Sora Sagano, dotcolon; the font's own metadata reads "No Rights Reserved"
   source: {url: "https://fontsource.org/fonts/aileron/about", read: "2026-11-14"}
+body:
+  family: Atkinson Hyperlegible
+  use: Web body text, the State's recommended web body font (Digital Guidelines 1.8, decision 56)
+  licence: SIL Open Font License 1.1, Braille Institute of America  # shipped in guide/public/fonts with Atkinson-OFL.txt
+  source: {url: "https://dcs.colorado.gov/ids/digital-guidelines/design-tokens/typography-fonts-spacing", read: "2026-11-15"}
 text:
   family: Trebuchet MS
-  use: Web text, body and captions
+  use: The fallback for body text, and captions where Atkinson Hyperlegible is not loaded
   licence: System font, never shipped here  # on macOS and Windows
   source: {path: research/color/state.yaml, read: "2026-11-14"}
 scale:  # the classic scale (Bringhurst): 15, 18, 21, 24, 36, 48, 60, 72 px; measure is characters per line

@@ -3,3 +3,8 @@ Aileron, version 1.102, by Sora Sagano (dotcolon, http://www.dotcolon.net).
 Dedicated to the public domain under CC0 1.0 Universal. The font's own metadata reads "No Rights Reserved."
 CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
 Copied from the briaai/Fibo-2.0-dev model repository's fonts folder, where it ships with FIBO 2.0.
+
+AtkinsonHyperlegible-Regular.ttf, AtkinsonHyperlegible-Bold.ttf
+Atkinson Hyperlegible, version 1.006, Copyright 2020 Braille Institute of America, Inc.
+Licensed under the SIL Open Font License 1.1; the full licence is in Atkinson-OFL.txt beside this file.
+Copied from github.com/google/fonts, ofl/atkinsonhyperlegible.

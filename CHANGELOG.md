@@ -7,6 +7,18 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 ### Added
 - The guides scene in `dist/hall/`, once it re-renders without stray letters (decision 53).
 
+## [3.1.0] - 2026-11-15
+
+The State's latest guidance (decision 56).
+
+### Added
+- `--co-web-*` in `dist/tokens.css` and `palette.web` in `dist/tokens.json`: the State's 22 web color steps from its Digital Guidelines 1.8.
+- Atkinson Hyperlegible (SIL OFL 1.1) as the `body` type role, shipped in `guide/public/fonts/` with its licence.
+
+### Changed
+- `research/color/state.yaml` cites the State's live brand pages, read 2026-11-15, in place of the 2024 PDF; the primaries are unchanged.
+- The guide's body text is set in Atkinson Hyperlegible, with Trebuchet MS as the fallback.
+
 ## [3.0.0] - 2026-11-14
 
 The brand overhaul's first full release: the guide, the logo, tokens, the Hall art, templates and every public repo branded. Checksums for every file in `dist/` are in the GitHub release notes.

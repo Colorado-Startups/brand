@@ -1,12 +1,14 @@
 # research/color/state.yaml: the State of Colorado brand palette, the base of the UI palette (decision 29).
-# Owner: S12c. Read from the 2024 State brand guide ("CO Brand Guide 2024 No5", DPA Division of
-# Central Services), pages 14 and 15, in Chrome on 2026-11-13. S12 sets the v3 tokens from these values
-# and checks every text pairing for WCAG 2.2 AA before pinning.
+# Owner: S12c. Read live in Chrome on 2026-11-15 from the State's brand pages (DPA Division of Central Services,
+# Integrated Document Solutions), which now replace the PDF guide: The Elements (the seven primaries, unchanged
+# from the 2024 guide read on 2026-11-13), the Digital Guidelines' Color System and Typography pages (version 1.8,
+# 2025-04-01, per their Guideline History) and Inclusive Branding (fonts). Decision 56.
 source:
-  title: Colorado Brand Guide 2024
-  url: https://dcs.colorado.gov/sites/dcs/files/documents/CO%20Brand%20Guide%202024%20No5.pdf
-  pages: [14, 15]
-  read: "2026-11-13"
+  - {title: "State Branding Guidelines: The Elements", url: "https://dcs.colorado.gov/ids/state-branding-guidelines/the-elements", read: "2026-11-15"}
+  - {title: "Digital Guidelines 1.8: Color System", url: "https://dcs.colorado.gov/ids/digital-guidelines/design-tokens/color-system", version: "1.8", dated: "2025-04-01", read: "2026-11-15"}
+  - {title: "Digital Guidelines 1.8: Typography (Fonts) & Spacing", url: "https://dcs.colorado.gov/ids/digital-guidelines/design-tokens/typography-fonts-spacing", read: "2026-11-15"}
+  - {title: "Inclusive Branding", url: "https://dcs.colorado.gov/ids/state-branding-guidelines/inclusive-branding", read: "2026-11-15"}
+  - {title: "Colorado Brand Guide 2024 (superseded by the pages above)", url: "https://dcs.colorado.gov/sites/dcs/files/documents/CO%20Brand%20Guide%202024%20No5.pdf", pages: [14, 15], read: "2026-11-13"}
 primary:
   - {name: Red,                   pms: 200C,  hex: "#C3002F", rgb: [195, 0, 47],    cmyk: [16, 100, 87, 6]}
   - {name: Blue,                  pms: 2748C, hex: "#001970", rgb: [0, 25, 112],    cmyk: [100, 94, 24, 23]}
@@ -15,9 +17,41 @@ primary:
   - {name: Yellow,                pms: 109C,  hex: "#FFD100", rgb: [255, 209, 0],   cmyk: [0, 16, 100, 0]}
   - {name: Left Mountain Green,   pms: 7491C, hex: "#7A853B", rgb: [122, 133, 59],  cmyk: [54, 33, 96, 12]}
   - {name: Right Mountain Teal,   pms: 7699C, hex: "#35647E", rgb: [53, 100, 126],  cmyk: [83, 54, 35, 12]}
+# The State's web palette (Digital Guidelines 1.8, "Example Tokens", the "Blue with Red Secondary" set it recommends
+# for most agencies): light-to-dark steps around the primaries, in USWDS token names. tools/build_guide_data.py writes
+# them to dist/tokens.css as --co-web-<name>. primary-dark is the State Blue primary; accent-warm-dark is State Yellow.
+web:
+  primary-lighter: "#D9E8F6"
+  primary-light: "#AACDEC"
+  primary: "#0054A2"
+  primary-vivid: "#173BB3"
+  primary-dark: "#001970"
+  primary-darker: "#001049"
+  secondary-lighter: "#F8DEDE"
+  secondary-light: "#FFABAB"
+  secondary: "#B50909"
+  secondary-vivid: "#D40202"
+  secondary-dark: "#950707"
+  secondary-darker: "#6F0101"
+  accent-cool-lighter: "#E7F2F5"
+  accent-cool-light: "#CBDDE7"
+  accent-cool: "#85AABE"
+  accent-cool-dark: "#356580"
+  accent-cool-darker: "#1F465C"
+  accent-warm-lighter: "#FDFCF0"
+  accent-warm-light: "#FCF9D9"
+  accent-warm: "#FFEC87"
+  accent-warm-dark: "#FFD100"
+  accent-warm-darker: "#DFA902"
+web_guidance:
+  - "Text in primary-dark or primary-darker on a subtly off-white ground rather than pure black on white (Color System FAQ)."
+  - "Dark mode is a user's opt-in choice that keeps the brand colors, never the default (Color System, Dark Mode)."
+  - "Base font size 16 to 18 px, line height 1.5, a type scale between 1.2 and 1.414 (Typography)."
+  - "Altered versions of brand colors are not acceptable in any context (Inclusive Branding)."
 type:
-  primary: {family: Museo Slab 500, use: "headlines and titles", licence: "free from exljbris (exljbris.com/museo.html); S12 confirms web embedding before use"}
-  secondary: {family: Trebuchet MS, use: "alternate headlines, body, captions; live web text"}
+  primary: {family: Museo Slab 500, use: "headlines and titles; H1 headings on the web", licence: "free from exljbris (exljbris.com/museo.html)"}
+  secondary: {family: Trebuchet MS, use: "alternate headlines, body, captions; H2 headings; live web text"}
+  web_body: {family: Atkinson Hyperlegible, use: "the Digital Guidelines' recommended default or body font; a special-use brand font marked New on Inclusive Branding", licence: "SIL Open Font License 1.1, Braille Institute of America"}
 never:
   - the State "C" logo (a DPA mark)
   - the State Seal (C.R.S. 24-80-902)

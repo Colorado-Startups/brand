@@ -1,10 +1,12 @@
 /* The guide's look: the State palette and roles from dist/tokens.css (decision 51), Aileron for the name, Trebuchet MS for text. */
 @font-face { font-family: "Aileron"; src: url("fonts/Aileron-Regular.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/AtkinsonHyperlegible-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
 :root {
   --ground: var(--c-ground); --ink: var(--c-text); --link: var(--c-link);
   --panel: var(--c-surface); --line: var(--c-rule); --edge: var(--c-border); --muted: var(--c-text-dim); --accent: var(--co-red); --hi: var(--co-yellow); --focus: var(--co-blue);
   --name: "Aileron", "Helvetica Neue", Arial, sans-serif;
-  --text: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --text: "Atkinson Hyperlegible", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --edge: #8794c4; --muted: #b8c2e8; --focus: #ffd100; } }
 :root[data-theme="dark"] { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --edge: #8794c4; --muted: #b8c2e8; --focus: #ffd100; }
