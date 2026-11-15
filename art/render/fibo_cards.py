@@ -655,7 +655,7 @@ HALL = {
         **HALL_LOOK}),
     "guides": ((1344, 768), {
         "short_description": "Two founders plan a route on a hand-drawn map of the Front Range above Denver",
-        "objects": [{"description": "two founders, a gnome and a human, leaning over a table and marking a blank hand-drawn map of mountains and rivers with no writing", "location": "centre", "relationship": "planning together", "relative_size": "large"},
+        "objects": [{"description": "two founders, a gnome and a human, leaning over a table and marking a picture map drawn only with little painted peaks, blue rivers and green forests: no writing anywhere on it, no labels, no letters, no script, no numbers", "location": "centre", "relationship": "planning together", "relative_size": "large"},
                     {"description": "a polished copper rocket model and a small brass satellite on the table", "location": "right", "relationship": "beside the map", "relative_size": "small"}],
         "background_setting": "a high study with tall windows showing snowy Front Range peaks above the Denver skyline at golden hour",
         "aesthetics": {"composition": "wide 16:9, the table in the foreground, the view behind", "color_scheme": "copper and brass, warm wood, snowy peaks, gold sky", "mood_atmosphere": "guiding, ambitious, friendly"},

@@ -57,7 +57,6 @@ The website's Hall art in the game look, text to image with FIBO 2.0 (`art/rende
 | `publicus.png`, `publicus-small.png` | Publicus, Herald of the Hall: a dwarf herald, copper braided beard, feathered red cap, ember tabard, blank broadsheet | 960 × 1200; 320 × 320 |
 | `passage.jpg` | The 404 scene: a cog railway in a pink-granite passage ends at a blank wall | 1344 × 756 |
 | `founders.jpg` | Founders build a glowing fusion core in a red sandstone workshop below red rock spires | 1344 × 756 |
-| `guides.jpg` | Two founders mark a hand-drawn Front Range map beside a copper rocket, peaks above Denver | 1344 × 756 |
 | `stone.png` | The Hall's warm sandstone texture tile | 1024 × 1024 |
 
 The keepers are AI agents: every surface that shows one also shows its disclosure line (`data/world.yaml` `keepers`).
