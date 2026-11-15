@@ -4,7 +4,7 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
-## [3.2.0] - 2026-11-15
+## [3.1.1] - 2026-11-15
 
 The two renders `v3.0.0` left open. Checksums for every file in `dist/` are in the GitHub release notes.
 
@@ -121,8 +121,8 @@ The first public release (decision 28). A pre-release: the v3 tokens, logo and g
 - `actions.lock` holds SHA refs, as the workflows pin them (#4).
 - Quick wins from the first Quality read (#2).
 
-[Unreleased]: https://github.com/Colorado-Startups/brand/compare/v3.2.0...HEAD
-[3.2.0]: https://github.com/Colorado-Startups/brand/compare/v3.1.0...v3.2.0
+[Unreleased]: https://github.com/Colorado-Startups/brand/compare/v3.1.1...HEAD
+[3.1.1]: https://github.com/Colorado-Startups/brand/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/Colorado-Startups/brand/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Colorado-Startups/brand/compare/v3.0.0-alpha.5...v3.0.0
 [3.0.0-alpha.5]: https://github.com/Colorado-Startups/brand/compare/v3.0.0-alpha.4...v3.0.0-alpha.5

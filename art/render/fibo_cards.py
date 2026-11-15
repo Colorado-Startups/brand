@@ -365,7 +365,7 @@ PAINTED = {  # place, then people, then two small accents (decisions 43 and 44);
 }
 
 
-# Card-only clause (v3.2.0, decision 57): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
+# Card-only clause (v3.1.1, decision 57): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
 # the sky only. A first wording that called the picture "a banner with a title" made FIBO paint the game's logo text
 # there, so sky mode also forces text_render empty in the edit JSON.
 CARD_SKY = {
