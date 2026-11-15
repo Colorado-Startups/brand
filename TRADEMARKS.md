@@ -1,6 +1,6 @@
 # Trademarks and brand use
 
-The writing and code here are open (`LICENSING.md`). The brand is not. The name **Colorado Startups**, its logo (the emblem, wordmark and icon in `dist/logo/`, decision 48), its crests and lockups, the keepers' and characters' names and likenesses (Communitas, Resourcus, Publicus, Claudius, Linken, Legallas), and the visual identity as a system are held by Colorado Startups.
+The writing and code here are open (`LICENSING.md`). The brand is not. The name **Colorado Startups**, its logo (the emblem, banner, wordmark and icon in `dist/logo/`, decisions 48 and 59), its crests and lockups, the keepers' and characters' names and likenesses (Communitas, Resourcus, Publicus, Claudius, Linken, Legallas), and the visual identity as a system are held by Colorado Startups.
 
 ## Fine without asking
 

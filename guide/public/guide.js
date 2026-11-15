@@ -154,11 +154,12 @@ function where(d) {
 // The logo's three tiers (decisions 48 and 50). A `logo` key in dist/brand.json wins when a later package adds it.
 // Until then the tiers come from decision 50's files in dist/logo/ (dist/README.md, Logo), each listed only when
 // `downloads` shows the file exists. With neither, the section shows the wordmark set in type, as on the cards.
-const TIERS = ["emblem", "wordmark", "icon"];
+const TIERS = ["emblem", "banner", "wordmark", "icon"];
 const SHIPPED = {
   emblem: { files: ["logo/emblem-512.png"], use: "Avatars (GitHub org, LinkedIn, Slack) and Hall cards" },
   wordmark: { files: ["logo/wordmark-blue.png", "logo/wordmark-white.png"], use: "Decks, sponsor, State and press pieces, any width" },
   icon: { files: ["logo/icon-512.png"], use: "Favicon, app icons and tiny avatars" },
+  banner: { files: ["logo/banner-480x600.png"], use: "Event roll-ups, covers and the guide; it flies the crest (decision 59)" },
 };
 function logoTiers(d) {
   const keyed = rowsOf(d.logo, ["tiers"]).map((t) => ({ id: String(t.id || t.tier || "").toLowerCase(), use: t.use, size: sizeOf(t), files: filesOf(t) }));

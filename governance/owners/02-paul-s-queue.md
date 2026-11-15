@@ -8,7 +8,7 @@ Nothing waits on these; each has a default. The orchestrator lists them once, wi
 
 | # | Item | Default if untouched |
 |---|---|---|
-| 1 | Logo winner review (decisions 48 and 50): emblem A, the shield forged in gold and steel, won with a median of 83. The runners-up are emblem B, a carved granite gate (68), and emblem C, a blue enamel crest (66). An override is his vision call | Emblem A ships |
+| 1 | Logo winner review (decision 59, after his clan-banner call): `crest-w-9`, the 2014 shield as a winged crest in royal blue and gold, won with a median of 82. The runners-up are `crest-w-5`, winged with the mountains on top (76), and `crest-g-5`, held by two griffins (66). An override is his vision call | `crest-w-9` ships |
 | 2 | Keys sitting: `CLAUDE_CODE_OAUTH_TOKEN` and the quality App key reach the brand repo | `claude-review` skips; the metrics that need the App key read "not measured" |
 | 3 | Upload the LinkedIn Page logo and cover and the Slack icon, or say yes for Claude to upload them in Chrome. Also the Kit template, and paste the new email signature | The files wait in `dist/templates/` |
 | 4 | File a trademark for the mark (costs money) | Not now; `TRADEMARKS.md` holds the policy |

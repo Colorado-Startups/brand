@@ -108,5 +108,14 @@
 {"card": "hall-guides", "seed": 11, "mode": "hall", "attribution_status": 200, "attribution": "bab03dc8974a46858653906927d2d9b6"},
 {"card": "hall-guides", "seed": 12, "mode": "hall", "attribution_status": 200, "attribution": "2530db500fe04ecf904b8e4bb0576ba7"},
 {"card": "boulder", "seed": 51, "mode": "painted-wowsky", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "0992bc6eaa5b4ed8b23832697b131266"},
-{"card": "boulder", "seed": 52, "mode": "painted-wowsky", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "ba235865a485499b8d85426d5385f06c"}
+{"card": "boulder", "seed": 52, "mode": "painted-wowsky", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "ba235865a485499b8d85426d5385f06c"},
+{"card": "crest-w", "seed": 5, "mode": "crest", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "79b1301d737f4e0b8635e586eeef3796"},
+{"card": "crest-g", "seed": 5, "mode": "crest", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "2cf87c49f7cd44f9a409889b7f1e89ad"},
+{"card": "crest-w", "seed": 9, "mode": "crest", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "5da4f412476441d9ac8c70077c6a6c05"},
+{"card": "crest-g", "seed": 9, "mode": "crest", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "12322e8405104095aa2daef96430a816"},
+{"card": "banner", "seed": 5, "mode": "banner", "photo": "out/crest-w-9.png", "attribution_status": 200, "attribution": "9bf00b2c6a364702a73f6436a0840bbc"},
+{"card": "banner", "seed": 9, "mode": "banner", "photo": "out/crest-w-9.png", "attribution_status": 200, "attribution": "8fd49eed77214c5480113c31dbbec5c4"},
+{"card": "claudius-icon", "seed": 7, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "a4eb3fb0991349f68b0a3e2d47bdf587"},
+{"card": "claudius-icon", "seed": 13, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "526a54e5976042a7958dd2f4e47d83ed"},
+{"card": "claudius-icon", "seed": 21, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": 200, "attribution": "ca8af22da03f44ad9ed2307e6b9db2ee"}
 ]
