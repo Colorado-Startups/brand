@@ -1,8 +1,8 @@
 name: pages
 
 # From Colorado-Startups/coloradostartups.org .github/workflows/pages.yml at b8d3a92 (itself Git Crafter
-# templates/ci/pages.yml at v7.0.0). One public Pages site (decision 33): the guide at /, the Process page at
-# /quality/ and the Quality, Speed and Consumption page at /quality/metrics.html. A pull request builds and scans
+# templates/ci/pages.yml at v7.0.0). One public Pages site (decision 33): the guide at /, the Quality, Speed and
+# Consumption page at /quality/ and the Process page at /quality/process.html. A pull request builds and scans
 # both; only main publishes. The quality-reader App's token reaches the collect step on main only; unset, the metrics
 # that need it read not measured. The vendored leak scan and tools/franchise_gate.py --dir check the built site before upload.
 on:

@@ -1,15 +1,14 @@
 {
-  "_about": "FIBO 2.0 VGL template for a home-page hero (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL'.",
+  "_about": "FIBO 2.0 VGL template for a home-page hero (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL'.",
   "template": "hero",
-  "direction": "art/DIRECTION.md v4",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
-  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
-  "tier": 3,
+  "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {
     "aspect_ratio": "21:9",
     "resolution": "1MP",
     "seed": "{an integer of 1 or more; record it with the render}",
-    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node). Ratios wider than 16:9 render at 1MP only."
+    "source": "The v3 settings for the Bria node, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node), kept as starting values. The shipped place art and cards render at 1440 × 720 (SIZE in art/render/fibo_cards.py). Ratios wider than 16:9 render at 1MP only."
   },
   "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
   "fixed": [
@@ -44,7 +43,7 @@
         "relative_size": "{small, medium or large within frame}"
       }
     ],
-    "background_setting": "{the carved hall and the one real Colorado view through its arch or doors, as it is; see art/DIRECTION.md, Inside the doors and Real places}",
+    "background_setting": "{the carved hall and the one real Colorado view through its arch or doors, as it is; see art/DIRECTION.md, Inside the Hall and Real places}",
     "lighting": {
       "conditions": "luminous golden light from a low warm sun, glowing lanterns and contained forge fire, with a soft warm underglow from molten-gold channels in the floor",
       "direction": "{where the warm key light comes from: the low sun through the arch, a hearth or lanterns}",

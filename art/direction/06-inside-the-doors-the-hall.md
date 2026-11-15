@@ -1,10 +1,10 @@
-# Art direction v4: the Hall, carved in Colorado: Inside the doors: the Hall
+# Art direction v5: Colorado, transformed with magic: Inside the Hall
 
 Part 6 of 11 of [`DIRECTION.md`](../DIRECTION.md).
 
-## Inside the doors: the Hall
+## Inside the Hall
 
-The rooms come from `baseline/v2/lore.md`: the Great Hall of the Community, the Map Room, the Leaderboard gallery and the forge. Paint from this list, so every image reads as one place.
+The Hall is the website's name for the community's world. Its rooms come from `baseline/v2/lore.md`: the Great Hall of the Community, the Map Room, the Leaderboard gallery and the forge. No Hall interior has rendered since v4. Region art and the place heroes are kept for later (decisions 44 and 48), and they take the look in Part 3 when they run.
 
 | Element | Paint |
 |---|---|
@@ -13,8 +13,6 @@ The rooms come from `baseline/v2/lore.md`: the Great Hall of the Community, the 
 | Molten gold | Glowing channels in the floor behind brass rails, giving light |
 | Doors | Tall hammered bronze doors with straight-line relief, set in a cliff and standing open |
 | Banners | Gold, ember and sky blue, with a plain mountain or sun shape at most |
-| Gnome workshops | Rule 3 |
-| The mountain's heart | Rule 4 |
 | The Leaderboard gallery | Carved plaques for companies, left blank |
-| Mountain folk | Dwarves and gnomes only: hearty, cheerful, quick to share a meal at long tables |
+| Folk | Each place's own people (Part 2), at long tables and workbenches |
 | Founders | People of mixed ages and backgrounds in casual Colorado clothes, with laptops, sketches and prototypes |
