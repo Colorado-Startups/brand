@@ -11,7 +11,7 @@ One crest per region, in the master crest's loud clan style (decision 60). Check
 ### Added
 - `dist/crests/photon-mountain-1024.png`, `-512.png`: fluorite violet, a white-and-gold light dragon.
 - `dist/crests/space-peak-1024.png`, `-512.png`: Pikes Peak granite pink, a golden eagle under a white star.
-- `dist/crests/fusion-canyon-1024.png`, `-512.png`: Stout sandstone red, a crimson-and-gold phoenix.
+- `dist/crests/fusion-canyon-1024.png`, `-512.png`: Stout sandstone red, a ring of fire in a canyon (the phoenix did not read at 48 px).
 
 ### Changed
 - `dist/brand.json` lists the six crest files, and `dist/README.md` describes them.

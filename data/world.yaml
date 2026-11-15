@@ -425,8 +425,8 @@ crests:
       rule: >-
         The region's own creature, described in our own words (decision 60). Photon
         Mountain: a white-and-gold light dragon. Space Peak: a golden eagle under a
-        white star. Fusion Canyon: a crimson-and-gold phoenix with a star in its
-        chest. Never a project mark such as the Summit Sun, never a sun, never letters
+        white star. Fusion Canyon: a ring of fire in a canyon; its phoenix did not
+        read at 48 px, so it fell back. Never a project mark such as the Summit Sun, never a sun, never letters
         (data/architecture.yaml lockups.endorsement.never). Only the master crest
         carries the C. Decision 60 replaced the earlier rule of the master mark in
         every field.
@@ -452,7 +452,7 @@ crests:
     goal: true
     note: >-
       Checked by eye at 128, 48 and 32 px on art/render/sheets/region-crests.png
-      (decision 60). Each creature reads at 48 px; at 32 px each keeps its field color
+      (decision 60). The dragon and eagle read at 48 px; at 32 px each keeps its field color
       and a bird or dragon shape, and Space Peak's gold on pink is the weakest. The
       earlier goal of 24 px was never checked, so below 32 px use the logo's icon alone.
   variants:
