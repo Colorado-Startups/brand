@@ -6,7 +6,7 @@
 
 | Folder | Owner | What lives there |
 |---|---|---|
-| `data/strategy.yaml`, `research/strategy/` | S1 Strategy | Purpose, mission, vision, values, promise, positioning, tagline, audiences, personas, messaging |
+| `data/strategy.yaml`, `research/strategy/` | S1 Strategy | Purpose, mission, vision, values, promise, positioning, audiences, personas, messaging |
 | `data/architecture.yaml`, `data/world.yaml` | S2 Architecture and world | Brand tree, lockup rules, outposts, towns, crests, influence map |
 | `data/voice.yaml`, `data/words.yaml` | S3 Voice and words | Voice, tone by channel, Hall vocabulary, boilerplates, banned words, glossary |
 | concepts/a-forged-shield/ (planned) | S4 | Concept A board |

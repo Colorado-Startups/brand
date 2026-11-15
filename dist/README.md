@@ -9,7 +9,7 @@
 
 ## Social cards (`social/`, 1280×640 JPEG)
 
-Every card is AI-made with FIBO 2.0 (decision 37), labelled on the image and in its IPTC metadata (decision 8). Built by `art/render/fibo_cards.py` (decision 39); photo sources in `art/render/src/SOURCES.md`.
+Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no tagline (decision 46). The AI-made label and photo credit are in its IPTC metadata (decisions 8 and 46). Built by `art/render/fibo_cards.py` (decision 39); photo sources in `art/render/src/SOURCES.md`.
 
 | Card | Image | Credit |
 |---|---|---|
@@ -21,7 +21,7 @@ Every card is AI-made with FIBO 2.0 (decision 37), labelled on the image and in 
 
 ## Places (`places/`, 1440×720 JPEG)
 
-Each real Colorado place transformed with magic into one bright, hand-painted fantasy-game scene, repainted from a photo (decisions 43 to 45). AI-made with FIBO 2.0, labelled on the image and in its IPTC metadata; no wordmark. Built by `art/render/fibo_cards.py` (`painted`, then `places`).
+Each real Colorado place transformed with magic into one bright, hand-painted fantasy-game scene, repainted from a photo (decisions 43 to 46). AI-made with FIBO 2.0, with no text on the image; the AI-made label and photo credit are in its IPTC metadata (decision 46). Built by `art/render/fibo_cards.py` (`painted`, then `places`).
 
 | File | Place | Credit |
 |---|---|---|

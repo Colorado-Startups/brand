@@ -9,7 +9,7 @@
 #   - keeper facts (name, kind, title, voice lines, disclosure): the website's
 #     data/team/dwarves.yaml, copied in baseline/v2/dwarves.yaml;
 #   - world facts (rooms, outposts, towns, rituals): data/world.yaml (S2);
-#   - positioning, mission and tagline: data/strategy.yaml (S1).
+#   - positioning and mission: data/strategy.yaml (S1). No tagline (decision 46).
 #
 # Numbers. Every number here is a set point the brand chooses, not a
 # measurement. Each mapping that holds one also says goal: true. Facts about

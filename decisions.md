@@ -131,3 +131,7 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Reverse: restore any deleted rule by name.
 45. **2026-11-14, Paul. Ship the seed-51 renders.** Paul: "Yes, ship them." The five places and the `coloradostartups.org` (Boulder) and `brand` (Golden) cards now use decision 44's renders at seed 51 (`PLACE_ART`, `CARD_ART` in `art/render/fibo_cards.py`), each labelled and IPTC-tagged.
     - Reverse: point `PLACE_ART` and `CARD_ART` back to the seed-43 renders and rerun `compose_all` and `places`.
+46. **2026-11-14, Paul. No taglines, and no text chip on the images.** Paul: "No taglines. I don't want any taglines. Also, remove that black thing at the bottom of the images." Supersedes decision 26 and the on-image chip from decisions 39 and 43.
+    - Taglines: the brand has none. Every card shows only its name; `data/strategy.yaml` drops `tagline`, and the descriptor stays for meta descriptions and directory listings.
+    - Chip: gone from every card and place. Each image stays marked AI-made in its IPTC metadata (`DigitalSourceType`), which meets decision 8 and Bria's terms (outputs "marked ... as 'AI Generated' using such standards and/or watermarking techniques pursuant to industry standards", Bria AI Online Terms v1.1). The photo credit moves into `csart:Source`, with full credits in `dist/README.md`; CC BY 2.0 4(b) lets credit be "implemented in any reasonable manner" (creativecommons.org legalcode, read 2026-11-14).
+    - Reverse: restore decision 26's line and `label()` from 8768a5d.
