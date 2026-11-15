@@ -46,6 +46,32 @@ function chips(box, items, label, onPick, attr = "aria-pressed", pick = true) {
     role: attr === "aria-selected" ? "tab" : null, text: label(it), on: { click: (e) => { press(box, e.currentTarget, attr); onPick(it, i); } } })));
   if (pick) box.firstChild.click();
 }
+// Tabs written in the page: each tab's aria-controls names its panel, one panel shows, arrow keys move along the row.
+function tabs(list) {
+  const btns = [...list.querySelectorAll('[role="tab"]')];
+  const show = (b) => btns.forEach((x) => { const on = x === b; x.setAttribute("aria-selected", String(on)); x.tabIndex = on ? 0 : -1;
+    document.getElementById(x.getAttribute("aria-controls")).hidden = !on; });
+  btns.forEach((b, i) => {
+    b.addEventListener("click", () => show(b));
+    b.addEventListener("keydown", (e) => { const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (step) { const n = btns[(i + step + btns.length) % btns.length]; e.preventDefault(); show(n); n.focus(); } });
+  });
+  show(btns.find((b) => b.getAttribute("aria-selected") === "true") || btns[0]);
+}
+
+// A file path from dist/brand.json as the built site serves it: paths are relative to dist/, which pages.yml serves at dist/.
+const href = (f) => (/^(https?:|\/|dist\/)/.test(f) ? f : `dist/${f}`);
+const filesOf = (x) => [].concat(x.files || x.file || []).map((f) => (typeof f === "string" ? f : f && f.file)).filter(Boolean);
+// The rows of a key a later package adds (logo, templates), read defensively: a list, a map keyed by id,
+// or either one under a wrapper key such as "tiers" or "items". Anything else reads as no rows.
+function rowsOf(v, wrappers = []) {
+  if (!v || typeof v !== "object") return [];
+  const w = !Array.isArray(v) && wrappers.find((k) => v[k] && typeof v[k] === "object");
+  if (w) v = v[w];
+  return Array.isArray(v) ? v.filter((r) => r && typeof r === "object")
+    : Object.entries(v).filter(([, r]) => r && typeof r === "object" && !Array.isArray(r)).map(([id, r]) => ({ id, ...r }));
+}
+const sizeOf = (r) => { const s = r.size; return s && typeof s === "object" ? [s.width, s.height].filter(Boolean).join(" × ") : s || (r.width && r.height ? `${r.width} × ${r.height}` : ""); };
 
 // WCAG 2.2 relative luminance and contrast ratio.
 function lum(hex) {
@@ -101,7 +127,8 @@ function who(d) {
     svg.append(hit(g, r.label, () => out.replaceChildren(el("h3", { text: `Ring ${r.ring}: ${r.label}` }), el("p", { text: r.segments.join(", ") }))));
   });
   chips($("#personas"), d.audiences.personas, (p) => p.label, (p) => out.replaceChildren(el("h3", { text: p.label }),
-    el("p", { text: p.need }), el("p", { class: "cap", text: `Door: ${p.door}. Best channel: ${p.channel}.` }), el("p", { class: "cap", text: p.proof })));
+    el("p", { text: p.need }), el("p", { class: "cap", text: `Door: ${p.door}. Best channel: ${p.channel}.` }), el("p", { class: "cap", text: p.proof })),
+    "aria-pressed", false);
 }
 
 function where(d) {
@@ -124,19 +151,51 @@ function where(d) {
   out.textContent = "Pick a dot.";
 }
 
+// The logo's three tiers (decision 48). A later package adds the `logo` key; until it does, or for a tier it
+// lists no file for, the section shows the wordmark specimen set in type, as on the cards.
+const TIERS = ["emblem", "wordmark", "icon"];
+function logoTiers(logo) {
+  return rowsOf(logo, ["tiers"]).map((t) => ({ id: String(t.id || t.tier || "").toLowerCase(), use: t.use, size: sizeOf(t), files: filesOf(t) }))
+    .map((t) => ({ ...t, name: cap1(t.id) })).filter((t) => TIERS.includes(t.id) && t.files.length)
+    .sort((a, b) => TIERS.indexOf(a.id) - TIERS.indexOf(b.id));
+}
+
 function name(d) {
-  const spec = $("#specimen");
-  const grounds = [{ label: "On art", bg: "url(dist/places/golden.jpg)", ink: "#fff" }, { label: "White", bg: "#fff", ink: "#001970" }, { label: "Blue", bg: "#001970", ink: "#fff" }];
-  chips($("#name-grounds"), grounds, (g) => g.label, (g) => { spec.style.background = g.bg; spec.style.backgroundSize = "cover"; spec.style.color = g.ink;
-    spec.style.textShadow = g.label === "On art" ? "0 2px 12px rgba(0,10,40,.7)" : "none"; });
+  const spec = $("#specimen"), detail = $("#tier-detail"), typeset = [...spec.childNodes], tiers = logoTiers(d.logo);
+  const grounds = [{ label: "On art", bg: "url(dist/places/golden.jpg)", ink: "#fff", dark: true }, { label: "White", bg: "#fff", ink: "#001970" }, { label: "Blue", bg: "#001970", ink: "#fff", dark: true }];
+  let ground = grounds[0], tier = null;
+  const draw = () => {
+    spec.style.background = ground.bg; spec.style.backgroundSize = "cover"; spec.style.color = ground.ink;
+    spec.style.textShadow = ground.label === "On art" && !tier ? "0 2px 12px rgba(0,10,40,.7)" : "none";
+    spec.classList.toggle("tiered", !!tier);
+    if (!tier) return spec.replaceChildren(...typeset);
+    // A tier may ship one file per ground (blue ink for light grounds, white for dark); the icon shows at three sizes.
+    const art = tier.files.filter((f) => !/\.ico$/i.test(f)), want = ground.dark ? /white|light|reverse/i : /blue|dark|colou?r/i;
+    const file = art.find((f) => want.test(f)) || art[0] || tier.files[0], src = href(file.includes("/") ? file : `logo/${file}`);
+    spec.replaceChildren(...(tier.id === "icon" ? [64, 32, 16] : [0]).map((px) => {
+      const img = el("img", { src, class: `tier-${tier.id}`, width: px || null, height: px || null,
+        alt: px ? `The Colorado Startups icon at ${px} px` : `The Colorado Startups ${tier.id}` });
+      img.addEventListener("error", () => img.replaceWith(el("span", { class: "cap", text: `${file} did not load.` })));
+      return img;
+    }));
+  };
+  if (tiers.length) {
+    $("#name-cap").textContent = "Pick a tier, then a ground. No tagline.";
+    $("#name-tiers").hidden = false;
+    chips($("#name-tiers"), tiers, (t) => t.name, (t) => { tier = t; detail.textContent = [t.use, t.size].filter(Boolean).map((s) => end(cap1(String(s)))).join(" "); draw(); });
+  } else detail.textContent = "Emblem and icon: in the works.";
+  chips($("#name-grounds"), grounds, (g) => g.label, (g) => { ground = g; draw(); });
   $("#name-rules").replaceChildren(...d.words.style.filter((r) => /Colorado Startups|Startupers|"Colorado"/.test(r)).map((r) => el("li", { text: r })));
 }
 
 function color(d) {
-  const pal = d.color.primary, white = { name: "White", hex: "#FFFFFF" };
-  $("#swatches").replaceChildren(...pal.map((c) => el("button", { class: "swatch", type: "button", title: `RGB ${c.rgb.join(" ")} · CMYK ${c.cmyk.join(" ")}`,
-    "aria-label": `Copy ${c.name} ${c.hex}, PMS ${c.pms}, RGB ${c.rgb.join(" ")}, CMYK ${c.cmyk.join(" ")}`, on: { click: () => copy(c.hex, `${c.name} ${c.hex}`) } },
-    el("i", { style: `background:${c.hex}` }), el("span", {}, el("b", { text: c.name }), el("br"), `${c.hex} · PMS ${c.pms}`))));
+  const pal = d.color.primary, white = { name: "White", hex: "#FFFFFF" }, box = $("#swatches"), spec = $("#swatch-detail");
+  // The swatch shows name and hex; a pick copies the hex and shows the print values below.
+  box.replaceChildren(...pal.map((c) => el("button", { class: "swatch", type: "button", "aria-pressed": "false",
+    "aria-label": `Copy ${c.name} ${c.hex}, PMS ${c.pms}, RGB ${c.rgb.join(" ")}, CMYK ${c.cmyk.join(" ")}`,
+    on: { click: (e) => { press(box, e.currentTarget); copy(c.hex, `${c.name} ${c.hex}`);
+      spec.textContent = `${c.name} ${c.hex} · PMS ${c.pms} · RGB ${c.rgb.join(" ")} · CMYK ${c.cmyk.join(" ")}`; } } },
+    el("i", { style: `background:${c.hex}` }), el("span", {}, el("b", { text: c.name }), el("br"), c.hex))));
   const grounds = [white, pal.find((c) => c.name === "Blue"), pal.find((c) => c.name === "Yellow")];
   const inks = [...pal, white], prev = $("#contrast-preview");
   const table = $("#contrast");
@@ -144,10 +203,12 @@ function color(d) {
     ...inks.map((ink) => el("tr", {}, el("th", { scope: "row", text: ink.name }), grounds.map((g) => {
       if (g.hex === ink.hex) return el("td", { text: "" });
       const r = ratio(ink.hex, g.hex);
-      return el("td", {}, el("button", { type: "button", style: `background:${g.hex};color:${ink.hex}`, "aria-label": `${ink.name} on ${g.name}, ${r.toFixed(1)} to 1, ${grade(r)}`,
+      // The grade is drawn, not written: dashed passes for large text only, struck through fails. The preview and label name it.
+      return el("td", {}, el("button", { type: "button", class: r >= 4.5 ? "aa" : r >= 3 ? "large" : "fail", style: `background:${g.hex};color:${ink.hex}`,
+        "aria-label": `${ink.name} on ${g.name}, ${r.toFixed(1)} to 1, ${grade(r)}`,
         on: { click: () => { prev.style.background = g.hex; prev.style.color = ink.hex;
           prev.textContent = `${ink.name} on ${g.name}: ${r.toFixed(1)}:1, ${grade(r)}. Founders building in Colorado.`; } } },
-        `${r.toFixed(1)}:1`, el("small", { text: grade(r) })));
+        `${r.toFixed(1)}:1`));
     }))));
   table.querySelector("td button").click();
   $("#vision").addEventListener("change", (e) => {
@@ -167,10 +228,18 @@ function type(d) {
 }
 
 function voice(d) {
-  const v = d.voice, body = $("#pairs tbody"), means = el("p", { class: "cap" });
+  const v = d.voice, body = $("#pairs tbody"), means = el("p", { class: "cap" }), more = $("#pairs-more");
   $("#traits").after(means);
-  chips($("#traits"), v.traits, (t) => t.name, (t) => { means.textContent = t.means;
-    body.replaceChildren(...v.pairs.filter((p) => p.trait === t.id).map((p) => el("tr", {}, el("td", { text: p.do }), el("td", { text: p.dont })))); });
+  // Two pairs per trait show; the rest open with the button under the table.
+  let trait = null;
+  const pairs = () => {
+    const rows = v.pairs.filter((p) => p.trait === trait.id), all = more.getAttribute("aria-expanded") === "true";
+    body.replaceChildren(...(all ? rows : rows.slice(0, 2)).map((p) => el("tr", {}, el("td", { text: p.do }), el("td", { text: p.dont }))));
+    more.hidden = rows.length <= 2;
+    more.textContent = all ? "Fewer examples" : `${rows.length - 2} more examples`;
+  };
+  more.addEventListener("click", () => { more.setAttribute("aria-expanded", String(more.getAttribute("aria-expanded") !== "true")); pairs(); });
+  chips($("#traits"), v.traits, (t) => t.name, (t) => { trait = t; means.textContent = t.means; more.setAttribute("aria-expanded", "false"); pairs(); });
   const sel = $("#channel"), dials = $("#dials");
   sel.replaceChildren(...v.channels.map((c, i) => el("option", { value: i, text: c.label })));
   const show = () => { const c = v.channels[sel.value];
@@ -197,9 +266,12 @@ function words(d) {
 }
 
 function world(d) {
-  const img = $("#place-img"), cap = $("#place-cap");
+  const img = $("#place-img"), cap = $("#place-cap"), kin = $("#place-kin");
+  // Each place's one blended people, its wild creature and its mount (decision 44), in generic words.
   chips($("#place-picks"), d.places, (p) => p.town, (p) => { img.src = `dist/${p.file}`; img.alt = `${p.caption}. AI-made image.`;
-    cap.textContent = `${p.town}, ${p.region}. ${p.caption}. ${p.credit}.`; });
+    cap.textContent = `${p.town}, ${p.region}. ${p.caption}. ${p.credit}.`;
+    kin.replaceChildren(...[["People", p.people], ["Creature", p.creature], ["Mount", p.mount]].filter(([, x]) => x)
+      .map(([k, x]) => el("div", {}, el("dt", { text: k }), el("dd", { text: cap1(x) })))); });
   const reg = d.architecture.registers, demo = $("#register-demo");
   chips($("#registers"), ["core", "hall"], (k) => (k === "core" ? "Plain" : "Community"), (k) => {
     demo.className = `register ${k}`;
@@ -217,25 +289,58 @@ function characters(d) {
 }
 
 function family(d) {
-  const nodes = d.architecture.nodes, out = $("#family-detail"), tree = $("#tree");
+  const a = d.architecture, nodes = a.nodes, out = $("#family-detail"), tree = $("#tree");
   const kids = (id) => nodes.filter((n) => n.parent === id);
-  const branch = (n) => el("li", {}, el("button", { type: "button", "aria-pressed": "false", text: n.name,
-    on: { click: (e) => { press(tree, e.currentTarget); out.replaceChildren(el("b", { text: n.name }), `: ${n.plain}.`); } } }),
-  kids(n.id).length ? el("ul", {}, kids(n.id).map(branch)) : null);
-  tree.replaceChildren(...kids(null).map(branch));
-  tree.querySelector("button").click();
-  $("#lockups").textContent = `Outpost lockup: "${d.architecture.outpost}". Projects close with "${d.architecture.endorsement}".`;
+  // The master and its first branches show; a deeper branch opens with the toggle beside its name.
+  const branch = (n, depth) => {
+    const sub = kids(n.id), open = depth === 0;
+    const list = sub.length ? el("ul", { id: `branch-${n.id}`, hidden: !open }, sub.map((k) => branch(k, depth + 1))) : null;
+    const toggle = sub.length && !open ? el("button", { type: "button", class: "twist", "aria-expanded": "false", "aria-controls": `branch-${n.id}`,
+      "aria-label": `Branches under ${n.name}`, on: { click: (e) => { const now = e.currentTarget.getAttribute("aria-expanded") !== "true";
+        e.currentTarget.setAttribute("aria-expanded", String(now)); list.hidden = !now; } } }) : null;
+    return el("li", { class: toggle ? "has-kids" : null }, toggle, el("button", { type: "button", class: "node", "aria-pressed": "false", text: n.name,
+      on: { click: (e) => { press(tree, e.currentTarget); out.replaceChildren(el("b", { text: n.name }), `: ${n.plain}.`); } } }), list);
+  };
+  tree.replaceChildren(...kids(null).map((n) => branch(n, 0)));
+  tree.querySelector(".node").click();
+  // The two lockups as type specimens. The outpost lockup's crest waits on the logo (decision 48), so it is type only.
+  const [lead, ...place] = a.outpost.split(" · ");
+  $("#lockup-outpost").replaceChildren(el("span", { class: "rule", "aria-hidden": "true" }),
+    el("span", { class: "lockup-line" }, lead, place.length ? el("span", { class: "place" }, el("span", { class: "sep", text: " · " }), place.join(" · ")) : null));
+  const project = nodes.find((n) => n.parent === "projects");
+  $("#lockup-endorse").replaceChildren(project ? el("b", { text: project.name }) : null, el("small", { text: a.endorsement }));
 }
 
 function use(d) {
   $("#use-fine").replaceChildren(...d.use.fine.map((t) => el("li", { text: t })));
   $("#use-ask").replaceChildren(...d.use.ask.map((t) => el("li", { text: t })));
+  tabs($("#use-tabs"));
+}
+
+// Files by folder. When dist/brand.json has a `templates` key (a later package adds it), Applications comes first:
+// each template's name, size and use, linked to its files.
+const FOLDERS = { social: "Cards", places: "Places", templates: "Templates" };
+function templateRows(t) {
+  return rowsOf(t, ["items", "list", "templates"]).map((r) => ({ name: r.name || r.label || r.title || r.id, use: r.use, size: sizeOf(r), files: filesOf(r) }))
+    .filter((r) => r.name);
 }
 
 function files(d) {
-  $("#files tbody").replaceChildren(...d.downloads.map((f) => el("tr", {}, el("td", {}, el("a", { href: `dist/${f.file}`, download: "", text: f.file })),
+  const body = $("#files tbody"), table = $("#files-box"), apps = $("#apps");
+  const folder = (f) => (f.includes("/") ? f.split("/")[0] : "");
+  const rows = d.downloads.map((f) => [folder(f.file), el("tr", {}, el("td", {}, el("a", { href: `dist/${f.file}`, download: "", text: f.file })),
     el("td", { text: `${Math.round(f.bytes / 1024)} KB` }),
-    el("td", {}, el("button", { type: "button", title: f.sha256, "aria-label": `Copy the sha256 of ${f.file}`, on: { click: () => copy(f.sha256, "the sha256") } }, el("code", { text: f.sha256.slice(0, 16) + "…" }))))));
+    el("td", {}, el("button", { type: "button", title: f.sha256, "aria-label": `Copy the sha256 of ${f.file}`, on: { click: () => copy(f.sha256, "the sha256") } }, el("code", { text: f.sha256.slice(0, 16) + "…" }))))]);
+  const groups = [...new Set(rows.map(([g]) => g))].map((g) => ({ id: g, label: FOLDERS[g] || (g ? cap1(g) : "Data") }));
+  const tpl = templateRows(d.templates);
+  if (tpl.length) {
+    apps.replaceChildren(...tpl.map((t) => el("li", {}, t.files.length === 1 ? el("a", { href: href(t.files[0]), text: t.name }) : el("b", { text: t.name }),
+      t.size ? el("span", { class: "cap", text: ` ${t.size}` }) : null, t.use ? el("span", { class: "cap", text: ` · ${cap1(String(t.use))}` }) : null,
+      t.files.length > 1 ? t.files.flatMap((f) => [" ", el("a", { href: href(f), text: f.split("/").pop() })]) : null)));
+    groups.unshift({ id: null, label: "Applications" });
+  }
+  chips($("#file-picks"), groups, (g) => g.label, (g) => { apps.hidden = g.id !== null; table.hidden = g.id === null;
+    body.replaceChildren(...rows.filter(([id]) => id === g.id).map(([, tr]) => tr)); });
 }
 
 function sources(d) {
