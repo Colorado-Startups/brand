@@ -45,3 +45,17 @@ Which checks fire on a PR and which wait: [`governance/folders.md`](governance/f
 | Every check | `bash tools/verify.sh` |
 | Every check, on a hosted runner | `gh workflow run cloud-test.yml --ref <branch> -f script=verify` |
 | Disk before an install | `df -h /` |
+
+## Which plugin for which task
+
+Anthropic-built and Anthropic-reviewed plugins first (Paul, 2026-11-15).
+
+| Task | Use |
+|---|---|
+| Voice and copy checks | `brand-voice:enforce-voice`, `brand-voice:guideline-generation` |
+| Design critique, accessibility, design system | `design:design-critique`, `design:accessibility-review`, `design:design-system` |
+| The guide's pages | `frontend-design:frontend-design` |
+| Stills, crests, clips | `art/render/fibo_cards.py` (FIBO 2.0), `art/render/ltx_clips.py` (LTX-2.5); `huggingface-skills:huggingface-zerogpu` for the Spaces |
+| Canva, Figma, Adobe output | `canva:*`, `figma:*`, `adobe-for-creativity:*`, once that connector is signed in |
+| LinkedIn, Slack, GitHub settings | Claude in Chrome |
+| PR review and merge | the `merging` skill with `.claude/agents/reviewer.md` |
