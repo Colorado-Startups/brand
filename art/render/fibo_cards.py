@@ -365,20 +365,31 @@ PAINTED = {  # place, then people, then two small accents (decisions 43 and 44);
 }
 
 
+CARD_SKY = {  # card-only clause (v3.0.1): compose() sets the name top left, where seed 51's dragons sat (after-audit)
+    "boulder": ("This painting becomes a wide banner with a title in its top-left corner, so keep the top left of the picture, "
+                "the left 60 percent of the frame down to a third of its height, as calm, open evening sky with a few soft "
+                "clouds and nothing else in it. The dragons and hippogryphs fly only in the right third of the sky, and the "
+                "World Tree stands on the ridge at the far right."),
+}
+
+
 @app.local_entrypoint()
-def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43):
-    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png."""
+def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43, sky: str = ""):
+    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png.
+    --sky yes adds CARD_SKY[place] for a social card and writes out/<place>-<lean>sky-<seed>.png instead."""
     here = pathlib.Path(__file__).parent
     out = here / "out"; out.mkdir(exist_ok=True)
     jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else ""),
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else "")
+                         + (" " + CARD_SKY[c] if sky else ""),
                          "style": {**STYLE[l], **PLACE_STYLE.get(c, {})} if l in STYLE else None}, ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
-        (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
-        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{l}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
-        print(c, l, seed, "painted attribution", res["attribution_status"])
+        kind = l + ("sky" if sky else "")
+        (out / f"{c}-{kind}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{kind}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(c, kind, seed, "painted attribution", res["attribution_status"])
 
 
 @app.local_entrypoint()
@@ -593,7 +604,7 @@ def compose_all(cards_only: str = ""):
         raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
         source, kind, seed = CARD_ART[c].rsplit("-", 2)
-        if kind in ("edit", "game", "film", "wow") and source in EDITS:  # every place image starts from a real photo
+        if kind in ("edit", "game", "film", "wow", "wowsky") and source in EDITS:  # every place image starts from a real photo
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": photo_source(source)}
         return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), CARD_TITLE[c], prov(c)) for c in names])):
