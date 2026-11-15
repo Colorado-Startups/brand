@@ -10,7 +10,7 @@ This public, open-source repo is the one source of the Colorado Startups brand: 
 
 ## Who decides
 
-Paul is the vision and the community manager. Claude makes every design, research and technical call, then logs it (decision 4). No humans work in production: Claude makes every logo, mark, template and asset (decision 5). Paul is asked only for his queue: money, sign-ins, deletions the bash guard blocks, anything sent as Paul (`~/.claude/rules/delegation.md`), and every outside contributor's PR (decision 34).
+Paul is the vision and the community manager. Claude makes every design, research and technical call, then logs it (decision 4). No humans work in production: Claude makes every logo, mark, template and asset (decision 5). Paul is asked only for his queue: money, sign-ins, deletions the deny rules block, anything sent as Paul (`~/.claude/rules/delegation.md`), and every outside contributor's PR (decision 34).
 
 ## Session start
 
@@ -58,4 +58,4 @@ Anthropic-built and Anthropic-reviewed plugins first (Paul, 2026-11-15).
 | Stills, crests, clips | `art/render/fibo_cards.py` (FIBO 2.0), `art/render/ltx_clips.py` (LTX-2.5); `huggingface-skills:huggingface-zerogpu` for the Spaces |
 | Canva, Figma, Adobe output | `canva:*`, `figma:*`, `adobe-for-creativity:*`, once that connector is signed in |
 | LinkedIn, Slack, GitHub settings | Claude in Chrome |
-| PR review and merge | the `merging` skill with `.claude/agents/reviewer.md` |
+| PR review and merge | the `merging` skill with `pr-review-toolkit:code-reviewer` |

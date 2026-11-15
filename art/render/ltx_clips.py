@@ -8,7 +8,7 @@ R is uv run --no-project --with gradio_client==2.7.2 python3:
   R art/render/ltx_clips.py frames photonics --seed 11        contact sheet, picked frames, brightness and change
   R art/render/ltx_clips.py export photonics --seed 11        loop, WebM and MP4 with no audio -> dist/clips/
 frames and export run ffmpeg on the clip Space paul-co-startups/brand-clips (art/render/clip-space/, free CPU tier),
-because the bash guard keeps ffmpeg off the Mac (rules/compute.md).
+because the deny rules keep ffmpeg off the Mac (rules/compute.md).
 The Space has no first-and-last-frame mode and stops at 5 s (121 frames), so export makes the loop: it dissolves the
 clip's last second into its first. The loop opens 1 s after the painting, so the painting still works as the poster.
 """

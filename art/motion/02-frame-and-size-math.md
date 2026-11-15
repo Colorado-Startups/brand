@@ -24,7 +24,7 @@ For the home hero's loop, from its approved still:
 
 ## Encoding
 
-Encoding runs on the clip Space `paul-co-startups/brand-clips` (`art/render/clip-space/`, HF's free CPU tier), never on this Mac: the bash guard blocks ffmpeg here (`~/.claude/rules/compute.md`, decision 61). `art/render/ltx_clips.py export` sends it each setting. These are starting values. Raise the CRF number until the clip meets the 1 MB goal, then check it by eye.
+Encoding runs on the clip Space `paul-co-startups/brand-clips` (`art/render/clip-space/`, HF's free CPU tier), never on this Mac: the deny rules block ffmpeg here (`~/.claude/rules/compute.md`, decision 61). `art/render/ltx_clips.py export` sends it each setting. These are starting values. Raise the CRF number until the clip meets the 1 MB goal, then check it by eye.
 
 ```sh
 # WebM (VP9), no audio, cropped to 1280 x 720
