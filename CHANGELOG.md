@@ -4,6 +4,20 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-11-15
+
+One crest per region, in the master crest's loud clan style (decision 60). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- `dist/crests/photon-mountain-1024.png`, `-512.png`: fluorite violet, a white-and-gold light dragon.
+- `dist/crests/space-peak-1024.png`, `-512.png`: Pikes Peak granite pink, a golden eagle under a white star.
+- `dist/crests/fusion-canyon-1024.png`, `-512.png`: Stout sandstone red, a ring of fire in a canyon (the phoenix did not read at 48 px).
+
+### Changed
+- `dist/brand.json` lists the six crest files, and `dist/README.md` describes them.
+- The guide's Family section shows the region crests in the region lockup and on the three region nodes.
+- `data/world.yaml` `crests`: shipped; each crest keeps the master crest's frame and takes its region's field color and its own charge; the smallest crest is 32 px.
+
 ## [4.0.0] - 2026-11-15
 
 No single Hall: the places are equals (decision 58). Checksums for every file in `dist/` are in the GitHub release notes.

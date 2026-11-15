@@ -306,6 +306,10 @@ function characters(d) {
 function family(d) {
   const a = d.architecture, nodes = a.nodes, out = $("#family-detail"), tree = $("#tree");
   const kids = (id) => nodes.filter((n) => n.parent === id);
+  // A region's crest (decision 60) shows only when dist/brand.json lists it; node id region-<name> -> crests/<name>-512.png.
+  const have = new Set((d.downloads || []).map((f) => f.file));
+  const crestOf = (id) => { const f = `crests/${id.replace(/^region-/, "")}-512.png`; return id.startsWith("region-") && have.has(f) ? f : null; };
+  const crestImg = (f, cls) => el("img", { class: cls, src: `dist/${f}`, alt: "", width: 512, height: 512, loading: "lazy" });
   // The master and its first branches show; a deeper branch opens with the toggle beside its name.
   const branch = (n, depth) => {
     const sub = kids(n.id), open = depth === 0;
@@ -313,14 +317,18 @@ function family(d) {
     const toggle = sub.length && !open ? el("button", { type: "button", class: "twist", "aria-expanded": "false", "aria-controls": `branch-${n.id}`,
       "aria-label": `Branches under ${n.name}`, on: { click: (e) => { const now = e.currentTarget.getAttribute("aria-expanded") !== "true";
         e.currentTarget.setAttribute("aria-expanded", String(now)); list.hidden = !now; } } }) : null;
-    return el("li", { class: toggle ? "has-kids" : null }, toggle, el("button", { type: "button", class: "node", "aria-pressed": "false", text: n.name,
-      on: { click: (e) => { press(tree, e.currentTarget); out.replaceChildren(el("b", { text: n.name }), `: ${n.plain}.`); } } }), list);
+    const crest = crestOf(n.id);
+    return el("li", { class: toggle ? "has-kids" : null }, toggle, el("button", { type: "button", class: "node", "aria-pressed": "false",
+      on: { click: (e) => { press(tree, e.currentTarget); out.replaceChildren(el("b", { text: n.name }), `: ${n.plain}.`); } } },
+      crest ? crestImg(crest, "tree-crest") : null, n.name), list);
   };
   tree.replaceChildren(...kids(null).map((n) => branch(n, 0)));
   tree.querySelector(".node").click();
-  // The two lockups as type specimens. The region lockup's crest waits on the logo (decision 48), so it is type only.
+  // The two lockups as type specimens. The region lockup leads with a region's crest (the example's Golden is in Photon
+  // Mountain) when the files exist, and with the red rule otherwise.
   const [lead, ...place] = a.region.split(" · ");
-  $("#lockup-region").replaceChildren(el("span", { class: "rule", "aria-hidden": "true" }),
+  const lockCrest = crestOf("region-photon-mountain");
+  $("#lockup-region").replaceChildren(lockCrest ? crestImg(lockCrest, "lockup-crest") : el("span", { class: "rule", "aria-hidden": "true" }),
     el("span", { class: "lockup-line" }, lead, place.length ? el("span", { class: "place" }, el("span", { class: "sep", text: " · " }), place.join(" · ")) : null));
   const project = nodes.find((n) => n.parent === "projects");
   $("#lockup-endorse").replaceChildren(project ? el("b", { text: project.name }) : null, el("small", { text: a.endorsement }));
