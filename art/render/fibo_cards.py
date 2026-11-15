@@ -525,6 +525,7 @@ def compose(png: bytes, title: str, prov: dict) -> bytes:
     from PIL import Image, ImageDraw, ImageFilter, ImageFont
     font = aileron()
     img = Image.open(io.BytesIO(png)).convert("RGB").resize((1280, 640), Image.LANCZOS)
+    img = Image.alpha_composite(img.convert("RGBA"), scrim(img.size)).convert("RGB")
     big = ImageFont.truetype(font, 76)
     shadow = Image.new("RGBA", img.size, (0, 0, 0, 0))
     ImageDraw.Draw(shadow).text((76, 75), title, font=big, fill=(0, 10, 40, 200))
@@ -534,6 +535,21 @@ def compose(png: bytes, title: str, prov: dict) -> bytes:
     d.text((76, 72), title, font=big, fill=(255, 255, 255, 255))
     buf = io.BytesIO(); img.convert("RGB").save(buf, "JPEG", quality=88, optimize=True, progressive=True)
     return with_provenance(buf.getvalue(), prov)
+
+
+def scrim(size):
+    """A soft navy fade behind the name, top left, so white type keeps 3:1 on a pale sky (after-audit, decision 55)."""
+    from PIL import Image
+    w, h = 64, 32
+    a = Image.new("L", (w, h))
+    for y in range(h):
+        for x in range(w):
+            fx = 1.0 if x / w < 0.5 else max(0.0, 1 - (x / w - 0.5) / 0.3)
+            fy = max(0.0, 1 - (y / h) / 0.55)
+            a.putpixel((x, y), int(150 * fx * fy))
+    layer = Image.new("RGBA", size, (0, 10, 40, 0))
+    layer.putalpha(a.resize(size, Image.BICUBIC))
+    return layer
 
 
 def aileron() -> str:
@@ -725,6 +741,18 @@ def repo_cards():
         print(repo, len(jpg) // 1024, "KB")
 
 
+def state_blue(img):
+    """Map the two-tone icon's rendered blue onto State Blue #001970, keeping its anti-aliased edges (decision 55)."""
+    from PIL import Image
+    grey = img.convert("L")
+    hist, n = grey.histogram(), img.size[0] * img.size[1]
+    cum = [sum(hist[:i + 1]) for i in range(256)]
+    lo = next(i for i in range(256) if cum[i] >= n * 0.05)   # the blue, ignoring a few stray dark pixels
+    hi = next(i for i in range(256) if cum[i] >= n * 0.95)   # the white
+    t = grey.point(lambda v: max(0, min(255, round((v - lo) * 255 / max(1, hi - lo)))))
+    return Image.composite(Image.new("RGB", img.size, (255, 255, 255)), Image.new("RGB", img.size, (0, 25, 112)), t)
+
+
 def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 50's blind-judged winners
     """dist/logo/: decision 48's three tiers from the chosen candidates in out/, and the favicon set
     (32 px ICO with 16 and 48, 180 apple-touch with 20 px padding, 192 and 512; Evil Martians, 2026)."""
@@ -743,7 +771,7 @@ def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 
     prov = {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed_of(emblem), "source": f"edit of {SHIELD}, the 2014 shield"}
     for s in (1024, 512):
         save(em.resize((s, s), Image.LANCZOS), f"emblem-{s}.png", prov)
-    ic = Image.open(here / "out" / f"{icon}.png").convert("RGB")
+    ic = state_blue(Image.open(here / "out" / f"{icon}.png").convert("RGB"))
     prov = {**prov, "seed": seed_of(icon)}
     for s in (512, 192):
         save(ic.resize((s, s), Image.LANCZOS), f"icon-{s}.png", prov)

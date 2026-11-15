@@ -196,3 +196,8 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Four templates by `templates/build.py`, composited from committed files with Pillow in seconds: the square avatar, the LinkedIn cover, slide backgrounds and an email signature. `templates/kit.yaml` lists them, and `dist/brand.json` carries them as `templates` for the guide's Files section.
     - Measured on a local copy of the site at `/brand/`: favicon and manifest icon 200, 817 visible words, 0 console errors, no broken images.
     - Reverse: restore `guide/public/tokens.css` and the three-folder copy in `pages.yml`.
+55. **2026-11-14, orchestrator. `v3.0.0`: the finish plan ships, with the after-audit's fixes.**
+    - After-audit (`governance/audit/after.yaml`): 22 surfaces this work changed (the guide, the nine public repos' READMEs and cards, the org profile), scored on rubric version 2 against `v3.0.0-alpha.5`. Overall 1.77 over 118 scores, against the before-audit's 1.50 over 37 surfaces. The surface sets differ, so the comparison is a guide.
+    - Fixed before the tag, from its findings: the guide's header shows the emblem; every card gets a soft navy fade behind the name (brand 2.58 → 5.35, startup-credits 2.61 → 5.19 median contrast); the icon is mapped onto State Blue; the guide's control borders come from `--c-border` (1.38 → 4.48:1). The map is a Pillow step on committed renders; no new FIBO call.
+    - Open: the `coloradostartups.org` card's dragons sit on the name, and the guides scene needs a clean map. Both need renders, which wait for the ZeroGPU daily quota inside decision 48's cap (25 of 60 calls used).
+    - Reverse: revert the scrim and the icon map in `art/render/fibo_cards.py` and rerun `logo_export`, `compose_all` and `repo_cards`.
