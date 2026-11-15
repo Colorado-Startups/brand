@@ -151,17 +151,25 @@ function where(d) {
   out.textContent = "Pick a dot.";
 }
 
-// The logo's three tiers (decision 48). A later package adds the `logo` key; until it does, or for a tier it
-// lists no file for, the section shows the wordmark specimen set in type, as on the cards.
+// The logo's three tiers (decisions 48 and 50). A `logo` key in dist/brand.json wins when a later package adds it.
+// Until then the tiers come from decision 50's files in dist/logo/ (dist/README.md, Logo), each listed only when
+// `downloads` shows the file exists. With neither, the section shows the wordmark set in type, as on the cards.
 const TIERS = ["emblem", "wordmark", "icon"];
-function logoTiers(logo) {
-  return rowsOf(logo, ["tiers"]).map((t) => ({ id: String(t.id || t.tier || "").toLowerCase(), use: t.use, size: sizeOf(t), files: filesOf(t) }))
-    .map((t) => ({ ...t, name: cap1(t.id) })).filter((t) => TIERS.includes(t.id) && t.files.length)
+const SHIPPED = {
+  emblem: { files: ["logo/emblem-512.png"], use: "Avatars (GitHub org, LinkedIn, Slack) and Hall cards" },
+  wordmark: { files: ["logo/wordmark-blue.png", "logo/wordmark-white.png"], use: "Decks, sponsor, State and press pieces, any width" },
+  icon: { files: ["logo/icon-512.png"], use: "Favicon, app icons and tiny avatars" },
+};
+function logoTiers(d) {
+  const keyed = rowsOf(d.logo, ["tiers"]).map((t) => ({ id: String(t.id || t.tier || "").toLowerCase(), use: t.use, size: sizeOf(t), files: filesOf(t) }));
+  const have = new Set((d.downloads || []).map((f) => f.file));
+  const shipped = TIERS.map((id) => ({ id, use: SHIPPED[id].use, size: "", files: SHIPPED[id].files.filter((f) => have.has(f)) }));
+  return (keyed.length ? keyed : shipped).map((t) => ({ ...t, name: cap1(t.id) })).filter((t) => TIERS.includes(t.id) && t.files.length)
     .sort((a, b) => TIERS.indexOf(a.id) - TIERS.indexOf(b.id));
 }
 
 function name(d) {
-  const spec = $("#specimen"), detail = $("#tier-detail"), typeset = [...spec.childNodes], tiers = logoTiers(d.logo);
+  const spec = $("#specimen"), detail = $("#tier-detail"), typeset = [...spec.childNodes], tiers = logoTiers(d);
   const grounds = [{ label: "On art", bg: "url(dist/places/golden.jpg)", ink: "#fff", dark: true }, { label: "White", bg: "#fff", ink: "#001970" }, { label: "Blue", bg: "#001970", ink: "#fff", dark: true }];
   let ground = grounds[0], tier = null;
   const draw = () => {
@@ -175,14 +183,19 @@ function name(d) {
     spec.replaceChildren(...(tier.id === "icon" ? [64, 32, 16] : [0]).map((px) => {
       const img = el("img", { src, class: `tier-${tier.id}`, width: px || null, height: px || null,
         alt: px ? `The Colorado Startups icon at ${px} px` : `The Colorado Startups ${tier.id}` });
-      img.addEventListener("error", () => img.replaceWith(el("span", { class: "cap", text: `${file} did not load.` })));
+      // A file the site does not serve yet (pages.yml copies dist/logo/ in a later package): fall back to the type.
+      img.addEventListener("error", () => { spec.replaceChildren(...typeset); spec.classList.remove("tiered");
+        spec.style.textShadow = ground.label === "On art" ? "0 2px 12px rgba(0,10,40,.7)" : "none"; detail.textContent = `${file} is not on this site yet.`; });
       return img;
     }));
   };
   if (tiers.length) {
     $("#name-cap").textContent = "Pick a tier, then a ground. No tagline.";
     $("#name-tiers").hidden = false;
-    chips($("#name-tiers"), tiers, (t) => t.name, (t) => { tier = t; detail.textContent = [t.use, t.size].filter(Boolean).map((s) => end(cap1(String(s)))).join(" "); draw(); });
+    // No tier is picked on load: the type wordmark shows first, and a file loads only when asked for, so a site
+    // that does not serve dist/logo/ yet logs nothing on load.
+    chips($("#name-tiers"), tiers, (t) => t.name, (t) => { tier = t; detail.textContent = [t.use, t.size].filter(Boolean).map((s) => end(cap1(String(s)))).join(" "); draw(); },
+      "aria-pressed", false);
   } else detail.textContent = "Emblem and icon: in the works.";
   chips($("#name-grounds"), grounds, (g) => g.label, (g) => { ground = g; draw(); });
   $("#name-rules").replaceChildren(...d.words.style.filter((r) => /Colorado Startups|Startupers|"Colorado"/.test(r)).map((r) => el("li", { text: r })));

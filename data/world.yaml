@@ -224,8 +224,8 @@ outposts:
             ecosystem peers until the color audit in research/color/ arrives.
           heritage_equity: >-
             Sits near the 2014 shield's purple (OKLab distance 0.076 from v2 brand-purple,
-            computed here). If the winning concept keeps that purple as an accent, S12
-            moves this toward blue-violet so an outpost never reads as the master's color.
+            computed here). The logo keeps that purple in the emblem's C (decision 50), so
+            the final value moves toward blue-violet, keeping the outpost apart from the master.
           concept_fit: A deep jewel note, set in the crest only, inside the Hall's forge world of gold, fire and light.
           access: Ground-colored ink on it reaches 10.25:1; the crest rim carries the boundary on any ground.
           cliche_check: Not brown, forest green, "Colorado blue" or flag red and gold.
@@ -482,7 +482,8 @@ keepers:
   disclosure_rule: >-
     Every keeper says it is an AI agent wherever it appears, in words or in a picture,
     with the disclosure below beside it. This is a fact about AI agents, told to the people
-    who meet one, not a style rule, so decision 38's cuts leave it in place.
+    who meet one, not a style rule, so decision 38's cuts leave it in place (CLAUDE.md,
+    What binds; decision 38).
   list:
     - id: communitas
       name: Communitas
