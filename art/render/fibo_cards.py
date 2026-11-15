@@ -175,10 +175,11 @@ CREATURES = {
 for c in EDITS:
     EDITS[c]["edit_instruction"], EDITS[c]["keep"] = SCRATCH[c], KEEP[c]
 REFS = {
-    "goldserpent": ("A colossal wingless serpentine dragon made of solid gold metal: its long body is built of cracked gold plates over "
-                    "grey stone, with molten gold glowing in the seams, coiling in a great S-curve, its horned, bearded head and "
-                    "fierce face clearly visible, four clawed legs. Hand-painted high-fantasy illustration, bold warm colours, "
-                    "plain golden-hour sky background.", 21),
+    "stonewyrm": ("A colossal legless stone serpent, no legs and no claws: its body is a single line of about ten huge rounded "
+                  "grey boulders, each as big as a house, joined one after another like beads on a string and tapering to the "
+                  "tail, with thin slivers of glowing gold ore running through every boulder; its head is one great blocky "
+                  "boulder with a wide jaw and small glowing gold eyes. It arcs up out of rocky ground. Hand-painted "
+                  "high-fantasy illustration, bold warm colours, plain golden-hour sky background.", 29),
     "serpent": ("A colossal long serpentine green dragon without wings flying in a sweeping S-curve across a golden-hour sky, its "
                 "horned, bearded head and fierce face clearly visible in three-quarter view, mossy green scales with a pale gold "
                 "belly, four small clawed legs, the long body tapering to a fine tail tip. Photorealistic epic fantasy, sharp "
@@ -266,52 +267,60 @@ LEANS = {
              "saturated colours, chunky slightly exaggerated shapes, painterly hand-painted textures, warm magical evening "
              "light with glowing highlights, one consistent light across the whole scene."),
 }
-PAINTED = {  # hero, wild creature and mount per place (decision 44); one reference image at most
-    "boulder": ("Keep the five tilted red-brown sandstone Flatirons slabs and the mountain's outline exactly in their shapes "
-                "and places. On the ridge behind the slabs rises one colossal world tree with silver bark and golden leaves, "
-                "its great roots and boughs holding graceful elven halls with tall slender arches, with waterfalls falling past "
-                "the slabs into softly glowing silver-blue pools, and slender bridges. Put the long green serpent dragon from "
-                "<image_2> coiling through the sky above the slabs as the giant guardian, its horned head and face visible. Two "
-                "green winged dragons fly near the tree. Three hippogryphs with golden-eagle heads and wings, antlers and stag "
-                "hindquarters carry elf riders through the air. A few tiny elves walk the bridges: tall elves with long silver "
-                "or dark hair in flowing grey and green robes, and tall elves with lavender skin and long swept-back ears. "
-                "Golden evening light with the first stars. Remove the stadium floodlight tower. Add no text, letters or signs.",
-                "serpent"),
-    "golden": ("Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. Into the steep face "
-               "of the right-hand mesa, carve one colossal dwarven gate rising most of the mesa's height, flanked by two giant "
-               "statues of helmeted dwarf kings resting on war hammers, warm golden light glowing from deep inside, a river "
-               "flowing out from beneath it and a stone causeway leading to it. Put the colossal serpent dragon of solid gold "
-               "from <image_2> coiling around the mesa's shoulder as the giant guardian, its horned head and face visible. Two "
-               "smaller grey stone wyrms veined with glowing gold burrow out of the rocks nearby. Three dwarven steam tanks "
-               "with huge spinning drill heads, iron treads and smoking stacks, driven by dwarves, rumble along the causeway "
-               "and bore into the hillside. A few tiny dwarves and gnomes work by ore carts. Replace the golf course, houses "
-               "and town with wild grassland, rocks and the river. Add no text, letters or signs.", "goldserpent"),
-    "denver": ("Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes and places, and "
-               "the golden cottonwood trees at the sides. On a green hill on the plain in front of the city, build one grand "
-               "citadel of men that blends two styles into a single building: a white stone keep with square towers and blue "
-               "slate roofs, whose great central hall is carved timber with a shining golden roof and horse-head gables. On "
-               "the hilltop beside the hall stands one giant silver-white stallion, far larger than the riders, its mane "
-               "glowing with light, the lord of the horses. Below, a few knights in shining armour ride white war horses whose "
-               "barding glows with soft golden light up the winding road. In the sky, three wild white gryphons with bald-eagle "
-               "white heads and tails, dark brown wings and tawny lion bodies circle the citadel. A few tiny people and "
-               "dwarves on the road. Plain blue, green and gold banners. Add no text, letters or signs.", None),
-    "springs": ("Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On the "
-                "forested crags in front of the peak, build one grand dwarven aerie: stone and timber halls and towers carved "
-                "into the rocks, wooden walkways, rope bridges and great stone roosts. On the highest crag perches one colossal "
-                "golden eagle, larger than a tower, the lord of the eagles. Three wild gryphons like the creature in <image_2>, "
-                "with golden-eagle heads and wings and tawny lion bodies, fly around the aerie. Three dwarven gyrocopters, small "
-                "open-frame steam flying machines with a spinning top rotor, piloted by bearded dwarves in goggles, fly between "
-                "the roosts. A few tiny dwarves walk the walkways. Replace the houses at the bottom with pine forest. Add no "
-                "text, letters or signs.", "gryphon"),
-    "fortcollins": ("Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along the "
-                    "canyon floor, add a clear mountain river and one village of gnome science and hobbit homes: a big brass "
-                    "workshop with round porthole windows, a great water wheel turned by the river and softly glowing teal "
-                    "energy cores, and beside it round green and yellow doors set into grassy banks, flower gardens and a stone "
-                    "bridge over the river. Above the canyon soars one colossal phoenix with crimson and gold plumage and a long "
-                    "flowing golden tail, a blazing white-and-teal star of fusion fire glowing in its chest, the giant guardian. "
-                    "Four small brass clockwork dragonlings flit around the workshop. Three mechanostriders, tall two-legged "
-                    "clockwork bird-shaped mounts of brass and steel, ridden by small gnomes in goggles, stride along the river "
-                    "path. A few tiny hobbits walk the gardens. Add no text, letters or signs.", None),
+PAINTED = {  # place first, community second, creatures as small accents (decision 44); heroes kept for later
+    "boulder": ("A wide, epic establishing view. Keep the five tilted red-brown sandstone Flatirons slabs and the mountain's outline exactly in "
+                "their shapes and places; they stay the heart of the scene. Below and between the slabs spreads a vast, "
+                "breathtaking elven city at grand scale: terraced halls of pale stone with tall slender arches and leaf "
+                "carvings climbing the slopes, graceful towers, waterfalls pouring past the slabs into glowing silver-blue "
+                "pools, many slender bridges, gardens and lantern-lit walkways, and on the ridge behind the slabs one colossal "
+                "world tree with silver bark and golden leaves sheltering the city. The city is full of life: dozens of elves "
+                "everywhere, walking the bridges, gathering in the gardens and on the terraces, carrying lanterns; they are "
+                "one people, tall and graceful, with long swept-back pointed ears, faintly lavender-tinted fair skin, long "
+                "silver or midnight-blue hair and flowing grey-green robes embroidered with silver stars. As small accents "
+                "only, far off in the sky: two small green dragons near the treetop and two small hippogryphs with "
+                "golden-eagle heads and antlers carrying elf riders. Golden evening light with the first stars. Remove the "
+                "stadium floodlight tower. Add no text, letters or signs.", None),
+    "golden": ("A wide, epic establishing view. Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. "
+               "The steep face of the right-hand mesa becomes a colossal dwarven mountain kingdom: a gigantic gate rising most "
+               "of the mesa's height, flanked by two giant statues of helmeted dwarf kings resting on war hammers, warm golden "
+               "light pouring from deep inside, tiers of carved halls, balconies, forges and glowing windows climbing the "
+               "cliff, a river flowing out from beneath the gate, and a broad stone causeway lined with market stalls, "
+               "smithies and ore carts. The kingdom is full of life: dozens of dwarves everywhere, hauling carts, working the "
+               "forges, trading at the stalls and marching up the causeway, with a few gnome tinkers among them; the dwarves "
+               "are one people, stout and broad-shouldered, with long braided beards bound in gold rings and hooded "
+               "travelling cloaks over riveted plate armour. As small accents only: far off on a distant slope, one small "
+               "stone wyrm like the creature in <image_2>, a legless serpent of rounded grey boulders with slivers of gold, "
+               "and on the causeway two small dwarven steam tanks with spinning drill heads. Replace the golf course, houses "
+               "and town with wild grassland, rocks and the river. Add no text, letters or signs.", "stonewyrm"),
+    "denver": ("A wide, epic establishing view. Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes "
+               "and places, and the golden cottonwood trees at the sides. On the plain in front of the city rises a grand "
+               "walled town of men on a green hill: white stone walls and towers with blue slate roofs around one great "
+               "citadel whose central hall is carved timber with a shining golden roof and horse-head gables, timber-framed "
+               "houses, a busy market square, stables and a road winding up through the gates. The town is full of life: "
+               "dozens of townsfolk everywhere, at the market, on the walls and in the streets, with a few dwarves among "
+               "them; they are one people of horse-lords, with long braided fair hair and green and gold cloaks, the guards "
+               "in bright steel armour with blue and gold tabards. As small accents only: a few knights on white horses whose "
+               "barding glows with soft golden light ride up the road, and far off in the sky two small white gryphons with "
+               "bald-eagle heads. Plain blue, green and gold banners. Add no text, letters or signs.", None),
+    "springs": ("A wide, epic establishing view. Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and "
+                "place. On the forested crags in front of the peak spreads a grand dwarven aerie town at large scale: many "
+                "stone and timber halls and towers carved into the rocks at every level, wooden walkways, rope bridges, lifts, "
+                "workshops, great stone roosts and warm glowing windows. The town is full of life: dozens of dwarves "
+                "everywhere, on the walkways, bridges and roosts, tending the workshops; they are one people of wild sky "
+                "dwarves, with braided beards, blue tattoos, feathered leather armour, hooded cloaks and brass goggles. As "
+                "small accents only: far off around the towers, two small gryphons like the creature in <image_2> and two "
+                "small dwarven gyrocopters, open-frame steam flying machines with a top rotor. Replace the houses at the "
+                "bottom with pine forest. Add no text, letters or signs.", "gryphon"),
+    "fortcollins": ("A wide, epic establishing view. Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and "
+                    "places. Along the canyon floor and up both slopes spreads a whole village of tinkers' workshops and "
+                    "burrow homes: brass workshops with round porthole windows and softly glowing teal energy cores, great "
+                    "water wheels turned by a clear mountain river, catwalks and pipes, and among them many round green and "
+                    "yellow doors set into grassy banks, flower and vegetable gardens, stone bridges and a cosy inn. The "
+                    "village is full of life: dozens of little folk everywhere, in the gardens, on the bridges, at the "
+                    "workshops and the inn; they are one little people, small, with big pointed ears, curly hair, bare furry "
+                    "feet, bright waistcoats and brass goggles. As small accents only: a few small brass clockwork "
+                    "dragonlings in the air and two mechanostriders, two-legged clockwork bird-shaped mounts, ridden along "
+                    "the river path. Add no text, letters or signs.", None),
 }
 
 
