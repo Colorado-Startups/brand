@@ -1,0 +1,20 @@
+{
+  "name": "Colorado Startups brand guide",
+  "short_name": "Brand guide",
+  "start_url": ".",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#001970",
+  "icons": [
+    {
+      "src": "dist/logo/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "dist/logo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

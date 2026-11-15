@@ -1,6 +1,7 @@
-/* The guide's look: the State palette from tokens.css, Aileron for the name, Trebuchet MS for text. */
+/* The guide's look: the State palette and roles from dist/tokens.css (decision 51), Aileron for the name, Trebuchet MS for text. */
 @font-face { font-family: "Aileron"; src: url("fonts/Aileron-Regular.otf") format("opentype"); font-display: swap; }
 :root {
+  --ground: var(--c-ground); --ink: var(--c-text); --link: var(--c-link);
   --panel: #f3f5fb; --line: #d5dbee; --muted: #4a5785; --accent: var(--co-red); --hi: var(--co-yellow); --focus: var(--co-blue);
   --name: "Aileron", "Helvetica Neue", Arial, sans-serif;
   --text: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;

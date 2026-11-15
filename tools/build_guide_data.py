@@ -5,7 +5,7 @@
   python3 tools/build_guide_data.py --check   exit 0 if all fresh, 1 if any is stale or a token rule fails,
                                               3 if PyYAML is missing (could not check)
 
-brand.json is the one file the guide in guide/public/ renders. It reads data/, tokens/type.yaml,
+brand.json is the one file the guide in guide/public/ renders. It reads data/, templates/kit.yaml, tokens/type.yaml,
 research/color/state.yaml, TRADEMARKS.md and the files in dist/. It never reads data/words.yaml's franchise lists,
 because the franchise gate scans dist/ and the built site. Its downloads list every file in dist/ but itself.
 
@@ -125,6 +125,7 @@ def build(blobs):
         },
         "use": {"fine": bullets("TRADEMARKS.md", "Fine without asking"), "ask": bullets("TRADEMARKS.md", "Needs written approval"),
                 "contact": "https://coloradostartups.org/contact/"},
+        "templates": load("templates/kit.yaml")["templates"],
         "downloads": downloads(blobs),
     }
 
