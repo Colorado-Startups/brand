@@ -109,7 +109,7 @@ def frames(clip, seed, picks="0,60,96,120"):
     print(stats, OUT / f"{clip}-{seed}-sheet.jpg", OUT / f"{clip}-{seed}-picks.jpg")
 
 
-def export(clip, seed, webm_crf, mp4_crf, approved, billing):
+def export(clip, seed, webm_crf, mp4_crf, approved, spend):
     """Loop and encode on the clip Space, then write dist/clips/<clip>.webm, .mp4 and the provenance record."""
     from gradio_client import Client, handle_file
     c, src = CLIPS[clip], raw(clip, seed)
@@ -136,7 +136,7 @@ def export(clip, seed, webm_crf, mp4_crf, approved, billing):
               "render": f"{WIDTH}x{HEIGHT}, {FRAMES} frames, {FPS} fps", "guidance": "1.0 (distilled, unguided)",
               "decoder": DECODER, "loop": f"last {FADE} frames dissolved frame by frame into the first {FADE}; {FRAMES - FADE} frames",
               "seam": json.loads(seam), "audio": "dropped", "label": LABEL, "raw_sha256": sha(src),
-              "approved": approved, "billing": billing, "files": files}
+              "approved": approved, "spend": spend, "files": files}
     (DIST / f"{clip}.json").write_text(json.dumps(record, indent=1, ensure_ascii=False) + "\n")
     print(json.dumps({"seam": json.loads(seam), "files": files}, indent=1))
 
@@ -149,11 +149,11 @@ if __name__ == "__main__":
     p.add_argument("--webm-crf", type=int, default=40)
     p.add_argument("--mp4-crf", type=int, default=28)
     p.add_argument("--approved", default="")
-    p.add_argument("--billing", default="")
+    p.add_argument("--spend", default="")
     a = p.parse_args()
     if a.step == "render":
         render(a.clip, a.seed)
     elif a.step == "frames":
         frames(a.clip, a.seed)
     else:
-        export(a.clip, a.seed, a.webm_crf, a.mp4_crf, a.approved, a.billing)
+        export(a.clip, a.seed, a.webm_crf, a.mp4_crf, a.approved, a.spend)

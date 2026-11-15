@@ -24,7 +24,7 @@
  "label": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
  "raw_sha256": "fedc071db419063f3cefb279b6e63ffb266211f2a5939805b4e2022bd987c7fa",
  "approved": "Paul, in the website session on 2026-11-15: \"Yes, render 3 (Recommended)\", on free GPU lanes only",
- "billing": "huggingface.co/settings/billing, read before and after each call: ZeroGPU 9.1 to 10.0 of 40 min for this call; credit $1.72 to $1.72; period usage $0.28 to $0.28; automatic recharge off",
+ "spend": "huggingface.co/settings/billing, read before and after each call: ZeroGPU 9.1 to 10.0 of 40 min for this call; credit $1.72 to $1.72; period usage $0.28 to $0.28; automatic recharge off",
  "files": {
   "photonics.webm": {
    "bytes": 529606,
