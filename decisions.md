@@ -142,3 +142,14 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Measured on the local build: 1,001 visible words on load against decision 15's goal of 900, 18 kinds of working control, no sideways scroll at 375 px, and both themes.
     - Also fixed: `data/voice.yaml`'s boilerplates and glossary now say "founders", the swap decision 26 made but never applied.
     - Reverse: restore the one-line placeholder `guide/public/index.html`.
+48. **2026-11-14, Paul. The finish plan's founder calls.** Asked about the logo, the deferred art, project taglines and renders, Paul answered:
+    - Logo: "Do research on best branding practices for Logos and then use your tools." Claude researches and decides; Paul sees the winner and two runners-up and may override it as a vision call.
+    - Art now: the three characters (Claudius, Linken, Legallas) in the game style. Photon Mountain's region art, the place heroes and the keepers stay deferred.
+    - Taglines: projects keep theirs (photon-mountain, startup-credits, legallas, fusion-canyon). Only the master brand has none (decision 46).
+    - Renders: one standing yes for this plan, capped at 60 FIBO calls on the own ZeroGPU Space, inside HF PRO's daily 40 minutes and the included $2.00 credit, then stop. $0 billed; balances read before and after each batch.
+    - Reverse: Paul names a different call.
+49. **2026-11-14, orchestrator. One franchise gate for every shipped file and the built site; the plan's cuts.** An audit found the site scan used only the website's regex, which misses most of decision 44's names, and `tools/franchise_gate.py` never read `data/words.yaml`.
+    - `data/words.yaml` `never` gains 33 names: the sources of decision 44's places, peoples and heroes and decision 39's characters, with two new franchise ids (a creature-collecting game, a wizard-school story). Case-sensitive only where the lowercase words are ordinary English.
+    - `tools/franchise_gate.py` joins that list to the vendored rule, self-tests all 87 hit and 28 miss samples, and gains `--dir`, which `pages.yml` now runs on the built `site/` (one definition, many call sites). "Linken" passes; it is decision 39's own name.
+    - Cut from the approved plan: concept boards S4 to S6 (decision 37); a 19-section guide (topics fold into the 14 sections, for decision 15's word goal); a new type scale, `tokens.mjs`, `BRAND.md` and an AI skill (nothing consumes them); a CI render engine (Pillow composites in seconds on the Mac, amending decision 16 as `places()` already does).
+    - Reverse: restore the inline regex in `pages.yml`.
