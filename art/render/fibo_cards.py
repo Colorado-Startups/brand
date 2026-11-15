@@ -365,20 +365,34 @@ PAINTED = {  # place, then people, then two small accents (decisions 43 and 44);
 }
 
 
+# Card-only clause (v3.1.1, decision 57): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
+# the sky only. A first wording that called the picture "a banner with a title" made FIBO paint the game's logo text
+# there, so sky mode also forces text_render empty in the edit JSON.
+CARD_SKY = {
+    "boulder": ("Keep the upper-left part of the sky, across the left 60 percent of the picture and its top third, calm and "
+                "open: a smooth evening sky with a few soft clouds and nothing in it. The dragons and hippogryphs fly only "
+                "in the right third of the sky, and the World Tree stands on the ridge at the far right."),
+}
+
+
 @app.local_entrypoint()
-def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43):
-    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png."""
+def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int = 43, sky: str = ""):
+    """One unmasked edit per place and lean: LEANS[lean] + PAINTED[place]; writes out/<place>-<lean>-<seed>.png.
+    --sky yes adds CARD_SKY[place] for a social card and writes out/<place>-<lean>sky-<seed>.png instead."""
     here = pathlib.Path(__file__).parent
     out = here / "out"; out.mkdir(exist_ok=True)
     jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else ""),
-                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {})} if l in STYLE else None}, ensure_ascii=False), seed,
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else "")
+                         + (" " + CARD_SKY[c] if sky else ""),
+                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {}), **({"text_render": []} if sky else {})} if l in STYLE else None},
+                        ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
-        (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
-        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{l}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
-        print(c, l, seed, "painted attribution", res["attribution_status"])
+        kind = l + ("sky" if sky else "")
+        (out / f"{c}-{kind}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": c, "seed": seed, "mode": f"painted-{kind}", "photo": EDITS[c]["photo"], "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(c, kind, seed, "painted attribution", res["attribution_status"])
 
 
 @app.local_entrypoint()
@@ -503,8 +517,8 @@ def logo(kinds: str = "a,b,c", seed: int = 5):
 # (with_provenance); full credits with links: dist/README.md.
 CARD_TITLE = {"coloradostartups.org": "Colorado Startups", "brand": "Colorado Startups", "claudius": "Claudius",
               "link": "Linken", "legallas": "Legallas"}
-CARD_ART = {"coloradostartups.org": "boulder-wow-51", "brand": "golden-wow-51", "claudius": "claudius-game-7",
-            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decision 50
+CARD_ART = {"coloradostartups.org": "boulder-wowsky-52", "brand": "golden-wow-51", "claudius": "claudius-game-7",
+            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decisions 50, 57
 PLACE_ART = {"boulder": "boulder-wow-51", "golden": "golden-wow-51", "denver": "denver-wow-51",
              "springs": "springs-wow-51", "fortcollins": "fortcollins-wow-51"}  # <place>-<lean>-<seed> in art/render/out/
 PHOTO_CREDIT = {  # rides in csart:Source; CC BY 2.0 and 2.5 4(b) allow credit "in any reasonable manner"
@@ -593,7 +607,7 @@ def compose_all(cards_only: str = ""):
         raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
         source, kind, seed = CARD_ART[c].rsplit("-", 2)
-        if kind in ("edit", "game", "film", "wow") and source in EDITS:  # every place image starts from a real photo
+        if kind in ("edit", "game", "film", "wow", "wowsky") and source in EDITS:  # every place image starts from a real photo
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": photo_source(source)}
         return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), CARD_TITLE[c], prov(c)) for c in names])):
