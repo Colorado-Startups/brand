@@ -104,5 +104,9 @@
 {"card": "hall-guides", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "aea3d3beea50447e93feeeb135d2a3bc"},
 {"card": "hall-stone", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "889d9afa507343cbb1080056eeb20883"},
 {"card": "hall-communitas", "seed": 8, "mode": "hall", "attribution_status": 200, "attribution": "e98456cc3c3b4d13befa0f9c01064819"},
-{"card": "hall-resourcus", "seed": 8, "mode": "hall", "attribution_status": 200, "attribution": "ccdc3572e59f4288b3272fe108cae750"}
+{"card": "hall-resourcus", "seed": 8, "mode": "hall", "attribution_status": 200, "attribution": "ccdc3572e59f4288b3272fe108cae750"},
+{"card": "hall-guides", "seed": 11, "mode": "hall", "attribution_status": 200, "attribution": "bab03dc8974a46858653906927d2d9b6"},
+{"card": "hall-guides", "seed": 12, "mode": "hall", "attribution_status": 200, "attribution": "2530db500fe04ecf904b8e4bb0576ba7"},
+{"card": "boulder", "seed": 51, "mode": "painted-wowsky", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "0992bc6eaa5b4ed8b23832697b131266"},
+{"card": "boulder", "seed": 52, "mode": "painted-wowsky", "photo": "flatirons-2007-pd.jpg", "attribution_status": 200, "attribution": "ba235865a485499b8d85426d5385f06c"}
 ]

@@ -26,7 +26,7 @@ Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no ta
 
 | Card | Image | Credit |
 |---|---|---|
-| `coloradostartups.org.jpg` | Boulder: the Flatirons transformed into an elven city of waterfalls, moon portals and a great tree, with dragons | Photo by Jimbo Herndan, [public domain](https://commons.wikimedia.org/wiki/File:Flatirons_2007.jpg) |
+| `coloradostartups.org.jpg` | Boulder: the Flatirons transformed into an elven city of waterfalls, moon portals and a great tree, with dragons; open sky behind the name (decision 56) | Photo by Jimbo Herndan, [public domain](https://commons.wikimedia.org/wiki/File:Flatirons_2007.jpg) |
 | `brand.jpg` | Golden: Table Mountain transformed into a dwarven kingdom's forge gate, with steam carts and a boulder wyrm | Photo by James St. John, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) ([source](https://commons.wikimedia.org/wiki/File:Lava_flows_capping_North_Table_Mountain_%26_South_Table_Mountain_(Denver_Formation,_Upper_Cretaceous;_Golden,_Colorado,_USA).jpg)), edited |
 | `claudius.jpg` | Claudius, a gnome engineer and loyal companion, in the game style (decision 50) | AI-made, no photo |
 | `link.jpg` | Linken, a gnome hero, in the game style | AI-made, no photo |
@@ -46,7 +46,7 @@ Three tiers, built by `art/render/fibo_cards.py` (`logo`, then `logo_export`). T
 | `wordmark-blue.png`, `wordmark-white.png` | Wordmark: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, any width |
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 
-## Hall (`hall/`, decision 53)
+## Hall (`hall/`, decisions 53 and 56)
 
 The website's Hall art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
 
@@ -57,6 +57,7 @@ The website's Hall art in the game look, text to image with FIBO 2.0 (`art/rende
 | `publicus.png`, `publicus-small.png` | Publicus, Herald of the Hall: a dwarf herald, copper braided beard, feathered red cap, ember tabard, blank broadsheet | 960 × 1200; 320 × 320 |
 | `passage.jpg` | The 404 scene: a cog railway in a pink-granite passage ends at a blank wall | 1344 × 756 |
 | `founders.jpg` | Founders build a glowing fusion core in a red sandstone workshop below red rock spires | 1344 × 756 |
+| `guides.jpg` | Two founders plan a route on a picture map with no writing, in a study above Denver and the Front Range | 1344 × 756 |
 | `stone.png` | The Hall's warm sandstone texture tile | 1024 × 1024 |
 
 The keepers are AI agents: every surface that shows one also shows its disclosure line (`data/world.yaml` `keepers`).

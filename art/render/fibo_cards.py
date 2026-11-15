@@ -365,11 +365,13 @@ PAINTED = {  # place, then people, then two small accents (decisions 43 and 44);
 }
 
 
-CARD_SKY = {  # card-only clause (v3.0.1): compose() sets the name top left, where seed 51's dragons sat (after-audit)
-    "boulder": ("This painting becomes a wide banner with a title in its top-left corner, so keep the top left of the picture, "
-                "the left 60 percent of the frame down to a third of its height, as calm, open evening sky with a few soft "
-                "clouds and nothing else in it. The dragons and hippogryphs fly only in the right third of the sky, and the "
-                "World Tree stands on the ridge at the far right."),
+# Card-only clause (v3.0.1): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
+# the sky only. A first wording that called the picture "a banner with a title" made FIBO paint the game's logo text
+# there, so sky mode also forces text_render empty in the edit JSON.
+CARD_SKY = {
+    "boulder": ("Keep the upper-left part of the sky, across the left 60 percent of the picture and its top third, calm and "
+                "open: a smooth evening sky with a few soft clouds and nothing in it. The dragons and hippogryphs fly only "
+                "in the right third of the sky, and the World Tree stands on the ridge at the far right."),
 }
 
 
@@ -383,7 +385,8 @@ def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int =
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
              json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else "")
                          + (" " + CARD_SKY[c] if sky else ""),
-                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {})} if l in STYLE else None}, ensure_ascii=False), seed,
+                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {}), **({"text_render": []} if sky else {})} if l in STYLE else None},
+                        ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
         kind = l + ("sky" if sky else "")
@@ -514,8 +517,8 @@ def logo(kinds: str = "a,b,c", seed: int = 5):
 # (with_provenance); full credits with links: dist/README.md.
 CARD_TITLE = {"coloradostartups.org": "Colorado Startups", "brand": "Colorado Startups", "claudius": "Claudius",
               "link": "Linken", "legallas": "Legallas"}
-CARD_ART = {"coloradostartups.org": "boulder-wow-51", "brand": "golden-wow-51", "claudius": "claudius-game-7",
-            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decision 50
+CARD_ART = {"coloradostartups.org": "boulder-wowsky-52", "brand": "golden-wow-51", "claudius": "claudius-game-7",
+            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decisions 50, 56
 PLACE_ART = {"boulder": "boulder-wow-51", "golden": "golden-wow-51", "denver": "denver-wow-51",
              "springs": "springs-wow-51", "fortcollins": "fortcollins-wow-51"}  # <place>-<lean>-<seed> in art/render/out/
 PHOTO_CREDIT = {  # rides in csart:Source; CC BY 2.0 and 2.5 4(b) allow credit "in any reasonable manner"
