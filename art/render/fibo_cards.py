@@ -600,6 +600,116 @@ def places():
         print(c, len(jpg) // 1024, "KB")
 
 
+# The website's Hall art (Paul, 2026-11-14: "Yes, render all 7"): its three keepers, the 404 passage, founders and
+# guides scenes and the Hall's stone texture, in the game look. The keepers replace Anima art whose licence allows only
+# non-commercial use; the scenes keep the website's picks' subjects (coloradostartups.org art/finals.json).
+HALL_LOOK = {
+    "lighting": {"conditions": "warm, bright, magical light", "direction": "key light from the upper left, warm fill", "shadows": "soft"},
+    "photographic_characteristics": {"depth_of_field": "deep", "focus": "sharp throughout", "camera_angle": "eye-level", "lens_focal_length": "standard"},
+    "text_render": [], **STYLE["wow"],
+}
+KEEPER = ("plain flat warm cream background with nothing else in it", "4:5 portrait, the keeper from the waist up, centred, "
+          "head in the upper third, generous cream margin on every side")
+HALL = {
+    "communitas": ((960, 1200), {
+        "short_description": "Communitas, Keeper of the Doors, a warm dwarf woman who welcomes newcomers",
+        "objects": [{"description": "a sturdy, kind dwarf woman with long copper-red braids, rosy cheeks and a welcoming smile, a sky-blue "
+                     "hooded cloak over a brown leather tunic, a ring of brass keys at her belt, holding up a glowing brass lantern on a "
+                     "tall wooden pole", "location": "centre", "relationship": "the only subject", "relative_size": "large within frame"}],
+        "background_setting": KEEPER[0],
+        "aesthetics": {"composition": KEEPER[1], "color_scheme": "sky blue cloak, copper hair, warm brass and leather on cream", "mood_atmosphere": "welcoming, warm, kind"},
+        "context": "World of Warcraft game character portrait of a community's AI guide for a website; no text, no letters, no logo",
+        **HALL_LOOK}),
+    "resourcus": ((960, 1200), {
+        "short_description": "Resourcus, an elder gnome mapkeeper who knows every startup resource",
+        "objects": [{"description": "a small, wise elder gnome with a long white beard and bright eyes, brass goggles on a tall pointed brass "
+                     "hat, a pine-green coat with brass buttons, holding a brass compass over a blank hand-painted map with drawn "
+                     "mountains and rivers and no writing", "location": "centre", "relationship": "the only subject", "relative_size": "large within frame"}],
+        "background_setting": KEEPER[0],
+        "aesthetics": {"composition": KEEPER[1], "color_scheme": "pine green coat, white beard, polished brass on cream", "mood_atmosphere": "wise, helpful, curious"},
+        "context": "World of Warcraft game character portrait of a community's AI guide for a website; no text, no letters, no logo",
+        **HALL_LOOK}),
+    "publicus": ((960, 1200), {
+        "short_description": "Publicus, Herald of the Hall, a cheerful dwarf herald",
+        "objects": [{"description": "a stocky, cheerful dwarf herald with a long copper-red braided beard, a red cap with a white feather, an "
+                     "ember-red tabard over chain mail, holding a large blank broadsheet high in one hand, with no writing on it, and a "
+                     "leather satchel of rolled scrolls", "location": "centre", "relationship": "the only subject", "relative_size": "large within frame"}],
+        "background_setting": KEEPER[0],
+        "aesthetics": {"composition": KEEPER[1], "color_scheme": "ember red tabard and cap, copper beard, steel and leather on cream", "mood_atmosphere": "cheerful, bold, newsy"},
+        "context": "World of Warcraft game character portrait of a community's AI guide for a website; no text, no letters, no logo",
+        **HALL_LOOK}),
+    "passage": ((1344, 768), {
+        "short_description": "A lantern-lit passage carved through pink Pikes Peak granite, where a cog railway ends at a blank stone wall",
+        "objects": [{"description": "a brass steam cog-railway engine on a small cart, on toothed rails that run down the passage", "location": "centre left", "relationship": "on the rails", "relative_size": "medium"},
+                    {"description": "a smooth, blank, unfinished stone wall where the rails end, with scaffolding and tools beside it, no writing, no signs", "location": "centre right", "relationship": "the end of the passage", "relative_size": "medium"}],
+        "background_setting": "a tunnel of pink and rose granite with hanging lanterns, opening at the far left onto a snowy Colorado peak under a gold sky",
+        "aesthetics": {"composition": "wide 16:9, the rails leading the eye to the blank wall", "color_scheme": "pink granite, warm lantern gold, brass, a cool blue sky", "mood_atmosphere": "a build still in progress, curious, inviting"},
+        "context": "World of Warcraft game environment concept art for a website's page-not-found scene; no text, no letters, no signs",
+        **HALL_LOOK}),
+    "founders": ((1344, 768), {
+        "short_description": "Founders build a glowing fusion core in a red sandstone workshop below the Flatirons",
+        "objects": [{"description": "a small team of founders, a dwarf, a gnome, an elf and a human, building a glowing teal fusion core held in a large brass ring on a workbench", "location": "centre", "relationship": "working together", "relative_size": "large"}],
+        "background_setting": "a warm red sandstone workshop with brass tools and gears, a big arched window showing Boulder's tilted red Flatirons in sunlight",
+        "aesthetics": {"composition": "wide 16:9, the team and the core in the centre, the window behind", "color_scheme": "red sandstone, glowing teal, brass gold, green pines", "mood_atmosphere": "focused, hopeful, inventive"},
+        "context": "World of Warcraft game environment concept art for a website scene about founders; no text, no letters, no signs",
+        **HALL_LOOK}),
+    "guides": ((1344, 768), {
+        "short_description": "Two founders plan a route on a hand-drawn map of the Front Range above Denver",
+        "objects": [{"description": "two founders, a gnome and a human, leaning over a table and marking a blank hand-drawn map of mountains and rivers with no writing", "location": "centre", "relationship": "planning together", "relative_size": "large"},
+                    {"description": "a polished copper rocket model and a small brass satellite on the table", "location": "right", "relationship": "beside the map", "relative_size": "small"}],
+        "background_setting": "a high study with tall windows showing snowy Front Range peaks above the Denver skyline at golden hour",
+        "aesthetics": {"composition": "wide 16:9, the table in the foreground, the view behind", "color_scheme": "copper and brass, warm wood, snowy peaks, gold sky", "mood_atmosphere": "guiding, ambitious, friendly"},
+        "context": "World of Warcraft game environment concept art for a website scene about guides; no text, no letters, no signs",
+        **HALL_LOOK}),
+    "stone": ((1024, 1024), {
+        "short_description": "A seamless, tileable texture swatch of smooth carved warm sandstone",
+        "objects": [], "background_setting": "the whole frame is the stone surface, seen straight on",
+        "aesthetics": {"composition": "an even all-over pattern like a sample swatch, no focal point, no edges, no lighting gradient, no light falloff, no banding", "color_scheme": "warm sand and soft ochre", "mood_atmosphere": "calm"},
+        "lighting": {"conditions": "flat, even light", "direction": "none", "shadows": "none"},
+        "photographic_characteristics": {"depth_of_field": "deep", "focus": "sharp throughout", "camera_angle": "top-down", "lens_focal_length": "standard"},
+        "text_render": [], "style_medium": "digital painting", "artistic_style": "hand-painted game texture, soft mottling, fine grain",
+        "context": "A seamless tile for a website's background texture; no text"}),
+}
+
+
+@app.local_entrypoint()
+def hall(names: str = "communitas,resourcus,publicus,passage,founders,guides,stone", seed: int = 3):
+    """The website's Hall art: text to image at each item's size; writes out/hall-<name>-<seed>.png."""
+    out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
+    picked = names.split(",")
+    for n, res in zip(picked, fibo_map("render", [(json.dumps(HALL[n][1], ensure_ascii=False), seed, HALL[n][0]) for n in picked])):
+        (out / f"hall-{n}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": f"hall-{n}", "seed": seed, "mode": "hall", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("hall", n, seed, "attribution", res["attribution_status"])
+
+
+def hall_export(picks: str = ""):
+    """dist/hall/: the chosen Hall renders at the website's sizes (coloradostartups.org art/concepts/finals.md).
+    picks: name=seed pairs, e.g. communitas=3,resourcus=8. Keepers 960 x 1200 and a 320 head crop; scenes 1344 x 756
+    JPEG; the stone tile 1024 PNG. Every file keeps the AI-made label in its XMP."""
+    from PIL import Image
+    from PIL.PngImagePlugin import PngInfo
+    here = pathlib.Path(__file__).parent
+    dest = here.parent.parent / "dist" / "hall"; dest.mkdir(parents=True, exist_ok=True)
+    for pair in picks.split(","):
+        n, seed = pair.split("=")
+        img = Image.open(here / "out" / f"hall-{n}-{seed}.png").convert("RGB")
+        prov = {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
+        info = PngInfo(); info.add_itxt("XML:com.adobe.xmp", xmp_packet(prov).decode())
+        if HALL[n][0] == (960, 1200):  # a keeper
+            img.save(dest / f"{n}.png", "PNG", optimize=True, pnginfo=info)
+            side = 576; left = (960 - side) // 2
+            img.crop((left, 90, left + side, 90 + side)).resize((320, 320), Image.LANCZOS).save(dest / f"{n}-small.png", "PNG", optimize=True, pnginfo=info)
+            print(n, "960x1200 and 320x320")
+        elif n == "stone":
+            img.save(dest / "stone.png", "PNG", optimize=True, pnginfo=info)
+            print(n, img.size)
+        else:  # a scene: the website's 1344 x 756 crop
+            buf = io.BytesIO(); img.crop((0, 6, 1344, 762)).save(buf, "JPEG", quality=86, optimize=True, progressive=True)
+            (dest / f"{n}.jpg").write_bytes(with_provenance(buf.getvalue(), prov))
+            print(n, "1344x756")
+
+
 # Cards for the region and project repos (finish plan, package G), from the shipped place paintings committed in
 # dist/places/: the raw renders in out/ are gitignored, so nothing here depends on them.
 REPO_CARDS = {"photon-mountain": ("denver", "Photon Mountain"), "space-peak": ("springs", "Space Peak"),
@@ -654,7 +764,7 @@ def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 
 
 
 ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
-           "places": places, "logo": logo, "repo_cards": repo_cards, "logo_export": logo_export}
+           "places": places, "logo": logo, "repo_cards": repo_cards, "logo_export": logo_export, "hall": hall, "hall_export": hall_export}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}

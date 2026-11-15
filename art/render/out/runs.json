@@ -95,5 +95,14 @@
 {"card": "legallas", "seed": 7, "mode": "character-game", "attribution_status": 200, "attribution": "d98818979daf4ea288101978381d80cb"},
 {"card": "claudius", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "26845dd9332a42438b949b89f986365b"},
 {"card": "link", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "e542e41400214ba9ba777880e38d535d"},
-{"card": "legallas", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "42527bc9182a43d98bf5efdcec0c2dd3"}
+{"card": "legallas", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "42527bc9182a43d98bf5efdcec0c2dd3"},
+{"card": "hall-communitas", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "9dda06162dc14b37bfd952e63cb388fd"},
+{"card": "hall-resourcus", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "963e77dc180845d8bdb72f4fb2651cf2"},
+{"card": "hall-publicus", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "1468dab58dbc4878ad2af20c7cf1de53"},
+{"card": "hall-passage", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "5ecdea99269f4300962dc963cad4e9d1"},
+{"card": "hall-founders", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "e2605aaad4954ae68808da80a661b3aa"},
+{"card": "hall-guides", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "aea3d3beea50447e93feeeb135d2a3bc"},
+{"card": "hall-stone", "seed": 3, "mode": "hall", "attribution_status": 200, "attribution": "889d9afa507343cbb1080056eeb20883"},
+{"card": "hall-communitas", "seed": 8, "mode": "hall", "attribution_status": 200, "attribution": "e98456cc3c3b4d13befa0f9c01064819"},
+{"card": "hall-resourcus", "seed": 8, "mode": "hall", "attribution_status": 200, "attribution": "ccdc3572e59f4288b3272fe108cae750"}
 ]
