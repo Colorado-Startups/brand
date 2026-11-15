@@ -26,7 +26,7 @@ import sys
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DIST = os.path.join(ROOT, "dist")
 REPO = "https://github.com/Colorado-Startups/brand"
-DOWNLOAD_TYPES = (".jpg", ".png", ".ico", ".css", ".json", ".html")
+DOWNLOAD_TYPES = (".jpg", ".png", ".ico", ".css", ".json", ".html", ".webm", ".mp4")
 EXT = "org.coloradostartups.brand"  # reverse-domain key for $extensions in tokens.json
 HEX = re.compile(r"#[0-9A-F]{6}")
 

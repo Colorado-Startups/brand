@@ -83,7 +83,7 @@ deferred:
     what: "Communitas, Resourcus and Publicus restyled in the game style, from their sheets in art/keepers/"
     decision: 48
   - id: clips
-    what: "LTX-2.5 ambient loops from approved stills (art/motion.md), for the places and regions, once their stills are approved"
+    what: "LTX-2.5 ambient loops from approved stills (art/motion.md). Photon Mountain ships (decision 61); Fusion Canyon and Space Peak wait for the Cinemagraph LoRA on an own ZeroGPU Space"
     decision: 37
 
 dropped:

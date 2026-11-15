@@ -4,6 +4,15 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-11-15
+
+The first theme clip for the website's region panels (decision 61). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- `dist/clips/photonics.webm`, `photonics.mp4`: a 4 s muted loop of the Boulder painting (Photon Mountain), with its provenance record `photonics.json`.
+- `dist/brand.json` `downloads` lists `.webm` and `.mp4` files.
+- The guide's site serves `dist/clips/`.
+
 ## [4.0.0] - 2026-11-15
 
 No single Hall: the places are equals (decision 58). Checksums for every file in `dist/` are in the GitHub release notes.
