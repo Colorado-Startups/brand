@@ -1,0 +1,7 @@
+# The application templates templates/build.py makes; tools/build_guide_data.py copies this list into
+# dist/brand.json `templates`, which the guide's Files section shows. Paths are relative to dist/.
+templates:
+  - {id: square, name: Square avatar, size: 512 × 512, use: "Slack workspace icon, LinkedIn Page logo, GitHub org avatar", files: [templates/square-512.png]}
+  - {id: linkedin-cover, name: LinkedIn cover, size: 1128 × 191, use: "LinkedIn Page cover: the Boulder painting and the name", files: [templates/linkedin-cover-1128x191.png]}
+  - {id: slides, name: Slide backgrounds, size: 1920 × 1080, use: "Title and closing slides in State blue, for any deck tool", files: [templates/slide-title-1920x1080.png, templates/slide-closing-1920x1080.png]}
+  - {id: email, name: Email signature, size: 600 px wide, use: "Paste into the mail client; replace NAME and ROLE", files: [templates/email-signature.html]}

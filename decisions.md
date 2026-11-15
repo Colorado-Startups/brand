@@ -190,3 +190,9 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Picks: Communitas seed 8, Resourcus seed 3; Publicus, the passage and founders scenes and the stone tile at seed 3. Judged on fit to the website's subjects, clarity at 320 px, and no stray letters. The guides scene's map carried pseudo-letters (the review caught them), so it waits for a re-render once the daily quota resets, with a stronger no-writing prompt.
     - Spend: 14 calls reserved, 9 rendered. ZeroGPU hit its 40-minute daily quota and the Space refused the rest. HF credit stayed at $2.00, billed $0.00. The plan's renders stand at 25 of the 60-call cap.
     - Reverse: export another seed with `hall_export --picks name=seed`.
+54. **2026-11-14, Claude (package F). The kit is wired: tokens drive the guide, the favicon set ships, and four templates.**
+    - `dist/tokens.css` (decision 51) now styles the guide and its 404 page. The hand-copied `guide/public/tokens.css` is gone; the guide maps `--ground`, `--ink` and `--link` to the token roles.
+    - The site serves `favicon.ico` and `apple-touch-icon.png` at its root and a `manifest.webmanifest` with the 192 and 512 px icons (decision 50). `pages.yml` copies `dist/tokens.*`, `logo/`, `hall/` and `templates/` beside the guide.
+    - Four templates by `templates/build.py`, composited from committed files with Pillow in seconds: the square avatar, the LinkedIn cover, slide backgrounds and an email signature. `templates/kit.yaml` lists them, and `dist/brand.json` carries them as `templates` for the guide's Files section.
+    - Measured on a local copy of the site at `/brand/`: favicon and manifest icon 200, 817 visible words, 0 console errors, no broken images.
+    - Reverse: restore `guide/public/tokens.css` and the three-folder copy in `pages.yml`.
