@@ -218,7 +218,9 @@ def fibo_map(method, args):
                                upload(mask) if mask else None, max(seed, 1), api_name="/vgl")["json_instruction"]
             style = json.loads(prompt).get("style")
             if style:  # set the style fields directly rather than leaving them to the VGL step's paraphrase
-                edit = {**(json.loads(edit) if isinstance(edit, str) else edit), **style}
+                edit = json.loads(edit) if isinstance(edit, str) else dict(edit)
+                for k, v in style.items():
+                    edit[k] = {**edit[k], **v} if isinstance(v, dict) and isinstance(edit.get(k), dict) else v
             edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
             png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", handle_file(ref) if ref else None,
                                                       handle_file(mask) if mask else None, edit, "", seed,
@@ -263,9 +265,8 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
 # atmosphere spelled out. Two leans per place: "film" (grand, misty, naturalistic) and "game" (hand-painted,
 # bold, stylized). Styles are described, never named.
 LEANS = {
-    "wow": ("Repaint this whole photo in the art style of World of Warcraft: Blizzard's hand-painted, stylized game look, with "
-            "chunky, slightly exaggerated shapes, oversized architecture with thick walls and heavy ornament, bold saturated "
-            "colours, painterly hand-painted textures and warm magical light, one consistent light across the whole scene."),
+    "wow": "",
+
     "wowlike": ("Repaint this whole photo as hand-painted MMO game concept art in a stylized, heroic, slightly cartoony look: "
                 "chunky exaggerated proportions, massive oversized architecture with thick stone walls, giant rivets, huge "
                 "ornamental trims and bold geometric carvings, bold saturated jewel-tone colours, painterly hand-painted "
@@ -279,79 +280,83 @@ LEANS = {
              "light with glowing highlights, one consistent light across the whole scene."),
 }
 STYLE = {
-    "wow": {"style_medium": "digital illustration",
-            "artistic_style": "World of Warcraft game art: Blizzard's hand-painted, stylized high-fantasy MMO look, chunky "
-                              "exaggerated proportions, oversized ornate architecture, bold saturated colours, painterly "
-                              "textures and warm magical light"},
+    "wow": {"style_medium": "digital illustration", "artistic_style": "World of Warcraft, hand-painted, stylized"},
+}
+PLACE_STYLE = {  # context names the game and the transformation; aesthetics merges into the VGL step's own
+    "boulder": {"context": "World of Warcraft game environment concept art: Boulder's Flatirons transformed into a night elf "
+                           "and Rivendell elven city",
+                "aesthetics": {"color_scheme": "night elf purples and teals with moonlit silver, golden leaves and red-brown "
+                                               "sandstone", "mood_atmosphere": "epic, magical, serene"}},
+    "golden": {"context": "World of Warcraft game environment concept art: Golden's Table Mountain transformed into an "
+                          "Ironforge and Erebor dwarven kingdom",
+               "aesthetics": {"color_scheme": "warm stone greys, bronze, gold and forge orange with crimson banners",
+                              "mood_atmosphere": "epic, mighty, bustling"}},
+    "denver": {"context": "World of Warcraft game environment concept art: Denver transformed into a Stromgarde and Edoras "
+                          "kingdom of men",
+               "aesthetics": {"color_scheme": "white stone, royal blue and gold with green fields and golden trees",
+                              "mood_atmosphere": "epic, noble, lively"}},
+    "springs": {"context": "World of Warcraft game environment concept art: Pikes Peak transformed into an Aerie Peak and "
+                           "Eagles' Eyrie dwarven aerie",
+                "aesthetics": {"color_scheme": "pink granite, forest green and gold with warm firelight",
+                               "mood_atmosphere": "epic, adventurous, wild"}},
+    "fortcollins": {"context": "World of Warcraft game environment concept art: Poudre Canyon transformed into a New "
+                               "Tinkertown and Shire village",
+                    "aesthetics": {"color_scheme": "brass, copper and glowing teal with garden greens and bright flowers",
+                                   "mood_atmosphere": "epic, whimsical, cheerful"}},
 }
 # Named models (decision 44): with the "wow" lean, each place's prompt also names what it blends, so the model lands
 # on the games' look instead of generic fantasy. Names stay in art/ prompts; nothing shipped carries them.
-NAMES = {
-    "boulder": "Model the city on World of Warcraft's Mount Hyjal and its World Tree blended with The Lord of the Rings' "
-               "Rivendell, and the elves on World of Warcraft's night elves blended with The Lord of the Rings' Noldor elves.",
-    "golden": "Model the kingdom on World of Warcraft's Ironforge blended with The Lord of the Rings' Erebor, and the people "
-              "on World of Warcraft's Ironforge dwarves and gnomes blended with The Lord of the Rings' dwarves.",
-    "denver": "Model the town on World of Warcraft's Stromgarde blended with The Lord of the Rings' Edoras, and the people on "
-              "World of Warcraft's humans blended with The Lord of the Rings' Rohirrim.",
-    "springs": "Model the town on World of Warcraft's Aerie Peak blended with The Lord of the Rings' Eagles' Eyrie, and the "
-               "people on World of Warcraft's Wildhammer dwarves.",
-    "fortcollins": "Model the village on World of Warcraft's New Tinkertown blended with The Lord of the Rings' Shire, and the "
-                   "little folk on World of Warcraft's gnomes blended with The Lord of the Rings' hobbits.",
-}
-PAINTED = {  # place first, community second, creatures as small accents (decision 44); heroes kept for later
-    "boulder": ("A wide, epic establishing view. Keep the five tilted red-brown sandstone Flatirons slabs and the mountain's outline exactly in "
-                "their shapes and places; they stay the heart of the scene. Below and between the slabs spreads a vast, "
-                "breathtaking elven city at grand scale: terraced halls of pale stone with tall slender arches and leaf "
-                "carvings climbing the slopes, graceful towers, waterfalls pouring past the slabs into glowing silver-blue "
-                "pools, many slender bridges, gardens and lantern-lit walkways, and on the ridge behind the slabs one colossal "
-                "world tree with silver bark and golden leaves sheltering the city. The city is full of life: dozens of elves "
-                "everywhere, walking the bridges, gathering in the gardens and on the terraces, carrying lanterns; they are "
-                "one people, tall and graceful, with long swept-back pointed ears, faintly lavender-tinted fair skin, long "
-                "silver or midnight-blue hair and flowing grey-green robes embroidered with silver stars. As small accents "
-                "only, far off in the sky: two small green dragons near the treetop and two small hippogryphs with "
-                "golden-eagle heads and antlers carrying elf riders. Golden evening light with the first stars. Remove the "
-                "stadium floodlight tower. Add no text, letters or signs.", None),
-    "golden": ("A wide, epic establishing view. Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. "
-               "The steep face of the right-hand mesa becomes a colossal dwarven mountain kingdom: a gigantic gate rising most "
-               "of the mesa's height, flanked by two giant statues of helmeted dwarf kings resting on war hammers, warm golden "
-               "light pouring from deep inside, tiers of carved halls, balconies, forges and glowing windows climbing the "
-               "cliff, a river flowing out from beneath the gate, and a broad stone causeway lined with market stalls, "
-               "smithies and ore carts. The kingdom is full of life: dozens of dwarves everywhere, hauling carts, working the "
-               "forges, trading at the stalls and marching up the causeway, with a few gnome tinkers among them; the dwarves "
-               "are one people, stout and broad-shouldered, with long braided beards bound in gold rings and hooded "
-               "travelling cloaks over riveted plate armour. As small accents only: far off on a distant slope, one small "
-               "stone wyrm like the creature in <image_2>, a legless serpent of rounded grey boulders with slivers of gold, "
-               "and on the causeway two small dwarven steam tanks with spinning drill heads. Replace the golf course, houses "
-               "and town with wild grassland, rocks and the river. Add no text, letters or signs.", "stonewyrm"),
-    "denver": ("A wide, epic establishing view. Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes "
-               "and places, and the golden cottonwood trees at the sides. On the plain in front of the city rises a grand "
-               "walled town of men on a green hill: white stone walls and towers with blue slate roofs around one great "
-               "citadel whose central hall is carved timber with a shining golden roof and horse-head gables, timber-framed "
-               "houses, a busy market square, stables and a road winding up through the gates. The town is full of life: "
-               "dozens of townsfolk everywhere, at the market, on the walls and in the streets, with a few dwarves among "
-               "them; they are one people of horse-lords, with long braided fair hair and green and gold cloaks, the guards "
-               "in bright steel armour with blue and gold tabards. As small accents only: a few knights on white horses whose "
-               "barding glows with soft golden light ride up the road, and far off in the sky two small white gryphons with "
-               "bald-eagle heads. Plain blue, green and gold banners. Add no text, letters or signs.", None),
-    "springs": ("A wide, epic establishing view. Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and "
-                "place. On the forested crags in front of the peak spreads a grand dwarven aerie town at large scale: many "
-                "stone and timber halls and towers carved into the rocks at every level, wooden walkways, rope bridges, lifts, "
-                "workshops, great stone roosts and warm glowing windows. The town is full of life: dozens of dwarves "
-                "everywhere, on the walkways, bridges and roosts, tending the workshops; they are one people of wild sky "
-                "dwarves, with braided beards, blue tattoos, feathered leather armour, hooded cloaks and brass goggles. As "
-                "small accents only: far off around the towers, two small gryphons like the creature in <image_2> and two "
-                "small dwarven gyrocopters, open-frame steam flying machines with a top rotor. Replace the houses at the "
-                "bottom with pine forest. Add no text, letters or signs.", "gryphon"),
-    "fortcollins": ("A wide, epic establishing view. Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and "
-                    "places. Along the canyon floor and up both slopes spreads a whole village of tinkers' workshops and "
-                    "burrow homes: brass workshops with round porthole windows and softly glowing teal energy cores, great "
-                    "water wheels turned by a clear mountain river, catwalks and pipes, and among them many round green and "
-                    "yellow doors set into grassy banks, flower and vegetable gardens, stone bridges and a cosy inn. The "
-                    "village is full of life: dozens of little folk everywhere, in the gardens, on the bridges, at the "
-                    "workshops and the inn; they are one little people, small, with big pointed ears, curly hair, bare furry "
-                    "feet, bright waistcoats and brass goggles. As small accents only: a few small brass clockwork "
-                    "dragonlings in the air and two mechanostriders, two-legged clockwork bird-shaped mounts, ridden along "
-                    "the river path. Add no text, letters or signs.", None),
+NAMES = {}  # superseded: the names now live in the body of each PAINTED prompt
+PAINTED = {  # place, then people, then two small accents (decisions 43 and 44); heroes are kept for later
+    "boulder": ("Transform this into World of Warcraft game art: the Flatirons above Boulder become a night elf and Rivendell "
+                "elven city. Keep the five huge flat red-brown sandstone slabs tilted steeply back against the forested "
+                "mountain exactly in their shapes and places, and keep the mountain's outline. Build a grand World of "
+                "Warcraft night elf city in the style of Darnassus and Mount Hyjal, blended with The Lord of the Rings' "
+                "Rivendell: curved organic halls with sweeping purple and teal roofs, carved wood and pale stone arches, "
+                "moonwells glowing silver-blue, lantern-lit bridges and waterfalls between the slabs, and one colossal World "
+                "Tree with silver bark and golden leaves on the ridge behind. Fill it with dozens of elves, World of Warcraft "
+                "night elves blended with The Lord of the Rings' Noldor: tall, long swept-back ears, lavender-tinted skin, "
+                "silver or midnight-blue hair, night elf armour and flowing Rivendell robes, bare heads. Small in the sky: two "
+                "dragons of World of Warcraft's green dragonflight and two hippogryphs with golden-eagle heads and antlers. "
+                "Golden evening light with the first stars. Remove the stadium floodlight tower.", None),
+    "golden": ("Transform this into World of Warcraft game art: Table Mountain above Golden becomes an Ironforge and Erebor "
+               "dwarven kingdom. Keep both flat-topped mesas with their dark basalt caps exactly in their shapes and places. "
+               "Carve into the right-hand mesa's cliff a colossal World of Warcraft Ironforge gate blended with The Lord of "
+               "the Rings' Erebor: massive square-cut stone, two giant dwarf king statues with war hammers, bronze and gold "
+               "trim, tiers of halls with forge-orange windows, a river flowing from the gate and a busy stone causeway. "
+               "Fill it with dozens of World of Warcraft Ironforge dwarves blended with The Lord of the Rings' dwarves: "
+               "stocky, huge braided beards, oversized armoured shoulders and hands, with a few gnomes, hauling ore carts "
+               "and trading at market stalls. Small accents: far off on a slope one legless stone wyrm like the creature in "
+               "<image_2>, made of rounded grey boulders with slivers of gold, and two dwarven steam tanks with spinning "
+               "drill heads on the causeway. Replace the golf course and town with wild grassland, rocks and the river. "
+               "Crimson and gold dwarven banners.", "stonewyrm"),
+    "denver": ("Transform this into World of Warcraft game art: downtown Denver becomes a Stromgarde and Edoras kingdom of "
+               "men. Keep downtown Denver's skyscrapers clearly visible behind, and the mountains and the golden cottonwood "
+               "trees, exactly in their shapes and places. On a green hill in front of the city build a World of Warcraft "
+               "human city in the style of Stromgarde and Stormwind, blended with The Lord of the Rings' Edoras: white stone "
+               "walls and round towers with blue slate roofs and gold trim around one great golden-roofed timber hall with "
+               "horse-head gables, timber-framed houses and a busy market. Fill it with dozens of World of Warcraft humans "
+               "blended with The Lord of the Rings' Rohirrim: knights in heavy plate with big pauldrons and blue and gold "
+               "tabards, townsfolk with braided hair and green cloaks, and a few dwarves. Small accents: knights riding "
+               "white horses whose barding glows with golden Light up the road, and two white gryphons with bald-eagle heads "
+               "in the sky. Blue and gold banners.", None),
+    "springs": ("Transform this into World of Warcraft game art: Pikes Peak becomes an Aerie Peak and Eagles' Eyrie dwarven "
+                "aerie. Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On "
+                "the forested crags in front build a World of Warcraft Wildhammer dwarf town in the style of Aerie Peak, "
+                "blended with The Lord of the Rings' Eagles' Eyrie: stone towers on tall rock spires, gryphon roosts, wooden "
+                "walkways and rope bridges, warm windows and green and gold banners. Fill it with dozens of World of Warcraft "
+                "Wildhammer dwarves: stocky, wild braided hair and beards, blue tattoos, feathered leather armour and big "
+                "shoulders. Small accents: two golden-eagle-style gryphons like the creature in <image_2> and two Warcraft "
+                "III dwarven gyrocopters flying between the towers. Replace the houses at the bottom with pine forest.", "gryphon"),
+    "fortcollins": ("Transform this into World of Warcraft game art: Poudre Canyon becomes a New Tinkertown and Shire village. "
+                    "Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along "
+                    "the canyon floor build a World of Warcraft gnome town in the style of New Tinkertown and Gnomeregan, "
+                    "blended with The Lord of the Rings' Shire: brass and copper workshops with cogs, pipes, rockets and "
+                    "glowing teal energy cores, a big water wheel on a clear river, and round green and yellow hobbit doors "
+                    "in grassy banks, gardens and stone bridges. Fill it with dozens of World of Warcraft gnomes blended "
+                    "with The Lord of the Rings' hobbits: tiny, big pointed ears and noses, wild colourful hair, goggles, "
+                    "bare furry feet and bright waistcoats. Small accents: a few World of Warcraft mechanical dragonlings in "
+                    "the air and two gnome mechanostriders ridden along the path.", None),
 }
 
 
@@ -362,8 +367,8 @@ def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int =
     out = here / "out"; out.mkdir(exist_ok=True)
     jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if l == "wow" else ""),
-                         "style": STYLE.get(l)}, ensure_ascii=False), seed,
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else ""),
+                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {})} if l in STYLE else None}, ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
         (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
