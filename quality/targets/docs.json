@@ -4,6 +4,10 @@
     "params": {
       "doc_set_left_out": [
         {
+          "glob": ".claude/agents/*.md",
+          "why": "agent definitions copied unchanged from Git Crafter for the merging skill; edited there, not here"
+        },
+        {
           "glob": ".github/pull_request_template.md",
           "why": "the PR form; PR bodies are scored on the Pull requests tab"
         },
