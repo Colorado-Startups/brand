@@ -46,6 +46,21 @@ Three tiers, built by `art/render/fibo_cards.py` (`logo`, then `logo_export`). T
 | `wordmark-blue.png`, `wordmark-white.png` | Wordmark: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, any width |
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 
+## Hall (`hall/`, decision 53)
+
+The website's Hall art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
+
+| File | What | Size |
+|---|---|---|
+| `communitas.png`, `communitas-small.png` | Communitas, Keeper of the Doors: a dwarf woman, copper braids, sky-blue cloak, keys, lantern on a pole | 960 × 1200; 320 × 320 |
+| `resourcus.png`, `resourcus-small.png` | Resourcus: an elder gnome mapkeeper, white beard, tall brass hat with goggles, pine-green coat, compass and blank map | 960 × 1200; 320 × 320 |
+| `publicus.png`, `publicus-small.png` | Publicus, Herald of the Hall: a dwarf herald, copper braided beard, feathered red cap, ember tabard, blank broadsheet | 960 × 1200; 320 × 320 |
+| `passage.jpg` | The 404 scene: a cog railway in a pink-granite passage ends at a blank wall | 1344 × 756 |
+| `founders.jpg` | Founders build a glowing fusion core in a red sandstone workshop below red rock spires | 1344 × 756 |
+| `stone.png` | The Hall's warm sandstone texture tile | 1024 × 1024 |
+
+The keepers are AI agents: every surface that shows one also shows its disclosure line (`data/world.yaml` `keepers`).
+
 ## Places (`places/`, 1440×720 JPEG)
 
 Each real Colorado place transformed with magic into one bright, hand-painted fantasy-game scene, repainted from a photo (decisions 43 to 46). AI-made with FIBO 2.0, with no text on the image; the AI-made label and photo credit are in its IPTC metadata (decision 46). Built by `art/render/fibo_cards.py` (`painted`, then `places`).
