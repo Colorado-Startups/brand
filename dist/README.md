@@ -61,6 +61,17 @@ The website's Hall art in the game look, text to image with FIBO 2.0 (`art/rende
 
 The keepers are AI agents: every surface that shows one also shows its disclosure line (`data/world.yaml` `keepers`).
 
+## Templates (`templates/`, decision 54)
+
+Built by `templates/build.py` from committed files in seconds (no model call). The guide's Files section lists them from `templates/kit.yaml`.
+
+| File | Size | Where it goes |
+|---|---|---|
+| `square-512.png` | 512 × 512 | Slack workspace icon, LinkedIn Page logo, GitHub org avatar |
+| `linkedin-cover-1128x191.png` | 1128 × 191 | LinkedIn Page cover |
+| `slide-title-1920x1080.png`, `slide-closing-1920x1080.png` | 1920 × 1080 | Deck backgrounds |
+| `email-signature.html` | 600 px wide | Mail client signature; replace NAME and ROLE |
+
 ## Places (`places/`, 1440×720 JPEG)
 
 Each real Colorado place transformed with magic into one bright, hand-painted fantasy-game scene, repainted from a photo (decisions 43 to 46). AI-made with FIBO 2.0, with no text on the image; the AI-made label and photo credit are in its IPTC metadata (decision 46). Built by `art/render/fibo_cards.py` (`painted`, then `places`).
