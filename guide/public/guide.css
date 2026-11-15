@@ -1,19 +1,19 @@
 /* The guide's look: the State palette from tokens.css, Aileron for the name, Trebuchet MS for text. */
 @font-face { font-family: "Aileron"; src: url("fonts/Aileron-Regular.otf") format("opentype"); font-display: swap; }
 :root {
-  --panel: #f3f5fb; --line: #d5dbee; --muted: #4a5785; --accent: var(--co-red); --hi: var(--co-yellow);
+  --panel: #f3f5fb; --line: #d5dbee; --muted: #4a5785; --accent: var(--co-red); --hi: var(--co-yellow); --focus: var(--co-blue);
   --name: "Aileron", "Helvetica Neue", Arial, sans-serif;
   --text: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --muted: #b8c2e8; } }
-:root[data-theme="dark"] { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --muted: #b8c2e8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --muted: #b8c2e8; --focus: #ffd100; } }
+:root[data-theme="dark"] { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --muted: #b8c2e8; --focus: #ffd100; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--ground); color: var(--ink); font: 1rem/1.55 var(--text); }
 a { color: var(--link); }
-:focus-visible { outline: 3px solid var(--hi); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .skip { position: absolute; left: -999px; } .skip:focus { left: 1rem; top: 1rem; z-index: 9; background: var(--ground); padding: .5rem; }
 
 .top { position: sticky; top: 0; z-index: 5; display: flex; gap: 1rem; align-items: center; padding: .6rem clamp(1rem, 3vw, 2rem);
@@ -58,7 +58,9 @@ input[type="text"], input[type="search"] { width: 100%; max-width: 32rem; }
 .ask li::marker { content: "?  "; color: var(--accent); }
 :root[data-theme="dark"] .ok li::marker { color: #7fd6a0; }
 
-.hit { cursor: pointer; } .hit:focus-visible { outline: none; stroke: var(--hi); stroke-width: 4; }
+/* SVG shapes: a yellow ring with a dark halo shows on white ground and on every fill. Shape selectors beat each shape's own stroke attribute. */
+.hit { cursor: pointer; } .hit:focus-visible { outline: none; }
+.hit:focus-visible > polygon, .hit:focus-visible > circle, circle.hit:focus-visible { stroke: #ffd100; stroke-width: 4; filter: drop-shadow(0 0 2px #001970); }
 .specimen { display: flex; flex-direction: column; justify-content: center; gap: .6rem; min-height: 12rem; padding: 2rem clamp(1rem, 4vw, 3rem);
             border-radius: .8rem; font: clamp(1.8rem, 5vw, 3.4rem) var(--name); background-size: cover; background-position: center; border: 1px solid var(--line); }
 .specimen .rule { width: 4.5rem; height: .45rem; }
