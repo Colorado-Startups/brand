@@ -4,13 +4,13 @@ Part 2 of 11 of [`DIRECTION.md`](../DIRECTION.md).
 
 ## The influence map, as rules
 
-The brand mixes three named influences (decision 30). Each gives a mood, a material or a light. None gives a name, emblem, silhouette, iconic item, script, rune, costume or picture. Shipped files use only the generic phrase.
+The brand mixes three named influences (decision 30). Shipped text uses only the generic phrase (trademark).
 
-| Influence | Owner | Generic phrase (what ships) | Taken | Never |
-|---|---|---|---|---|
-| World of Warcraft: Ironforge, its dwarves and gnomes | Blizzard Entertainment | a fantasy MMO's dwarves and gnomes and their forge city | chunky painterly shapes; a hall around a great forge; brass-and-gear tinkering | names, gates, halls, banners, emblems, costumes, machines |
-| The Lord of the Rings: the dwarves' mountain halls and mines | the Tolkien Estate | high fantasy's mountain dwarves | straight-line carved ornament; monumental symmetry; gold set in cool stone | runes, scripts, named halls, doors, gates, map style, heraldry |
-| The Legend of Zelda: Ocarina of Time, the fire mountain | Nintendo | a classic adventure game's fire mountain and its town | round terraces around a glowing center; ember light from below | the emblem, the rock folk, an erupting volcano, the town's layout |
+| Influence | Owner | Generic phrase (what ships) | Taken |
+|---|---|---|---|
+| World of Warcraft: Ironforge, its dwarves and gnomes | Blizzard Entertainment | a fantasy MMO's dwarves and gnomes and their forge city | chunky painterly shapes; a hall around a great forge; brass-and-gear tinkering |
+| The Lord of the Rings: the dwarves' mountain halls and mines | the Tolkien Estate | high fantasy's mountain dwarves | straight-line carved ornament; monumental symmetry; gold set in cool stone |
+| The Legend of Zelda: Ocarina of Time, the fire mountain | Nintendo | a classic adventure game's fire mountain and its town | round terraces around a glowing center; ember light from below |
 
 Each trait below becomes a Colorado translation and a rule a painter can follow.
 

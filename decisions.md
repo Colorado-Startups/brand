@@ -78,7 +78,7 @@ The brand's decision log. Any session appends its decisions here in its own PR (
 
     - Project cards: Claudius is a dwarf agent. Linken is a gnome hero blending Ocarina of Time's Link with World of Warcraft's gnome Linken; the name also reads as short for LinkedIn. Legallas blends The Lord of the Rings' Legolas with Silvermoon's Ranger-General, Halduron Brightwing. The `coloradostartups.org` card is the Boulder place art and the `brand` card is the Golden place art.
     - Left out: the Dark Iron dwarves and their forge city. Photon Mountain is about light, and no place here is a dark one.
-    - Blended, never copied: the characters borrow costume cues (Linken's green cap and tunic, boomerang, sword and shield; Legallas's platinum hair, longbow and twin knives) and the places borrow each city's look, but nothing carries a crest, emblem, exact building or actor's likeness. Franchise names stay out of files that ship (decision 30); the card names pass the gate.
+    - Blended, never copied: the characters borrow costume cues (Linken's green cap and tunic, boomerang, sword and shield; Legallas's platinum hair, longbow and twin knives) and the places borrow each city's look. Franchise names stay out of files that ship (decision 30); the card names pass the gate. (The crest, emblem and building limits were deleted by decision 44.)
     - Every card says it is AI-made twice: a small label on the image (with the photo credit where the photo is CC BY), and IPTC provenance metadata in the file (decision 8). Photo sources and licences: `art/render/src/SOURCES.md`.
 
     Supersedes the fortress-on-every-card renders of the same day. Reverse: pair a place with another city in `art/render/fibo_cards.py` and rerender.
@@ -113,3 +113,19 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Shipped: `dist/places/<place>.jpg` for Boulder, Golden, Denver, Space Peak (Colorado Springs) and Fusion Canyon (Fort Collins), and the `coloradostartups.org` (Boulder) and `brand` (Golden) social cards. All seed 43, each attributed by Bria (status 200).
     - Kept from decision 42: the reference pass for creatures (`REFS`), the Bria $6.00 stop, the billing reads. Superseded: the landmark masks and `SCRATCH` prompts for place art.
     - Reverse: rerender with `painted --leans film`, or with decision 42's masked `edit_all`.
+44. **2026-11-14, Paul. The places look like World of Warcraft, blended with The Lord of the Rings; the self-made rules are deleted.** Paul: "get it as close to looking like it would be out of World of Warcraft as possible," "you're more than welcome to... say what you are referencing in terms of style," and "Delete rules 10 through 14." Real places transformed with magic carry their own difference.
+
+    | Place | World of Warcraft + The Lord of the Rings | People (one blended people) | Wild creature | Mount |
+    |---|---|---|---|---|
+    | Boulder | Mount Hyjal and its World Tree + Rivendell | Night elves + Noldor | Green dragons | Hippogryphs, golden-eagle style |
+    | Golden | Ironforge + Erebor | Ironforge dwarves and gnomes + Durin's folk | Stone wyrms of boulders veined with gold | Dwarven steam tank drills |
+    | Denver | Stromgarde + Edoras | Humans + Rohirrim, with dwarves | White gryphons with bald-eagle heads | White horses glowing with the Light |
+    | Colorado Springs (Space Peak) | Aerie Peak + the Eagles' Eyrie | Wildhammer dwarves | Gryphons, golden-eagle style | Dwarven gyrocopters |
+    | Fort Collins (Fusion Canyon) | New Tinkertown + the Shire | Gnomes + hobbits | Mechanical dragonlings | Mechanostriders |
+
+    - Order of importance: the place first, epic; its community second, everywhere; the two creatures as small accents.
+    - Prompts in `art/` name World of Warcraft, The Lord of the Rings and each place outright, and set `style_medium` and `artistic_style` directly (docs.bria.ai/vgl; Bria's VGL skill). An A/B on Golden showed names read as the game and described-only prompts drifted to generic fantasy.
+    - Kept for later: each place's hero creature, and Photon Mountain's region art (a white-and-gold light dragon, angels, paladins).
+    - Deleted: decision 39's crest, emblem and exact-building limits; the influence map's "never" sentence and column and the "never" bullets in `art/direction/`; every `never` list in `data/world.yaml`; the rule against carving into a named landmark, with the stale real-places rules decision 38 had cancelled; "add no text"; and "describe, don't instruct", which Bria's guidance reverses.
+    - What binds now: trademark (no franchise names or logos in shipped text or images, enforced on text by `tools/franchise_gate.py`), copyright (nothing that copies a franchise's actual art), CC BY credits for the photos, font licences, Bria's terms (we hold the rights to every image we upload, so no franchise art as input; one attribution call per image; no training on outputs; AI-made label), the LTX-2.5 Community License and its Acceptable Use Policy for video (duties in `art/LICENSES.md`), the FIBO call cap and the free-lane money rules.
+    - Reverse: restore any deleted rule by name.

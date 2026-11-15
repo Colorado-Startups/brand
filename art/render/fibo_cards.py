@@ -175,6 +175,11 @@ CREATURES = {
 for c in EDITS:
     EDITS[c]["edit_instruction"], EDITS[c]["keep"] = SCRATCH[c], KEEP[c]
 REFS = {
+    "stonewyrm": ("A colossal legless stone serpent, no legs and no claws: its body is a single line of about ten huge rounded "
+                  "grey boulders, each as big as a house, joined one after another like beads on a string and tapering to the "
+                  "tail, with thin slivers of glowing gold ore running through every boulder; its head is one great blocky "
+                  "boulder with a wide jaw and small glowing gold eyes. It arcs up out of rocky ground. Hand-painted "
+                  "high-fantasy illustration, bold warm colours, plain golden-hour sky background.", 29),
     "serpent": ("A colossal long serpentine green dragon without wings flying in a sweeping S-curve across a golden-hour sky, its "
                 "horned, bearded head and fierce face clearly visible in three-quarter view, mossy green scales with a pale gold "
                 "belly, four small clawed legs, the long body tapering to a fine tail tip. Photorealistic epic fantasy, sharp "
@@ -211,6 +216,11 @@ def fibo_map(method, args):
                 r.raise_for_status(); return r.json()[0]
             edit = vgl.predict(json.loads(prompt)["edit_instruction"], upload(path), upload(ref) if ref else None, None, None,
                                upload(mask) if mask else None, max(seed, 1), api_name="/vgl")["json_instruction"]
+            style = json.loads(prompt).get("style")
+            if style:  # set the style fields directly rather than leaving them to the VGL step's paraphrase
+                edit = json.loads(edit) if isinstance(edit, str) else dict(edit)
+                for k, v in style.items():
+                    edit[k] = {**edit[k], **v} if isinstance(v, dict) and isinstance(edit.get(k), dict) else v
             edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
             png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", handle_file(ref) if ref else None,
                                                       handle_file(mask) if mask else None, edit, "", seed,
@@ -255,6 +265,13 @@ def edit_all(cards: str = "boulder,golden,denver,springs,fortcollins", seed: int
 # atmosphere spelled out. Two leans per place: "film" (grand, misty, naturalistic) and "game" (hand-painted,
 # bold, stylized). Styles are described, never named.
 LEANS = {
+    "wow": "",
+
+    "wowlike": ("Repaint this whole photo as hand-painted MMO game concept art in a stylized, heroic, slightly cartoony look: "
+                "chunky exaggerated proportions, massive oversized architecture with thick stone walls, giant rivets, huge "
+                "ornamental trims and bold geometric carvings, bold saturated jewel-tone colours, painterly hand-painted "
+                "textures with soft highlights, stylized foliage in big leaf clumps, and warm glowing magical light, one "
+                "consistent light across the whole scene."),
     "film": ("Repaint this whole photo as an epic fantasy matte painting in the grand, naturalistic style of classic fantasy "
              "film concept art: muted earthy colours, soft golden evening light with long shadows, mist in the low ground and "
              "depth haze toward the horizon, painterly brushwork, one consistent light across the whole scene."),
@@ -262,38 +279,84 @@ LEANS = {
              "saturated colours, chunky slightly exaggerated shapes, painterly hand-painted textures, warm magical evening "
              "light with glowing highlights, one consistent light across the whole scene."),
 }
-PAINTED = {
-    "golden": ("Keep both flat-topped mesas exactly in their shapes and places, with their dark basalt caps. Into the steep face "
-               "of the right-hand mesa, carve one colossal dwarven gate rising most of the mesa's height: a towering square-cut "
-               "stone portal flanked by two giant statues of helmeted dwarf kings resting on war hammers, warm golden light "
-               "glowing from deep inside, a river flowing out from beneath it, and a long stone causeway leading to it. A few "
-               "tiny dwarves on the causeway show the immense scale. Replace the golf course, houses and town with wild "
-               "grassland, rocks and the river. Add no text, letters or signs.", None),
-    "boulder": ("Keep the five tilted Flatirons rock slabs and the mountain's outline exactly in their shapes and places. On "
-                "the forested slopes below the slabs, build one grand sanctuary of elves and dragons: pale stone halls with "
-                "tall slender arches and towers with gold domes climbing the slope between waterfalls that fall from the "
-                "slabs, linked by terraces and bridges. Put the long green serpent dragon from <image_2> coiling through the "
-                "sky above the slabs, its horned head and face visible, and one white-and-gold winged dragon perched on the "
-                "highest tower, glowing softly. A few tiny elves on the bridges show the scale. Remove the stadium floodlight "
-                "tower. Add no text, letters or signs.", "serpent"),
-    "denver": ("Keep the downtown skyline's towers and the mountains behind the city exactly in their shapes and places, and "
-               "the golden cottonwood trees at the sides. On a green hill on the plain in front of the city, build one grand "
-               "citadel of men that blends two styles into a single building: a white stone keep with square towers and blue "
-               "slate roofs, whose great central hall is carved timber with a shining golden roof and horse-head gables. A "
-               "stone road winds up the hill, with a few tiny riders on horses. Plain blue, green and gold banners. Add no "
-               "text, letters or signs.", None),
-    "springs": ("Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On the "
-                "forested crags in front of the peak, build one grand dwarven aerie: stone and timber halls and towers carved "
-                "into the rocks, wooden walkways and rope bridges, and great stone roosts. Put three gryphons like the "
-                "creature in <image_2> flying around the aerie, one giant golden eagle perched on the highest roost, and two "
-                "small gnome gyrocopters in the sky. A few tiny dwarves and gnomes on the walkways show the scale. Replace "
-                "the houses at the bottom with pine forest. Add no text, letters or signs.", "gryphon"),
-    "fortcollins": ("Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along the "
-                    "canyon floor, add a clear mountain river and one village of gnome science and hobbit homes: a big brass "
-                    "workshop with round porthole windows, a great water wheel turned by the river and softly glowing teal "
-                    "energy cores, and beside it round green and yellow doors set into grassy banks, flower gardens and a "
-                    "stone bridge over the river. A few tiny gnomes and hobbits on the paths and one small gnome gyrocopter "
-                    "in the sky. Add no text, letters or signs.", None),
+STYLE = {
+    "wow": {"style_medium": "digital illustration", "artistic_style": "World of Warcraft, hand-painted, stylized"},
+}
+PLACE_STYLE = {  # context names the game and the transformation; aesthetics merges into the VGL step's own
+    "boulder": {"context": "World of Warcraft game environment concept art: Boulder's Flatirons transformed into a night elf "
+                           "and Rivendell elven city",
+                "aesthetics": {"color_scheme": "night elf purples and teals with moonlit silver, golden leaves and red-brown "
+                                               "sandstone", "mood_atmosphere": "epic, magical, serene"}},
+    "golden": {"context": "World of Warcraft game environment concept art: Golden's Table Mountain transformed into an "
+                          "Ironforge and Erebor dwarven kingdom",
+               "aesthetics": {"color_scheme": "warm stone greys, bronze, gold and forge orange with crimson banners",
+                              "mood_atmosphere": "epic, mighty, bustling"}},
+    "denver": {"context": "World of Warcraft game environment concept art: Denver transformed into a Stromgarde and Edoras "
+                          "kingdom of men",
+               "aesthetics": {"color_scheme": "white stone, royal blue and gold with green fields and golden trees",
+                              "mood_atmosphere": "epic, noble, lively"}},
+    "springs": {"context": "World of Warcraft game environment concept art: Pikes Peak transformed into an Aerie Peak and "
+                           "Eagles' Eyrie dwarven aerie",
+                "aesthetics": {"color_scheme": "pink granite, forest green and gold with warm firelight",
+                               "mood_atmosphere": "epic, adventurous, wild"}},
+    "fortcollins": {"context": "World of Warcraft game environment concept art: Poudre Canyon transformed into a New "
+                               "Tinkertown and Shire village",
+                    "aesthetics": {"color_scheme": "brass, copper and glowing teal with garden greens and bright flowers",
+                                   "mood_atmosphere": "epic, whimsical, cheerful"}},
+}
+# Named models (decision 44): with the "wow" lean, each place's prompt also names what it blends, so the model lands
+# on the games' look instead of generic fantasy. Names stay in art/ prompts; nothing shipped carries them.
+NAMES = {}  # superseded: the names now live in the body of each PAINTED prompt
+PAINTED = {  # place, then people, then two small accents (decisions 43 and 44); heroes are kept for later
+    "boulder": ("Transform this into World of Warcraft game art: the Flatirons above Boulder become a night elf and Rivendell "
+                "elven city. Keep the five huge flat red-brown sandstone slabs tilted steeply back against the forested "
+                "mountain exactly in their shapes and places, and keep the mountain's outline. Build a grand World of "
+                "Warcraft night elf city in the style of Darnassus and Mount Hyjal, blended with The Lord of the Rings' "
+                "Rivendell: curved organic halls with sweeping purple and teal roofs, carved wood and pale stone arches, "
+                "moonwells glowing silver-blue, lantern-lit bridges and waterfalls between the slabs, and one colossal World "
+                "Tree with silver bark and golden leaves on the ridge behind. Fill it with dozens of elves, World of Warcraft "
+                "night elves blended with The Lord of the Rings' Noldor: tall, long swept-back ears, lavender-tinted skin, "
+                "silver or midnight-blue hair, night elf armour and flowing Rivendell robes, bare heads. Small in the sky: two "
+                "dragons of World of Warcraft's green dragonflight and two hippogryphs with golden-eagle heads and antlers. "
+                "Golden evening light with the first stars. Remove the stadium floodlight tower.", None),
+    "golden": ("Transform this into World of Warcraft game art: Table Mountain above Golden becomes an Ironforge and Erebor "
+               "dwarven kingdom. Keep both flat-topped mesas with their dark basalt caps exactly in their shapes and places. "
+               "Carve into the right-hand mesa's cliff a colossal World of Warcraft Ironforge gate blended with The Lord of "
+               "the Rings' Erebor: massive square-cut stone, two giant dwarf king statues with war hammers, bronze and gold "
+               "trim, tiers of halls with forge-orange windows, a river flowing from the gate and a busy stone causeway. "
+               "Fill it with dozens of World of Warcraft Ironforge dwarves blended with The Lord of the Rings' dwarves: "
+               "stocky, huge braided beards, oversized armoured shoulders and hands, with a few gnomes, hauling ore carts "
+               "and trading at market stalls. Small accents: far off on a slope one legless stone wyrm like the creature in "
+               "<image_2>, made of rounded grey boulders with slivers of gold, and two dwarven steam tanks with spinning "
+               "drill heads on the causeway. Replace the golf course and town with wild grassland, rocks and the river. "
+               "Crimson and gold dwarven banners.", "stonewyrm"),
+    "denver": ("Transform this into World of Warcraft game art: downtown Denver becomes a Stromgarde and Edoras kingdom of "
+               "men. Keep downtown Denver's skyscrapers clearly visible behind, and the mountains and the golden cottonwood "
+               "trees, exactly in their shapes and places. On a green hill in front of the city build a World of Warcraft "
+               "human city in the style of Stromgarde and Stormwind, blended with The Lord of the Rings' Edoras: white stone "
+               "walls and round towers with blue slate roofs and gold trim around one great golden-roofed timber hall with "
+               "horse-head gables, timber-framed houses and a busy market. Fill it with dozens of World of Warcraft humans "
+               "blended with The Lord of the Rings' Rohirrim: knights in heavy plate with big pauldrons and blue and gold "
+               "tabards, townsfolk with braided hair and green cloaks, and a few dwarves. Small accents: knights riding "
+               "white horses whose barding glows with golden Light up the road, and two white gryphons with bald-eagle heads "
+               "in the sky. Blue and gold banners.", None),
+    "springs": ("Transform this into World of Warcraft game art: Pikes Peak becomes an Aerie Peak and Eagles' Eyrie dwarven "
+                "aerie. Keep Pikes Peak's broad pink-granite summit and its snowfields exactly in their shape and place. On "
+                "the forested crags in front build a World of Warcraft Wildhammer dwarf town in the style of Aerie Peak, "
+                "blended with The Lord of the Rings' Eagles' Eyrie: stone towers on tall rock spires, gryphon roosts, wooden "
+                "walkways and rope bridges, warm windows and green and gold banners. Fill it with dozens of World of Warcraft "
+                "Wildhammer dwarves: stocky, wild braided hair and beards, blue tattoos, feathered leather armour and big "
+                "shoulders. Small accents: two golden-eagle-style gryphons like the creature in <image_2> and two Warcraft "
+                "III dwarven gyrocopters flying between the towers. Replace the houses at the bottom with pine forest.", "gryphon"),
+    "fortcollins": ("Transform this into World of Warcraft game art: Poudre Canyon becomes a New Tinkertown and Shire village. "
+                    "Keep the canyon's rocky walls, its pines and the far ridge exactly in their shapes and places. Along "
+                    "the canyon floor build a World of Warcraft gnome town in the style of New Tinkertown and Gnomeregan, "
+                    "blended with The Lord of the Rings' Shire: brass and copper workshops with cogs, pipes, rockets and "
+                    "glowing teal energy cores, a big water wheel on a clear river, and round green and yellow hobbit doors "
+                    "in grassy banks, gardens and stone bridges. Fill it with dozens of World of Warcraft gnomes blended "
+                    "with The Lord of the Rings' hobbits: tiny, big pointed ears and noses, wild colourful hair, goggles, "
+                    "bare furry feet and bright waistcoats. Small accents: a few World of Warcraft mechanical dragonlings in "
+                    "the air and two gnome mechanostriders ridden along the path.", None),
 }
 
 
@@ -304,7 +367,8 @@ def painted(cards: str = "golden,boulder", leans: str = "film,game", seed: int =
     out = here / "out"; out.mkdir(exist_ok=True)
     jobs = [(c, l) for c in cards.split(",") for l in leans.split(",")]
     args = [((here / "src" / EDITS[c]["photo"]).read_bytes(), EDITS[c]["crop"],
-             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0]}, ensure_ascii=False), seed,
+             json.dumps({"edit_instruction": LEANS[l] + " " + PAINTED[c][0] + (" " + NAMES[c] if c in NAMES and l == "wow" else ""),
+                         "style": {**STYLE[l], **PLACE_STYLE.get(c, {})} if l in STYLE else None}, ensure_ascii=False), seed,
              str(here / "refs" / f"{PAINTED[c][1]}.png") if PAINTED[c][1] else None, None) for c, l in jobs]
     for (c, l), res in zip(jobs, fibo_map("edit", args)):
         (out / f"{c}-{l}-{seed}.png").write_bytes(res["png"])
@@ -383,8 +447,10 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-game-43", "brand": "golden-game-43", "claudius": "claudius-char-13",
+CARD_ART = {"coloradostartups.org": "boulder-game-44", "brand": "golden-game-43", "claudius": "claudius-char-13",
             "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
+PLACE_ART = {"boulder": "boulder-game-44", "golden": "golden-game-43", "denver": "denver-game-43",
+             "springs": "springs-game-43", "fortcollins": "fortcollins-game-43"}  # <place>-<lean>-<seed> in art/render/out/
 PLACE_CREDIT = {
     "boulder": "AI-made image from a public-domain photo by Jimbo Herndan",
     "golden": "AI-made image from a photo by James St. John, CC BY 2.0",
@@ -464,7 +530,7 @@ def compose_all(cards_only: str = ""):
         print(c, len(jpg) // 1024, "KB")
 
 
-def places(lean: str = "game", seed: int = 43):
+def places():
     """dist/places/<place>.jpg: each place's painting (decision 43), 1440x720 JPEG with IPTC provenance, no wordmark.
     Runs locally in seconds (Pillow only); credits for the CC BY photos are in dist/README.md."""
     from PIL import Image
@@ -473,10 +539,10 @@ def places(lean: str = "game", seed: int = 43):
     here = pathlib.Path(__file__).parent
     dest = here.parent.parent / "dist" / "places"; dest.mkdir(parents=True, exist_ok=True)
     for c in EDITS:
-        img = Image.open(here / "out" / f"{c}-{lean}-{seed}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
+        img = Image.open(here / "out" / f"{PLACE_ART[c]}.png").convert("RGB").resize((1440, 720), Image.LANCZOS)
         img = label(img, PLACE_CREDIT[c], font).convert("RGB")
         buf = io.BytesIO(); img.save(buf, "JPEG", quality=86, optimize=True, progressive=True)
-        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed,
+        jpg = with_provenance(buf.getvalue(), {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(PLACE_ART[c].rsplit("-", 1)[1]),
                                                "source": f"edit of art/render/src/{EDITS[c]['photo']}"})
         (dest / f"{c}.jpg").write_bytes(jpg)
         print(c, len(jpg) // 1024, "KB")
