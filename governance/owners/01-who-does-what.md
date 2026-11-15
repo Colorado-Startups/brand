@@ -35,4 +35,4 @@ Its folder passes to the orchestrator. A later change to that folder gets a new 
 
 ## How a pull request merges
 
-Only the orchestrator merges, and every pull request gets its review (house rule). It merges when the head commit has: the bash guard's `--status` passing, every CI check green (S10's drift check blocks a stale `dist/`), `bash tools/verify.sh` green after the last change, and a reviewer's shell review with no blocking finding. It merges with `--match-head-commit` and the reviewed SHA (`delegation.md`, "Who merges").
+Only the orchestrator merges, and every pull request gets its review (house rule). It merges when the head commit has: every CI check green (S10's drift check blocks a stale `dist/`), `bash tools/verify.sh` green after the last change, and a reviewer's shell review with no blocking finding. It merges with `--match-head-commit` and the reviewed SHA (`delegation.md`, "Who merges").

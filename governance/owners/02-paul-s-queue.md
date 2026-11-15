@@ -20,4 +20,4 @@ Nothing waits on these; each has a default. The orchestrator lists them once, wi
 
 Renders run on one standing yes (decision 48), capped at 60 FIBO calls on the own ZeroGPU Space, inside HF PRO's daily minutes and the included $2.00 credit, then stop. Any batch past that cap, and any use of Bria's hosted API, comes back here.
 
-Standing items from `delegation.md` that reach Paul the same way: spending money, sign-ins and new keys, anything needing an administrator or another Mac account, sending anything as Paul, deleting for good outside git, running a deploy script by hand, new scheduled work, and any command the bash guard blocks without naming a fix.
+Standing items from `delegation.md` that reach Paul the same way: spending money, sign-ins and new keys, anything needing an administrator or another Mac account, sending anything as Paul, deleting for good outside git, running a deploy script by hand, new scheduled work, and any command the deny rules block without naming a fix.
