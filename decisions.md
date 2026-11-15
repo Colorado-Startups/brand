@@ -153,3 +153,19 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - `tools/franchise_gate.py` joins that list to the vendored rule, self-tests all 87 hit and 28 miss samples, and gains `--dir`, which `pages.yml` now runs on the built `site/` (one definition, many call sites). "Linken" passes; it is decision 39's own name.
     - Cut from the approved plan: concept boards S4 to S6 (decision 37); a 19-section guide (topics fold into the 14 sections, for decision 15's word goal); a new type scale, `tokens.mjs`, `BRAND.md` and an AI skill (nothing consumes them); a CI render engine (Pillow composites in seconds on the Mac, amending decision 16 as `places()` already does).
     - Reverse: restore the inline regex in `pages.yml`.
+50. **2026-11-14, Claude (decision 48's logo call). The logo is three tiers: the 2014 shield forged in gold and steel, the wordmark, and a flat shield icon. The characters move to the game style.**
+    - Research: shapes carry recognition, averaging 40% fame and 71% uniqueness against colours' 12% and 39% (Phua, Bali, Anesbury and Sharp, 2026, 1,162 assets). Assets people already link to a brand are worth keeping (Romaniuk, *Building Distinctive Brand Assets*, 2018). One file can't serve every size, so brands ship tiers and drop the text at favicon size. A favicon set is a 32 px ICO, a 180 px apple-touch icon and 192 and 512 px icons, with SVG optional (Evil Martians, "How to Favicon in 2026"), so decision 37 holds.
+    - Method: 6 emblem candidates (3 directions × 2 seeds) and 4 icon candidates, all FIBO 2.0 edits of our own `baseline/v2/cs-logo-1500.png`. The text band was removed, and the C was kept violet and silver, never red around a gold disc. Three reviewer agents scored blind on the approved plan's rubric.
+
+    | Candidate | Scores | Median |
+    |---|---|---|
+    | Emblem A, seed 9: gold and steel shield, violet C, sky disc | 82, 83, 84 | **83** |
+    | Emblem B, seed 9: carved granite gate | 63, 68, 73 | 68 |
+    | Emblem C, seed 9: blue enamel crest (one judge: State-C risk) | 66, 73, 64 | 66 |
+    | Icon i2, seed 5: white shield on State blue | legibility 8, 8, 8; kinship 6, 7, 6 | **14** |
+
+    - Characters, majority of three blind votes: Claudius seed 7, Linken seed 13, Legallas seed 13. Their cards are recomposed.
+    - Also: four repo cards (photon-mountain, space-peak, fusion-canyon, startup-credits) built from the committed place paintings, with no render. `compose()` uses the CC0 Aileron in `guide/public/fonts/`.
+    - Spend: 16 FIBO calls (97 of 1,950 this month). ZeroGPU 20.7 → 28.2 of 40 minutes; HF credit $2.00 → $2.00; billed $0.00; Bria $0.000 spent.
+    - Paul sees the winner and the two runners-up and may override, as decision 48 records.
+    - Reverse: export another candidate with `logo_export --emblem <name> --icon <name>`.

@@ -201,14 +201,19 @@ def fibo_map(method, args):
     client = Client(SPACE)  # the hf CLI's signed-in account, so its PRO quota
     def call(a):
         if method == "edit":  # Bria's method: its VGL step writes the edit JSON from the instruction, then edit-turbo
-            photo, crop, prompt, seed, ref, keep = a
-            src = Image.open(io.BytesIO(photo)).convert("RGB"); w, h = src.size
-            src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize(SIZE, Image.LANCZOS)
+            photo, crop, prompt, seed, ref, keep, *rest = a
+            size = rest[0] if rest else SIZE
+            src = Image.open(io.BytesIO(photo))
+            if src.mode in ("RGBA", "LA", "P"):  # a transparent logo: flatten onto white so the edit sees its shapes
+                src = src.convert("RGBA"); ground = Image.new("RGB", src.size, (255, 255, 255))
+                ground.paste(src, mask=src.split()[-1]); src = ground
+            src = src.convert("RGB"); w, h = src.size
+            src = src.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h))).resize(size, Image.LANCZOS)
             path = tempfile.NamedTemporaryFile(suffix=".png", delete=False).name; src.save(path)
             mask = None
             if keep:  # white may change, black (the landmark) is kept; feathered so the seam blends
                 from PIL import ImageDraw, ImageFilter
-                m = Image.new("L", SIZE, 255); ImageDraw.Draw(m).polygon([(x * SIZE[0], y * SIZE[1]) for x, y in keep], fill=0)
+                m = Image.new("L", size, 255); ImageDraw.Draw(m).polygon([(x * size[0], y * size[1]) for x, y in keep], fill=0)
                 mask = tempfile.NamedTemporaryFile(suffix=".png", delete=False).name; m.filter(ImageFilter.GaussianBlur(12)).save(mask)
             vgl = Client(VGL)  # Bria's public Space; its /vgl runs on Bria's token and no GPU
             def upload(p):
@@ -224,10 +229,10 @@ def fibo_map(method, args):
             edit = edit if isinstance(edit, str) else json.dumps(edit, ensure_ascii=False)
             png, status, attribution = client.predict(handle_file(path), "[0,0,1,1]", handle_file(ref) if ref else None,
                                                       handle_file(mask) if mask else None, edit, "", seed,
-                                                      *SIZE, EDIT_STEPS, EDIT_GUIDANCE, api_name="/edit")
+                                                      *size, EDIT_STEPS, EDIT_GUIDANCE, api_name="/edit")
         else:
-            prompt, seed = a
-            png, status, attribution = client.predict(prompt, NEGATIVE, seed, *SIZE, STEPS, GUIDANCE, api_name="/render")
+            prompt, seed, *rest = a
+            png, status, attribution = client.predict(prompt, NEGATIVE, seed, *(rest[0] if rest else SIZE), STEPS, GUIDANCE, api_name="/render")
         return {"png": pathlib.Path(png).read_bytes(), "attribution_status": int(status), "attribution": attribution}
     return map(call, args)
 
@@ -426,15 +431,71 @@ CHARACTERS = {
 }
 
 
+# Decision 48: the characters join the places' bright, hand-painted game look (decisions 43 to 45).
+CHAR_GAME = {**STYLE["wow"], "context": "World of Warcraft game character key art for a social media preview card; text is added "
+             "later, so the image contains no text, letters, logos, emblems or signage"}
+
+
 @app.local_entrypoint()
-def character(cards: str = "claudius", seed: int = 7):
-    """modal run art/render/fibo_cards.py::character --cards claudius,link,legallas --seed 7  (one FIBO call per card)"""
+def character(cards: str = "claudius", seed: int = 7, look: str = "game"):
+    """python3 art/render/fibo_cards.py character --cards claudius,link,legallas --seed 7  (one FIBO call per card).
+    look "game" (decision 48) or "char" (the first, realistic look); writes out/<card>-<look>-<seed>.png."""
     out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
     names = cards.split(",")
-    for c, res in zip(names, fibo_map("render", [(json.dumps(CHARACTERS[c], ensure_ascii=False), seed) for c in names])):
-        (out / f"{c}-char-{seed}.png").write_bytes(res["png"])
-        log_runs(out, [{"card": c, "seed": seed, "mode": "character", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
-        print(c, seed, "character attribution", res["attribution_status"])
+    body = lambda c: {**CHARACTERS[c], **(CHAR_GAME if look == "game" else {})}
+    for c, res in zip(names, fibo_map("render", [(json.dumps(body(c), ensure_ascii=False), seed) for c in names])):
+        (out / f"{c}-{look}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": c, "seed": seed, "mode": f"character-{look}", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print(c, look, seed, "character attribution", res["attribution_status"])
+
+
+# Decision 48: the emblem tier evolves the 2014 shield, our own file, so no outside art is an input. Symbol only: the
+# text band goes (the wordmark is its own tier). The C keeps its violet and silver, never the flag's red around a gold
+# disc, which would read as the State "C" logo (research/color/state.yaml).
+SHIELD = "baseline/v2/cs-logo-1500.png"
+LOGO_SIZE = (1024, 1024)
+EMBLEM_STYLE = {**STYLE["wow"], "context": "World of Warcraft game emblem for a community's avatar; no text, no letters"}
+EMBLEM_KEEP = ("Keep the shield's outline, the two snow-capped mountains rising behind it and the round C with the small "
+               "snowy peak inside its disc. Remove the white text band and every word and letter. The C is never red and its "
+               "disc is never gold. Centre the whole emblem with even margins on the plain background.")
+EMBLEM = {
+    "a": "Transform this logo into a World of Warcraft game emblem: a forged shield of burnished gold and dark steel with "
+         "riveted rims, the C in polished violet-silver metal, its disc a pale blue sky, warm forge light glowing behind the "
+         "mountains, on a plain deep navy background.",
+    "b": "Transform this logo into a World of Warcraft game emblem: the shield carved from grey granite like a dwarven gate, "
+         "the mountains carved in relief with snow on the peaks, the C carved in deep violet stone with warm forge light "
+         "glowing from its disc, on a plain deep navy background.",
+    "c": "Transform this logo into a World of Warcraft game crest: the shield in deep blue enamel with a bright gold rim, the "
+         "mountains in white and slate blue, the C in polished silver with the small snowy peak in its disc, on a plain white "
+         "background.",
+}
+ICON_STYLE = {"style_medium": "flat vector illustration", "artistic_style": "flat, minimal, bold, two-tone",
+              "context": "A favicon and app icon that must stay readable at 16 pixels; no text"}
+ICON = {
+    "i1": "Simplify this logo into a flat app icon: one bold shield silhouette in solid deep blue #001970 with a thick white "
+          "rim, a single bold white C with one white mountain peak inside it, no gradients, no texture, no thin lines, no "
+          "text, centred on plain white.",
+    "i2": "Simplify this logo into a flat app icon: a bold white shield silhouette with a deep blue #001970 C and one deep "
+          "blue mountain peak inside it, on a solid deep blue #001970 square, no gradients, no texture, no thin lines, no "
+          "text, centred.",
+}
+
+
+@app.local_entrypoint()
+def logo(kinds: str = "a,b,c", seed: int = 5):
+    """Emblem (a, b, c) or icon (i1, i2) candidates, each a FIBO edit of the 2014 shield; writes out/logo-<kind>-<seed>.png."""
+    here = pathlib.Path(__file__).parent
+    out = here / "out"; out.mkdir(exist_ok=True)
+    shield = (here.parent.parent / SHIELD).read_bytes()
+    picked = kinds.split(",")
+    def prompt(k):
+        icon = k.startswith("i")
+        return json.dumps({"edit_instruction": ICON[k] if icon else EMBLEM[k] + " " + EMBLEM_KEEP,
+                           "style": ICON_STYLE if icon else EMBLEM_STYLE}, ensure_ascii=False)
+    for k, res in zip(picked, fibo_map("edit", [(shield, (0, 0, 1, 1), prompt(k), seed, None, None, LOGO_SIZE) for k in picked])):
+        (out / f"logo-{k}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": f"logo-{k}", "seed": seed, "mode": "logo", "photo": SHIELD, "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("logo", k, seed, "attribution", res["attribution_status"])
 
 
 # The name alone, composited after (decision 37: no text inside the art; decision 46: no tagline, no on-image chip).
@@ -442,8 +503,8 @@ def character(cards: str = "claudius", seed: int = 7):
 # (with_provenance); full credits with links: dist/README.md.
 CARD_TITLE = {"coloradostartups.org": "Colorado Startups", "brand": "Colorado Startups", "claudius": "Claudius",
               "link": "Linken", "legallas": "Legallas"}
-CARD_ART = {"coloradostartups.org": "boulder-wow-51", "brand": "golden-wow-51", "claudius": "claudius-char-13",
-            "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
+CARD_ART = {"coloradostartups.org": "boulder-wow-51", "brand": "golden-wow-51", "claudius": "claudius-game-7",
+            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decision 50
 PLACE_ART = {"boulder": "boulder-wow-51", "golden": "golden-wow-51", "denver": "denver-wow-51",
              "springs": "springs-wow-51", "fortcollins": "fortcollins-wow-51"}  # <place>-<lean>-<seed> in art/render/out/
 PHOTO_CREDIT = {  # rides in csart:Source; CC BY 2.0 and 2.5 4(b) allow credit "in any reasonable manner"
@@ -462,8 +523,7 @@ def photo_source(place: str) -> str:
 @app.function(image=image, volumes={"/cache": weights}, secrets=[modal.Secret.from_name("fibo-hf")], timeout=600)
 def compose(png: bytes, title: str, prov: dict) -> bytes:
     from PIL import Image, ImageDraw, ImageFilter, ImageFont
-    from huggingface_hub import hf_hub_download
-    font = hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts", cache_dir="/cache" if os.path.isdir("/cache") else None)
+    font = aileron()
     img = Image.open(io.BytesIO(png)).convert("RGB").resize((1280, 640), Image.LANCZOS)
     big = ImageFont.truetype(font, 76)
     shadow = Image.new("RGBA", img.size, (0, 0, 0, 0))
@@ -476,10 +536,19 @@ def compose(png: bytes, title: str, prov: dict) -> bytes:
     return with_provenance(buf.getvalue(), prov)
 
 
+def aileron() -> str:
+    """Aileron Regular (CC0): the copy in guide/public/fonts, or FIBO 2.0's own file where the repo is absent (Modal)."""
+    local = pathlib.Path(__file__).resolve().parents[2] / "guide" / "public" / "fonts" / "Aileron-Regular.otf"
+    if local.exists():
+        return str(local)
+    from huggingface_hub import hf_hub_download
+    return hf_hub_download("briaai/Fibo-2.0-dev", "Aileron-Regular.otf", subfolder="fonts", cache_dir="/cache" if os.path.isdir("/cache") else None)
+
+
 # Decisions 8 and 46: model-made images carry their AI-made label (DigitalSourceType) and photo credit (csart:Source)
 # in metadata. Only the IPTC AI fields and the art namespace, the provenance packet tools/vendor/export_scan.py
 # accepts (#691); no EXIF, no camera or location data.
-def with_provenance(jpg: bytes, prov: dict) -> bytes:
+def xmp_packet(prov: dict) -> bytes:
     from xml.sax.saxutils import quoteattr
     iptc = "http://cv.iptc.org/newscodes/digitalsourcetype/"
     attrs = {"Iptc4xmpExt:DigitalSourceType": iptc + prov["type"], "Iptc4xmpExt:AISystemUsed": "FIBO 2.0 (Bria), briaai/Fibo-2.0-dev",
@@ -488,7 +557,11 @@ def with_provenance(jpg: bytes, prov: dict) -> bytes:
               '<rdf:Description rdf:about="" xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/" '
               'xmlns:csart="https://coloradostartups.org/ns/art/1.0/" '
               + " ".join(f"{k}={quoteattr(v)}" for k, v in attrs.items()) + "/></rdf:RDF></x:xmpmeta>").encode()
-    seg = b"http://ns.adobe.com/xap/1.0/\x00" + packet
+    return packet
+
+
+def with_provenance(jpg: bytes, prov: dict) -> bytes:
+    seg = b"http://ns.adobe.com/xap/1.0/\x00" + xmp_packet(prov)
     at = 4 + int.from_bytes(jpg[4:6], "big") if jpg[2:4] == b"\xff\xe0" else 2  # after the JFIF header
     return jpg[:at] + b"\xff\xe1" + (len(seg) + 2).to_bytes(2, "big") + seg + jpg[at:]
 
@@ -504,7 +577,7 @@ def compose_all(cards_only: str = ""):
         raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
         source, kind, seed = CARD_ART[c].rsplit("-", 2)
-        if kind in ("edit", "game", "film", "wow"):  # every place image starts from a real photo
+        if kind in ("edit", "game", "film", "wow") and source in EDITS:  # every place image starts from a real photo
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": photo_source(source)}
         return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), CARD_TITLE[c], prov(c)) for c in names])):
@@ -527,8 +600,61 @@ def places():
         print(c, len(jpg) // 1024, "KB")
 
 
+# Cards for the region and project repos (finish plan, package G), from the shipped place paintings committed in
+# dist/places/: the raw renders in out/ are gitignored, so nothing here depends on them.
+REPO_CARDS = {"photon-mountain": ("denver", "Photon Mountain"), "space-peak": ("springs", "Space Peak"),
+              "fusion-canyon": ("fortcollins", "Fusion Canyon"), "startup-credits": ("golden", "Startup Credits")}
+
+
+def repo_cards():
+    dist = pathlib.Path(__file__).parent.parent.parent / "dist"
+    for repo, (place, title) in REPO_CARDS.items():
+        prov = {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(PLACE_ART[place].rsplit("-", 1)[1]), "source": photo_source(place)}
+        jpg = compose.local((dist / "places" / f"{place}.jpg").read_bytes(), title, prov)
+        (dist / "social" / f"{repo}.jpg").write_bytes(jpg)
+        print(repo, len(jpg) // 1024, "KB")
+
+
+def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 50's blind-judged winners
+    """dist/logo/: decision 48's three tiers from the chosen candidates in out/, and the favicon set
+    (32 px ICO with 16 and 48, 180 apple-touch with 20 px padding, 192 and 512; Evil Martians, 2026)."""
+    from PIL import Image, ImageDraw, ImageFont
+    from PIL.PngImagePlugin import PngInfo
+    here = pathlib.Path(__file__).parent
+    dest = here.parent.parent / "dist" / "logo"; dest.mkdir(parents=True, exist_ok=True)
+    def save(img, name, prov=None):
+        info = PngInfo()
+        if prov:  # the AI-made label rides in an XMP iTXt chunk, the packet export_scan accepts
+            info.add_itxt("XML:com.adobe.xmp", xmp_packet(prov).decode())
+        img.save(dest / name, "PNG", optimize=True, pnginfo=info)
+        print(name, (dest / name).stat().st_size // 1024, "KB")
+    seed_of = lambda n: int(n.rsplit("-", 1)[1])
+    em = Image.open(here / "out" / f"{emblem}.png").convert("RGB")
+    prov = {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed_of(emblem), "source": f"edit of {SHIELD}, the 2014 shield"}
+    for s in (1024, 512):
+        save(em.resize((s, s), Image.LANCZOS), f"emblem-{s}.png", prov)
+    ic = Image.open(here / "out" / f"{icon}.png").convert("RGB")
+    prov = {**prov, "seed": seed_of(icon)}
+    for s in (512, 192):
+        save(ic.resize((s, s), Image.LANCZOS), f"icon-{s}.png", prov)
+    touch = Image.new("RGB", (180, 180), ic.getpixel((4, 4)))
+    touch.paste(ic.resize((140, 140), Image.LANCZOS), (20, 20))
+    save(touch, "apple-touch-icon.png", prov)
+    ic.resize((256, 256), Image.LANCZOS).save(dest / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    print("favicon.ico", (dest / "favicon.ico").stat().st_size // 1024, "KB")
+    # The wordmark tier is type, not a model's image: Aileron under the State red rule, in the cards' proportions.
+    font, text = ImageFont.truetype(aileron(), 200), "Colorado Startups"
+    x0, y0, x1, y1 = font.getbbox(text)
+    for name, ink in (("wordmark-blue.png", (0, 25, 112, 255)), ("wordmark-white.png", (255, 255, 255, 255))):
+        img = Image.new("RGBA", (x1 - x0 + 40, y1 - y0 + 110), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+        d.rectangle((20, 20, 336, 36), fill=(195, 0, 47, 255))  # the cards' rule: 1.58 x the font size wide, 0.08 tall
+        d.text((20 - x0, 90 - y0), text, font=font, fill=ink)   # and a gap of 0.27 x the font size below it
+        img.save(dest / name, "PNG", optimize=True)
+        print(name, img.size)
+
+
 ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
-           "places": places}
+           "places": places, "logo": logo, "repo_cards": repo_cards, "logo_export": logo_export}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}
