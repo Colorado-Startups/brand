@@ -31,7 +31,7 @@ LABEL = "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startu
 CLIPS = {
     "photonics": {
         "still": "dist/places/boulder.jpg", "place": "Boulder (Photon Mountain)",
-        "credit": "Photo by Jimbo Herndan, public domain (commons.wikimedia.org/wiki/File:Flatirons_2007.jpg)",
+        "source_photo": "Photo by Jimbo Herndan, public domain (commons.wikimedia.org/wiki/File:Flatirons_2007.jpg)",
         "prompt": "Boulder's Flatirons stand still as an elven city of light at dusk, in a bright, hand-painted fantasy "
                   "game style. The round crystal portals set in the red rock glow pale blue and white, and their light "
                   "ripples slowly inward like a calm pulse. Faint, steady threads of blue light shimmer between the "
@@ -42,7 +42,7 @@ CLIPS = {
                   "no cuts."},
     "fusion": {
         "still": "dist/places/fortcollins.jpg", "place": "Fort Collins (Fusion Canyon)",
-        "credit": "Photo by Charles Willgren, CC BY 2.0 (commons.wikimedia.org/wiki/File:Poudre_Canyon,_Greyrock_trail.jpg), edited",
+        "source_photo": "Photo by Charles Willgren, CC BY 2.0 (commons.wikimedia.org/wiki/File:Poudre_Canyon,_Greyrock_trail.jpg), edited",
         "prompt": "A cinemagraph of a bright, hand-painted fantasy game painting of Poudre Canyon as a gnome workshop "
                   "village. The picture stays frozen like a painting: the camera, the houses, the gnomes, the riders, the "
                   "metal striders and the two bronze dragonlings do not move at all. Only a few small things are alive. "
@@ -51,7 +51,7 @@ CLIPS = {
                   "lines of teal light flow along the brass pipes like a small power grid."},
     "space": {
         "still": "dist/places/springs.jpg", "place": "Colorado Springs (Space Peak)",
-        "credit": "Photo by Huttarl, CC BY 2.5 (commons.wikimedia.org/wiki/File:Pikes_Peak_from_CO_Springs.jpg), edited",
+        "source_photo": "Photo by Huttarl, CC BY 2.5 (commons.wikimedia.org/wiki/File:Pikes_Peak_from_CO_Springs.jpg), edited",
         "prompt": "A cinemagraph of a bright, hand-painted fantasy game painting of Pikes Peak behind tall stone tower "
                   "aeries. The picture stays frozen like a painting: the camera, the towers, the golden gryphon and the "
                   "bodies of the gyrocopters do not move at all. Only a few small things are alive. The rotors on the "
@@ -115,7 +115,7 @@ def export(clip, seed, webm_crf, mp4_crf, approved, billing):
     c, src = CLIPS[clip], raw(clip, seed)
     run = [r for r in json.loads((OUT / "runs.json").read_text()) if r["clip"] == clip and r["seed"] == seed][-1]
     DIST.mkdir(parents=True, exist_ok=True)
-    description = f"{c['place']}, animated from the painting in dist/places. Source photo: {c['credit']}."
+    description = f"{c['place']}, animated from the painting in dist/places. Source photo: {c['source_photo']}."
     got_webm, got_mp4, got_seam, seam = Client(ENCODER).predict(
         handle_file(str(src)), FRAMES, FADE, FPS, webm_crf, mp4_crf, f"Colorado Startups: {clip}", LABEL, description,
         api_name="/export")
@@ -130,7 +130,7 @@ def export(clip, seed, webm_crf, mp4_crf, approved, billing):
                          "size": f"{v['width']}x{v['height']}", "streams": [s["codec_type"] for s in info["streams"]],
                          "comment": tags.get("comment"), "sha256": sha(f)}
     record = {"clip": clip, "still": c["still"], "still_sha256": sha(ROOT / c["still"]), "place": c["place"],
-              "photo_credit": c["credit"], "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
+              "source_photo": c["source_photo"], "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
               "lane": f"huggingface.co/spaces/{SPACE}, ZeroGPU on the HF PRO quota; encoded on {ENCODER} (free CPU)",
               "mode": "image-to-video", "prompt": run["prompt"], "prompt_enhancer": False, "seed": seed,
               "render": f"{WIDTH}x{HEIGHT}, {FRAMES} frames, {FPS} fps", "guidance": "1.0 (distilled, unguided)",

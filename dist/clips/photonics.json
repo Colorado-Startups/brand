@@ -3,7 +3,7 @@
  "still": "dist/places/boulder.jpg",
  "still_sha256": "2816f12e39305c407c7e400702f734c79440429f52ef3724a5971d066bf9072c",
  "place": "Boulder (Photon Mountain)",
- "photo_credit": "Photo by Jimbo Herndan, public domain (commons.wikimedia.org/wiki/File:Flatirons_2007.jpg)",
+ "source_photo": "Photo by Jimbo Herndan, public domain (commons.wikimedia.org/wiki/File:Flatirons_2007.jpg)",
  "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
  "lane": "huggingface.co/spaces/Lightricks/LTX-2.5, ZeroGPU on the HF PRO quota; encoded on paul-co-startups/brand-clips (free CPU)",
  "mode": "image-to-video",
