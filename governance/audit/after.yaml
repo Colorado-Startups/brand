@@ -1,0 +1,357 @@
+# After-audit: the surfaces the v3 work changed, scored against v3.0.0-alpha.5 (owner S11).
+#
+# Rubric: governance/audit/rubric.yaml (version 2), which wins over any note here.
+# Reference release: v3.0.0-alpha.5 (https://github.com/Colorado-Startups/brand/releases/tag/v3.0.0-alpha.5):
+# the three logo tiers in dist/logo/ (decision 50), dist/tokens.css (decision 51), Aileron for the name and
+# Trebuchet MS for text (tokens/type.yaml), no master tagline (decision 46), AI-made labels in image metadata
+# (decisions 8 and 46), and a project's own tagline kept (decision 48).
+# Scope, per the finish plan: only the surfaces this work changed. The LinkedIn kit, signatures, carousels,
+# volunteer and partner pages, the Oct 6 set, the website's own pages and the private repos were not touched by it,
+# so they are not re-scored here; the before-audit's numbers stand for them.
+# Every source was read, never changed.
+#
+# `how` says how each surface was read: source (files read), image (viewed), sampled (pixel values computed),
+# inferred (not seen directly). The summary at the end is computed from the scores; recompute it if a score changes.
+
+version: 1
+rubric_version: 2
+release: v3.0.0-alpha.5
+read_date: "2026-11-14"
+
+# Rows the rubric's channel_registers map leaves out. Marked assumed, as the rubric does, until
+# data/architecture.yaml (registers.by_channel) or the rubric sets them.
+assumptions:
+  brand-guide: "assumed core: its readers are developers, partners and press meeting the brand cold. It is not in the rubric's map."
+  github-repos: "assumed core for every repo README and social card, by the org profile's own reason (decision 11 and data/architecture.yaml). architecture.yaml lets a Core piece carry Hall art when its words stay plain, so a card with painted art and only a name scores as Core. The three outposts' READMEs are a sub-brand's own page (rubric na)."
+  card-contrast: "A card's title is large text (about 60 px), so 3:1 applies. Score 2 when the median contrast of the unmasked background behind the title box, against white, is 3.0 or more; 1 when it is under 3.0. The title's soft shadow is not counted."
+
+# Shared score sets. The README tops share one set; each differs only where its note says.
+score_sets:
+  readme: &readme
+    logo-variant: {score: null, na: "a README top is text; the repo's social card is its own surface"}
+    palette: {score: null, na: "GitHub sets the colors and the top carries no image of its own"}
+    type: {score: null, na: "GitHub sets the type and the top carries no image of its own"}
+    voice-lint: {score: 2, note: "voice_lint.py on the first 30 lines and the description: 0 FAIL and no hedge, AI tell or unsourced figure. No dash character. No master-brand tagline."}
+    clear-space: {score: null, na: no logo}
+    contrast: {score: null, na: GitHub sets the colors}
+    naming: {score: 2, note: "Colorado Startups in full, and each project's name as the release spells it."}
+    register: {score: 2, note: "Plain words and tables, the Core register. Where a keeper appears it is named an AI agent."}
+
+surfaces:
+  # The brand guide, live on GitHub Pages.
+  - id: guide-page
+    channel: brand-guide
+    name: The brand guide (14 sections)
+    evidence: {url: "https://colorado-startups.github.io/brand/", path: "Colorado-Startups/brand@v3.0.0-alpha.5: guide/public/index.html, guide.css, guide.js, dist/brand.json"}
+    read: "2026-11-14"
+    how: source (live HTML, guide.css, guide.js and dist/brand.json fetched with curl); image (hero painting and the three logo tiers viewed); sampled (contrast ratios computed from the CSS hex values); voice_lint.py run on every string in brand.json
+    scores:
+      logo-variant: {score: 0, note: "The page header is the name in Aileron under a red rule, with no logo file (index.html, .top .brand). A kicker in plain type does not count as a logo (rubric logo_needed), and the release has a wordmark and an icon for this slot. The three tiers do load in the Name section, but only when a tier chip is picked. Fix: wordmark-blue.png in the header."}
+      palette: {score: 1, note: "dist/tokens.css drives the ground, ink and link roles (decision 54). guide.css still adds hex values that are not tokens: #f3f5fb, #d5dbee, #4a5785 (panel, line and muted), and at night #061450, #26357a, #f4f6ff and the green #7fd6a0. Each is a tint or shade in the State blue family, but none is in dist/tokens.css (#F2F4F8, #D6DAE8 and #384C8F are the nearest tokens)."}
+      type: {score: 1, note: "Aileron for h1, h2 and the name, and Trebuchet MS for text, as tokens/type.yaml sets. One stray face: .files code has no font-family, so file paths show in the browser's default monospace."}
+      voice-lint: {score: 2, note: "No dash character in index.html, guide.js or brand.json. No tagline anywhere on the page. voice_lint.py reports 0 FAIL. Its WARNs are long sentences in lists and one false hit: the Do and Don't pair 'Delve into a seamless, game-changing tapestry.' is a deliberate counter-example."}
+      clear-space: {score: 1, note: "Judged from CSS. The emblem tier shows at 10 rem inside a .specimen padded 2 rem top and bottom, just under a quarter of its height (2.5 rem). The wordmark tier (max 5 rem tall) clears it. The header logo does not exist, so it adds nothing."}
+      contrast: {score: 1, note: "Text pairs pass. Recomputed: #001970 on white 15.29, #C3002F link on white 6.25 and on #f3f5fb 5.73, #4a5785 muted on #f3f5fb 6.44, night #f4f6ff on #000a33 17.85, #ffd100 link on #000a33 13.17, #b8c2e8 on #061450 9.74. The hero name is white with a shadow over the dark painting (judged by eye). Misses: the 1 px control borders (--line #d5dbee) are 1.38 on white, under the 3:1 a form control needs. dist/tokens.css already has --c-border #6675A9 for this."}
+      naming: {score: 2, note: "Colorado Startups in full, the outposts, keepers and characters as the release spells them."}
+      register: {score: 1, note: "Judged, not mapped (see assumptions). The look is plain Core (State blue, Aileron, Trebuchet MS), and the hero is labelled AI-made in its alt text. Hall art and lore words appear as the guide's subject, with plain labels from data/world.yaml, so pieces of the other register are present. The keepers' AI-agent disclosures come from brand.json and the page names them."}
+  - id: guide-icons
+    channel: brand-guide
+    name: Guide favicon, apple-touch icon and manifest icons
+    evidence: {url: "https://colorado-startups.github.io/brand/favicon.ico", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/logo/ (favicon.ico, apple-touch-icon.png, icon-192.png, icon-512.png), guide/public/manifest.webmanifest"}
+    read: "2026-11-14"
+    how: "image (apple-touch-icon and icon-192 viewed); source (file(1) on favicon.ico: a real ICO of 16, 32 and 48 px PNG entries; manifest read); sampled (background pixel)"
+    scores:
+      logo-variant: {score: 2, note: "The icon tier, a white shield on blue, at its own sizes (16 to 512 px) with no effect. The shield reads at 32 px. Before-audit: favicon.ico was a WebP file; it is now a real ICO."}
+      palette: {score: 1, note: "The ground is #15428E (sampled at the apple-touch icon's corner), not State Blue #001970. Decision 50 calls it State blue, and logo files carry their own colors (decision 51), so this is a small drift, not a miss."}
+      type: {score: null, na: "the icon carries no lettering"}
+      voice-lint: {score: null, na: no words}
+      clear-space: {score: 2, note: "The shield spans about 56 percent of the 180 px frame, leaving at least 19 percent above and below, over the quarter-height default (14 percent)."}
+      contrast: {score: 2, note: "White shield on #15428E is 9.54, over the 3:1 a graphic needs."}
+      naming: {score: null, na: no brand name}
+      register: {score: null, na: "an icon carries no register"}
+
+  # The org profile on GitHub.
+  - id: github-org-avatar
+    channel: github-org-profile
+    name: Colorado-Startups org avatar
+    evidence: {url: "https://github.com/Colorado-Startups", path: "https://github.com/Colorado-Startups.png"}
+    read: "2026-11-14"
+    how: image (the 460 px avatar and the 40 px avatar viewed)
+    scores:
+      logo-variant: {score: 2, note: "The emblem tier: the 2014 shield forged in gold and steel, no lettering, on navy. It reads at 40 px. Judged by eye: its SHA-1 differs from dist/logo/emblem-512.png and from dist/templates/square-512.png, because GitHub re-encodes an upload, so same artwork is inferred, not hash-matched. Before-audit: the default identicon, scored 0."}
+      palette: {score: 2, note: "Only the emblem's own colors (gold, steel, violet, sky) on its navy plate. Logo files carry their own colors (decision 51)."}
+      type: {score: null, na: "the emblem carries no lettering"}
+      voice-lint: {score: null, na: no words}
+      clear-space: {score: 1, note: "The shield fills about 85 percent of the square, so the navy margin is about 6 percent, under the quarter-height default. Nothing crowds or crops it, and GitHub rounds the corners only."}
+      contrast: {score: null, na: "a logo is exempt from the text rule and the avatar carries no text"}
+      naming: {score: null, na: no brand name}
+      register: {score: 2, note: "A logo alone, which is Core (data/architecture.yaml registers.core)."}
+  - id: github-org-profile
+    channel: github-org-profile
+    name: Colorado-Startups org profile (README and org description)
+    evidence: {url: "https://github.com/Colorado-Startups", path: "Colorado-Startups/.github: profile/README.md; org description from gh api orgs/Colorado-Startups"}
+    read: "2026-11-14"
+    how: source (README raw and org description); image (the emblem it links, viewed)
+    scores:
+      logo-variant: {score: 2, note: "The emblem tier (dist/logo/emblem-512.png on brand main) at 160 px, with alt text, no effect. Before-audit: no logo."}
+      palette: {score: 2, note: "The only image is the emblem, in its own colors. GitHub sets the rest."}
+      type: {score: null, na: "GitHub sets the type and the emblem carries no lettering"}
+      voice-lint: {score: 2, note: "The opening line and the org description match data/strategy.yaml's boilerplate opener and descriptor word for word. No tagline, dash, hedge or AI tell. 'Founders come first' is the founders-first rule's own wording (strategy.yaml), not a tagline."}
+      clear-space: {score: 2, note: "A 160 px image alone above the heading, with blank space on every side."}
+      contrast: {score: null, na: GitHub sets the colors}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 2, note: "Plain text, a logo and a table, which is Core. The registers rule marks this channel Core (data/architecture.yaml)."}
+
+  # The social preview each public repo uploads (1280 x 640 JPEG). All nine are custom (usesCustomOpenGraphImage true).
+  # .github reuses the website's card (same bytes). Contrast is sampled per the card-contrast assumption.
+  - id: card-coloradostartups-org
+    channel: github-social-cards
+    name: Social preview of coloradostartups.org
+    evidence: {url: "https://github.com/Colorado-Startups/coloradostartups.org", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/coloradostartups.org.jpg"}
+    read: "2026-11-14"
+    how: image (viewed, and the title area cropped); sampled (background luminance behind the title box)
+    scores: &card_site
+      logo-variant: {score: 1, note: "No logo file. The name sits in Aileron under the State red rule (#C3002F, sampled), which is the wordmark tier's form, composited onto the art with a soft shadow. The shadow is an added effect, and the file is not hash-matched to wordmark-white.png."}
+      palette: {score: 2, note: "State red rule and white name on the release's own painting. The painting's colors are art, which the tokens do not police."}
+      type: {score: 2, note: "Aileron, judged by eye from the letterforms. The release uses it for the name on cards."}
+      voice-lint: {score: 2, note: "The name only. No tagline (decision 46), no chip. The AI-made label is in metadata, not on the image."}
+      clear-space: {score: 0, note: "Two painted dragons sit on the name. One wing overlaps the red rule and its body rests on the tops of the 'C' and 'olo'; a second hangs above 'Startups'."}
+      contrast: {score: 2, note: "Sampled median 5.45 against white for the background behind the title (large text, 3:1). The dragons and the sunset glow drop pixels below 3 near the name."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 2, note: "Painted Hall art with a name and no lore words, which a Core channel allows (assumptions)."}
+  - id: card-github-org-repo
+    channel: github-social-cards
+    name: Social preview of the .github repo (the website card, reused)
+    evidence: {url: "https://github.com/Colorado-Startups/.github", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/coloradostartups.org.jpg"}
+    read: "2026-11-14"
+    how: "image (same bytes as the website card: SHA-1 prefix ca8d3f72a2 on both downloads)"
+    scores: *card_site
+  - id: card-brand
+    channel: github-social-cards
+    name: Social preview of the brand repo
+    evidence: {url: "https://github.com/Colorado-Startups/brand", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/brand.jpg"}
+    read: "2026-11-14"
+    how: image (viewed); sampled
+    scores:
+      logo-variant: {score: 1, note: "The name in the wordmark's form with a shadow; no logo file (see card-coloradostartups-org)."}
+      palette: {score: 2, note: "State red rule and white name on the release's painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only. No tagline."}
+      clear-space: {score: 2, note: "Open sky around the name and the rule. The nearest painted element, the boulder wyrm, is far below."}
+      contrast: {score: 1, note: "Sampled median 2.58 against white for the pale sky behind the title (large text needs 3:1). The shadow helps but is not counted."}
+      naming: {score: 2, note: Colorado Startups in full.}
+      register: {score: 2, note: "Painted Hall art, name only."}
+  - id: card-claudius
+    channel: github-social-cards
+    name: Social preview of claudius
+    evidence: {url: "https://github.com/Colorado-Startups/claudius", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/claudius.jpg"}
+    read: "2026-11-14"
+    how: image (viewed); sampled
+    scores:
+      logo-variant: {score: 1, note: "The character's name in the wordmark's form, with a shadow. The release has no endorsement artwork yet (the crest waits on the logo, decision 48), so the slot gets the name only."}
+      palette: {score: 2, note: "State red rule and white name on the game-style painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only."}
+      clear-space: {score: 2, note: "Open painted ground left of the character."}
+      contrast: {score: 2, note: "Sampled median 13.67 behind the title; the shadowed edge is 3.47 at the 90th percentile."}
+      naming: {score: 2, note: "Claudius, as decision 39 and data/world.yaml spell it."}
+      register: {score: 2, note: "A character, not a keeper, so no disclosure is owed. Name only."}
+  - id: card-link
+    channel: github-social-cards
+    name: Social preview of link
+    evidence: {url: "https://github.com/Colorado-Startups/link", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/link.jpg"}
+    read: "2026-11-14"
+    how: image (viewed); sampled
+    scores:
+      logo-variant: {score: 1, note: "Same as card-claudius: the name only, no endorsement artwork exists."}
+      palette: {score: 2, note: "State red rule and white name on the painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only."}
+      clear-space: {score: 2, note: "Open sky around the name."}
+      contrast: {score: 2, note: "Sampled median 7.71 behind the title."}
+      naming: {score: 2, note: "Linken, as decision 39 spells it. The repo is named link."}
+      register: {score: 2, note: "A character, not a keeper. Name only."}
+  - id: card-startup-credits
+    channel: github-social-cards
+    name: Social preview of startup-credits
+    evidence: {url: "https://github.com/Colorado-Startups/startup-credits", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/startup-credits.jpg"}
+    read: "2026-11-14"
+    how: image (viewed); sampled
+    scores:
+      logo-variant: {score: 1, note: "The name only, with a shadow; no endorsement artwork exists."}
+      palette: {score: 2, note: "State red rule and white name on the painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only. The project's own tagline stays off the card, which decision 48 allows."}
+      clear-space: {score: 2, note: "Open sky around the name."}
+      contrast: {score: 1, note: "Sampled median 2.61 against white for the pale sky behind the title; it is the brand card's painting."}
+      naming: {score: 2, note: Startup Credits.}
+      register: {score: 2, note: "Painted Hall art, name only."}
+  - id: card-fusion-canyon
+    channel: github-social-cards
+    name: Social preview of fusion-canyon
+    evidence: {url: "https://github.com/Colorado-Startups/fusion-canyon", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/fusion-canyon.jpg"}
+    read: "2026-11-14"
+    how: image (viewed, and the title area cropped); sampled
+    scores:
+      logo-variant: {score: 1, note: "The place's name only, with a shadow; no endorsement artwork exists."}
+      palette: {score: 2, note: "State red rule and white name on the painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only. The project's own tagline stays off the card."}
+      clear-space: {score: 1, note: "A painted dragon's wing and tail touch the final 'n' of 'Canyon'."}
+      contrast: {score: 2, note: "Sampled median 9.43 behind the title."}
+      naming: {score: 2, note: Fusion Canyon.}
+      register: {score: 2, note: "Painted Hall art, name only."}
+  - id: card-photon-mountain
+    channel: github-social-cards
+    name: Social preview of photon-mountain
+    evidence: {url: "https://github.com/Colorado-Startups/photon-mountain", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/photon-mountain.jpg"}
+    read: "2026-11-14"
+    how: image (viewed); sampled
+    scores:
+      logo-variant: {score: 1, note: "The place's name only, with a shadow; no endorsement artwork exists."}
+      palette: {score: 2, note: "State red rule and white name on the painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only. The project's own tagline stays off the card."}
+      clear-space: {score: 2, note: "The name sits over distant peaks and sky. No painted figure touches it."}
+      contrast: {score: 2, note: "Sampled median 3.40 behind the title, just over 3:1. Pale cloud and snow near 'Photon' dip lower (90th percentile 1.71), so this is borderline and judged."}
+      naming: {score: 2, note: Photon Mountain.}
+      register: {score: 2, note: "Painted Hall art, name only."}
+  - id: card-space-peak
+    channel: github-social-cards
+    name: Social preview of space-peak
+    evidence: {url: "https://github.com/Colorado-Startups/space-peak", path: "Colorado-Startups/brand@v3.0.0-alpha.5: dist/social/space-peak.jpg"}
+    read: "2026-11-14"
+    how: image (viewed, and the title area cropped); sampled
+    scores:
+      logo-variant: {score: 1, note: "The place's name only, with a shadow; no endorsement artwork exists."}
+      palette: {score: 2, note: "State red rule and white name on the painting."}
+      type: {score: 2, note: "Aileron, judged by eye."}
+      voice-lint: {score: 2, note: "The name only."}
+      clear-space: {score: 1, note: "A painted helicopter's rotor reaches the end of the red rule and hovers just above 'Space'."}
+      contrast: {score: 2, note: "Sampled median 3.36 behind the title, just over 3:1; pale mountain and sky patches dip lower (90th percentile 1.94). Borderline and judged."}
+      naming: {score: 2, note: "Space Peak, not the old 'Satellite Peak' of the before-audit."}
+      register: {score: 2, note: "Painted Hall art, name only."}
+
+  # The README top (first 30 lines), the description and the topics of each public repo.
+  - id: readme-coloradostartups-org
+    channel: github-repo-readmes
+    name: coloradostartups.org README and description
+    evidence: {url: "https://github.com/Colorado-Startups/coloradostartups.org", path: "gh api repos/Colorado-Startups/coloradostartups.org/readme"}
+    read: "2026-11-14"
+    how: source (README raw, first 30 lines; description and 8 topics from gh api); voice_lint.py
+    scores: *readme
+  - id: readme-brand
+    channel: github-repo-readmes
+    name: brand README and description
+    evidence: {url: "https://github.com/Colorado-Startups/brand", path: "gh api repos/Colorado-Startups/brand/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores: *readme
+  - id: readme-claudius
+    channel: github-repo-readmes
+    name: claudius README and description
+    evidence: {url: "https://github.com/Colorado-Startups/claudius", path: "gh api repos/Colorado-Startups/claudius/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores: *readme
+  - id: readme-link
+    channel: github-repo-readmes
+    name: link README and description
+    evidence: {url: "https://github.com/Colorado-Startups/link", path: "gh api repos/Colorado-Startups/link/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores: *readme
+  - id: readme-github
+    channel: github-repo-readmes
+    name: .github README and description
+    evidence: {url: "https://github.com/Colorado-Startups/.github", path: "gh api repos/Colorado-Startups/.github/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores: *readme
+  - id: readme-startup-credits
+    channel: github-repo-readmes
+    name: startup-credits README and description
+    evidence: {url: "https://github.com/Colorado-Startups/startup-credits", path: "gh api repos/Colorado-Startups/startup-credits/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores:
+      <<: *readme
+      voice-lint: {score: 2, note: "Clean. 'Find your credits, then apply.' is the project's own line (decision 48). The figure '45 programs' is attributed in the next sentence to each provider's own page and its checked date."}
+  - id: readme-fusion-canyon
+    channel: github-repo-readmes
+    name: fusion-canyon README and description
+    evidence: {url: "https://github.com/Colorado-Startups/fusion-canyon", path: "gh api repos/Colorado-Startups/fusion-canyon/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores:
+      <<: *readme
+      voice-lint: {score: 2, note: "Clean. 'Build with fusion.' is the project's own tagline, kept by decision 48 and marked a proposal."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+  - id: readme-photon-mountain
+    channel: github-repo-readmes
+    name: photon-mountain README and description
+    evidence: {url: "https://github.com/Colorado-Startups/photon-mountain", path: "gh api repos/Colorado-Startups/photon-mountain/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores:
+      <<: *readme
+      voice-lint: {score: 2, note: "Clean. 'Build with light.' is the project's own tagline (decision 48), in the README and the description."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+  - id: readme-space-peak
+    channel: github-repo-readmes
+    name: space-peak README and description
+    evidence: {url: "https://github.com/Colorado-Startups/space-peak", path: "gh api repos/Colorado-Startups/space-peak/readme"}
+    read: "2026-11-14"
+    how: source (as above)
+    scores:
+      <<: *readme
+      voice-lint: {score: 1, note: "Judgment, one finding: 'The physics is sound. The engineering is 2040s-hard.' states a claim and a decade with no source in the sentence, though the line above it labels the piece a speculative thesis. voice_lint.py is clean."}
+      register: {score: null, na: "a sub-brand's own page; the brand sets no fixed sub-brand rule (decision 21)"}
+
+# Computed from the surfaces above by parsing this file with Ruby's Psych (mean of every non-null score;
+# cells are channel x rule means). A null cell means no surface in that channel could be scored on that rule.
+summary:
+  overall_average: 1.77
+  surfaces: 22
+  scores_counted: 118
+  channels:
+    brand-guide: {surfaces: 2, average: 1.33, cells: {logo-variant: 1.0, palette: 1.0, type: 1.0, voice-lint: 2.0, clear-space: 1.5, contrast: 1.5, naming: 2.0, register: 1.0}}
+    github-org-profile: {surfaces: 2, average: 1.9, cells: {logo-variant: 2.0, palette: 2.0, type: null, voice-lint: 2.0, clear-space: 1.5, contrast: null, naming: 2.0, register: 2.0}}
+    github-social-cards: {surfaces: 9, average: 1.76, cells: {logo-variant: 1.0, palette: 2.0, type: 2.0, voice-lint: 2.0, clear-space: 1.33, contrast: 1.78, naming: 2.0, register: 2.0}}
+    github-repo-readmes: {surfaces: 9, average: 1.96, cells: {logo-variant: null, palette: null, type: null, voice-lint: 1.89, clear-space: null, contrast: null, naming: 2.0, register: 2.0}}
+  # The before-audit's numbers for the same kinds of surface (governance/audit/before.yaml summary).
+  # before-audit has no brand-guide or repo-README channel; its nearest rows are the website (a Hall web page),
+  # og-cards (the website's social cards) and github-org-profile.
+  before_comparison:
+    before_overall_average: 1.5
+    before_overall_surfaces: 37
+    before_channels: {website: 1.88, og-cards: 2.0, github-org-profile: 1.25}
+    before_comparable_average: 1.85  # website, og-cards and github-org-profile pooled: 126 points over 68 scores
+    after_overall_average: 1.77
+    after_beats_before_overall: true   # 1.77 against 1.5, over a different and smaller surface set
+    after_beats_before_comparable: false  # 1.77 against 1.85
+    by_channel:
+      github-org-profile: {before: 1.25, after: 1.9, change: 0.65, note: "Avatar from the default identicon (0) to the emblem (2), and the profile gains the emblem."}
+      github-social-cards: {before: 2.0, after: 1.76, change: -0.24, note: "Compared with og-cards. The before-audit scored the website's 13 cards with the shield at about 100 px. The v3 cards carry the name in the wordmark's form and no logo file, and the audit now samples contrast and checks clear space on the painted art."}
+      brand-guide: {before: 1.88, after: 1.33, change: -0.55, note: "Compared with the website channel, the closest Hall web page. A different page and a harder read: the guide is new and holds the token and header gaps below."}
+  findings:
+    - "Overall the v3 surfaces score 1.77 over 118 scores, above the before-audit's 1.5, but below the 1.85 the before-audit gave the same kinds of surface (website, OG cards, org profile). The gain is real where v2 was weakest: the org avatar went from a default identicon to the emblem, and favicon.ico is a real ICO."
+    - "Three scores of 0, all on v3 work. The guide's header has no logo file, only the name in type (fix: wordmark-blue.png in the header). The website card, reused by the .github repo, has painted dragons on the name and its red rule, counted once per repo (fix: re-render, or move the title)."
+    - "No social card carries a logo file. Each shows the name in the wordmark's form with a shadow, so logo-variant is 1 on all nine. The release has no endorsement artwork yet (the crest waits on the logo, decision 48)."
+    - "Two cards have a pale background behind white text, with a sampled median under 3:1: the brand card (2.58) and the startup-credits card (2.61). The photon-mountain and space-peak cards pass on their medians (3.40 and 3.36) but are borderline."
+    - "The guide still holds hex values that are not in dist/tokens.css (panel, line, muted, a night panel, a green), and its control borders are 1.38:1 on white. dist/tokens.css has --c-border #6675A9 for the borders."
+    - "Repo README tops are clean: voice_lint.py finds no FAIL and no hedge in nine, and the project taglines (photon-mountain, fusion-canyon, startup-credits) are kept as decision 48 allows. One judgment finding: the space-peak README's unsourced claim about the engineering."
+  observations:
+    - "Not rubric findings: the org avatar is not hash-matched to dist/logo/emblem-512.png, because GitHub re-encodes uploads. The org README loads the emblem from brand main, not a pinned release. The icon's blue (#15428E) is not State Blue (#001970), which decision 50 names."
+    - "Scope: 22 surfaces, not 37. The channels the v3 work did not change are not re-scored, so the two overall averages cover different surface sets and the comparison above is a guide, not a controlled one."
+
+# Fixed in v3.0.0, after this audit was scored against v3.0.0-alpha.5 (decision 55). The scores above stand as
+# read; these are the changes the findings led to, measured on the v3.0.0 files.
+fixed_in_v3_0_0:
+  - "Guide header: the emblem (dist/logo/emblem-512.png) beside the name, for the logo-variant 0."
+  - "Social cards: a soft navy fade behind the name. Sampled median contrast under the title: brand 5.35 (was 2.58), startup-credits 5.19 (was 2.61); every card's 10th percentile is 3.09 or more."
+  - "Icon: mapped onto State Blue; sampled #011A71 against #001970 (was #15428E)."
+  - "Guide controls: borders from --c-border, 4.48:1 on white and 6.47:1 on the night ground (was 1.38:1); panel, line and muted colours come from dist/tokens.css."
+open_after_v3_0_0:
+  - "The coloradostartups.org card, reused by .github: painted dragons sit on the name (clear-space 0). It needs a re-render, which waits for the ZeroGPU daily quota with the guides scene."
+

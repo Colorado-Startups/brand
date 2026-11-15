@@ -5,16 +5,44 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 ## [Unreleased]
 
 ### Added
+- The guides scene in `dist/hall/`, once it re-renders without stray letters (decision 53).
+
+## [3.0.0] - 2026-11-14
+
+The brand overhaul's first full release: the guide, the logo, tokens, the Hall art, templates and every public repo branded. Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- `governance/audit/after.yaml`: the surfaces this work changed, scored on the rubric against `v3.0.0-alpha.5`. Overall 1.77 over 118 scores, against the before-audit's 1.50 (decision 55).
+- The emblem beside the name in the guide's header (decision 55).
+
+### Changed
+- Every social card has a soft navy fade behind the name, so white type keeps at least 3:1 on a pale sky (decision 55).
+- The icon and favicon set are State Blue #001970 (decision 55).
+- The guide's control borders, panels and muted text take their colours from `dist/tokens.css` (decision 55).
+
+## [3.0.0-alpha.5] - 2026-11-14
+
+The finish plan's kit.
+
+### Added
 - `dist/brand.json`, the guide's data, built by `tools/build_guide_data.py` from `data/`, `tokens/type.yaml`, `research/color/state.yaml` and `TRADEMARKS.md` (#20, decision 47).
 - The brand guide: 14 interactive sections at colorado-startups.github.io/brand/, rendered from `dist/brand.json` (#21, decision 47).
 - `tools/franchise_gate.py --dir`, which `pages.yml` runs on the built `site/`, and 33 more franchise names in the `never` list of `data/words.yaml` (#22, decision 49).
 - The logo in three tiers in `dist/logo/`: the emblem, the wordmark and the icon with its favicon set (#23, decision 50).
 - Cards for `photon-mountain`, `space-peak`, `fusion-canyon` and `startup-credits`, composed from the committed place paintings (#23, decision 50).
+- Tokens v3: `tokens/brand_tokens.yaml` built into `dist/tokens.css` and `dist/tokens.json`, the State palette in the website's role names (#24, decision 51).
+- `dist/hall/`: the three keepers, the passage and founders scenes and the stone tile, for the website (#27, decision 53).
+- Four templates in `dist/templates/` by `templates/build.py`; the favicon set and a web manifest on the guide's site (#28, decision 54).
+- Each place's people, creature and mount in `data/world.yaml`, shown in the guide's World section (#26, decision 52).
+- Org repo branding: custom previews, the `colorado-startups` topic and a guide link on all nine public repos; the org profile shows the emblem (decision 50).
 
 ### Changed
 - The Claudius, Linken and Legallas cards are in the game style (#23, decision 50).
 - `data/voice.yaml` boilerplates and glossary say "founders" (#20, decision 47).
 - `TRADEMARKS.md` names the logo and the characters (#23, decision 50).
+- The guide meets its word goal, 817 visible words on first load, with detail behind controls (#26, decision 52).
+- `dist/tokens.css` styles the guide and its 404 page; the hand-copied `guide/public/tokens.css` is gone (#28, decision 54).
+- 25 docs say what decisions 37 to 50 say (#25).
 
 ## [3.0.0-alpha.4] - 2026-11-14
 
