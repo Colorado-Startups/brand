@@ -12,6 +12,7 @@ on:
     paths:
       - "**/*.md"
       - "guide/**"
+      - "dist/**"
       - "quality/**"
       - ".github/workflows/pages.yml"
   schedule:
@@ -77,6 +78,7 @@ jobs:
         run: |
           mkdir -p site/quality
           cp -R guide/public/. site/
+          mkdir -p site/dist && cp -R dist/brand.json dist/social dist/places site/dist/
           cp -R quality/dist/. site/quality/
 
       - name: Leak scan and franchise gate on the built site

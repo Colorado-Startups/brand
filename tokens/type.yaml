@@ -1,0 +1,12 @@
+# The type in use until the v3 tokens (S12) set the full scale. Each family names its licence (font licences are law).
+display:
+  family: Aileron
+  weight: Regular
+  use: The name on art and social cards
+  licence: CC0 1.0, public domain  # Sora Sagano, dotcolon; the font's own metadata reads "No Rights Reserved"
+  source: {url: "https://fontsource.org/fonts/aileron/about", read: "2026-11-14"}
+text:
+  family: Trebuchet MS
+  use: Web text, body and captions
+  licence: System font, never shipped here  # on macOS and Windows
+  source: {path: research/color/state.yaml, read: "2026-11-14"}
