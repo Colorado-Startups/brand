@@ -9,7 +9,7 @@ gradio_client==2.7.2 --with pillow python3; Modal is the same with `modal run ar
   R art/render/fibo_cards.py character --cards claudius --seed 7              project characters
   R art/render/fibo_cards.py compose_all --cards-only brand                   wordmark only -> dist/social
 Place art since decision 43: R ... painted --cards golden --leans game --seed 43, then R ... places.
-Region crests (decision 60): R ... region_crest --seeds 5,9, then R ... crest_export --picks photon-mountain=5,space-peak=9,fusion-canyon=5.
+Region crests (decision 60): R ... region_crest --seeds 7,11, then R ... crest_export --picks <region>=<seed>,... (creatures; the symbol set used seeds 5 and 9).
 Raw renders and art/render/out/runs.json (every call's Bria attribution id) land in art/render/out/.
 """
 import base64, io, json, os, pathlib, sys, tempfile
@@ -576,26 +576,26 @@ REGION_CREST_STYLE = {**STYLE["wow"], "context": "World of Warcraft race crest f
 REGION_KEEP = ("Keep the thick gleaming gold rim, the two great golden wings, the shield's outline, size and position, the soft "
                "golden glow and the plain deep navy background exactly as they are. Remove the C, its round disc and the mountains "
                "inside the shield; the new emblem is the only thing inside the rim. No sun, no text, no letters, no numbers.")
-REGION_CREST = {
+REGION_CREST = {  # creatures, Paul's call of 2026-11-15 (decision 60); the built set (symbols) is kept in git history
     "photon-mountain": "Inside the gold rim, the shield's enamel field becomes deep fluorite violet (#4A2C84), glossy like polished "
-                       "purple fluorite crystal. The new emblem inside it: one clear, glowing, eight-sided fluorite crystal prism "
-                       "set high in the centre, a thin beam of white light falling on it from the upper left and leaving it as a fan "
-                       "of rainbow rays that spread down over the three Flatirons below, tall tilted slabs of red-orange sandstone "
-                       "with dark green pines at their feet. Bold saturated colours, heroic warm light.",
+                       "purple fluorite crystal. The new emblem inside it: one bold white-and-gold light dragon, only its head and "
+                       "long neck in profile rising from the bottom, with gleaming white scales and gold horns and a gold mane, "
+                       "and bright golden rays of light radiating from behind it. One single clear silhouette with a bold dark "
+                       "outline. Bold saturated colours, heroic warm light.",
     "space-peak": "Inside the gold rim, the shield's enamel field becomes the rose pink of Pikes Peak granite (#C0707A), a glossy "
-                  "speckled pink stone enamel. The new emblem inside it: Pikes Peak, one broad massive mountain of pink granite "
-                  "with a snowy summit, and above its summit one large bright four-pointed silver-white star with a soft white "
-                  "glow and a few tiny sparkles. Bold saturated colours, heroic warm light.",
+                  "speckled pink stone enamel. The new emblem inside it: one bold golden eagle seen from the front with its head "
+                  "turned in profile and both great wings spread wide, gold feathers with a bold dark outline, and one bright "
+                  "white four-pointed star above its head. One single clear silhouette. Bold saturated colours, heroic warm light.",
     "fusion-canyon": "Inside the gold rim, the shield's enamel field becomes deep Stout sandstone red (#8C4A3F), a glossy brick-red "
-                     "stone enamel. The new emblem inside it: a narrow canyon between two steep red sandstone cliffs with a blue "
-                     "river at the bottom, and floating in the canyon one blazing ring of golden-white fire, a perfect circle of "
-                     "flame with the canyon showing through its open centre. Bold saturated colours, heroic warm light.",
+                     "stone enamel. The new emblem inside it: one bold crimson-and-gold phoenix rising with its wings spread wide, "
+                     "flame-tipped feathers, and a glowing white-gold star set in its chest. One single clear silhouette with a "
+                     "bold dark outline. Bold saturated colours, heroic warm light.",
 }
 MASTER_CREST = "dist/logo/emblem-1024.png"
 
 
 @app.local_entrypoint()
-def region_crest(regions: str = "photon-mountain,space-peak,fusion-canyon", seeds: str = "5,9"):
+def region_crest(regions: str = "photon-mountain,space-peak,fusion-canyon", seeds: str = "7,11"):
     """Region crest candidates, each a FIBO edit of the master crest; writes out/crest-<region>-<seed>.png."""
     here = pathlib.Path(__file__).parent
     out = here / "out"; out.mkdir(exist_ok=True)

@@ -54,9 +54,9 @@ One crest per region, as each race in the game carries its own crest under the f
 
 | File | Field | Charge |
 |---|---|---|
-| `photon-mountain-1024.png`, `-512.png` | Fluorite violet | A crystal prism casting rainbow light over the Flatirons |
-| `space-peak-1024.png`, `-512.png` | Pikes Peak granite pink | A bright star over Pikes Peak |
-| `fusion-canyon-1024.png`, `-512.png` | Stout sandstone red | A ring of fire in a red canyon |
+| `photon-mountain-1024.png`, `-512.png` | Fluorite violet | A white-and-gold light dragon, head and neck in profile, rays behind it |
+| `space-peak-1024.png`, `-512.png` | Pikes Peak granite pink | A golden eagle with spread wings, one white star above |
+| `fusion-canyon-1024.png`, `-512.png` | Stout sandstone red | A crimson-and-gold phoenix rising, a star in its chest |
 
 Use: the region lockup "Colorado Startups · {Place}" (`data/architecture.yaml`), region event cards and channel headers, at 32 px and up. Below 32 px, use the logo's icon.
 

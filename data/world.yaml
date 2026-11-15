@@ -423,10 +423,10 @@ crests:
       rule: The region's stone color (regions.list[].color_proposal until S12 sets the token), as glossy enamel.
     - id: charge
       rule: >-
-        The region's own symbol, described in our own words (decision 60). Photon
-        Mountain: a fluorite crystal prism casting rainbow light over the Flatirons.
-        Space Peak: a bright star over Pikes Peak. Fusion Canyon: a ring of fire in a
-        canyon. Never a project mark such as the Summit Sun, never a sun, never letters
+        The region's own creature, described in our own words (decision 60). Photon
+        Mountain: a white-and-gold light dragon. Space Peak: a golden eagle under a
+        white star. Fusion Canyon: a crimson-and-gold phoenix with a star in its
+        chest. Never a project mark such as the Summit Sun, never a sun, never letters
         (data/architecture.yaml lockups.endorsement.never). Only the master crest
         carries the C. Decision 60 replaced the earlier rule of the master mark in
         every field.
@@ -452,8 +452,8 @@ crests:
     goal: true
     note: >-
       Checked by eye at 128, 48 and 32 px on art/render/sheets/region-crests.png
-      (decision 60). At 32 px each crest keeps its field color and the main shape of
-      its charge; Space Peak's mountain blends into its pink field below 48 px. The
+      (decision 60). Each creature reads at 48 px; at 32 px each keeps its field color
+      and a bird or dragon shape, and Space Peak's gold on pink is the weakest. The
       earlier goal of 24 px was never checked, so below 32 px use the logo's icon alone.
   variants:
     one_color: >-
