@@ -21,7 +21,6 @@
 #   positioning   The one-sentence positioning statement, its parts, and the
 #                 plain descriptor and boilerplate opener.
 #   promise       What a founder gets on coming in (the live homepage line).
-#   tagline       The line beside the name, its score, and the line it replaces.
 #   pyramid       Layer order, base to peak, for the guide's "Purpose to
 #                 promise" mountain.
 #   audiences     Rings with founders at the center, mapped to the eight
@@ -129,7 +128,7 @@ positioning:
   point_of_difference: "Open, founders-first and always on. Its nearest neighbors on the landscape map meet once a year, meet weekly in one city, serve rural Colorado only, or list resources with no community around them."
   reasons_to_believe: "The three messaging pillars and their proof points (messaging.pillars)."
   descriptor: "A community of founders building companies in Colorado."
-  descriptor_use: "The plain line that says what Colorado Startups is. Use it in meta descriptions, directory listings, the LinkedIn tagline field, and anywhere a literal label serves better than the tagline. It was the tagline until this file (website decision 46)."
+  descriptor_use: "The plain line that says what Colorado Startups is. Use it in meta descriptions and directory listings. It is a description, not a tagline: the brand has none (decision 46)."
   boilerplate_opener: "Colorado Startups is a community of founders building companies in Colorado."
   boilerplate_opener_note: "The first sentence of every boilerplate (S3). It changes decision 46's 'entrepreneurs' to 'founders', so the opener, the descriptor and the founders-first rule share one word."
   source:
@@ -142,20 +141,6 @@ promise:
   note: "Kept word for word from the live homepage, so the site and the strategy make one promise."
   source: { url: "https://coloradostartups.org/", read: "2026-11-02" }
 
-tagline:
-  line: "Colorado founders, in good company."
-  replaces: "A community of founders building companies in Colorado."
-  replaces_source: { path: "00_project_system/decisions.md, decision 46 (website)", read: "2026-11-02" }
-  why: "It beat decision 46's line on the rubric. 'In good company' means two things at once: founders among good people, and founders among good companies. It says no founder is alone without borrowing the 'not alone' wording two peers already use. The old line stays as the descriptor."
-  score:
-    total: 10
-    of: 10
-    replaced_line_total: 9
-    basis: "Median of the round 2 blind review; the author scored it 10 and the old line 9."
-    source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
-  clearance: "No Colorado founder community uses the line (web search, 2026-11-02). The idiom is common in other trades, so S13's USPTO knockout search covers the tagline with the mark."
-  source: { path: "research/strategy/candidates.md", read: "2026-11-02" }
-  reverse: "Put the descriptor back as the tagline. Wave 3 (W2) edits the website's footer, OG cards and tests either way."
 
 pyramid:
   order: [purpose, vision, mission, values, positioning, promise]

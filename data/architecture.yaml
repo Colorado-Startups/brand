@@ -431,9 +431,8 @@ lockups:
     status: arrives in Wave 2 (S13 draws logo/)
     parts: [mark, wordmark]
     words: >-
-      Any tagline or descriptor in a lockup comes from data/strategy.yaml (S1). S1's PR #7
-      proposes the tagline "Colorado founders, in good company." and keeps "A community
-      of founders building companies in Colorado." as the descriptor.
+      Lockups carry no tagline (decision 46). Any descriptor comes from
+      data/strategy.yaml (S1).
     rule: The mark and wordmark come from the winning concept. Every other lockup here builds on them.
     source: plan, Wave 2, session S13
 
