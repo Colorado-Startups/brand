@@ -119,8 +119,8 @@ def build(blobs):
         "keepers": [{k: x[k] for k in ("name", "kind", "title", "role", "disclosure")} for x in w["keepers"]["list"]],
         "architecture": {
             "nodes": [{"id": n["id"], "name": n["name"], "plain": n["plain_label"], "parent": n["parent"]} for n in a["nodes"]],
-            "registers": {k: {x: a["registers"][k][x] for x in ("plain_label", "holds", "serves")} for k in ("core", "hall")},
-            "outpost": a["lockups"]["outpost"]["example"],
+            "registers": {k: {x: a["registers"][k][x] for x in ("plain_label", "holds", "serves")} for k in ("core", "community")},
+            "region": a["lockups"]["region"]["example"],
             "endorsement": a["lockups"]["endorsement"]["line"],
         },
         "use": {"fine": bullets("TRADEMARKS.md", "Fine without asking"), "ask": bullets("TRADEMARKS.md", "Needs written approval"),

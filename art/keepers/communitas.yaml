@@ -58,13 +58,13 @@ objects_entry:
 per_image: [location, relationship, relative_size, orientation, pose, expression, action]
 
 portrait:
-  background_setting: The tall hammered bronze doors of the Hall stand open behind her, carved with straight-line chevron relief. Between them, golden aspens and the Front Range peaks glow in golden-hour light. The background is soft and low in detail.
+  background_setting: The tall hammered bronze doors of the welcome desk stand open behind her, carved with straight-line chevron relief. Between them, golden aspens and the Front Range peaks glow in golden-hour light. The background is soft and low in detail.
   crops:
     large: {ratio: "4:5", size: [960, 1200], use: team page and keeper panels, goal: true}
     small: {ratio: "1:1", size: [320, 320], use: avatars at 40 to 96 px, goal: true}
     source: baseline/v2/art-DIRECTION.md, Portrait files (website art/DIRECTION.md at 18b65a6, read 2026-11-02)
 
-alt_text: "Communitas, Keeper of the Doors, an AI agent run by Colorado Startups, pictured as a dwarf holding a lantern at the Hall's open doors."
+alt_text: "Communitas, Keeper of the Doors, an AI agent run by Colorado Startups, pictured as a dwarf holding a lantern at open bronze doors."
 
 continuity:
   follows: keeper-communitas-3, the shipped pick (website art/concepts/batch-1.md, picked 2026-10-18)

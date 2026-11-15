@@ -13,8 +13,8 @@
 # Top-level keys:
 #   meta       version, owner, date, and how sources and figures are marked
 #   spectrum   Aaker's brand relationship spectrum, in order, one line each
-#   registers  the Core and Hall registers from decision 11, and the register each
-#              channel uses (`registers.by_channel`)
+#   registers  the Core and Community registers from decision 11 (named by decision 58),
+#              and the register each channel uses (`registers.by_channel`)
 #   nodes      the brand tree: one entry per node; `parent` builds the tree.
 #              Every node has an Aaker position (`aaker`), a `reason` and its lockups
 #   lockups    every lockup by id: parts, order, sizes, who may use it, and never
@@ -61,27 +61,27 @@ registers:
     plain_label: the plain register
     holds: logo, palette, type, plain layout
     serves: [sponsors, the State, press, decks]
-  hall:
+  community:
     plain_label: the community register
     holds: materials, keepers, art, lore
     serves: [the website, Slack, the Startupers newsletter, events]
   rule: >-
     One piece uses one register. A sponsor, State or press piece is always Core. The
-    keepers, crests and Hall art appear only in the Hall register.
+    keepers, crests and world art appear only in the Community register.
   by_channel:
     source: >-
-      Decision 11 sets the website, Slack, the newsletter and events as Hall, and sponsors,
+      Decision 11 sets the website, Slack, the newsletter and events as Community, and sponsors,
       the State, press and decks as Core. S2 set the other channels on 2026-11-02 by one
-      test. Hall goes where the reader is already inside the community. Core goes where
+      test. Community goes where the reader is already inside the community. Core goes where
       the reader may meet Colorado Startups for the first time, or acts for another
       organization.
     channels:
-      - {channel: the website, register: hall, why: "decision 11"}
-      - {channel: Slack, register: hall, why: "decision 11"}
-      - {channel: the Startupers newsletter, register: hall, why: "decision 11"}
-      - {channel: events, register: hall, why: "decision 11; any sponsor element inside an event piece uses the Core sponsor lockup"}
-      - {channel: volunteer pages, register: hall, why: "Volunteers are already inside the community, and the role pages already use the Hall look (research digest, section 1)"}
-      - {channel: LinkedIn, register: core, why: "The page, its cover and its announcements meet sponsors, press, capital and strangers first. A post may carry Hall art when every lore word has its plain label"}
+      - {channel: the website, register: community, why: "decision 11"}
+      - {channel: Slack, register: community, why: "decision 11"}
+      - {channel: the Startupers newsletter, register: community, why: "decision 11"}
+      - {channel: events, register: community, why: "decision 11; any sponsor element inside an event piece uses the Core sponsor lockup"}
+      - {channel: volunteer pages, register: community, why: "Volunteers are already inside the community, and the role pages already use the community look (research digest, section 1)"}
+      - {channel: LinkedIn, register: core, why: "The page, its cover and its announcements meet sponsors, press, capital and strangers first. A post may carry world art when every lore word has its plain label"}
       - {channel: carousels, register: core, why: "They live on LinkedIn and travel as standalone slides to readers outside the community"}
       - {channel: email signatures, register: core, why: "They go to sponsors, partners, press and State offices"}
       - {channel: the GitHub org profile, register: core, why: "Its readers are developers and partner organizations meeting the brand cold"}
@@ -98,22 +98,9 @@ nodes:
     reason: >-
       The master brand. Every community surface builds this one name, so recall
       compounds instead of splitting across many names.
-    registers: [core, hall]
-    lockups: [primary, startupers, outpost, endorsement, sponsor, co-host, state, colorado-compute]
+    registers: [core, community]
+    lockups: [primary, startupers, region, endorsement, sponsor, co-host, state, colorado-compute]
     source: website decision 46 (positioning and tagline), read 2026-11-02
-
-  - id: the-hall
-    name: the Hall
-    plain_label: how the Colorado Startups community looks and sounds
-    parent: colorado-startups
-    aaker: branded-house
-    reason: >-
-      The Hall is a register of the master brand, not a second name in the market
-      (decision 11). It always appears under the Colorado Startups name and mark.
-    registers: [hall]
-    lockups: [primary]
-    see: data/world.yaml (materials, rooms, rituals)
-    source: decisions.md, decision 11; baseline/v2/lore.md
 
   - id: startupers
     name: Startupers
@@ -124,24 +111,24 @@ nodes:
       The name grows out of the master name and is the community's own word, so it can
       lead a newsletter. Colorado Startups still drives it: the master name sits in
       every Startupers lockup.
-    registers: [hall, core]
+    registers: [community, core]
     lockups: [startupers]
     source: baseline/v2/voice.md (the community's own words); website data/positions (the Startupers newsletter), read 2026-11-02
 
   - id: keepers
     name: the keepers
-    plain_label: the Hall's AI helpers
-    parent: the-hall
+    plain_label: Colorado Startups' AI helpers
+    parent: colorado-startups
     aaker: sub-brand
     reason: >-
       Each keeper is a named service with one job, and each says it is an AI agent run
       by Colorado Startups. The master drives them; no keeper gets its own logo.
-    registers: [hall]
+    registers: [community]
     lockups: []
     rules:
       - Every appearance carries the keeper's AI-agent disclosure (data/world.yaml, keepers).
       - A keeper never appears in the Core register, on a sponsor piece or on a State piece.
-      - A keeper never organizes an outpost, gives an honor or moderates (baseline/v2/lore.md).
+      - A keeper never organizes a region, gives an honor or moderates (baseline/v2/lore.md).
     source: baseline/v2/dwarves.yaml; baseline/v2/lore.md
 
   - id: communitas
@@ -174,54 +161,55 @@ nodes:
     see: data/world.yaml, keepers
     source: baseline/v2/dwarves.yaml
 
-  - id: outposts
-    name: the outposts
+  - id: regions
+    name: the regions
     plain_label: the community's local chapters
     parent: colorado-startups
     aaker: branded-house
     reason: >-
-      A chapter is the master brand in one place. One naming pattern and one crest
-      system keep every chapter reading as Colorado Startups (decision 12; the
-      Techstars naming pattern in naming.outpost-names).
-    registers: [hall]
-    lockups: [outpost]
+      A chapter is the master brand in one place. The regions and their towns are
+      equals: none is a hub, a headquarters or a hall (decision 58). One naming pattern
+      and one crest system keep every chapter reading as Colorado Startups (decision 12;
+      the Techstars naming pattern in naming.region-names).
+    registers: [community]
+    lockups: [region]
     rules:
-      - A person organizes each outpost; the keepers never do (baseline/v2/lore.md).
-      - A town gets its own outpost lockup only where a person runs Colorado Startups gatherings there.
-      - Places outside the three outposts show as "Elsewhere in Colorado", with the master mark and no crest (website decision 45).
-    see: data/world.yaml (outposts, towns, crests)
+      - A person organizes each region; the keepers never do (baseline/v2/lore.md).
+      - A town gets its own region lockup only where a person runs Colorado Startups gatherings there.
+      - Places outside the three regions show as "Elsewhere in Colorado", with the master mark and no crest (website decision 45).
+    see: data/world.yaml (regions, towns, crests)
     source: baseline/v2/lore.md; website decision 45; decisions.md, decision 12
 
-  - id: outpost-photon-mountain
-    name: Photon Mountain Outpost
+  - id: region-photon-mountain
+    name: Photon Mountain
     plain_label: the Colorado Startups chapter for Boulder, Golden, Arvada and Denver
-    parent: outposts
+    parent: regions
     aaker: branded-house
     reason: The community hat of the Photon Mountain name. See naming.one-name-two-hats.
     same_name_as: project-photon-mountain
-    lockups: [outpost]
+    lockups: [region]
     towns: [boulder, golden, arvada, denver]
     source: website data/regions/photon-mountain.yaml (origin/main c6f10bc), read 2026-11-02
 
-  - id: outpost-space-peak
-    name: Space Peak Outpost
+  - id: region-space-peak
+    name: Space Peak
     plain_label: the Colorado Startups chapter for Colorado Springs and the Pikes Peak region
-    parent: outposts
+    parent: regions
     aaker: branded-house
     reason: The community hat of the Space Peak name. See naming.one-name-two-hats.
     same_name_as: project-space-peak
-    lockups: [outpost]
+    lockups: [region]
     towns: [colorado-springs, manitou-springs]
     source: website data/regions/space-peak.yaml (origin/main c6f10bc), read 2026-11-02
 
-  - id: outpost-fusion-canyon
-    name: Fusion Canyon Outpost
+  - id: region-fusion-canyon
+    name: Fusion Canyon
     plain_label: the Colorado Startups chapter for Fort Collins, Loveland, Windsor and Greeley
-    parent: outposts
+    parent: regions
     aaker: branded-house
     reason: The community hat of the Fusion Canyon name. See naming.one-name-two-hats.
     same_name_as: project-fusion-canyon
-    lockups: [outpost]
+    lockups: [region]
     towns: [fort-collins, loveland, windsor, greeley]
     rules:
       - Named for the canyon. Its place art is Poudre Canyon at Fort Collins, with the town built into the canyon floor (decisions 44 and 45).
@@ -243,8 +231,8 @@ nodes:
       decided: >-
         Endorsed brand with a token endorsement. Each project keeps its own name, mark,
         palette and type; the only tie on its own surfaces is the line "a Colorado
-        Startups project". Inside the community the same names appear as outposts in the
-        Hall's look (naming.one-name-two-hats).
+        Startups project". Inside the community the same names appear as regions in the
+        community look (naming.one-name-two-hats).
       options_weighed:
         - option: unify (branded house, one Colorado Startups look on all three)
           verdict: rejected
@@ -305,7 +293,7 @@ nodes:
     reason: >-
       Its identity is locked and complete: the Summit Sun mark, Space Grotesk, Inter
       and Space Mono, and its own palette (locked 2026-07-05). It keeps all of it.
-    same_name_as: outpost-photon-mountain
+    same_name_as: region-photon-mountain
     lockups: [endorsement]
     status: identity locked
     source: Colorado-Startups/photon-mountain, 01_doctrine/brand_identity.md (head 3f8a11a), read 2026-11-02
@@ -319,7 +307,7 @@ nodes:
       It has a voice and no mark or palette yet. Until it locks one, its name is set
       alone in plain type with the endorsement line, and borrows no Colorado Startups
       mark or color.
-    same_name_as: outpost-space-peak
+    same_name_as: region-space-peak
     lockups: [endorsement]
     status: voice only
     source: Colorado-Startups/space-peak, 01_doctrine/voice.md and README.md (head a564186), read 2026-11-02
@@ -332,7 +320,7 @@ nodes:
     reason: >-
       It is a draft with a proposed mark and palette and no repo. Its endorsement
       lockup lives in this repo until it has one (plan, session S17).
-    same_name_as: outpost-fusion-canyon
+    same_name_as: region-fusion-canyon
     lockups: [endorsement]
     status: draft, nothing locked
     source: Fusion Canyon project_context.md (draft v0, 2026-09-22, local folder), read 2026-11-02
@@ -345,8 +333,8 @@ nodes:
     reason: >-
       Events are many and short-lived. Descriptive names under the master build the
       master; a separate event brand would split recall.
-    registers: [hall, core]
-    lockups: [primary, outpost, sponsor, co-host]
+    registers: [community, core]
+    lockups: [primary, region, sponsor, co-host]
     rules:
       - Name pattern is "{what} · {town}", such as "Founders meetup · Golden".
       - Events by other organizers keep their own names and looks on the community calendar; no crest or lockup goes on them.
@@ -361,7 +349,7 @@ nodes:
     reason: >-
       Each program is a plain descriptive name under the master. People find them by
       what they do, not by a coined name.
-    registers: [hall, core]
+    registers: [community, core]
     lockups: [primary]
     members:
       - name: the welcome desk
@@ -449,28 +437,29 @@ lockups:
       - Drop the master mark or the descriptor.
       - Draw a separate Startupers logo.
 
-  outpost:
-    pattern: "Colorado Startups · {Place} Outpost"
-    example: "Colorado Startups · Golden Outpost"
-    use: an outpost's or a town's events, Slack channel header, sign, badge and social cards
-    who_may_use: the person who organizes that outpost or town, and the orchestrator
-    parts: [crest, wordmark, separator, outpost name]
+  region:
+    pattern: "Colorado Startups · {Place}"
+    example: "Colorado Startups · Golden"
+    use: a region's or a town's events, Slack channel header, sign, badge and social cards
+    who_may_use: the person who organizes that region or town, and the orchestrator
+    parts: [crest, wordmark, separator, place name]
     separator: a middle dot (U+00B7) with one word space on each side
     order: >-
-      Crest, then "Colorado Startups", then the outpost name. The master name always
+      Crest, then "Colorado Startups", then the place name. The master name always
       comes first. A stacked version puts the crest above two lines: "Colorado
-      Startups" and "Golden Outpost".
+      Startups" and "Golden".
     type: >-
-      The outpost name uses the wordmark's family and cap height, one weight lighter,
+      The place name uses the wordmark's family and cap height, one weight lighter,
       in the text ink. Color lives in the crest only, because color is a weak
       recognition asset and the name must carry the place (digest section 2, Fame x
       Uniqueness).
     sizes:
       crest_height: x (the crest takes the mark's place at the mark's size)
       source: Spec set here (S2, 2026-11-02); reverse by editing this file.
-    plain_label_on_first_use: "Golden Outpost (the Golden chapter of Colorado Startups)"
+    plain_label_on_first_use: "A region name takes one, such as Photon Mountain (the Colorado Startups region for Boulder, Golden, Arvada and Denver). A town's real name needs none."
     never:
-      - Put the outpost name first, or drop "Colorado Startups".
+      - Put the place name first, or drop "Colorado Startups".
+      - Add a hub word to the place, such as Outpost, HQ or Hall (decision 58).
       - Abbreviate the master name.
       - Swap the crest for a landmark picture, a project mark or another logo.
       - Rename a real town; "{Place}" is always the real place name.
@@ -507,7 +496,7 @@ lockups:
     never:
       - Rephrase the line ("powered by", "a project of", "brought to you by").
       - Put a project mark inside a Colorado Startups crest, or a crest inside a project lockup.
-      - Mix the project's look and the Hall's look in one piece (naming.one-name-two-hats).
+      - Mix the project's look and the community look in one piece (naming.one-name-two-hats).
 
   sponsor:
     use: event pages, slides, signs, badges and social cards that thank a sponsor
@@ -546,7 +535,7 @@ lockups:
       One to one, the sponsor's logo keeps its own colors. In a group row every sponsor
       logo is set in one ink (the text role), so no sponsor outshouts another.
     tier_names_reason: >-
-      Tiers use plain words, not Hall words, because sponsor pieces are always in the
+      Tiers use plain words, not lore words, because sponsor pieces are always in the
       Core register (decision 11).
     never:
       - Put the sponsor first, or make its logo as large as the Colorado Startups mark.
@@ -605,7 +594,7 @@ lockups:
         Imply that the State backs, funds or partners with Colorado Startups without a
         signed agreement. The website's gate blocks such claims (rules state-partner and
         state-mention in its 04_tools/cs_site_rules.json).
-      - Show keepers, crests or Hall art on a State page.
+      - Show keepers, crests or world art on a State page.
       - Use a Colorado Startups color in the State's flag stripe.
 
   colorado-compute:
@@ -653,30 +642,32 @@ naming:
       New names avoid peak, summit and altitude words, because Colorado brands overuse
       them. Space Peak keeps its name; it was decided before this rule. The Flatirons
       stay in the Boulder place art (decisions 44 and 45).
-    example: Outpost, forge theme, honor
+    example: forge theme, honor, Set a stone
     counterexample: A new "Summit" event series
     source: >-
       The orchestrator's research digest, section 3 (2026-11-02), citing
       https://fanclubbrands.co/blog/colorado-design-agency; not re-read by S2.
 
-  - id: outpost-names
+  - id: region-names
     rule: >-
-      An outpost is named "{real place} Outpost", with the place's real name unchanged.
-      One pattern for every chapter, as Techstars fixes "Techstars Startup Weekend
-      {Vertical} {City}" for every licensed event.
-    example: Golden Outpost; Space Peak Outpost
-    counterexample: A lore name for Golden, or "Golden Startups"
+      A region or town goes by its own name, unchanged and with no suffix: a real
+      place's real name, or the region's name. No name marks a place as a hub, such as
+      Outpost, HQ or Hall, because the places are equals (decision 58). One pattern for
+      every chapter, as Techstars fixes "Techstars Startup Weekend {Vertical} {City}" for
+      every licensed event.
+    example: Colorado Startups · Golden; Colorado Startups · Space Peak
+    counterexample: Golden Outpost, Golden HQ, a lore name for Golden, or "Golden Startups"
     source: https://www.techstars.com/communities/startup-week/license-agreement (read 2026-11-02); baseline/v2/lore.md (the towns are real places)
 
   - id: one-name-two-hats
     rule: >-
       Photon Mountain, Space Peak and Fusion Canyon each wear two hats. As a community
       chapter (meetups, a Slack channel, a region page on the Colorado Startups website)
-      it is an outpost: Hall crest, master type, outpost lockup. As a corridor place brand
+      it is a region: its crest, master type, region lockup. As a corridor place brand
       (its own site, maps, vision decks) it is a project: its own look and the endorsement
       line. One piece wears one hat.
-    example: The Golden meetup card uses the Photon Mountain Outpost crest; the Photon Mountain vision deck uses Summit Sun.
-    counterexample: Summit Sun inside an outpost crest, or a Hall crest on a corridor map
+    example: The Golden meetup card uses the Photon Mountain crest; the Photon Mountain vision deck uses Summit Sun.
+    counterexample: Summit Sun inside a region crest, or a region crest on a corridor map
     source: nodes.projects.relationship (this file); website decision 45
 
   - id: plain-labels
@@ -684,19 +675,16 @@ naming:
       Every lore name gets a plain label beside it at its first use on a surface, in
       the form "lore name (plain label)". Instructions, forms, policies and errors use
       only the plain words.
-    example: "Golden Outpost (the Golden chapter of Colorado Startups)"
-    counterexample: A form button that says "Enter the Hall"
+    example: "forge theme (the one monthly theme every region shares)"
+    counterexample: A form button that says "Light the forge"
     labels:
-      the Hall: the Colorado Startups website and the community's world
-      outpost: local chapter
       keeper: AI helper (an AI agent run by Colorado Startups)
-      the Map Room: Startup Resources
-      forge theme: the one monthly theme every outpost shares
+      forge theme: the one monthly theme every region shares
       honor: a thank-you that names what someone did; the person can hide it
       Set a stone: the newcomer's welcome
       Startupers: the community's members, and its newsletter
     precedence: >-
-      S3's data/voice.yaml (vocabulary) holds the Hall vocabulary and wins on any word
+      S3's data/voice.yaml (vocabulary) holds the lore vocabulary and wins on any word
       both files define; fix this list in the same session. The labels above match it on
       2026-11-02. "Set a stone" is new here and waits for S3 to add it.
     source: decisions.md, decision 12; baseline/v2/voice.md (the metaphor, used lightly)
@@ -721,6 +709,6 @@ naming:
       No name, word or title in anything that ships is taken from a game or film
       franchise. Every lore name is checked against the never list in data/words.yaml
       (S3) and the website's franchise gate.
-    example: outpost, keeper, the Map Room
+    example: keeper, forge theme, honor
     counterexample: Any franchise's city, folk or item name
     source: CLAUDE.md, What binds (decision 38, trademark and copyright); enforced on shipped text by tools/franchise_gate.py (decision 49)

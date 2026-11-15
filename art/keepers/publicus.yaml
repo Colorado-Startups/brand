@@ -29,7 +29,7 @@
 id: publicus
 name: Publicus
 kind: dwarf
-title: Herald of the Hall
+title: Herald of Colorado Startups
 
 disclosure: Publicus is an AI agent run by Colorado Startups. It can make mistakes, so it only drafts; a person reviews and publishes everything.
 disclosure_source: baseline/v2/dwarves.yaml, entry publicus, field disclosure (website data/team/dwarves.yaml at 18b65a6)
@@ -64,7 +64,7 @@ portrait:
     small: {ratio: "1:1", size: [320, 320], use: avatars at 40 to 96 px, goal: true}
     source: baseline/v2/art-DIRECTION.md, Portrait files (website art/DIRECTION.md at 18b65a6, read 2026-11-02)
 
-alt_text: "Publicus, Herald of the Hall, an AI agent run by Colorado Startups, pictured as a dwarf holding up a blank broadsheet."
+alt_text: "Publicus, Herald of Colorado Startups, an AI agent run by Colorado Startups, pictured as a dwarf holding up a blank broadsheet."
 
 continuity:
   follows: keeper-publicus-1, the shipped pick (website art/concepts/batch-1.md, picked 2026-10-18)

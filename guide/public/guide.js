@@ -156,7 +156,7 @@ function where(d) {
 // `downloads` shows the file exists. With neither, the section shows the wordmark set in type, as on the cards.
 const TIERS = ["emblem", "wordmark", "icon"];
 const SHIPPED = {
-  emblem: { files: ["logo/emblem-512.png"], use: "Avatars (GitHub org, LinkedIn, Slack) and Hall cards" },
+  emblem: { files: ["logo/emblem-512.png"], use: "Avatars (GitHub org, LinkedIn, Slack) and the website's cards" },
   wordmark: { files: ["logo/wordmark-blue.png", "logo/wordmark-white.png"], use: "Decks, sponsor, State and press pieces, any width" },
   icon: { files: ["logo/icon-512.png"], use: "Favicon, app icons and tiny avatars" },
 };
@@ -259,7 +259,7 @@ function voice(d) {
   const show = () => { const c = v.channels[sel.value];
     dials.replaceChildren(...v.traits.map((t) => el("div", { class: "dial" }, el("span", { text: t.name }),
       el("b", {}, el("i", { style: `width:${c[t.id]}%` })), el("span", { text: String(c[t.id]) }))),
-      el("p", { class: "cap", text: `${c.register === "hall" ? "Community" : "Plain"} register. ${c.note || ""}` })); };
+      el("p", { class: "cap", text: `${c.register === "community" ? "Community" : "Plain"} register. ${c.note || ""}` })); };
   sel.addEventListener("change", show);
   show();
 }
@@ -287,9 +287,9 @@ function world(d) {
     kin.replaceChildren(...[["People", p.people], ["Creature", p.creature], ["Mount", p.mount]].filter(([, x]) => x)
       .map(([k, x]) => el("div", {}, el("dt", { text: k }), el("dd", { text: cap1(x) })))); });
   const reg = d.architecture.registers, demo = $("#register-demo");
-  chips($("#registers"), ["core", "hall"], (k) => (k === "core" ? "Plain" : "Community"), (k) => {
+  chips($("#registers"), ["core", "community"], (k) => (k === "core" ? "Plain" : "Community"), (k) => {
     demo.className = `register ${k}`;
-    demo.style.backgroundImage = k === "hall" ? "url(dist/places/denver.jpg)" : "none";
+    demo.style.backgroundImage = k === "community" ? "url(dist/places/denver.jpg)" : "none";
     demo.replaceChildren(el("strong", { text: d.name }), el("small", { text: `${cap1(reg[k].holds)}. For ${reg[k].serves.join(", ")}.` }));
   });
 }
@@ -317,9 +317,9 @@ function family(d) {
   };
   tree.replaceChildren(...kids(null).map((n) => branch(n, 0)));
   tree.querySelector(".node").click();
-  // The two lockups as type specimens. The outpost lockup's crest waits on the logo (decision 48), so it is type only.
-  const [lead, ...place] = a.outpost.split(" · ");
-  $("#lockup-outpost").replaceChildren(el("span", { class: "rule", "aria-hidden": "true" }),
+  // The two lockups as type specimens. The region lockup's crest waits on the logo (decision 48), so it is type only.
+  const [lead, ...place] = a.region.split(" · ");
+  $("#lockup-region").replaceChildren(el("span", { class: "rule", "aria-hidden": "true" }),
     el("span", { class: "lockup-line" }, lead, place.length ? el("span", { class: "place" }, el("span", { class: "sep", text: " · " }), place.join(" · ")) : null));
   const project = nodes.find((n) => n.parent === "projects");
   $("#lockup-endorse").replaceChildren(project ? el("b", { text: project.name }) : null, el("small", { text: a.endorsement }));

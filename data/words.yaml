@@ -559,7 +559,7 @@ never_samples:
     - A blizzard closed I-70 on Tuesday.
     - Blizzard warnings closed the pass.
     - Work continued during the storm.
-    - The iron forge at the Hall runs hot.
+    - The iron forge at Golden runs hot.
     - A lonely mountain road leads to Leadville.
     - Zelda, our new volunteer, starts Monday.
     - Link your calendar to the Slack.
@@ -585,7 +585,7 @@ never_samples:
     - A night shift at the elf shop.
 
 watch:
-  rule: Never use these as a Hall name, place, material, title or item. Each stays out of `never` because it is also a real name or a common word, and a gate blocks only on the certain. A gate may warn on them.
+  rule: Never use these as a name, place, material, title or item in the brand's world. Each stays out of `never` because it is also a real name or a common word, and a gate blocks only on the certain. A gate may warn on them.
   source: [web-franchise-rule, claude-md, s3]
   items:
     - term: Zelda
@@ -608,7 +608,7 @@ watch:
       why: A name from Norse myth that people carry.
     - term: mithril
       franchise: tolkien
-      why: Mithril Capital is a real investor. Never call a Hall metal mithril.
+      why: Mithril Capital is a real investor. Never call a metal in the brand's world mithril.
     - term: Arkenstone
       franchise: tolkien
       why: An iconic item. Name a real Colorado mineral instead.
