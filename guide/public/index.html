@@ -39,7 +39,6 @@
       <a class="tile" href="#voice"><b>Write like us</b><span>Four traits, eight channels</span></a>
       <a class="tile" href="#use"><b>Use the name</b><span>What needs a yes</span></a>
     </div>
-    <p class="cap">Each section links to its source on GitHub.</p>
   </section>
 
   <section id="why">
@@ -51,8 +50,8 @@
 
   <section id="who">
     <h2>Who it's for</h2>
-    <p class="cap">Founders at the center. Pick a ring or a person.</p>
-    <div class="split"><svg id="rings" viewBox="0 0 340 340" role="group" aria-label="Audience rings"></svg><div><div id="personas" class="chips" role="group" aria-label="Personas"></div><div id="who-detail" class="panel" aria-live="polite"></div></div></div>
+    <p class="cap">Founders at the center.</p>
+    <div class="split"><svg id="rings" viewBox="0 0 340 340" role="group" aria-label="Audience rings"></svg><div><div id="personas" class="chips" role="group" aria-label="Personas"></div><div id="who-detail" class="panel" aria-live="polite">Pick a ring or a person.</div></div></div>
     <a class="src" data-src="data/strategy.yaml">Source</a>
   </section>
 
@@ -65,20 +64,23 @@
 
   <section id="name">
     <h2>The name</h2>
-    <p class="cap">Set in Aileron under the State red rule, on art or plain ground. The mark itself is still open. No tagline.</p>
+    <p id="name-cap" class="cap">Aileron under the State red rule, on art or plain ground. No tagline.</p>
+    <div id="name-tiers" class="chips" role="group" aria-label="Logo tier" hidden></div>
     <div id="name-grounds" class="chips" role="group" aria-label="Background"></div>
     <div id="specimen" class="specimen"><span class="rule" aria-hidden="true"></span><span>Colorado Startups</span></div>
-    <ul id="name-rules" class="list"></ul>
+    <p id="tier-detail" class="cap" aria-live="polite"></p>
+    <details><summary>Writing the name</summary><ul id="name-rules" class="list"></ul></details>
   </section>
 
   <section id="color">
     <h2>Color</h2>
-    <p class="cap">The State of Colorado palette leads the UI. Click a swatch to copy it.</p>
+    <p class="cap">The State of Colorado palette leads the UI. Pick a swatch to copy its hex.</p>
     <div class="row"><label for="vision">Color vision</label>
       <select id="vision"><option value="">Typical</option><option value="protan">Protanopia</option><option value="deutan">Deuteranopia</option><option value="tritan">Tritanopia</option></select></div>
     <div id="swatches" class="swatches"></div>
+    <p id="swatch-detail" class="cap" aria-live="polite"></p>
     <h3>Contrast</h3>
-    <p class="cap">Text by row, ground by column. Pick a cell.</p>
+    <p class="cap">Text by row, ground by column. Dashed: large text only. Struck: fails AA. Pick a cell.</p>
     <div class="scroll"><table id="contrast" class="matrix"></table></div>
     <div id="contrast-preview" class="preview" aria-live="polite"></div>
     <ul id="color-never" class="list never"></ul>
@@ -98,6 +100,7 @@
     <p class="cap">Four traits that never change. Pick one to see it at work.</p>
     <div id="traits" class="chips" role="group" aria-label="Traits"></div>
     <table id="pairs" class="pairs"><thead><tr><th>Do</th><th>Don't</th></tr></thead><tbody></tbody></table>
+    <button id="pairs-more" class="chip" type="button" aria-expanded="false" aria-controls="pairs" hidden></button>
     <h3>Tone by channel</h3>
     <div class="row"><label for="channel">Channel</label><select id="channel"></select></div>
     <div id="dials" class="dials" aria-live="polite"></div>
@@ -119,7 +122,7 @@
   <section id="world">
     <h2>The world</h2>
     <p class="cap">Real Colorado places, transformed with magic. Bright, hand-painted, made with FIBO 2.0.</p>
-    <figure class="gallery"><img id="place-img" alt="" width="1440" height="720"><figcaption id="place-cap"></figcaption></figure>
+    <figure class="gallery"><img id="place-img" alt="" width="1440" height="720"><figcaption><span id="place-cap"></span><dl id="place-kin" class="kin"></dl></figcaption></figure>
     <div id="place-picks" class="chips" role="group" aria-label="Places"></div>
     <h3>Two registers</h3>
     <div id="registers" class="chips" role="group" aria-label="Register"></div>
@@ -138,30 +141,41 @@
 
   <section id="family">
     <h2>Brand family</h2>
-    <p class="cap">One master brand. Pick a branch.</p>
-    <div class="split"><ul id="tree" class="tree"></ul><div><p id="family-detail" class="panel" aria-live="polite"></p><p id="lockups" class="cap"></p></div></div>
+    <p class="cap">One master brand. Pick a branch, or open one.</p>
+    <div class="split"><ul id="tree" class="tree"></ul><div><p id="family-detail" class="panel" aria-live="polite"></p>
+      <div class="lockups">
+        <figure><figcaption class="cap">Outpost lockup</figcaption><div id="lockup-outpost" class="lockup"></div></figure>
+        <figure><figcaption class="cap">Endorsement</figcaption><div id="lockup-endorse" class="lockup endorse"></div></figure>
+      </div></div></div>
     <a class="src" data-src="data/architecture.yaml">Source</a>
   </section>
 
   <section id="use">
     <h2>Using the brand</h2>
-    <div class="cols">
-      <div><h3>Fine without asking</h3><ul id="use-fine" class="list ok"></ul></div>
-      <div><h3>Needs a written yes</h3><ul id="use-ask" class="list ask"></ul><p class="cap">Ask at <a id="contact" href="https://coloradostartups.org/contact/">coloradostartups.org/contact</a>.</p></div>
+    <div id="use-tabs" class="chips" role="tablist" aria-label="Using the brand">
+      <button id="tab-fine" class="chip" type="button" role="tab" aria-selected="true" aria-controls="use-fine-panel">Fine without asking</button>
+      <button id="tab-ask" class="chip" type="button" role="tab" aria-selected="false" aria-controls="use-ask-panel">Needs a written yes</button>
+      <button id="tab-licences" class="chip" type="button" role="tab" aria-selected="false" aria-controls="use-licences-panel">Licences</button>
     </div>
-    <table class="licences">
-      <tr><th>Writing and data</th><td>CC BY 4.0</td></tr>
-      <tr><th>Code, this guide</th><td>Apache-2.0</td></tr>
-      <tr><th>AI-made images</th><td>No copyright claimed. Keep the metadata; never train a model on them.</td></tr>
-      <tr><th>Name, marks, characters</th><td>Reserved</td></tr>
-    </table>
+    <div id="use-fine-panel" role="tabpanel" aria-labelledby="tab-fine"><ul id="use-fine" class="list ok"></ul></div>
+    <div id="use-ask-panel" role="tabpanel" aria-labelledby="tab-ask" hidden><ul id="use-ask" class="list ask"></ul><p class="cap">Ask at <a id="contact" href="https://coloradostartups.org/contact/">coloradostartups.org/contact</a>.</p></div>
+    <div id="use-licences-panel" role="tabpanel" aria-labelledby="tab-licences" hidden>
+      <table class="licences">
+        <tr><th>Writing and data</th><td>CC BY 4.0</td></tr>
+        <tr><th>Code, this guide</th><td>Apache-2.0</td></tr>
+        <tr><th>AI-made images</th><td>No copyright claimed. Keep the metadata; never train a model on them.</td></tr>
+        <tr><th>Name, marks, characters</th><td>Reserved</td></tr>
+      </table>
+    </div>
     <a class="src" data-src="TRADEMARKS.md">Source</a> <a class="src" data-src="LICENSING.md">Licences</a>
   </section>
 
   <section id="downloads">
     <h2>Files</h2>
     <p class="cap">Pin a <a id="releases" href="https://github.com/Colorado-Startups/brand/releases">release</a> and check each file's sha256.</p>
-    <div class="scroll"><table id="files" class="files"><thead><tr><th>File</th><th>Size</th><th>sha256</th></tr></thead><tbody></tbody></table></div>
+    <div id="file-picks" class="chips" role="group" aria-label="Folder"></div>
+    <ul id="apps" class="apps" hidden></ul>
+    <div id="files-box" class="scroll"><table id="files" class="files"><thead><tr><th>File</th><th>Size</th><th>sha256</th></tr></thead><tbody></tbody></table></div>
   </section>
 </main>
 

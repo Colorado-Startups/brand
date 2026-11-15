@@ -1,8 +1,8 @@
 # data/architecture.yaml: the Colorado Startups brand tree, its lockups and its naming rules.
 #
 # Owner: S2 Architecture and world (CLAUDE.md, folder ownership). Readers: S8 draws
-# guide sections 5 (Architecture) and 17 (Co-branding) from it, S9 builds the
-# templates from `lockups`, and S13 (Wave 2) draws every lockup file in `logo/`.
+# the guide's family section from it, S9 builds the templates from `lockups`, and
+# `dist/logo/` supplies the mark and wordmark (decision 50: emblem, wordmark and icon tiers).
 #
 # Precedence: decisions.md wins over this file (decision 11 sets the two registers;
 # decision 21 leaves the sub-brand relationship to research, decided in
@@ -24,7 +24,7 @@
 # date it was read). A spec number (a size ratio in a lockup) is a design decision made
 # here; its block says so in `source:`. Nothing in this file is a member count.
 # Lockup sizes use one unit, `x`: the height of the Colorado Startups mark in that
-# lockup. S13 sets the mark and the wordmark; this file sets how the rest relate to them.
+# lockup. The logo tiers set the mark and the wordmark (decisions 37, 48 and 50); this file sets how the rest relate to them.
 
 meta:
   version: 3.0.0-wave1
@@ -224,7 +224,7 @@ nodes:
     lockups: [outpost]
     towns: [fort-collins, loveland, windsor, greeley]
     rules:
-      - Named for the canyon, built on the plain; copy never places it inside a canyon (website data/regions/fusion-canyon.yaml, note).
+      - Named for the canyon. Its place art is Poudre Canyon at Fort Collins, with the town built into the canyon floor (decisions 44 and 45).
     source: website data/regions/fusion-canyon.yaml (origin/main c6f10bc), read 2026-11-02
 
   - id: projects
@@ -428,13 +428,13 @@ nodes:
 
 lockups:
   primary:
-    status: arrives in Wave 2 (S13 draws logo/)
+    status: built (decision 50); the mark and wordmark are in dist/logo/
     parts: [mark, wordmark]
     words: >-
       Lockups carry no tagline (decision 46). Any descriptor comes from
       data/strategy.yaml (S1).
-    rule: The mark and wordmark come from the winning concept. Every other lockup here builds on them.
-    source: plan, Wave 2, session S13
+    rule: The mark and wordmark come from the logo tiers in dist/logo/ (emblem, wordmark and icon), all raster and none SVG. Every other lockup here builds on them.
+    source: decisions 37, 48 and 50
 
   startupers:
     use: the newsletter header, the newsletter's social cards, Slack posts that open with "Hi Startupers,"
@@ -599,7 +599,7 @@ lockups:
       logo_height: equal optical height for every logo, x each
       divider: same as the sponsor divider
       source: Spec set here (S2, 2026-11-02); reverse by editing this file.
-    colorado_startups_mark: the primary mark in one color, from logo/ (Wave 2)
+    colorado_startups_mark: the primary mark in one color, from dist/logo/ (decision 50)
     never:
       - >-
         Imply that the State backs, funds or partners with Colorado Startups without a
@@ -650,9 +650,9 @@ naming:
 
   - id: fresh-words
     rule: >-
-      New names avoid peak, summit and altitude words, and no mark uses the Flatirons,
-      because Colorado brands overuse them. Space Peak keeps its name; it was decided
-      before this rule.
+      New names avoid peak, summit and altitude words, because Colorado brands overuse
+      them. Space Peak keeps its name; it was decided before this rule. The Flatirons
+      stay in the Boulder place art (decisions 44 and 45).
     example: Outpost, forge theme, honor
     counterexample: A new "Summit" event series
     source: >-
@@ -723,4 +723,4 @@ naming:
       (S3) and the website's franchise gate.
     example: outpost, keeper, the Map Room
     counterexample: Any franchise's city, folk or item name
-    source: CLAUDE.md, Rules that never bend (Original only)
+    source: CLAUDE.md, What binds (decision 38, trademark and copyright); enforced on shipped text by tools/franchise_gate.py (decision 49)

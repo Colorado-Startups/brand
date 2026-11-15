@@ -76,7 +76,7 @@ meta:
     - id: voice-card
       what: The LinkedIn project's voice card, W3-content/voice-card.md, dated 2026-10-08.
     - id: claude-md
-      what: This repo's CLAUDE.md, "Rules that never bend".
+      what: This repo's CLAUDE.md, "What binds" (decision 38).
     - id: check-dashes
       what: tools/check_dashes.py, which blocks em dashes and spaced en dashes in this repo.
     - id: s3
@@ -348,7 +348,7 @@ never:
     case_sensitive: false
     franchise: warcraft
   - term: Bel'ameth
-    pattern: '\bbel'?ameth\b'
+    pattern: '\bbel''?ameth\b'
     case_sensitive: false
     franchise: warcraft
   - term: Stromgarde

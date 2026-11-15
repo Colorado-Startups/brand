@@ -1,13 +1,13 @@
 # Colorado Startups brand
 
-The open source of the Colorado Startups brand: strategy, voice, world, tokens, logos, art direction and templates. Colorado first, with the State of Colorado's palette, real Front Range landmarks, and an original mountain-forge twist.
+The open source of the Colorado Startups brand: strategy, voice, world, tokens, logos, art direction and templates. Colorado first, with the State of Colorado's palette and real Front Range places transformed with magic, painted bright in a video-game style. All artwork is FIBO 2.0, video is LTX-2.5 and image motion is Rive (decision 37).
 
 ```mermaid
 flowchart LR
   D[data/*.yaml<br/>strategy · voice · world] --> B[tools/ build]
   T[tokens/*.yaml] --> B
-  L[logo/*.svg] --> B
-  B --> X[dist/<br/>CSS · DTCG JSON · JS · logos · BRAND.md]
+  B --> X[dist/<br/>tokens CSS and JSON · brand.json · logo · place and card images]
+  A[art/render/<br/>FIBO 2.0 on a ZeroGPU Space] --> X
   X --> G[Guide on GitHub Pages]
   X --> P[Templates]
   X --> C[Every other repo<br/>pins a release]

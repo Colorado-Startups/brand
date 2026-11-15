@@ -17,8 +17,8 @@ flowchart LR
 
 | Model | Licence | Verdict | Duties |
 |---|---|---|---|
-| **FIBO 2.0** (Bria), `briaai/Fibo-2.0-dev`, `-edit-turbo` | Bria FIBO 2 Free plan: self-hosted, buyers under $2M revenue, 2,000 calls a month free, IP warranty on outputs. Card required; $0.04 per call above 2,000, never blocked (platform.bria.ai pricing, read 2026-11-13) | **✓ up to 1,950 calls a month** (decision 35; spend exception in the account overlay). Run `python3 tools/fibo_budget.py reserve N` before each batch. The open weights without the plan are CC BY-NC 4.0: ✗ | Keep Bria's attribution, watermark and metadata. Never train on outputs. Mark every picture AI-made by an industry standard (Bria's terms); we use IPTC `DigitalSourceType`. Feed in only the Hall's own art |
-| **LTX-2.5** (Lightricks), image-to-video and first-last-frame | LTX-2.x Community License (2026-08-11): commercial use free under $10M revenue, counted across companies under common control (§1.3, §1.6, §2.1) | **✓** The company is under the line (owner, 2026-11-02; confirmed yearly) | Label clips machine-generated (Att. A item 5). Keep watermarks and provenance (§6, item 19). Never train on outputs (item 18). No commercial fine-tune without a paid licence (§2.2(c)). Real places shown as they are. Follow `art/motion.md` |
+| **FIBO 2.0** (Bria), `briaai/Fibo-2.0-dev`, `-edit-turbo` | Bria FIBO 2 Free plan: self-hosted, buyers under $2M revenue, 2,000 calls a month free, IP warranty on outputs. Card required; $0.04 per call above 2,000, never blocked (platform.bria.ai pricing, read 2026-11-13) | **✓ up to 1,950 calls a month** (decision 35; spend exception in the account overlay). Run `python3 tools/fibo_budget.py reserve N` before each batch. The open weights without the plan are CC BY-NC 4.0: ✗ | Keep Bria's attribution, watermark and metadata. Never train on outputs. Mark every picture AI-made by an industry standard (Bria's terms); we use IPTC `DigitalSourceType`. Feed in only images we hold the rights to: our own art and public-domain, CC0 or CC BY photos, never franchise art (decisions 38 and 44) |
+| **LTX-2.5** (Lightricks), image-to-video and first-last-frame | LTX-2.x Community License (2026-08-11): commercial use free under $10M revenue, counted across companies under common control (§1.3, §1.6, §2.1) | **✓** The company is under the line (owner, 2026-11-02; confirmed yearly) | Label clips machine-generated (Att. A item 5). Keep watermarks and provenance (§6, item 19). Never train on outputs (item 18). No commercial fine-tune without a paid licence (§2.2(c)). Follow `art/motion.md` |
 | **SeedVR2 3B** (ByteDance Seed), 2x upscale | Apache-2.0 (`ByteDance-Seed/SeedVR2-3B`, read 2026-11-02) | **✓** | An upscaled AI-made still stays AI-made |
 | **Anima** (CircleStone Labs) | Model use non-commercial; §2(e) lets the site use its images | Shipped website art stays; nothing new renders | Keep the AI-made label |
 
@@ -33,7 +33,7 @@ flowchart LR
 | Bria's hosted API and website | Up to $6.00 of the $7.00 free credit (decision 42): $0.032 per FIBO generation or edit (bria.ai/pricing); Bria bills the card automatically at $0 (platform.bria.ai, read 2026-11-14), so `tools/fibo_budget.py reserve-bria N` refuses past $6.00. Not wired yet | `art/bria-credit.yaml`; read Bria's Credits page before and after |
 | This Mac | ✗ no video, no GPU | `rules/compute.md` |
 
-Each render batch runs after one yes in chat with its estimate.
+Each render batch runs after one yes in chat with its estimate, or under the finish plan's standing yes of at most 60 FIBO calls (decision 48).
 
 ## Not used
 
@@ -44,7 +44,6 @@ No SVG or hand-drawn artwork ships (decision 37); data charts are not artwork.
 | MiniMax H3 | Its licence excludes the United States |
 | Qwen-Image, Qwen-Image Edit | FIBO 2.0 makes the edits |
 | Z-Image, Krea 2 | Not used (Paul, 2026-10-18) |
-| Comfy Cloud Bria nodes | Superseded by decision 31 |
 
 ## Duties before anything ships
 

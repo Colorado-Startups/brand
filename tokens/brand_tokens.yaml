@@ -1,0 +1,213 @@
+# Colorado Startups design tokens, v3. The one source of dist/tokens.css and dist/tokens.json.
+# Built by tools/build_guide_data.py. Edit here, never in dist/.
+#
+# Direction (decision 29): the State of Colorado palette leads the UI. A value written "@Blue" is the State primary
+# of that name in research/color/state.yaml; any other value is a tint or shade of one primary, named in its why.
+# The forge glow and the fantasy twist stay in the art, so no token here is gold-on-white or a glow color.
+#
+# Role names, space, radius, line and size values are v2's (baseline/v2/brand_tokens.yaml), so the website's code
+# keeps working. Only color values changed. The type scale is v2's, carried in tokens/type.yaml.
+#
+# Each color role has light, optional night (the dark theme; the guide's night theme in guide/public/guide.css) and
+# a one-line why. A role with no night value keeps its light value in the dark theme. The contrast blocks record
+# the WCAG 2.2 ratio of every text and UI pairing; the builder recomputes each one and fails on any drift or any
+# ratio under its min (4.5 for text, 3 for large text and UI parts).
+#
+# Not carried over from v2: the texture block. It limits art tiles that the website draws itself, and the art is
+# not a token. The website keeps its own limits next to its tiles.
+
+color:
+  # Grounds and surfaces
+  ground:         {light: "#FFFFFF", night: "#000A33", why: "Page ground: white, as on the State's own pages; night is State Blue taken to near black."}
+  surface:        {light: "#F2F4F8", night: "#061450", why: "Panels and cards: a 5% tint of State Blue on white; a deeper Blue at night."}
+  surface-2:      {light: "#E6E8F1", night: "#0D1F66", why: "Raised surface, hover and section band: a 10% tint of State Blue; one step lighter than surface at night."}
+  rule:           {light: "#D6DAE8", night: "#26357A", why: "Decorative rules only, never a UI boundary: a 16% tint of State Blue; the guide's night line."}
+  border:         {light: "#6675A9", night: "#7482C2", why: "Form fields and UI boundaries: a 60% tint of State Blue, dark enough for 3:1 on every ground."}
+  # Text
+  text:           {light: "@Blue", night: "#F4F6FF", why: "Body text: State Blue; the guide's near-white ink at night."}
+  text-dim:       {light: "#384C8F", night: "#B8C2E8", why: "Secondary text: a 78% tint of State Blue; the guide's muted ink at night."}
+  # Accent
+  accent:         {light: "@Yellow", why: "Fill for buttons and highlights: State Yellow, always behind Blue text and never text on white."}
+  accent-deep:    {light: "#E0B800", why: "Pressed accent: State Yellow at 88% brightness."}
+  on-accent:      {light: "@Blue", why: "Text on Yellow: State Blue, the pairing the State guide sets for Yellow."}
+  # Links and status
+  link:           {light: "@Red", night: "@Yellow", why: "Links: State Red, underlined at rest so color is never the only cue; State Yellow at night."}
+  community:      {light: "@Right Mountain Teal", night: "#86A2B2", why: "Community links and tags: State Right Mountain Teal, set apart from the Red links; a 60% tint at night."}
+  fire:           {light: "@Red", night: "#DE738D", why: "Warm accent for decoration and large text; the forge glow itself stays in the art (decision 29)."}
+  focus:          {light: "@Blue", night: "@Yellow", why: "Keyboard focus ring: State Blue on light grounds, State Yellow at night."}
+  danger:         {light: "@Red", night: "#E48CA1", why: "Form errors: State Red, always shown with words or an icon; a 55% tint toward white at night."}
+  # Night band: the dark footer and city-lights sections, dark in both themes
+  night:          {light: "#000A33", night: "#00061F", why: "Dark band for footers and city lights: State Blue at 45% brightness; deeper in the night theme so the band still shows."}
+  on-night:       {light: "#FFFFFF", why: "Text on the night band: white."}
+  on-night-dim:   {light: "#B8C2E8", why: "Secondary text on the night band: the guide's muted night ink."}
+  gold-on-night:  {light: "@Yellow", why: "Links and accents on the night band: State Yellow (the name is v2's)."}
+  focus-on-night: {light: "@Yellow", why: "Keyboard focus ring on the night band: State Yellow."}
+  danger-on-night: {light: "#E48CA1", why: "Errors on the night band: State Red tinted 55% toward white."}
+  night-ceiling:  {light: "@Blue", why: "Lightest pixel a night-stone tile may paint, decoration only: State Blue."}
+  # Logo context
+  brand-teal:     {light: "@Right Mountain Teal", why: "Logo context only: State Right Mountain Teal stands in for the 2014 teal; logo files carry their own colors."}
+  brand-purple:   {light: "@Purple", why: "Logo context only: State Purple stands in for the 2014 purple; logo files carry their own colors."}
+  # Hall materials (v2, L12)
+  stone:          {light: "#E3E9ED", night: "#0A1A5C", why: "Carved stone face for lintels and stone panels: a 14% tint of State Right Mountain Teal."}
+  stone-edge:     {light: "#AEC1CB", night: "#3A4A8F", why: "Carved edge and the ledge under stone, decoration only: a 40% tint of State Right Mountain Teal."}
+  bronze:         {light: "@Purple", why: "Secondary buttons and plaques: State Purple, the warmest State hue after Red."}
+  bronze-deep:    {light: "#4E2A43", why: "Bronze ledge and pressed bronze: State Purple at 72% brightness."}
+  on-bronze:      {light: "#FFFFFF", why: "Text on bronze: white."}
+  accent-ledge:   {light: "#B29200", why: "The forged ledge under Yellow, decoration only: State Yellow at 70% brightness."}
+  molten:         {light: "#FFE673", why: "Highlight in gradients: State Yellow tinted 45% toward white."}
+  brass:          {light: "@Left Mountain Green", why: "Gears and rivets, decoration only: State Left Mountain Green, the olive that reads as brass."}
+  # Tag washes: a light ground paired with one ink, for badges
+  sky-wash:       {light: "#EBF0F2", night: "#101E26", why: "Badge ground for community ink: a 10% tint of State Right Mountain Teal; the same Teal at 30% brightness at night."}
+  copper-wash:    {light: "#FAEBEE", night: "#37000D", why: "Badge ground for link ink: an 8% tint of State Red; the same Red at 28% brightness at night."}
+  pine:           {light: "@Tree Green", night: "#87A692", why: "Ink for nature and green status: State Tree Green; a 55% tint at night."}
+  pine-wash:      {light: "#E9EFEB", night: "#0B1C11", why: "Badge ground for pine ink: a 10% tint of State Tree Green; the same Green at 30% brightness at night."}
+
+# Old names from the dark v1 palette, kept as v2 kept them so lane code written against them still renders.
+alias:
+  deepstone: ground
+  granite: surface
+  granite-2: surface-2
+  strata: rule
+  border-strong: border
+  quartz: text
+  quartz-dim: text-dim
+  gold: accent
+  gold-deep: accent-deep
+  ember: fire
+  glacier: community
+  twilight: brand-purple
+
+space:
+  "1": "4px"
+  "2": "8px"
+  "3": "12px"
+  "4": "16px"
+  "5": "24px"
+  "6": "32px"
+  "7": "48px"
+  "8": "64px"
+  "9": "96px"
+
+radius:
+  chisel: "4px"            # buttons, inputs: cut stone, not pills
+  card: "10px"             # panels and image frames
+  none: "0"
+  bevel: "14px"            # stone panels, cards, callouts (where corner-shape is supported, corners are cut flat)
+  bevel-sm: "8px"          # buttons and badges
+
+# Line widths, for borders, rules, underlines and focus rings.
+line:
+  hair: "1px"              # field borders, chips, carved grooves; a link's resting underline
+  edge: "2px"              # carved edges of panels, cards and buttons; a hovered link's underline
+  bold: "3px"              # the focus ring, gilded edges, rules, a hovered card title
+
+# Fixed sizes for depth, targets, controls and the page column.
+size:
+  ledge: "4px"             # depth of the solid ledge under a raised material
+  ring-offset: "3px"       # gap between an element and its focus ring
+  tap: "44px"              # smallest standalone target (WCAG 2.2 SC 2.5.5, 44 by 44)
+  control: "48px"          # button height
+  control-lg: "56px"       # hero button height
+  check: "1.25rem"         # checkbox and radio box: rem, never the control font's em
+  wrap: "1180px"           # widest content column
+
+# Shadows. glow is State Blue, not the v2 gold. The ledges are solid, the chunky painted depth of the Hall, and name
+# a color token, so they follow the theme. A shadow may use a length from size and a color from color by var().
+shadow:
+  glow: "0 10px 30px rgb(0 25 112 / 0.16)"          # soft lift under raised items
+  edge: "inset 0 1px 0 rgb(255 255 255 / 0.6)"      # lit top edge on panels
+  ledge: "0 var(--size-ledge) 0 var(--c-stone-edge)"          # under carved stone
+  ledge-gold: "0 var(--size-ledge) 0 var(--c-accent-ledge)"   # under forged gold (State Yellow)
+  ledge-bronze: "0 var(--size-ledge) 0 var(--c-bronze-deep)"  # under hammered bronze
+
+contrast:  # light theme: every text and UI pairing the components use; min 4.5 for text, 3 for large text and UI parts
+  - { fg: text, bg: ground, ratio: 15.29, min: 4.5 }
+  - { fg: text-dim, bg: ground, ratio: 8.08, min: 4.5 }
+  - { fg: link, bg: ground, ratio: 6.25, min: 4.5 }
+  - { fg: community, bg: ground, ratio: 6.41, min: 4.5 }
+  - { fg: text, bg: surface, ratio: 13.89, min: 4.5 }
+  - { fg: text-dim, bg: surface, ratio: 7.34, min: 4.5 }
+  - { fg: link, bg: surface, ratio: 5.67, min: 4.5 }
+  - { fg: community, bg: surface, ratio: 5.82, min: 4.5 }
+  - { fg: text, bg: surface-2, ratio: 12.51, min: 4.5 }
+  - { fg: text-dim, bg: surface-2, ratio: 6.61, min: 4.5 }
+  - { fg: link, bg: surface-2, ratio: 5.11, min: 4.5 }
+  - { fg: community, bg: surface-2, ratio: 5.24, min: 4.5 }
+  - { fg: text, bg: stone, ratio: 12.49, min: 4.5 }
+  - { fg: text-dim, bg: stone, ratio: 6.60, min: 4.5 }
+  - { fg: link, bg: stone, ratio: 5.10, min: 4.5 }
+  - { fg: community, bg: stone, ratio: 5.23, min: 4.5 }
+  - { fg: danger, bg: ground, ratio: 6.25, min: 4.5 }
+  - { fg: danger, bg: surface, ratio: 5.67, min: 4.5 }
+  - { fg: danger, bg: stone, ratio: 5.10, min: 4.5 }
+  - { fg: fire, bg: ground, ratio: 6.25, min: 3 }
+  - { fg: fire, bg: surface, ratio: 5.67, min: 3 }
+  - { fg: on-accent, bg: accent, ratio: 10.47, min: 4.5 }
+  - { fg: on-accent, bg: molten, ratio: 12.25, min: 4.5 }
+  - { fg: on-accent, bg: accent-deep, ratio: 8.03, min: 4.5 }
+  - { fg: on-bronze, bg: bronze, ratio: 8.70, min: 4.5 }
+  - { fg: on-bronze, bg: bronze-deep, ratio: 12.10, min: 4.5 }
+  - { fg: ground, bg: link, ratio: 6.25, min: 4.5 }
+  - { fg: ground, bg: community, ratio: 6.41, min: 4.5 }
+  - { fg: on-night, bg: night, ratio: 19.24, min: 4.5 }
+  - { fg: on-night-dim, bg: night, ratio: 10.92, min: 4.5 }
+  - { fg: gold-on-night, bg: night, ratio: 13.17, min: 4.5 }
+  - { fg: danger-on-night, bg: night, ratio: 7.85, min: 4.5 }
+  - { fg: on-night, bg: night-ceiling, ratio: 15.29, min: 4.5 }
+  - { fg: on-night-dim, bg: night-ceiling, ratio: 8.68, min: 4.5 }
+  - { fg: community, bg: sky-wash, ratio: 5.58, min: 4.5 }
+  - { fg: link, bg: copper-wash, ratio: 5.41, min: 4.5 }
+  - { fg: pine, bg: pine-wash, ratio: 6.68, min: 4.5 }
+  - { fg: border, bg: ground, ratio: 4.48, min: 3 }
+  - { fg: border, bg: surface, ratio: 4.07, min: 3 }
+  - { fg: border, bg: stone, ratio: 3.66, min: 3 }
+  - { fg: focus, bg: ground, ratio: 15.29, min: 3 }
+  - { fg: focus, bg: surface, ratio: 13.89, min: 3 }
+  - { fg: focus, bg: stone, ratio: 12.49, min: 3 }
+  - { fg: focus-on-night, bg: night, ratio: 13.17, min: 3 }
+
+contrast-night:  # night theme: the same pairs on the night values (a role with no night value keeps its light one)
+  - { fg: text, bg: ground, ratio: 17.85, min: 4.5 }
+  - { fg: text-dim, bg: ground, ratio: 10.92, min: 4.5 }
+  - { fg: link, bg: ground, ratio: 13.17, min: 4.5 }
+  - { fg: community, bg: ground, ratio: 7.17, min: 4.5 }
+  - { fg: text, bg: surface, ratio: 15.91, min: 4.5 }
+  - { fg: text-dim, bg: surface, ratio: 9.74, min: 4.5 }
+  - { fg: link, bg: surface, ratio: 11.75, min: 4.5 }
+  - { fg: community, bg: surface, ratio: 6.39, min: 4.5 }
+  - { fg: text, bg: surface-2, ratio: 13.86, min: 4.5 }
+  - { fg: text-dim, bg: surface-2, ratio: 8.48, min: 4.5 }
+  - { fg: link, bg: surface-2, ratio: 10.23, min: 4.5 }
+  - { fg: community, bg: surface-2, ratio: 5.57, min: 4.5 }
+  - { fg: text, bg: stone, ratio: 14.81, min: 4.5 }
+  - { fg: text-dim, bg: stone, ratio: 9.06, min: 4.5 }
+  - { fg: link, bg: stone, ratio: 10.93, min: 4.5 }
+  - { fg: community, bg: stone, ratio: 5.95, min: 4.5 }
+  - { fg: danger, bg: ground, ratio: 7.85, min: 4.5 }
+  - { fg: danger, bg: surface, ratio: 7.00, min: 4.5 }
+  - { fg: danger, bg: stone, ratio: 6.51, min: 4.5 }
+  - { fg: fire, bg: ground, ratio: 6.36, min: 3 }
+  - { fg: fire, bg: surface, ratio: 5.67, min: 3 }
+  - { fg: on-accent, bg: accent, ratio: 10.47, min: 4.5 }
+  - { fg: on-accent, bg: molten, ratio: 12.25, min: 4.5 }
+  - { fg: on-accent, bg: accent-deep, ratio: 8.03, min: 4.5 }
+  - { fg: on-bronze, bg: bronze, ratio: 8.70, min: 4.5 }
+  - { fg: on-bronze, bg: bronze-deep, ratio: 12.10, min: 4.5 }
+  - { fg: ground, bg: link, ratio: 13.17, min: 4.5 }
+  - { fg: ground, bg: community, ratio: 7.17, min: 4.5 }
+  - { fg: on-night, bg: night, ratio: 20.08, min: 4.5 }
+  - { fg: on-night-dim, bg: night, ratio: 11.40, min: 4.5 }
+  - { fg: gold-on-night, bg: night, ratio: 13.74, min: 4.5 }
+  - { fg: danger-on-night, bg: night, ratio: 8.19, min: 4.5 }
+  - { fg: on-night, bg: night-ceiling, ratio: 15.29, min: 4.5 }
+  - { fg: on-night-dim, bg: night-ceiling, ratio: 8.68, min: 4.5 }
+  - { fg: community, bg: sky-wash, ratio: 6.33, min: 4.5 }
+  - { fg: link, bg: copper-wash, ratio: 12.30, min: 4.5 }
+  - { fg: pine, bg: pine-wash, ratio: 6.65, min: 4.5 }
+  - { fg: border, bg: ground, ratio: 5.24, min: 3 }
+  - { fg: border, bg: surface, ratio: 4.67, min: 3 }
+  - { fg: border, bg: stone, ratio: 4.35, min: 3 }
+  - { fg: focus, bg: ground, ratio: 13.17, min: 3 }
+  - { fg: focus, bg: surface, ratio: 11.75, min: 3 }
+  - { fg: focus, bg: stone, ratio: 10.93, min: 3 }
+  - { fg: focus-on-night, bg: night, ratio: 13.74, min: 3 }
