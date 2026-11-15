@@ -41,19 +41,19 @@
 #                   with the u flag, and carries no inline flags.
 #   case_sensitive  false: match ignoring case.
 #   franchise       an id from `franchises`.
-# Order and patterns match the website rule exactly. To rebuild that rule's
+# The first block matches the website rule exactly. To rebuild that rule's
 # regex: join the case-insensitive patterns with "|" inside "(?i:" and ")",
-# then append "|" and the case-sensitive patterns joined with "|". The PR
-# that added this file proves the rebuild matches byte for byte.
+# then append "|" and the case-sensitive patterns joined with "|".
 #
-# The research digest behind the brand names no franchise term this list
-# misses. It notes that bare "Zelda" does not block; that is on purpose (see
-# watch), so this list adds nothing beyond the website rule.
+# The last block (decision 50) adds the names decision 44's places, peoples
+# and heroes and decision 39's characters were drawn from. tools/franchise_gate.py
+# joins the whole list to the vendored website rule. Bare "Zelda" and "Link"
+# stay out on purpose (see watch); "Linken" is decision 39's own name.
 
 meta:
   version: v3 draft
   owner: S3 Voice and words
-  updated: "2026-11-04"
+  updated: "2026-11-14"
   sources:
     - id: web-franchise-rule
       what: The website's franchise-name rule in 04_tools/cs_site_rules.json, origin/main c6f10bc, read 2026-11-02. Its _note gives the reason for each case-sensitive term and each name left out.
@@ -91,6 +91,10 @@ franchises:
       generic: a classic adventure game's fire mountain and its town
     - id: tolkien
       generic: high fantasy's mountain dwarves
+    - id: pokemon
+      generic: a creature-collecting game's linked-boulder serpent
+    - id: wizarding
+      generic: a wizard school story's crimson-and-gold phoenix
 
 never:
   # Case-insensitive, in the website rule's order.
@@ -324,6 +328,141 @@ never:
     pattern: '\bMisty\s+Mountains\b'
     case_sensitive: true
     franchise: tolkien
+  # Decision 50: the sources of decision 44's places, peoples and heroes and
+  # decision 39's characters. Case-sensitive only where the lowercase words are
+  # ordinary English ("a shire horse", "an aerie peak", "a jade serpent").
+  - term: Valdrakken
+    pattern: '\bvaldrakken\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Hyjal
+    pattern: '\bhyjal\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Darnassus
+    pattern: '\bdarnassus\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Teldrassil
+    pattern: '\bteldrassil\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Bel'ameth
+    pattern: '\bbel'?ameth\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Stromgarde
+    pattern: '\bstromgarde\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Wildhammer
+    pattern: '\bwildhammers?\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Tinkertown
+    pattern: '\btinkertown\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Mechanostrider
+    pattern: '\bmechanostriders?\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Dracthyr
+    pattern: '\bdra[ck]thyr\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Night elves
+    pattern: '\bnight\s+el(?:f|ves|ven)\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Mimiron
+    pattern: '\bmimiron\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Halduron
+    pattern: '\bhalduron\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Gelbin
+    pattern: '\bgelbin\b'
+    case_sensitive: false
+    franchise: warcraft
+  - term: Noldor
+    pattern: '\bnoldor\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Sindar
+    pattern: '\bsindar(?:in)?\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Rohirrim
+    pattern: '\brohirrim\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Edoras
+    pattern: '\bedoras\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Minas Tirith
+    pattern: '\bminas\s+tirith\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Lothlorien
+    pattern: '\blothl[oó]rien\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Shadowfax
+    pattern: '\bshadowfax\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Gwaihir
+    pattern: '\bgwaihir\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Windlord
+    pattern: '\bwindlord\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Smaug
+    pattern: '\bsmaug\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Samwise
+    pattern: '\bsamwise\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Legolas
+    pattern: '\blegolas\b'
+    case_sensitive: false
+    franchise: tolkien
+  - term: Pokémon
+    pattern: '\bpok[eé]mon\b'
+    case_sensitive: false
+    franchise: pokemon
+  - term: Onix
+    pattern: '\bonix\b'
+    case_sensitive: false
+    franchise: pokemon
+  - term: Harry Potter
+    pattern: '\bharry\s+potter\b'
+    case_sensitive: false
+    franchise: wizarding
+  - term: Fawkes
+    pattern: '\bfawkes\b'
+    case_sensitive: false
+    franchise: wizarding
+  - term: the Shire
+    pattern: '\b[Tt]he\s+Shire\b'
+    case_sensitive: true
+    franchise: tolkien
+  - term: Aerie Peak
+    pattern: '\bAerie\s+Peak\b'
+    case_sensitive: true
+    franchise: warcraft
+  - term: Jade Serpent
+    pattern: '\bJade\s+Serpent\b'
+    case_sensitive: true
+    franchise: warcraft
 
 never_samples:
   source: web-franchise-rule
@@ -389,6 +528,32 @@ never_samples:
     - Like Breath of the Wild.
     - Like Tears of the Kingdom.
     - A trip to Middle Earth.
+    - Dragons over Valdrakken.
+    - Snow on Mount Hyjal.
+    - The gates of Stromgarde.
+    - Aerie Peak gryphons.
+    - A Wildhammer town.
+    - Built like New Tinkertown.
+    - Ride a mechanostrider.
+    - Night elves walk the bridge.
+    - The Noldor of the west.
+    - Riders of the Rohirrim.
+    - The hall of Edoras.
+    - Pipes in the Shire.
+    - Shadowfax runs the plain.
+    - Gwaihir the Windlord.
+    - Smaug the Golden.
+    - Samwise carries the pack.
+    - A Legolas-style ranger.
+    - Mimiron's workshop.
+    - Halduron's rangers.
+    - A rock serpent like Onix.
+    - A Pokémon cave.
+    - The phoenix Fawkes.
+    - A Harry Potter feel.
+    - The Jade Serpent rises.
+    - A Darnassus tree.
+    - Gelbin's gnomes.
   miss:
     - Founders forge great companies here.
     - A blizzard closed I-70 on Tuesday.
@@ -411,6 +576,13 @@ never_samples:
     - A death mountain of paperwork.
     - A breath of the wild air.
     - The tears of the kingdom ran dry.
+    - Linken, a gnome hero.
+    - Legallas, an elf ranger.
+    - Take a gyrocopter over the peaks.
+    - Shire horses graze near Loveland.
+    - An aerie peak above the canyon.
+    - A jade serpent coils on the vase.
+    - A night shift at the elf shop.
 
 watch:
   rule: Never use these as a Hall name, place, material, title or item. Each stays out of `never` because it is also a real name or a common word, and a gate blocks only on the certain. A gate may warn on them.
