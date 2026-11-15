@@ -11,7 +11,7 @@
 
 | Tier | Files | Use |
 |---|---|---|
-| 1 Emblem | `emblem-512.png`, `emblem-1024.png`: the 2014 shield forged in gold and steel, no text | Avatars (GitHub org, LinkedIn, Slack) and Hall cards, at 128 px and up |
+| 1 Emblem | `emblem-512.png`, `emblem-1024.png`: the 2014 shield forged in gold and steel, no text | Avatars (GitHub org, LinkedIn, Slack) and the website's cards, at 128 px and up |
 | 2 Wordmark | `wordmark-blue.png`, `wordmark-white.png`: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, at any width |
 | 3 Icon | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png`: a white shield on State blue | Favicon, app icons and tiny avatars |
 

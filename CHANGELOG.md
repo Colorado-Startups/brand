@@ -4,6 +4,20 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-11-15
+
+No single Hall: the places are equals (decision 58). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Changed
+- **Breaking:** `dist/hall/` is now `dist/website/`, with the same file names.
+- **Breaking:** in `dist/brand.json`, the register id `hall` is now `community`, and the lockup key `outpost` is now `region`. Architecture nodes `outpost-*` are now `region-*`, and the keepers sit under `colorado-startups`.
+- The region lockup is "Colorado Startups · {Place}", with no "Outpost" (`naming.region-names`).
+- Publicus is "Herald of Colorado Startups".
+
+### Removed
+- The Hall, as a place, a register name and a brand-tree node (`the-hall`).
+- The Hall's rooms: the Great Hall of the Community, the Map Room, the Leaderboard gallery and the forge. Each website page takes its plain name.
+
 ## [3.1.1] - 2026-11-15
 
 The two renders `v3.0.0` left open. Checksums for every file in `dist/` are in the GitHub release notes.

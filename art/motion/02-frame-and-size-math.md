@@ -1,4 +1,4 @@
-# Motion: LTX-2.5 rules for the Hall's clips: Frame and size math
+# Motion: LTX-2.5 rules for the website's clips: Frame and size math
 
 Part 2 of 4 of [`motion.md`](../motion.md).
 
@@ -18,7 +18,7 @@ LTX-2.5 needs a frame count where `frames % 8 == 1`, and a width and height that
 
 For the home hero's loop, from its approved still:
 
-> The great hall stays still as warm lantern light slowly rises and falls across the carved granite arches. Small embers drift upward from the hearth on the right and fade before they reach the beams. The molten-gold channel in the floor glows a little brighter, then softer, like slow breathing. The founders at the long table lean in and nod as they talk, with small, natural movements. The long banners sway gently in a light draft. The camera holds still at eye level, with no cuts.
+> The Flatirons stay still as warm evening light slowly rises and falls across the red rock. Small lanterns along the bridges flicker, then glow steady. Thin mist drifts slowly through the pines below the city. The people crossing the near bridge walk on with small, natural movements. The long banners on the towers sway gently in a light breeze. The camera holds still at eye level, with no cuts.
 
 ## Encoding
 

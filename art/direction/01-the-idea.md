@@ -26,3 +26,4 @@ All artwork is FIBO 2.0 and none is SVG. Video is LTX-2.5 and image motion is Ri
 | Hosted workflow nodes, each run waiting for a yes | The own ZeroGPU Space first, Modal second, Bria's hosted credit third (decisions 41 and 42) |
 | Marks drawn as SVG | The logo is FIBO 2.0 raster, in three tiers (decisions 37 and 48) |
 | Anima prompt files, then VGL templates for the Hall | The shipped prompts live in `art/render/fibo_cards.py`; the VGL templates wait for the deferred art |
+| One Hall where the whole community gathers, with rooms for each page | No single Hall: the places are equals, and each website page takes its plain name (decision 58) |

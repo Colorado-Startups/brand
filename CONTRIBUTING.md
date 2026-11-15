@@ -32,9 +32,9 @@ flowchart TD
 
 Typo and docs fixes are welcome as pull requests. Anything that changes how the brand looks or sounds starts as an issue, because the orchestrator makes and logs that call.
 
-## Outposts and volunteers
+## Regions and volunteers
 
-Keep the name as the lockup writes it ("Colorado Startups · Golden Outpost") and start from a template. Never redraw the logo, recolor it or pick new fonts. Ask in an issue and Claude makes what you need.
+Keep the name as the lockup writes it ("Colorado Startups · Golden") and start from a template. Never redraw the logo, recolor it or pick new fonts. Ask in an issue and Claude makes what you need.
 
 ## Never
 

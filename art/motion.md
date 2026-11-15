@@ -1,4 +1,4 @@
-# Motion: LTX-2.5 rules for the Hall's clips
+# Motion: LTX-2.5 rules for the website's clips
 
 *S7, 2026-11-02.*
 

@@ -47,7 +47,7 @@ color:
   # Logo context
   brand-teal:     {light: "@Right Mountain Teal", why: "Logo context only: State Right Mountain Teal stands in for the 2014 teal; logo files carry their own colors."}
   brand-purple:   {light: "@Purple", why: "Logo context only: State Purple stands in for the 2014 purple; logo files carry their own colors."}
-  # Hall materials (v2, L12)
+  # World materials (v2, L12)
   stone:          {light: "#E3E9ED", night: "#0A1A5C", why: "Carved stone face for lintels and stone panels: a 14% tint of State Right Mountain Teal."}
   stone-edge:     {light: "#AEC1CB", night: "#3A4A8F", why: "Carved edge and the ledge under stone, decoration only: a 40% tint of State Right Mountain Teal."}
   bronze:         {light: "@Purple", why: "Secondary buttons and plaques: State Purple, the warmest State hue after Red."}
@@ -111,7 +111,7 @@ size:
   check: "1.25rem"         # checkbox and radio box: rem, never the control font's em
   wrap: "1180px"           # widest content column
 
-# Shadows. glow is State Blue, not the v2 gold. The ledges are solid, the chunky painted depth of the Hall, and name
+# Shadows. glow is State Blue, not the v2 gold. The ledges are solid, the chunky painted depth of the world art, and name
 # a color token, so they follow the theme. A shadow may use a length from size and a color from color by var().
 shadow:
   glow: "0 10px 30px rgb(0 25 112 / 0.16)"          # soft lift under raised items

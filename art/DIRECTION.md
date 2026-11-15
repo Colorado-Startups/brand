@@ -6,14 +6,14 @@
 
 | Part | Sections | Words |
 |---|---|---|
-| 1 | [The idea; What changed from v4](direction/01-the-idea.md) | 389 |
+| 1 | [The idea; What changed from v4](direction/01-the-idea.md) | 421 |
 | 2 | [The five places; Borrow and blend; What binds](direction/02-the-five-places.md) | 459 |
 | 3 | [The look; Each place's colors; How a place is made](direction/03-the-look.md) | 529 |
 | 4 | [Characters and cards; Status; Layout](direction/04-characters-and-cards.md) | 390 |
 | 5 | [Palette by token role](direction/05-palette-by-token-role.md) | 349 |
-| 6 | [Inside the Hall](direction/06-inside-the-doors-the-hall.md) | 200 |
+| 6 | [Inside the Hall (retired, decision 58)](direction/06-inside-the-doors-the-hall.md) | 242 |
 | 7 | [The towns](direction/07-the-towns.md) | 333 |
-| 8 | [Real places; Image inputs](direction/08-real-places.md) | 74 |
+| 8 | [Real places; Image inputs](direction/08-real-places.md) | 73 |
 | 9 | [The keepers](direction/09-the-keepers.md) | 276 |
 | 10 | [Prompts: FIBO 2.0 in VGL; Motion](direction/10-prompts-fibo-2-0-in-vgl.md) | 508 |
 | 11 | [Renders and runs; Texture tiles; Files; Sources](direction/11-renders-and-runs.md) | 585 |
