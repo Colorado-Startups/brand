@@ -14,7 +14,6 @@ The website builds the component (W3). This sketch shows the rules in place. The
     <source data-src="hall.mp4" type="video/mp4">
   </video>
   <button type="button" class="hall-clip__pause" aria-pressed="false" hidden>Pause motion</button>
-  <figcaption class="hall-clip__label">AI-made</figcaption>
 </figure>
 <script>
   // The clip loads only when the reader has no reduced-motion preference (rule 4).
@@ -43,12 +42,12 @@ The website builds the component (W3). This sketch shows the rules in place. The
 .hall-clip__pause { position: absolute; right: 0.5rem; bottom: 0.5rem; min-width: 24px; min-height: 24px; }
 ```
 
-The pause button is a real button, reachable by keyboard, at least 24 by 24 CSS pixels (WCAG 2.5.8). Its label stays "Pause motion"; `aria-pressed` says whether motion is paused.
+The pause button is a real button, reachable by keyboard, at least 24 by 24 CSS pixels (WCAG 2.5.8). Its label stays "Pause motion"; `aria-pressed` says whether motion is paused. The AI-made label rides in the clip's metadata, so the page shows no text chip on it (decision 46).
 
 ## Runs and records
 
-- **Lane.** Clips run on the $0 lanes in `art/LICENSES.md` (decision 31). Each batch waits for Paul's yes in chat, with the lane's balance read before and after (`~/.claude/rules/compute.md`).
+- **Lane.** Clips run on the $0 lanes in `art/LICENSES.md` (decision 31). Each batch waits for Paul's yes in chat, with the lane's balance read before and after (`~/.claude/rules/compute.md`). The finish plan's standing yes covers FIBO stills only (decision 48).
 - **Never on this Mac.** LTX-2.5 needs an NVIDIA GPU with at least 32 GB of memory (research digest), and the house rule bans local video.
-- **Queue.** Every planned clip is in `art/render-queue.yaml`, blocked on Paul's queue items 1 and 2.
+- **Queue.** Every planned clip is in `art/render-queue.yaml`, deferred until the stills they animate exist.
 - **Record.** Each clip keeps a provenance record beside it. It names the source still, the model, the template, the prompt, the seed, the frame count and the CFG. It also records the date, who approved the run, and the credit balance before and after.
 - **Refine and matte.** The LTX-2.5 IC-LoRAs for refining detail or cutting an alpha matte run under the same rules and the same license (`art/LICENSES.md`).

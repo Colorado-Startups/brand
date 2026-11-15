@@ -50,7 +50,7 @@ meta:
     - id: brand-decisions
       what: This repo's decisions.md, decisions 11 (registers) and 12 (community design).
     - id: claude-md
-      what: This repo's CLAUDE.md, "Rules that never bend".
+      what: This repo's CLAUDE.md, "What binds" (decision 38).
     - id: web-d21
       what: Website decision 21 (2026-10-08). The brand is gold, fire and light, never dark.
     - id: web-d43

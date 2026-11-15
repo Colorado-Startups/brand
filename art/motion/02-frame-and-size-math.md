@@ -27,11 +27,13 @@ Encoding is a light step; generating video never runs on this Mac (`~/.claude/ru
 ```sh
 # WebM (VP9), no audio, cropped to 1280 x 720
 ffmpeg -i ltx-output.mp4 -vf "crop=1280:720:0:8" -frames:v 232 -an \
-  -c:v libvpx-vp9 -b:v 0 -crf 40 -row-mt 1 -map_metadata 0 hall.webm
+  -c:v libvpx-vp9 -b:v 0 -crf 40 -row-mt 1 -map_metadata 0 \
+  -metadata comment="AI-made (LTX-2.5)" hall.webm
 # MP4 (H.264), no audio, for browsers without WebM
 ffmpeg -i ltx-output.mp4 -vf "crop=1280:720:0:8" -frames:v 232 -an \
   -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 28 \
-  -movflags +faststart -map_metadata 0 hall.mp4
+  -movflags +faststart -map_metadata 0 \
+  -metadata comment="AI-made (LTX-2.5)" hall.mp4
 ```
 
-**Provenance beats the size goal.** Check the first LTX-2.5 output for embedded provenance: a content-credentials manifest, metadata tags or a watermark. If it carries any, the shipped files must carry it too. If an encode drops it, ship a format that keeps it, and meet the size goal second (LTX-2.x license §6; Attachment A, item 19).
+**Provenance beats the size goal.** Check the first LTX-2.5 output for embedded provenance: a content-credentials manifest, metadata tags or a watermark. If it carries any, the shipped files must carry it too. If an encode drops it, ship a format that keeps it, and meet the size goal second (LTX-2.x license §6; Attachment A, item 19). The `-metadata comment` tag above is the AI-made label (decision 46); read it back with `ffprobe` after each encode.
