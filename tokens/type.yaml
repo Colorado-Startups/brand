@@ -1,5 +1,5 @@
 # The type in use. Each family names its licence (font licences are law).
-# The scale below is the v2 scale, carried over unchanged (decision 50): the website's code reads --t-step-* and
+# The scale below is the v2 scale, carried over unchanged (decision 51): the website's code reads --t-step-* and
 # --t-measure, so dropping them would break it. No new scale was cut; tools/build_guide_data.py writes it to
 # dist/tokens.css and dist/tokens.json.
 display:

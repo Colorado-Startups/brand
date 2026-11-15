@@ -79,5 +79,21 @@
 {"card": "golden", "seed": 51, "mode": "painted-wow", "photo": "table-mountains-golden-ccby.jpg", "attribution_status": 200, "attribution": "a907aed13c0544d3bf360c4b407ac7bd"},
 {"card": "denver", "seed": 51, "mode": "painted-wow", "photo": "denver-skyline-usfws-pd.jpg", "attribution_status": 200, "attribution": "4aa6f39c8b6144d78391ed594e9c6ca8"},
 {"card": "springs", "seed": 51, "mode": "painted-wow", "photo": "pikes-peak-colorado-springs-ccby.jpg", "attribution_status": 200, "attribution": "74b47b2de13b4b319f19c93320d33d5b"},
-{"card": "fortcollins", "seed": 51, "mode": "painted-wow", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "93427b1c602b41ebb09cdcb7a69dc8c9"}
+{"card": "fortcollins", "seed": 51, "mode": "painted-wow", "photo": "poudre-canyon-greyrock-ccby.jpg", "attribution_status": 200, "attribution": "93427b1c602b41ebb09cdcb7a69dc8c9"},
+{"card": "logo-a", "seed": 5, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "b305eb957b624d8baa1609a909f1cab3"},
+{"card": "logo-b", "seed": 5, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "89a0732bd7634afb9366f69ee4cb22f9"},
+{"card": "logo-c", "seed": 5, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "3ed257d0d3b2499caf7e13dcfc34d750"},
+{"card": "logo-i1", "seed": 5, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "80a8b76d9fe748f7bf8d5d20b2ec772e"},
+{"card": "logo-i2", "seed": 5, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "7f76fc92ea5d4d9abb9dbc865b61dead"},
+{"card": "logo-a", "seed": 9, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "c289e49c26e74ff0af4a8594f982d2cc"},
+{"card": "logo-b", "seed": 9, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "5c0636562df74bde992aa179baf86d11"},
+{"card": "logo-c", "seed": 9, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "0597dadc2b7049f0a8300b5b8d118cf2"},
+{"card": "logo-i1", "seed": 9, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "6796cfffc6f84dbbaed5ed086520fefe"},
+{"card": "logo-i2", "seed": 9, "mode": "logo", "photo": "baseline/v2/cs-logo-1500.png", "attribution_status": 200, "attribution": "40701cfc45084595bc8aefb5c45f804a"},
+{"card": "claudius", "seed": 7, "mode": "character-game", "attribution_status": 200, "attribution": "3fecca890ae748718b3159307229050f"},
+{"card": "link", "seed": 7, "mode": "character-game", "attribution_status": 200, "attribution": "673ea044d65a41948610c82375b6efd6"},
+{"card": "legallas", "seed": 7, "mode": "character-game", "attribution_status": 200, "attribution": "d98818979daf4ea288101978381d80cb"},
+{"card": "claudius", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "26845dd9332a42438b949b89f986365b"},
+{"card": "link", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "e542e41400214ba9ba777880e38d535d"},
+{"card": "legallas", "seed": 13, "mode": "character-game", "attribution_status": 200, "attribution": "42527bc9182a43d98bf5efdcec0c2dd3"}
 ]

@@ -1,6 +1,6 @@
 # tokens
 
-The design tokens: one source, two built files. Decision 50.
+The design tokens: one source, two built files. Decision 51.
 
 ```mermaid
 flowchart LR

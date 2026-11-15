@@ -13,7 +13,7 @@ Everything the [brand guide](https://colorado-startups.github.io/brand/) shows, 
 
 ## Tokens (`tokens.css`, `tokens.json`)
 
-The design tokens, built by `tools/build_guide_data.py` from `tokens/` (decision 50). The State of Colorado palette leads; every role name, space, radius, line and size value is the website's v2.
+The design tokens, built by `tools/build_guide_data.py` from `tokens/` (decision 51). The State of Colorado palette leads; every role name, space, radius, line and size value is the website's v2.
 
 | File | Holds |
 |---|---|
@@ -28,9 +28,23 @@ Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no ta
 |---|---|---|
 | `coloradostartups.org.jpg` | Boulder: the Flatirons transformed into an elven city of waterfalls, moon portals and a great tree, with dragons | Photo by Jimbo Herndan, [public domain](https://commons.wikimedia.org/wiki/File:Flatirons_2007.jpg) |
 | `brand.jpg` | Golden: Table Mountain transformed into a dwarven kingdom's forge gate, with steam carts and a boulder wyrm | Photo by James St. John, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) ([source](https://commons.wikimedia.org/wiki/File:Lava_flows_capping_North_Table_Mountain_%26_South_Table_Mountain_(Denver_Formation,_Upper_Cretaceous;_Golden,_Colorado,_USA).jpg)), edited |
-| `claudius.jpg` | Claudius, a gnome engineer and loyal companion | AI-made, no photo |
-| `link.jpg` | Linken, a gnome hero | AI-made, no photo |
-| `legallas.jpg` | Legallas, an elf ranger | AI-made, no photo |
+| `claudius.jpg` | Claudius, a gnome engineer and loyal companion, in the game style (decision 50) | AI-made, no photo |
+| `link.jpg` | Linken, a gnome hero, in the game style | AI-made, no photo |
+| `legallas.jpg` | Legallas, an elf ranger, in the game style | AI-made, no photo |
+| `photon-mountain.jpg` | The Denver painting, for the photon-mountain repo | Photo by USFWS Mountain-Prairie, [public domain](https://commons.wikimedia.org/wiki/File:Denver_Skyline_(15242286069).jpg) |
+| `space-peak.jpg` | The Colorado Springs painting, for the space-peak repo | Photo by Huttarl, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ([source](https://commons.wikimedia.org/wiki/File:Pikes_Peak_from_CO_Springs.jpg)), edited |
+| `fusion-canyon.jpg` | The Fort Collins painting, for the fusion-canyon repo | Photo by Charles Willgren, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) ([source](https://commons.wikimedia.org/wiki/File:Poudre_Canyon,_Greyrock_trail.jpg)), edited |
+| `startup-credits.jpg` | The Golden painting, for the startup-credits repo | Photo by James St. John, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), edited |
+
+## Logo (`logo/`, decision 50)
+
+Three tiers, built by `art/render/fibo_cards.py` (`logo`, then `logo_export`). The emblem and icon are FIBO 2.0 edits of the 2014 shield, labelled AI-made in each PNG's XMP; the wordmark is type. Reserved marks (`TRADEMARKS.md`).
+
+| File | Tier | Use |
+|---|---|---|
+| `emblem-512.png`, `emblem-1024.png` | Emblem: the 2014 shield forged in gold and steel, no text | Avatars (GitHub org, LinkedIn, Slack), Hall cards |
+| `wordmark-blue.png`, `wordmark-white.png` | Wordmark: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, any width |
+| `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 
 ## Places (`places/`, 1440×720 JPEG)
 
