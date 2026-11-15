@@ -447,10 +447,10 @@ CARD_TEXT = {
     "link": ("Linken", "A Colorado Startups project", "AI-made image"),
     "legallas": ("Legallas", "A Colorado Startups project", "AI-made image"),
 }
-CARD_ART = {"coloradostartups.org": "boulder-game-44", "brand": "golden-game-43", "claudius": "claudius-char-13",
+CARD_ART = {"coloradostartups.org": "boulder-wow-51", "brand": "golden-wow-51", "claudius": "claudius-char-13",
             "link": "link-char-7", "legallas": "legallas-char-7"}  # <source>-<kind>-<seed> in art/render/out/
-PLACE_ART = {"boulder": "boulder-game-44", "golden": "golden-game-43", "denver": "denver-game-43",
-             "springs": "springs-game-43", "fortcollins": "fortcollins-game-43"}  # <place>-<lean>-<seed> in art/render/out/
+PLACE_ART = {"boulder": "boulder-wow-51", "golden": "golden-wow-51", "denver": "denver-wow-51",
+             "springs": "springs-wow-51", "fortcollins": "fortcollins-wow-51"}  # <place>-<lean>-<seed> in art/render/out/
 PLACE_CREDIT = {
     "boulder": "AI-made image from a public-domain photo by Jimbo Herndan",
     "golden": "AI-made image from a photo by James St. John, CC BY 2.0",
@@ -522,7 +522,7 @@ def compose_all(cards_only: str = ""):
         raise SystemExit("compose_all: missing source render(s): " + ", ".join(missing))
     def prov(c):
         source, kind, seed = CARD_ART[c].rsplit("-", 2)
-        if kind in ("edit", "game", "film"):  # every place image starts from a real photo
+        if kind in ("edit", "game", "film", "wow"):  # every place image starts from a real photo
             return {"type": "compositeWithTrainedAlgorithmicMedia", "seed": int(seed), "source": f"edit of art/render/src/{EDITS[source]['photo']}"}
         return {"type": "trainedAlgorithmicMedia", "seed": int(seed), "source": "text to image"}
     for c, jpg in zip(names, (compose.starmap if LANE == "modal" else lambda xs: [compose.local(*x) for x in xs])([(src[c].read_bytes(), *CARD_TEXT[c], prov(c)) for c in names])):
