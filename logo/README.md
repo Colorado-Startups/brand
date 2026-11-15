@@ -7,7 +7,7 @@
 | Decided by | Decision 48 set the method and decision 50 chose the tiers. Decision 59 made the emblem a loud clan crest and added the banner, on Paul's call. Paul sees the winner and the two runners-up and may override it |
 | Built by | `art/render/fibo_cards.py`, entries `crest`, `banner`, `logo` and `logo_export` |
 | Rights | Reserved ([`TRADEMARKS.md`](../TRADEMARKS.md)) |
-| Status | Built. Paul's review of the winner is item 1 of [his queue](../governance/owners/02-paul-s-queue.md) |
+| Status | Built. Paul kept the winged crest on 2026-11-15 (decision 59) |
 
 | Tier | Files | Use |
 |---|---|---|
