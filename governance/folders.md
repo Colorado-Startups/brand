@@ -7,8 +7,8 @@
 | Folder | Owner | What lives there |
 |---|---|---|
 | `data/strategy.yaml`, `research/strategy/` | S1 Strategy | Purpose, mission, vision, values, promise, positioning, audiences, personas, messaging |
-| `data/architecture.yaml`, `data/world.yaml` | S2 Architecture and world | Brand tree, lockup rules, outposts, towns, crests, influence map |
-| `data/voice.yaml`, `data/words.yaml` | S3 Voice and words | Voice, tone by channel, Hall vocabulary, boilerplates, banned words, glossary |
+| `data/architecture.yaml`, `data/world.yaml` | S2 Architecture and world | Brand tree, lockup rules, regions, towns, crests, influence map |
+| `data/voice.yaml`, `data/words.yaml` | S3 Voice and words | Voice, tone by channel, lore vocabulary, boilerplates, banned words, glossary |
 | `concepts/` | S4 to S6, cut (decision 49) | The three concepts are not built; `concepts/README.md` says why |
 | `art/` | S7 Art and motion | Art direction, FIBO 2.0 prompt templates, keeper sheets, LTX-2.5 motion rules, licenses |
 | `guide/` | S8 Guide engine | The interactive guide on public GitHub Pages |

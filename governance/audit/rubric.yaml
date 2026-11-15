@@ -38,19 +38,19 @@ logo_needed: >
 channel_registers:
   basis: >
     Decision 11 names the Core channels (sponsors, the State, press, decks) and the
-    Hall channels (website, Slack, newsletter, events). Rows marked `assumed` are S11's
+    Community channels (website, Slack, newsletter, events; named by decision 58). Rows marked `assumed` are S11's
     working map for channels decision 11 does not name; data/architecture.yaml (S2)
     wins once it sets them.
   map:
-    website: {register: hall, basis: decision 11}
+    website: {register: community, basis: decision 11}
     og-cards: {register: the register of the page the card previews, basis: assumed}
     linkedin-kit: {register: core, basis: "assumed; sponsors and press read the Page"}
     email-signatures: {register: core, basis: "assumed; signatures reach sponsors and partners"}
     carousels: {register: either, basis: "assumed; the plan's S9 row makes LinkedIn carousels in both registers"}
-    volunteer-pages: {register: hall, basis: "assumed; volunteers serve the community and its events"}
+    volunteer-pages: {register: community, basis: "assumed; volunteers serve the community and its events"}
     partner-pages: {register: core, basis: "decision 11: sponsors and the State"}
-    oct-6-announcement: {register: per piece, basis: "the newsletter piece is Hall (decision 11); the LinkedIn pieces follow linkedin-kit"}
-    sub-brand-pages: {register: "hall on the website's outpost pages; none on a sub-brand's own page", basis: "the website pages follow decision 11; the brand sets no fixed sub-brand rule (decision 21)"}
+    oct-6-announcement: {register: per piece, basis: "the newsletter piece is Community (decision 11); the LinkedIn pieces follow linkedin-kit"}
+    sub-brand-pages: {register: "community on the website's region pages; none on a sub-brand's own page", basis: "the website pages follow decision 11; the brand sets no fixed sub-brand rule (decision 21)"}
     github-org-profile: {register: core, basis: "assumed; developers and partners read it"}
 
 rules:
@@ -162,7 +162,7 @@ rules:
   - id: naming
     name: Naming
     checks: >
-      Names follow the release: "Colorado Startups" in full; the outposts, keepers,
+      Names follow the release: "Colorado Startups" in full; the regions, keepers,
       towns and the community name ("Startupers") as the release spells them;
       "Colorado", never "CO", in prose; no franchise name.
     method:
@@ -182,12 +182,12 @@ rules:
       and lore words carry a plain label. A register is its materials, keepers, lore
       and layout; neither register implies a light or a dark ground.
     method:
-      mechanical: Scan for keeper names and their disclosure, and for Hall materials or lore words.
+      mechanical: Scan for keeper names and their disclosure, and for world materials or lore words.
       judgment: View the surface and judge its look against its channel's register.
     scores:
       2: The channel's register, as the release defines it, with no mixing; keepers disclosed.
       1: >
-        The register's intent shows (plain for Core, Hall materials for Hall), but the
+        The register's intent shows (plain for Core, world materials for Community), but the
         release does not define that register yet, or pieces of the other register
         leak in, or a lore word lacks its plain label.
       0: The opposite register, or a keeper shown without its AI-agent disclosure.

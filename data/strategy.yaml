@@ -313,7 +313,7 @@ messaging:
           source: { url: "https://www.launchpass.com/colorado-startups", read: "2026-11-02" }
         - text: "Three weekly threads: Monday Welcome, Wednesday Asks and Offers, and Friday Colorado Wins."
           source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
-        - text: "Three regional outposts, Photon Mountain, Space Peak and Fusion Canyon, each with a seat for a person to organize it."
+        - text: "Three regions, Photon Mountain, Space Peak and Fusion Canyon, each with a seat for a person to organize it."
           source: { url: "https://coloradostartups.org/community/", read: "2026-11-02" }
         - text: "Founded in 2014 by Paul Foley."
           source: { url: "https://coloradostartups.org/llms.txt", read: "2026-11-02" }
@@ -370,7 +370,7 @@ landscape:
       x: 90
       y: 90
       rhythm: "Every day (the Slack), weekly threads, a newsletter every other Tuesday"
-      reach: "Statewide online; outposts on the Front Range"
+      reach: "Statewide online; three regions on the Front Range"
       x_why: "Founders first; the people who back them are welcome second."
       y_why: "The Slack is free to join through an invite form; a person approves each LinkedIn Group member."
       source:

@@ -48,19 +48,19 @@ Three tiers and the banner, built by `art/render/fibo_cards.py` (`crest`, `banne
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 | `claudius-icon-1024.png` | Claudius's icon: his head and shoulders from his card art (decision 50), on navy | The Claudius plugin's directory listing |
 
-## Hall (`hall/`, decisions 53 and 57)
+## Website art (`website/`, decisions 53, 57 and 58)
 
-The website's Hall art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
+The website's art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
 
 | File | What | Size |
 |---|---|---|
 | `communitas.png`, `communitas-small.png` | Communitas, Keeper of the Doors: a dwarf woman, copper braids, sky-blue cloak, keys, lantern on a pole | 960 × 1200; 320 × 320 |
 | `resourcus.png`, `resourcus-small.png` | Resourcus: an elder gnome mapkeeper, white beard, tall brass hat with goggles, pine-green coat, compass and blank map | 960 × 1200; 320 × 320 |
-| `publicus.png`, `publicus-small.png` | Publicus, Herald of the Hall: a dwarf herald, copper braided beard, feathered red cap, ember tabard, blank broadsheet | 960 × 1200; 320 × 320 |
+| `publicus.png`, `publicus-small.png` | Publicus, Herald of Colorado Startups: a dwarf herald, copper braided beard, feathered red cap, ember tabard, blank broadsheet | 960 × 1200; 320 × 320 |
 | `passage.jpg` | The 404 scene: a cog railway in a pink-granite passage ends at a blank wall | 1344 × 756 |
 | `founders.jpg` | Founders build a glowing fusion core in a red sandstone workshop below red rock spires | 1344 × 756 |
 | `guides.jpg` | Two founders plan a route on a picture map with no writing, in a study above Denver and the Front Range | 1344 × 756 |
-| `stone.png` | The Hall's warm sandstone texture tile | 1024 × 1024 |
+| `stone.png` | A warm sandstone texture tile | 1024 × 1024 |
 
 The keepers are AI agents: every surface that shows one also shows its disclosure line (`data/world.yaml` `keepers`).
 

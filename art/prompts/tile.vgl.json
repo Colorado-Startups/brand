@@ -1,7 +1,7 @@
 {
   "_about": "FIBO 2.0 VGL template for a texture tile (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. The website's make-tiles.mjs then removes the wrap seam and maps the tile between its floor and ceiling token roles. Rules: art/DIRECTION.md, 'Texture tiles'.",
   "template": "tile",
-  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's carved-stone look until the deferred art runs; there is no single Hall (decision 58) (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
   "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {

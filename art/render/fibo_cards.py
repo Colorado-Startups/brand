@@ -706,8 +706,8 @@ def places():
         print(c, len(jpg) // 1024, "KB")
 
 
-# The website's Hall art (Paul, 2026-11-14: "Yes, render all 7"): its three keepers, the 404 passage, founders and
-# guides scenes and the Hall's stone texture, in the game look. The keepers replace Anima art whose licence allows only
+# The website's art (Paul, 2026-11-14: "Yes, render all 7"): its three keepers, the 404 passage, founders and
+# guides scenes and the stone texture, in the game look. The keepers replace Anima art whose licence allows only
 # non-commercial use; the scenes keep the website's picks' subjects (coloradostartups.org art/finals.json).
 HALL_LOOK = {
     "lighting": {"conditions": "warm, bright, magical light", "direction": "key light from the upper left, warm fill", "shadows": "soft"},
@@ -780,7 +780,7 @@ HALL = {
 
 @app.local_entrypoint()
 def hall(names: str = "communitas,resourcus,publicus,passage,founders,guides,stone", seed: int = 3):
-    """The website's Hall art: text to image at each item's size; writes out/hall-<name>-<seed>.png."""
+    """The website's art: text to image at each item's size; writes out/hall-<name>-<seed>.png."""
     out = pathlib.Path(__file__).parent / "out"; out.mkdir(exist_ok=True)
     picked = names.split(",")
     for n, res in zip(picked, fibo_map("render", [(json.dumps(HALL[n][1], ensure_ascii=False), seed, HALL[n][0]) for n in picked])):
@@ -790,13 +790,13 @@ def hall(names: str = "communitas,resourcus,publicus,passage,founders,guides,sto
 
 
 def hall_export(picks: str = ""):
-    """dist/hall/: the chosen Hall renders at the website's sizes (coloradostartups.org art/concepts/finals.md).
+    """dist/website/: the chosen renders at the website's sizes (coloradostartups.org art/concepts/finals.md).
     picks: name=seed pairs, e.g. communitas=3,resourcus=8. Keepers 960 x 1200 and a 320 head crop; scenes 1344 x 756
     JPEG; the stone tile 1024 PNG. Every file keeps the AI-made label in its XMP."""
     from PIL import Image
     from PIL.PngImagePlugin import PngInfo
     here = pathlib.Path(__file__).parent
-    dest = here.parent.parent / "dist" / "hall"; dest.mkdir(parents=True, exist_ok=True)
+    dest = here.parent.parent / "dist" / "website"; dest.mkdir(parents=True, exist_ok=True)
     for pair in picks.split(","):
         n, seed = pair.split("=")
         img = Image.open(here / "out" / f"hall-{n}-{seed}.png").convert("RGB")

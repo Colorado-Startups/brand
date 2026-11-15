@@ -2,6 +2,8 @@
 
 Part 6 of 11 of [`DIRECTION.md`](../DIRECTION.md).
 
+**Retired by decision 58 (2026-11-15).** There is no single Hall, and its rooms are gone: the places are equals, and each website page takes its plain name. This part stays as the record of the v4 interior look; nothing renders from it.
+
 ## Inside the Hall
 
 The Hall is the website's name for the community's world. Its rooms come from `baseline/v2/lore.md`: the Great Hall of the Community, the Map Room, the Leaderboard gallery and the forge. No Hall interior has rendered since v4. Region art and the place heroes are kept for later (decisions 44 and 48), and they take the look in Part 3 when they run.

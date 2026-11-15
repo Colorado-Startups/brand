@@ -1,7 +1,7 @@
 {
   "_about": "FIBO 2.0 VGL template for a region or town scene (owner S7). Pick a kind, copy structured_prompt, set context to that kind's value, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL', 'The towns' and 'Real places'.",
   "template": "scene",
-  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's carved-stone look until the deferred art runs; there is no single Hall (decision 58) (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
   "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {
@@ -12,11 +12,11 @@
   },
   "kinds": {
     "region": {
-      "context": "a wide illustration of one of the Hall's outposts, an open workshop where founders build, with its real Colorado landscape in view",
+      "context": "a wide illustration of one of the regions, an open workshop where founders build, with its real Colorado landscape in view",
       "use": "Photon Mountain, Space Peak and Fusion Canyon. Each region's theme and view: baseline/v2/art-DIRECTION.md, The regions, until data/world.yaml lands"
     },
     "town": {
-      "context": "a wide illustration of a real Colorado town just outside the Hall's doors, where founders meet their neighbors",
+      "context": "a wide illustration of a real Colorado town, where founders meet their neighbors",
       "use": "One real town per scene, true to that town (art/DIRECTION.md, The towns)"
     }
   },
@@ -46,7 +46,7 @@
   ],
   "keepers": "To show a keeper, add one objects entry pasted verbatim from art/keepers/<id>.yaml objects_entry, then write its location and relationship. At most 5 objects in all (VGL guide).",
   "structured_prompt": {
-    "short_description": "{the scene in one or two sentences: founders at work in the outpost, or founders and neighbors in the town square}",
+    "short_description": "{the scene in one or two sentences: founders at work in the region, or founders and neighbors in the town square}",
     "objects": [
       {
         "description": "{human founders of mixed ages and backgrounds in casual Colorado clothes, building or talking together}",
@@ -55,13 +55,13 @@
         "relative_size": "{small, medium or large within frame}"
       },
       {
-        "description": "{optional: a few dwarf or gnome Hall folk helping, in plain clothes and leather aprons}",
+        "description": "{optional: a few dwarf or gnome folk helping, in plain clothes and leather aprons}",
         "location": "{where in the frame}",
         "relationship": "{supporting the founders, never the focal point}",
         "relative_size": "{small or medium within frame}"
       }
     ],
-    "background_setting": "{for a region: the outpost workshop and its real landscape. For a town: its real main street, square, creek or skyline, as it is, with no readable signs}",
+    "background_setting": "{for a region: its workshop and its real landscape. For a town: its real main street, square, creek or skyline, as it is, with no readable signs}",
     "lighting": {
       "conditions": "luminous golden light from a low warm sun, glowing lanterns and contained forge fire, with a soft warm underglow",
       "direction": "{where the warm key light comes from}",

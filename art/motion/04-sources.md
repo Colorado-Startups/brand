@@ -1,4 +1,4 @@
-# Motion: LTX-2.5 rules for the Hall's clips: Sources
+# Motion: LTX-2.5 rules for the website's clips: Sources
 
 Part 4 of 4 of [`motion.md`](../motion.md).
 

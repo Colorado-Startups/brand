@@ -1,7 +1,7 @@
 {
   "_about": "FIBO 2.0 VGL template for a home-page hero (owner S7). Copy structured_prompt, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL'.",
   "template": "hero",
-  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's carved-stone look until the deferred art runs; there is no single Hall (decision 58) (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
   "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {
@@ -34,7 +34,7 @@
   ],
   "keepers": "To show a keeper, add one objects entry pasted verbatim from art/keepers/<id>.yaml objects_entry, then write its location and relationship. At most 5 objects in all (VGL guide).",
   "structured_prompt": {
-    "short_description": "{the scene in one or two sentences: founders building together in the Hall, with a real Colorado view through it}",
+    "short_description": "{the scene in one or two sentences: founders building together in one real Colorado place, transformed with magic}",
     "objects": [
       {
         "description": "{a small group of human founders of mixed ages and backgrounds in casual Colorado clothes, building something together with laptops, sketches and a prototype}",
@@ -43,7 +43,7 @@
         "relative_size": "{small, medium or large within frame}"
       }
     ],
-    "background_setting": "{the carved hall and the one real Colorado view through its arch or doors, as it is; see art/DIRECTION.md, Inside the Hall and Real places}",
+    "background_setting": "{the real Colorado place, transformed with magic, with its landmark recognisable; see art/DIRECTION.md, The five places and Real places}",
     "lighting": {
       "conditions": "luminous golden light from a low warm sun, glowing lanterns and contained forge fire, with a soft warm underglow from molten-gold channels in the floor",
       "direction": "{where the warm key light comes from: the low sun through the arch, a hearth or lanterns}",

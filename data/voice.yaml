@@ -8,7 +8,7 @@
 # this file is fixed to match them:
 #   - keeper facts (name, kind, title, voice lines, disclosure): the website's
 #     data/team/dwarves.yaml, copied in baseline/v2/dwarves.yaml;
-#   - world facts (rooms, outposts, towns, rituals): data/world.yaml (S2);
+#   - world facts (regions, towns, rituals): data/world.yaml (S2);
 #   - positioning and mission: data/strategy.yaml (S1). No tagline (decision 46).
 #
 # Numbers. Every number here is a set point the brand chooses, not a
@@ -29,7 +29,7 @@
 #   greeting      "Hi Startupers," and where it goes.
 #   closing       "The future is bright 🔆" and the big moments it marks.
 #   boilerplates  about-text at 25, 50 and 100 words. Marked pending: S1.
-#   vocabulary    the Hall's own words, each with its plain label.
+#   vocabulary    the brand's own lore words, each with its plain label.
 #   glossary      brand and community terms in plain words.
 
 meta:
@@ -46,7 +46,7 @@ meta:
     - id: dwarves
       what: The keepers, baseline/v2/dwarves.yaml (website data/team/dwarves.yaml at 18b65a6).
     - id: lore
-      what: The Hall's world, baseline/v2/lore.md.
+      what: The world's lore, baseline/v2/lore.md; decision 58 drops its single Hall.
     - id: brand-decisions
       what: This repo's decisions.md, decisions 11 (registers) and 12 (community design).
     - id: claude-md
@@ -62,7 +62,7 @@ meta:
     - id: web-d67
       what: Website decision 67 (2026-10-18). Volunteer seat titles and the unpaid line.
     - id: web-d90
-      what: Website decision 90 (2026-11-02). The towns are the Hall's outside, in art and words only.
+      what: Website decision 90 (2026-11-02). The towns are real places, in art and words alike.
     - id: web-llms
       what: The website's site/public/llms.txt at origin/main c6f10bc, read 2026-11-02.
     - id: web-l10
@@ -133,10 +133,10 @@ traits:
 
   - id: bright
     name: Bright
-    means: Hopeful and lit by the Hall's gold, fire and light. The lore is used lightly, and clarity always wins.
+    means: Hopeful and lit by gold, fire and light. The lore is used lightly, and clarity always wins.
     source: [v2-voice, lore, web-d21, claude-md]
     pairs:
-      - more_of: Hall words in headings, room names and keeper lines
+      - more_of: Lore words in headings, keeper lines and art captions
         less_of: Lore in forms, buttons, policies and errors
       - more_of: A plain label beside each lore word on first use
         less_of: Lore a reader has to decode
@@ -157,7 +157,7 @@ archetypes:
       label: Creator
       value: 90
       goal: true
-      why: Founders build companies, and the Hall is a forge.
+      why: Founders build companies, and the brand's world is a forge.
     - id: everyperson
       label: Everyperson
       note: The book calls it the Regular Guy/Gal.
@@ -212,22 +212,22 @@ archetypes:
 tone:
   scale: 0 means the trait is silent on this channel; 100 means it is at full volume.
   rule: The four traits never change. Only how loud each one is changes, by channel.
-  register_rule: Core is the plain register; Hall adds materials, keepers, art and lore (brand decision 11).
+  register_rule: Core is the plain register; Community adds materials, keepers, art and lore (brand decisions 11 and 58).
   source: [atlassian, nngroup, brand-decisions, s3]
   channels:
     - id: website
       label: Website
-      register: hall
+      register: community
       goal: true
       warm: 60
       direct: 80
       specific: 75
       bright: 55
       greeting: None. Each page starts with its point.
-      note: Hall words in headings and room names. Forms, policies and errors stay literal.
+      note: Lore words in headings and keeper lines. Forms, policies and errors stay literal.
     - id: slack
       label: Slack
-      register: hall
+      register: community
       goal: true
       warm: 85
       direct: 75
@@ -237,7 +237,7 @@ tone:
       note: Short, friendly and useful. Founders first; service providers bring offers to the Wednesday thread.
     - id: newsletter
       label: Startupers newsletter
-      register: hall
+      register: community
       goal: true
       warm: 75
       direct: 70
@@ -254,7 +254,7 @@ tone:
       specific: 90
       bright: 25
       greeting: "None on the Page; start with the news. Paul's profile opens big moments with \"Hi Startupers,\"."
-      note: Sponsors and press read LinkedIn, so the words stay Core; Hall art may appear in images. No engagement bait.
+      note: Sponsors and press read LinkedIn, so the words stay Core; world art may appear in images. No engagement bait.
     - id: sponsor-email
       label: Sponsor email
       register: core
@@ -287,7 +287,7 @@ tone:
       note: Say what went wrong and how to fix it. No apology, no blame, no lore.
     - id: keeper-lines
       label: Keeper lines
-      register: hall
+      register: community
       goal: true
       warm: 75
       direct: 90
@@ -333,7 +333,7 @@ do_dont:
       dont: Inscribe thy name upon the great ledger.
       trait: bright
       source: v2-voice
-    - do: "Put a plain label beside each lore word: outpost (local chapter)."
+    - do: "Put a plain label beside each lore word: forge theme (the monthly theme)."
       dont: Leave a lore word for readers to decode.
       trait: bright
       source: brand-decisions
@@ -410,7 +410,7 @@ keepers:
           - Messages anyone unprompted after the first welcome.
       sample_line:
         source: s3
-        text: Welcome, Startuper. Tell me what you're building, and I'll point you to the right room.
+        text: Welcome, Startuper. Tell me what you're building, and I'll point you to the right place to start.
       disclosure: Communitas is an AI agent run by Colorado Startups. It can make mistakes, and a person reviews its work.
     - id: resourcus
       name: Resourcus
@@ -433,7 +433,7 @@ keepers:
     - id: publicus
       name: Publicus
       kind: dwarf
-      title: Herald of the Hall
+      title: Herald of Colorado Startups
       voice:
         - News first, in short sentences.
         - Names the founder, the company and the city.
@@ -464,7 +464,7 @@ closing:
   big_moments:
     - A new chapter for the community, such as the 2026-10-06 announcement.
     - A launch the whole community will use.
-    - A new region or outpost opening.
+    - A new region or town opening.
   not:
     - Routine posts, Slack replies, errors, forms, sponsor email, and State or partner documents.
   source: [v2-voice, voice-card, dispatch-2026-10-06]
@@ -492,24 +492,16 @@ boilerplates:
       text: Colorado Startups is a community of founders building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014, and Colorado Startups, Ltd. runs it from Denver. The community calls itself Startupers and meets in its Slack and LinkedIn Group. Its website charts startup resources for every stage. Three regions, Photon Mountain, Space Peak and Fusion Canyon, connect founders from Fort Collins to Colorado Springs. AI agents help on the website, and each says it is an AI agent. Only people moderate the groups or hold its seats.
 
 vocabulary:
-  rule: Lore words go in headings, room names, keeper lines and art captions. Forms, buttons, policies and errors use the plain label. On a word's first use on a page, its plain label sits beside it.
-  checked: Every word below is ordinary English, Colorado mining usage, or the Hall's own lore. None was coined by a game or film. data/words.yaml lists the coined words this list steers around.
+  rule: Lore words go in headings, keeper lines and art captions. Forms, buttons, policies and errors use the plain label. On a word's first use on a page, its plain label sits beside it.
+  checked: Every word below is ordinary English, Colorado mining usage, or the brand's own lore. None was coined by a game or film. data/words.yaml lists the coined words this list steers around.
   source: [v2-voice, lore, brand-decisions]
   words:
-    - word: the Hall
-      plain: the Colorado Startups website and the community's world
-      use: Headings, keeper lines, art captions
-      from: lore
     - word: keeper
       plain: AI helper (an AI agent run by Colorado Startups)
       use: Team page, keeper cards, keeper lines; always with the disclosure
       from: lore
-    - word: outpost
-      plain: local chapter
-      use: Region pages, lockups, event names
-      from: lore
     - word: town
-      plain: a real Colorado city or town near an outpost
+      plain: a real Colorado city or town in a region
       use: Region pages, art captions
       from: lore
     - word: Startupers
@@ -524,8 +516,8 @@ vocabulary:
       plain: the wider startup community (talent, investors, lenders and service providers)
       use: Headings and keeper lines, after founders
       from: lore
-    - word: the great doors
-      plain: the website's front page and welcome desk
+    - word: the doors
+      plain: the welcome desk on the website's front page, kept by Communitas
       use: Home page headings; lines by Communitas, an AI agent
       from: lore
     - word: outside the doors
@@ -535,22 +527,6 @@ vocabulary:
     - word: the town square
       plain: in-person events and meetups
       use: Event headings
-      from: lore
-    - word: the Great Hall
-      plain: the Community page (the Slack and the LinkedIn Group)
-      use: Community page heading
-      from: lore
-    - word: the Map Room
-      plain: Startup Resources
-      use: Startup Resources page heading; lines by Resourcus, an AI agent
-      from: lore
-    - word: the Leaderboard gallery
-      plain: the Leaderboard page
-      use: Leaderboard page heading
-      from: lore
-    - word: the forge
-      plain: where Paul and the keepers work (the team)
-      use: Team page heading, behind-the-scenes posts
       from: lore
     - word: herald
       plain: the AI agent that drafts news for people to review (Publicus's title)
@@ -562,7 +538,7 @@ vocabulary:
       from: s3
       note: From the assay offices of Colorado's mining towns, which tested ore.
     - word: forge theme
-      plain: the one monthly theme every outpost shares
+      plain: the one monthly theme every region shares
       use: Event and newsletter headings
       from: brand-decisions
     - word: honor
@@ -570,11 +546,11 @@ vocabulary:
       use: Profiles, the newsletter, event recaps
       from: [claude-md, brand-decisions]
     - word: crest
-      plain: an outpost's or town's emblem, built from the main logo
+      plain: a region's or town's emblem, built from the main logo
       use: Region pages, event badges, merch
       from: brand-decisions
     - word: the mountain's heart
-      plain: the warm, safe glow under the Hall (hot springs and forge vents)
+      plain: the warm, safe glow under the range (hot springs and forge vents)
       use: Art captions only
       from: [lore, web-d90]
     - word: the range
@@ -591,7 +567,7 @@ glossary:
     - term: Core register
       means: The plain look and voice (logo, palette, type, plain layout) for sponsors, government and partner documents, press and decks.
       source: brand-decisions
-    - term: Hall register
+    - term: Community register
       means: The look and voice with materials, keepers, art and lore, for the website, Slack, the newsletter and events.
       source: brand-decisions
     - term: AI-agent disclosure
@@ -616,19 +592,19 @@ glossary:
       means: The website's news log, newest first.
       source: web-llms
     - term: welcome desk
-      means: The website's first stop. A visitor picks a door, and Communitas, an AI agent, points them to the right room.
+      means: The website's first stop. A visitor picks a door, and Communitas, an AI agent, points them to the right place to start.
       source: dwarves
     - term: door
       means: "One of the eight choices on the welcome desk: idea, building, hiring, talent, investing, service provider, student and curious."
       source: web-l10
     - term: lockup
-      means: A fixed arrangement of the logo and a name, such as "Colorado Startups · Golden Outpost".
+      means: A fixed arrangement of the logo and a name, such as "Colorado Startups · Golden".
       source: brand-decisions
     - term: endorsement lockup
       means: The line "a Colorado Startups project", set with Photon Mountain, Space Peak and Fusion Canyon, which keep their own looks.
       source: brand-decisions
     - term: plain label
-      means: The everyday word set beside a lore word, such as "outpost (local chapter)".
+      means: The everyday word set beside a lore word, such as "keeper (AI helper)".
       source: brand-decisions
     - term: boilerplate
       means: Approved about-text at a fixed length, ready to paste.

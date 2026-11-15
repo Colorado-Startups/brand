@@ -1,4 +1,4 @@
-# Motion: LTX-2.5 rules for the Hall's clips: At a glance
+# Motion: LTX-2.5 rules for the website's clips: At a glance
 
 Part 1 of 4 of [`motion.md`](../motion.md).
 

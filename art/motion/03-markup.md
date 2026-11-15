@@ -1,4 +1,4 @@
-# Motion: LTX-2.5 rules for the Hall's clips: Markup
+# Motion: LTX-2.5 rules for the website's clips: Markup
 
 Part 3 of 4 of [`motion.md`](../motion.md).
 
