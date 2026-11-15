@@ -68,7 +68,7 @@ rules:
       1: >
         Approved artwork, but unsuited to the slot: lettering too small to read, a
         format that does not match its file name, an added effect, a release file with
-        known color drift (v2's traced cs-logo.svg), or a release that offers no
+        known color drift (v2's traced SVG logo, cs-logo), or a release that offers no
         variant for this slot.
       0: No logo where one is needed (see logo_needed), or a redrawn, recolored, stretched or unapproved copy.
     na_when: The surface needs no logo and shows none, or the release defines no lockup for the slot.
@@ -110,14 +110,15 @@ rules:
     checks: >
       The words pass the house voice rules (~/.claude/rules/writing-and-gates.md and
       the release's voice file): no em dash or spaced en dash, no hedge, no AI tell,
-      every figure sourced or marked as a goal. Where a tagline or closing line
+      every figure sourced or marked as a goal. The master brand has no tagline
+      (decision 46); a project keeps its own (decision 48). Where a closing line
       appears, it is the release's wording, used where the voice file allows it.
     method:
-      mechanical: Scan the text for dashes (characters and HTML entities), hedges, AI tells and tagline variants.
+      mechanical: Scan the text for dashes (characters and HTML entities), hedges, AI tells, any master-brand tagline and variants of a project's own.
       judgment: Read the text for unsourced figures, and drop false hits such as a proper noun that matches an AI tell.
     scores:
       2: No finding.
-      1: One or two findings, or one tagline or closing line used outside the voice file's rule.
+      1: One or two findings, or one closing line, or a project's tagline, used outside the voice file's rule.
       0: Three or more findings.
     na_when: The surface carries no words beyond a person's name.
 

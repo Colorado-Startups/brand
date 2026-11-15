@@ -199,7 +199,7 @@ surfaces:
     read: "2026-11-02"
     how: source (kit/hall.css, template.html, build.py)
     scores: &volunteer
-      logo-variant: {score: 1, note: "art/logo.webp at 34 px and the template's 44 px mark are rasters of the traced cs-logo.svg, whose colors drift from the PNG shield (#057F97, #0D5979, #4C3F76, #A7A6CE per the research digest)."}
+      logo-variant: {score: 1, note: "art/logo.webp at 34 px and the template's 44 px mark are rasters of the v2 traced SVG logo (cs-logo), whose colors drift from the PNG shield (#057F97, #0D5979, #4C3F76, #A7A6CE per the research digest)."}
       palette: {score: 1, note: "v2 tokens dominate, plus dark shades that are not v2 tokens: #17223F, #2B3B60, #1C2A4A, #0A1124 and others."}
       type: {score: 2, note: "Cinzel and Alegreya Sans in their roles. They load from Google Fonts because an Artifact cannot self-host."}
       voice-lint: {score: 2, note: "No dash, hedge or AI tell; figures come from data/facts.json with sources."}
@@ -242,7 +242,7 @@ surfaces:
     read: "2026-11-02"
     how: image (index card viewed); source (make_cards.py, index.card.html)
     scores:
-      logo-variant: {score: 1, note: "The traced cs-logo.svg (make_cards.py), not the approved PNG shield."}
+      logo-variant: {score: 1, note: "The v2 traced SVG logo, cs-logo (make_cards.py), not the approved PNG shield."}
       palette: {score: 2, note: "index.card.html uses only v2 token values."}
       type: {score: 2, note: Cinzel and Alegreya Sans in their roles.}
       voice-lint: {score: 2, note: No finding.}

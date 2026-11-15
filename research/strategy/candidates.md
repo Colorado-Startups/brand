@@ -1,6 +1,6 @@
 # Strategy candidates and scores
 
-S1 Strategy, 2026-11-02. This file records how the mission, vision and tagline in `data/strategy.yaml` were chosen, and every candidate that lost. If this file and `data/strategy.yaml` disagree, the YAML wins; fix this file in the same pull request.
+S1 Strategy, 2026-11-02. This file records how the mission and vision in `data/strategy.yaml` were chosen, and every candidate that lost. It also keeps the history of the tagline, which decision 46 (2026-11-14) removed: the brand has no tagline. If this file and `data/strategy.yaml` disagree, the YAML wins; fix this file in the same pull request.
 
 ## The rubric
 
@@ -64,6 +64,8 @@ All six reviewers ran on 2026-11-02 and worked only from the pack. The pack's pe
 
 ## Tagline
 
+**Superseded by decision 46 (2026-11-14): the brand has no tagline.** Decision 26 had chosen T4. Paul removed taglines from the master brand, and projects keep their own (decision 48). T1 stays as the descriptor for meta descriptions and directory listings (`descriptor_use` in `data/strategy.yaml`). The scores and reasons below are history.
+
 | ID | Candidate | Words | Founders | Colorado | Short | True | Distinct | Author | Round 1 (A, B, C) | Round 2 (A, B, C) | Median |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | **T4** | **Colorado founders, in good company.** | 5 | 2 | 2 | 2 | 2 | 2 | 10 | not in round 1 | 10, 9, 10 | **10** |
@@ -71,12 +73,12 @@ All six reviewers ran on 2026-11-02 and worked only from the pack. The pack's pe
 | T2 | Founders building Colorado. | 3 | 2 | 2 | 2 | 1 | 2 | 9 | 9, 9, 9 | 9, 10, 9 | 9 |
 | T3 | Where Colorado founders build together. | 5 | 2 | 2 | 2 | 2 | 1 | 9 | 10, 10, 10 | 9, 9, 9 | 9 |
 
-- **T4 wins, so the tagline changes.** The brief keeps decision 46's line unless the rubric shows a stronger founders-first line. T4 beats T1 by a point on the round 2 median. "In good company" carries two meanings at once: founders among good people, and founders among good companies (the Leaderboard). It says "you are not alone" without borrowing the peers' wording. One reviewer read "good company" as an evaluative claim. The other two, and S1, read it as shown on the site. Founders answer founders in the Wednesday thread, and every Leaderboard listing is sourced.
+- **T4 won on 2026-11-02, so the tagline changed (decision 26, superseded by decision 46).** The brief keeps website decision 46's line unless the rubric shows a stronger founders-first line. T4 beats T1 by a point on the round 2 median. "In good company" carries two meanings at once: founders among good people, and founders among good companies (the Leaderboard). It says "you are not alone" without borrowing the peers' wording. One reviewer read "good company" as an evaluative claim. The other two, and S1, read it as shown on the site. Founders answer founders in the Wednesday thread, and every Leaderboard listing is sourced.
 - **T1 stays as the descriptor.** It is the plain line that says what Colorado Startups is, for meta descriptions, directory listings and anywhere a reader needs a literal label. It lost as a tagline only because "a community of founders" is the whole category's descriptor.
 - **T3 led round 1** with 10 from every reviewer, then dropped to 9 once the pack showed Colorado Startup Week's "building together" line.
 - **T2 lost** on true today: founders here build companies, and "building Colorado" claims an outcome nobody can show.
-- **Clearance.** No Colorado founder community uses "in good company" as a line (web search, 2026-11-02). The idiom is common in other trades, so S13's USPTO knockout search should cover the tagline with the mark.
-- **Reverse.** Put T1 back as the tagline and drop T4. The change touches the website's footer, OG cards and tests (Wave 3, W2).
+- **Clearance.** No Colorado founder community used "in good company" as a line (web search, 2026-11-02). The idiom is common in other trades. No tagline ships, so no tagline needs a trademark search.
+- **Reversal.** Decision 46 dropped the tagline instead of restoring T1; T1 is the descriptor.
 
 ## Not scored by the brief
 
