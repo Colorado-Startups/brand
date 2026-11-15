@@ -512,6 +512,82 @@ def logo(kinds: str = "a,b,c", seed: int = 5):
         print("logo", k, seed, "attribution", res["attribution_status"])
 
 
+
+# The clan banner (Paul, 2026-11-15: "a loud version of the Colorado Startups clan banner"), as the game's faction
+# banners fly their crests. Step 1 edits the 2014 shield into loud crests; step 2 hangs the picked crest on a banner.
+CREST = {
+    "w": "Transform this logo into a loud World of Warcraft faction crest: the shield in bright royal-blue enamel framed by a "
+         "thick gleaming gold rim, two great golden wings sweeping out from its sides, the mountains in white and bright blue, "
+         "the C in polished violet metal with a bright sky-blue disc, bold saturated colours, heroic warm light and a soft "
+         "golden glow behind it, on a plain deep navy background.",
+    "g": "Transform this logo into a loud World of Warcraft faction crest: the shield in bright royal-blue enamel framed by a "
+         "thick gleaming gold rim, held by two rearing golden griffins, one on each side facing the shield, the mountains in "
+         "white and bright blue, the C in polished violet metal with a bright sky-blue disc, bold saturated colours, heroic "
+         "warm light and a soft golden glow behind it, on a plain deep navy background.",
+}
+BANNER_SIZE = (960, 1200)
+BANNER_STYLE = {**STYLE["wow"], "context": "World of Warcraft faction war banner for a community; no text, no letters"}
+BANNER = ("Turn this into a tall World of Warcraft faction war banner: the navy background becomes a hanging banner of royal-blue "
+          "cloth with heavy gold embroidered borders, a bold crimson stripe down each side and a pointed bottom ending in a gold "
+          "tassel, hung from a dark wooden crossbar with gold spearhead finials at the top. The crest stays exactly as it is, "
+          "large and centred on the cloth. A plain dark background behind the banner. No text, no letters, no symbols but the crest.")
+
+
+@app.local_entrypoint()
+def crest(kinds: str = "w,g", seed: int = 5):
+    """Loud crest candidates, each a FIBO edit of the 2014 shield; writes out/crest-<kind>-<seed>.png."""
+    here = pathlib.Path(__file__).parent
+    out = here / "out"; out.mkdir(exist_ok=True)
+    shield = (here.parent.parent / SHIELD).read_bytes()
+    picked = kinds.split(",")
+    prompt = lambda k: json.dumps({"edit_instruction": CREST[k] + " " + EMBLEM_KEEP, "style": EMBLEM_STYLE}, ensure_ascii=False)
+    for k, res in zip(picked, fibo_map("edit", [(shield, (0, 0, 1, 1), prompt(k), seed, None, None, LOGO_SIZE) for k in picked])):
+        (out / f"crest-{k}-{seed}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": f"crest-{k}", "seed": seed, "mode": "crest", "photo": SHIELD, "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("crest", k, seed, "attribution", res["attribution_status"])
+
+
+@app.local_entrypoint()
+def banner(crest: str = "crest-w-5", seeds: str = "5,9"):
+    """The picked crest on a war banner: centred on a navy portrait canvas (the edit stretches its source to the output
+    size), then a FIBO edit; writes out/banner-<seed>.png."""
+    from PIL import Image
+    out = pathlib.Path(__file__).parent / "out"
+    c = Image.open(out / f"{crest}.png").convert("RGB")
+    canvas = Image.new("RGB", BANNER_SIZE, c.getpixel((8, 8)))
+    side = int(BANNER_SIZE[0] * 0.62); c = c.resize((side, side), Image.LANCZOS)
+    canvas.paste(c, ((BANNER_SIZE[0] - side) // 2, int(BANNER_SIZE[1] * 0.2)))
+    buf = io.BytesIO(); canvas.save(buf, "PNG")
+    prompt = json.dumps({"edit_instruction": BANNER, "style": BANNER_STYLE}, ensure_ascii=False)
+    ss = [int(s) for s in seeds.split(",")]
+    for s, res in zip(ss, fibo_map("edit", [(buf.getvalue(), (0, 0, 1, 1), prompt, s, None, None, BANNER_SIZE) for s in ss])):
+        (out / f"banner-{s}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": "banner", "seed": s, "mode": "banner", "photo": f"out/{crest}.png", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("banner", s, "attribution", res["attribution_status"])
+
+
+# Claudius's square icon for the Claude Code plugin directory (Paul in the Claudius session, 2026-11-15: "You gotta make
+# the image of the dude"): his chosen card art (decision 50) cropped to head and shoulders, then a FIBO edit at 1024.
+CLAUDIUS_CROP = (870 / 1440, 30 / 720, 1330 / 1440, 490 / 720)
+CLAUDIUS_ICON = ("Turn this into a head-and-shoulders portrait of this exact gnome that fills the square frame. Keep his face, "
+                 "smile, brass goggles on his forehead, curly brown hair, short beard, big pointed ears and leather vest "
+                 "exactly as they are. Remove the glowing slate and his hands. Replace the workshop with a plain deep navy "
+                 "background and a soft warm gold rim light behind his head. No text, no letters.")
+
+
+@app.local_entrypoint()
+def claudius_icon(seeds: str = "7,13,21"):
+    """Claudius's directory icon candidates at 1024 x 1024; writes out/claudius-icon-<seed>.png."""
+    out = pathlib.Path(__file__).parent / "out"
+    src = (out / "claudius-game-7.png").read_bytes()
+    style = {**STYLE["wow"], "context": "World of Warcraft game character portrait for a square app icon; no text"}
+    prompt = json.dumps({"edit_instruction": CLAUDIUS_ICON, "style": style}, ensure_ascii=False)
+    ss = [int(s) for s in seeds.split(",")]
+    for s, res in zip(ss, fibo_map("edit", [(src, CLAUDIUS_CROP, prompt, s, None, None, LOGO_SIZE) for s in ss])):
+        (out / f"claudius-icon-{s}.png").write_bytes(res["png"])
+        log_runs(out, [{"card": "claudius-icon", "seed": s, "mode": "claudius-icon", "photo": "out/claudius-game-7.png", "attribution_status": res["attribution_status"], "attribution": res["attribution"]}])
+        print("claudius-icon", s, "attribution", res["attribution_status"])
+
 # The name alone, composited after (decision 37: no text inside the art; decision 46: no tagline, no on-image chip).
 # Aileron ships with FIBO 2.0's own files. The AI-made label and the photo credit travel in the IPTC packet
 # (with_provenance); full credits with links: dist/README.md.
@@ -767,7 +843,7 @@ def state_blue(img):
     return Image.composite(Image.new("RGB", img.size, (255, 255, 255)), Image.new("RGB", img.size, (0, 25, 112)), t)
 
 
-def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 50's blind-judged winners
+def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5", banner: str = "", claudius: str = ""):  # the blind-judged winners
     """dist/logo/: decision 48's three tiers from the chosen candidates in out/, and the favicon set
     (32 px ICO with 16 and 48, 180 apple-touch with 20 px padding, 192 and 512; Evil Martians, 2026)."""
     from PIL import Image, ImageDraw, ImageFont
@@ -785,6 +861,15 @@ def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 
     prov = {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed_of(emblem), "source": f"edit of {SHIELD}, the 2014 shield"}
     for s in (1024, 512):
         save(em.resize((s, s), Image.LANCZOS), f"emblem-{s}.png", prov)
+    if banner:  # the clan banner that flies the crest, an edit of the picked crest on a navy canvas
+        bn = Image.open(here / "out" / f"{banner}.png").convert("RGB")
+        bprov = {**prov, "seed": seed_of(banner), "source": f"edit of out/{emblem}.png, itself an edit of {SHIELD}"}
+        for w, h in ((960, 1200), (480, 600)):
+            save(bn.resize((w, h), Image.LANCZOS), f"banner-{w}x{h}.png", bprov)
+    if claudius:  # Claudius's directory icon, an edit of his chosen card art
+        cl = Image.open(here / "out" / f"{claudius}.png").convert("RGB")
+        save(cl.resize((1024, 1024), Image.LANCZOS), "claudius-icon-1024.png",
+             {"type": "compositeWithTrainedAlgorithmicMedia", "seed": seed_of(claudius), "source": "edit of out/claudius-game-7.png (decision 50)"})
     ic = state_blue(Image.open(here / "out" / f"{icon}.png").convert("RGB"))
     prov = {**prov, "seed": seed_of(icon)}
     for s in (512, 192):
@@ -806,7 +891,7 @@ def logo_export(emblem: str = "logo-a-9", icon: str = "logo-i2-5"):  # decision 
 
 
 ENTRIES = {"edit_all": edit_all, "character": character, "compose_all": compose_all, "reference": reference, "painted": painted,
-           "places": places, "logo": logo, "repo_cards": repo_cards, "logo_export": logo_export, "hall": hall, "hall_export": hall_export}
+           "places": places, "logo": logo, "crest": crest, "banner": banner, "claudius_icon": claudius_icon, "repo_cards": repo_cards, "logo_export": logo_export, "hall": hall, "hall_export": hall_export}
 if __name__ == "__main__" and sys.argv[1:2] and sys.argv[1] in ENTRIES:  # python3 ... <entry> --flag value: the Space lane
     LANE = "space"
     kw = {k.lstrip("-").replace("-", "_"): v for k, v in zip(sys.argv[2::2], sys.argv[3::2])}

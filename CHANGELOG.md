@@ -18,6 +18,18 @@ No single Hall: the places are equals (decision 58). Checksums for every file in
 - The Hall, as a place, a register name and a brand-tree node (`the-hall`).
 - The Hall's rooms: the Great Hall of the Community, the Map Room, the Leaderboard gallery and the forge. Each website page takes its plain name.
 
+## [3.2.0] - 2026-11-15
+
+The logo as a loud clan crest, the banner that flies it, and Claudius's icon (decision 59). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- `dist/logo/banner-960x1200.png`, `banner-480x600.png`: the crest on a royal-blue war banner.
+- `dist/logo/claudius-icon-1024.png`: Claudius's icon for the Claude Code plugin directory.
+
+### Changed
+- `dist/logo/emblem-512.png`, `emblem-1024.png` and `dist/templates/square-512.png`: the emblem is a loud winged crest in royal blue and gold, keeping the 2014 shield, the C and its peak.
+- `dist/brand.json` and `dist/README.md` list the banner and the Claudius icon, and describe the new emblem.
+
 ## [3.1.1] - 2026-11-15
 
 The two renders `v3.0.0` left open. Checksums for every file in `dist/` are in the GitHub release notes.

@@ -36,15 +36,17 @@ Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no ta
 | `fusion-canyon.jpg` | The Fort Collins painting, for the fusion-canyon repo | Photo by Charles Willgren, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) ([source](https://commons.wikimedia.org/wiki/File:Poudre_Canyon,_Greyrock_trail.jpg)), edited |
 | `startup-credits.jpg` | The Golden painting, for the startup-credits repo | Photo by James St. John, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), edited |
 
-## Logo (`logo/`, decision 50)
+## Logo (`logo/`, decisions 50 and 59)
 
-Three tiers, built by `art/render/fibo_cards.py` (`logo`, then `logo_export`). The emblem and icon are FIBO 2.0 edits of the 2014 shield, labelled AI-made in each PNG's XMP; the wordmark is type. Reserved marks (`TRADEMARKS.md`).
+Three tiers and the banner, built by `art/render/fibo_cards.py` (`crest`, `banner` and `logo`, then `logo_export`). The emblem, banner and icon are FIBO 2.0 edits of the 2014 shield, labelled AI-made in each PNG's XMP; the wordmark is type. Reserved marks (`TRADEMARKS.md`).
 
 | File | Tier | Use |
 |---|---|---|
-| `emblem-512.png`, `emblem-1024.png` | Emblem: the 2014 shield forged in gold and steel, no text | Avatars (GitHub org, LinkedIn, Slack), the website's cards |
+| `emblem-512.png`, `emblem-1024.png` | Emblem: the 2014 shield as a loud winged crest in royal-blue enamel and gold, no text | Avatars (GitHub org, LinkedIn, Slack), the website's cards |
+| `banner-960x1200.png`, `banner-480x600.png` | Banner: the crest on a royal-blue war banner, as a game faction flies its crest | Event roll-ups, covers and the guide |
 | `wordmark-blue.png`, `wordmark-white.png` | Wordmark: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, any width |
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
+| `claudius-icon-1024.png` | Claudius's icon: his head and shoulders from his card art (decision 50), on navy | The Claudius plugin's directory listing |
 
 ## Website art (`website/`, decisions 53, 57 and 58)
 
