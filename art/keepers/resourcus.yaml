@@ -9,7 +9,7 @@
 # baseline/v2/dwarves.yaml (the website's data/team/dwarves.yaml at 18b65a6).
 # If that file and this one disagree, that file wins; fix this one in the same
 # session. Colors are token roles; tokens/brand_tokens.yaml sets the values.
-# Rules: art/DIRECTION.md, "The keepers".
+# Direction: art/DIRECTION.md, "The keepers".
 #
 # Keys
 #   id, name, kind, title  copied from baseline/v2/dwarves.yaml
@@ -23,7 +23,8 @@
 #   portrait               FIXED for the portrait template: background and crops
 #   alt_text               alt text for any picture of this keeper; it says the keeper is an AI agent
 #   continuity             the shipped picture this sheet follows, what changed, and why
-#   never                  what never appears in a picture of this keeper
+#   restyle                the game-style restyle is deferred (decision 48)
+#   craft_notes            what keeps a picture reading as this keeper
 
 id: resourcus
 name: Resourcus
@@ -32,6 +33,8 @@ title: Keeper of the Canvas
 
 disclosure: Resourcus is an AI agent run by Colorado Startups on an open-source model. It can make mistakes, so check each resource before you rely on it.
 disclosure_source: baseline/v2/dwarves.yaml, entry resourcus, field disclosure (website data/team/dwarves.yaml at 18b65a6)
+
+restyle: Deferred (decision 48). The keeper keeps this sheet until the game-style restyle. The color words describe the pick that shipped on the website, and the restyle replaces them with words that follow the roles in tokens/brand_tokens.yaml.
 
 sheet:
   kind: gnome man
@@ -73,12 +76,12 @@ continuity:
         website art/concepts/batch-1.md, make-finals, 2026-10-18). The coat sat
         below every crop. A scarf puts green inside the head-and-shoulders crop.
     - what: A tiny brass gauge on his belt that lets off a thread of steam.
-      why: Gnome brass and steam tinkering (art/DIRECTION.md, rule 3).
+      why: Gnome brass and steam tinkering.
     - what: His age is stated as old.
       why: The three keepers now read apart by age as well as color (middle-aged, old, young).
 
-never:
-  - a weapon, a vehicle, a mount or a mechanical suit
-  - soot, grime or smoke that hides his face
-  - letters or numbers on the map; place names stay out
-  - an orange apron, which collides with Publicus's ember anchor (website art/concepts/batch-1.md)
+craft_notes:
+  - He carries the compass and the map. A weapon, a vehicle, a mount or a mechanical suit would pull the picture away from the mapkeeper.
+  - His face stays clear. Soot, grime or smoke would hide it at small sizes.
+  - The map stays unlettered, with no letters, numbers or place names.
+  - Green and brass are his anchor. An orange apron would collide with Publicus's ember anchor (website art/concepts/batch-1.md).

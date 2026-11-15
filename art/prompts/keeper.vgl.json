@@ -1,15 +1,14 @@
 {
-  "_about": "FIBO 2.0 VGL template for a keeper portrait (owner S7). Pick a keeper, paste its objects_entry and portrait.background_setting from art/keepers/<id>.yaml verbatim, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. The disclosure ships beside the picture in HTML, never inside it. Rules: art/DIRECTION.md, 'The keepers'.",
+  "_about": "FIBO 2.0 VGL template for a keeper portrait (owner S7). Pick a keeper, paste its objects_entry and portrait.background_setting from art/keepers/<id>.yaml verbatim, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. The disclosure ships beside the picture in HTML, never inside it. Rules: art/DIRECTION.md, 'The keepers'.",
   "template": "keeper",
-  "direction": "art/DIRECTION.md v4",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
-  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
-  "tier": 3,
+  "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {
     "aspect_ratio": "3:4",
     "resolution": "{1MP, or 4MP after an estimate}",
     "seed": "{an integer of 1 or more; record it with the render}",
-    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node)"
+    "source": "The v3 settings for the Bria node, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node), kept as starting values. The shipped place art and cards render at 1440 × 720 (SIZE in art/render/fibo_cards.py)."
   },
   "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",
   "fixed": [

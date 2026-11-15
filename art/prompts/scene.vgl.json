@@ -1,15 +1,14 @@
 {
-  "_about": "FIBO 2.0 VGL template for a region or town scene (owner S7). Pick a kind, copy structured_prompt, set context to that kind's value, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to the node. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL', 'Outside the doors: the towns' and 'Real places'.",
+  "_about": "FIBO 2.0 VGL template for a region or town scene (owner S7). Pick a kind, copy structured_prompt, set context to that kind's value, write every per_image field, keep every fixed field verbatim, and send only structured_prompt to FIBO. Rules: art/DIRECTION.md, 'Prompts: FIBO 2.0 in VGL', 'The towns' and 'Real places'.",
   "template": "scene",
-  "direction": "art/DIRECTION.md v4",
+  "direction": "art/DIRECTION.md v5. The fixed fields keep v4's Hall look until the deferred art runs (Prompts: FIBO 2.0 in VGL)",
   "model": "FIBO 2.0",
-  "route": "Comfy Cloud Bria node api_bria_fibo2_t2i; allowed only after Comfy's written confirmation (art/LICENSES.md)",
-  "tier": 3,
+  "route": "The own ZeroGPU Space paul-co-startups/brand-fibo via art/render/fibo_cards.py first, Modal second, Bria's hosted credit third (decisions 41 and 42; art/LICENSES.md)",
   "node": {
     "aspect_ratio": "16:9",
     "resolution": "{1MP, or 4MP after an estimate}",
     "seed": "{an integer of 1 or more; record it with the render}",
-    "source": "get_node on Comfy Cloud, 2026-11-02, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node). Comfy's price list does not say whether 4MP costs more, so estimate before a 4MP run (same source)."
+    "source": "The v3 settings for the Bria node, recorded in baseline/v2/art-DIRECTION.md (Sizes on the Bria node), kept as starting values. The shipped place art and cards render at 1440 × 720 (SIZE in art/render/fibo_cards.py). Read the lane's minutes before a 4MP run (art/LICENSES.md, Lanes)."
   },
   "kinds": {
     "region": {
@@ -18,7 +17,7 @@
     },
     "town": {
       "context": "a wide illustration of a real Colorado town just outside the Hall's doors, where founders meet their neighbors",
-      "use": "One real town per scene, true to that town (art/DIRECTION.md, Outside the doors)"
+      "use": "One real town per scene, true to that town (art/DIRECTION.md, The towns)"
     }
   },
   "pointers": "JSON Pointers (RFC 6901) into structured_prompt.",

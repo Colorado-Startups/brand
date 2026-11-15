@@ -9,7 +9,7 @@
 # baseline/v2/dwarves.yaml (the website's data/team/dwarves.yaml at 18b65a6).
 # If that file and this one disagree, that file wins; fix this one in the same
 # session. Colors are token roles; tokens/brand_tokens.yaml sets the values.
-# Rules: art/DIRECTION.md, "The keepers".
+# Direction: art/DIRECTION.md, "The keepers".
 #
 # Keys
 #   id, name, kind, title  copied from baseline/v2/dwarves.yaml
@@ -23,7 +23,8 @@
 #   portrait               FIXED for the portrait template: background and crops
 #   alt_text               alt text for any picture of this keeper; it says the keeper is an AI agent
 #   continuity             the shipped picture this sheet follows, what changed, and why
-#   never                  what never appears in a picture of this keeper
+#   restyle                the game-style restyle is deferred (decision 48)
+#   craft_notes            what keeps a picture reading as this keeper
 
 id: communitas
 name: Communitas
@@ -33,6 +34,8 @@ title: Keeper of the Doors
 disclosure: Communitas is an AI agent run by Colorado Startups. It can make mistakes, and a person reviews its work.
 disclosure_source: baseline/v2/dwarves.yaml, entry communitas, field disclosure (website data/team/dwarves.yaml at 18b65a6)
 
+restyle: Deferred (decision 48). The keeper keeps this sheet until the game-style restyle. The color words describe the pick that shipped on the website, and the restyle replaces them with words that follow the roles in tokens/brand_tokens.yaml.
+
 sheet:
   kind: dwarf woman
   age: middle-aged
@@ -40,7 +43,7 @@ sheet:
   clothing: a clear sky-blue hooded wool cloak with narrow gold trim, over a cream shirt and a brown leather vest; a wide belt; sturdy boots
   color_anchor:
     token: community
-    in_words: clear Colorado sky blue, the role's v2 value; update with the Wave 2 value
+    in_words: clear Colorado sky blue, as on the shipped pick; the restyle sets the words by role
   prop: a glowing brass lantern on a short pole, raised in one hand; a big ring of brass keys at her belt
   silhouette: broad and stout, the peaked shape of a hooded cloak, a lantern held up high
 
@@ -73,15 +76,15 @@ continuity:
         Publicus's anchor. Brown hair leaves sky blue as her one strong color.
     - what: The cloak's color words follow the community role, and each render's cloak is checked against it.
       why: >-
-        The shipped art painted her cloak near 187 degrees, while the community
-        token sat at 212 degrees (source: website art/finals.json, anchors). The
-        anchor is the role, so its words change when Wave 2 sets the role's value.
+        The shipped art painted her cloak near 187 degrees, off the community
+        role's own hue (source: website art/finals.json, anchors). The anchor is
+        the role, so its words change when tokens v3 sets the role's value.
     - what: The keys move to her belt, and the lantern is held up high.
-      why: One raised prop gives a cleaner silhouette at small sizes (art/DIRECTION.md, rule 1).
+      why: One raised prop gives a cleaner silhouette at small sizes.
     - what: Her age is stated as middle-aged.
       why: The three keepers now read apart by age as well as color (middle-aged, old, young).
 
-never:
-  - a weapon, armor or a helmet
-  - letters, runes or an emblem on the cloak or the doors
-  - a beard
+craft_notes:
+  - The props are the lantern and the keys. A weapon, armor or a helmet would break the silhouette of a hooded cloak and a raised lantern.
+  - The cloak and the doors stay plain. Letters, runes or an emblem would compete with her one cool color.
+  - She has no beard, which also sets her apart from the bearded keepers at 64 px.
