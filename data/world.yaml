@@ -614,3 +614,20 @@ real_places:
       Mountain Ute Tribe, and the Ute Indian Tribe of the Uintah and Ouray Reservation. The
       Arapaho and Cheyenne also hold the Front Range as homeland. No tribe has been
       consulted on this brand.
+
+# The shipped art the guide shows, in generic words (the franchise gate scans data/). Files are in dist/;
+# credits link to each photo's source in art/render/src/SOURCES.md. Decisions 43 to 46.
+place_art:
+  - {file: places/boulder.jpg, town: Boulder, region: Photon Mountain, caption: "The Flatirons as an elven city of waterfalls, moon portals and a great tree, with dragons", credit: "Public-domain photo by Jimbo Herndan"}
+  - {file: places/golden.jpg, town: Golden, region: Photon Mountain, caption: "Table Mountain as a dwarven kingdom's forge gate, with steam carts and a boulder wyrm", credit: "Photo by James St. John, CC BY 2.0, edited"}
+  - {file: places/denver.jpg, town: Denver, region: Photon Mountain, caption: "The skyline behind a walled castle town, with knights on white horses and white gryphons", credit: "Public-domain photo by USFWS Mountain-Prairie"}
+  - {file: places/springs.jpg, town: Colorado Springs, region: Space Peak, caption: "Pikes Peak's rock spires as tower aeries, with gyrocopters and a gryphon", credit: "Photo by Huttarl, CC BY 2.5, edited"}
+  - {file: places/fortcollins.jpg, town: Fort Collins, region: Fusion Canyon, caption: "Poudre Canyon as a gnome workshop village of water wheels and round-door homes, with small dragons and mechanical striders", credit: "Photo by Charles Willgren, CC BY 2.0, edited"}
+
+# Each project repo's character, shown on its social card (decisions 39 and 40). AI-made, no copyright claimed;
+# the names and likenesses are reserved (TRADEMARKS.md).
+characters:
+  - {name: Claudius, card: social/claudius.jpg, what: "A gnome engineer and loyal companion", repo: Colorado-Startups/claudius}
+  - {name: Linken, card: social/link.jpg, what: "A gnome hero", repo: Colorado-Startups/link}
+  - {name: Legallas, card: social/legallas.jpg, what: "An elf ranger", repo: Colorado-Startups/legallas}
+

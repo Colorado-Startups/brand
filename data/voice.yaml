@@ -470,8 +470,7 @@ closing:
   source: [v2-voice, voice-card, dispatch-2026-10-06]
 
 boilerplates:
-  pending: S1
-  pending_note: Written from website decision 46's positioning. When data/strategy.yaml (S1) merges, S3 rewrites these from it.
+  opener_note: Each opens with data/strategy.yaml's boilerplate_opener, which says "founders" where website decision 46 said "entrepreneurs" (decision 26).
   source: [web-d46, web-llms, web-d45]
   facts_used:
     - fact: Paul Foley founded Colorado Startups in 2014, and Colorado Startups, Ltd. runs it from Denver.
@@ -482,15 +481,15 @@ boilerplates:
     - id: short
       target_words: 25
       goal: true
-      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too.
+      text: Colorado Startups is a community of founders building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too.
     - id: medium
       target_words: 50
       goal: true
-      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014. The community meets in its Slack and LinkedIn Group, and its website charts Colorado startup resources for every stage.
+      text: Colorado Startups is a community of founders building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014. The community meets in its Slack and LinkedIn Group, and its website charts Colorado startup resources for every stage.
     - id: long
       target_words: 100
       goal: true
-      text: Colorado Startups is a community of entrepreneurs building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014, and Colorado Startups, Ltd. runs it from Denver. The community calls itself Startupers and meets in its Slack and LinkedIn Group. Its website charts startup resources for every stage. Three regions, Photon Mountain, Space Peak and Fusion Canyon, connect founders from Fort Collins to Colorado Springs. AI agents help on the website, and each says it is an AI agent. Only people moderate the groups or hold its seats.
+      text: Colorado Startups is a community of founders building companies in Colorado. Founders come first; the people who join, back and serve them are welcome too. Paul Foley founded it in 2014, and Colorado Startups, Ltd. runs it from Denver. The community calls itself Startupers and meets in its Slack and LinkedIn Group. Its website charts startup resources for every stage. Three regions, Photon Mountain, Space Peak and Fusion Canyon, connect founders from Fort Collins to Colorado Springs. AI agents help on the website, and each says it is an AI agent. Only people moderate the groups or hold its seats.
 
 vocabulary:
   rule: Lore words go in headings, room names, keeper lines and art captions. Forms, buttons, policies and errors use the plain label. On a word's first use on a page, its plain label sits beside it.
@@ -587,7 +586,7 @@ glossary:
   source: [web-llms, brand-decisions, s3]
   terms:
     - term: Colorado Startups
-      means: The community of entrepreneurs building companies in Colorado, and Colorado Startups, Ltd., which runs it. Paul Foley founded it in 2014.
+      means: The community of founders building companies in Colorado, and Colorado Startups, Ltd., which runs it. Paul Foley founded it in 2014.
       source: web-llms
     - term: Core register
       means: The plain look and voice (logo, palette, type, plain layout) for sponsors, government and partner documents, press and decks.

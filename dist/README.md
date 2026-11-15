@@ -7,6 +7,10 @@
 | Guard | The drift check blocks a stale `dist/` (decision 21) |
 | Pulled by | Consumers, at a release tag (decision 10) |
 
+## Guide data (`brand.json`)
+
+Everything the [brand guide](https://colorado-startups.github.io/brand/) shows, one top-level key per line, with each image's sha256. Built by `tools/build_guide_data.py` (decision 47).
+
 ## Social cards (`social/`, 1280×640 JPEG)
 
 Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no tagline (decision 46). The AI-made label and photo credit are in its IPTC metadata (decisions 8 and 46). Built by `art/render/fibo_cards.py` (decision 39); photo sources in `art/render/src/SOURCES.md`.

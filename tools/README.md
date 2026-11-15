@@ -6,6 +6,7 @@
 | `check_dashes.py` | No em dash or spaced en dash | 0 clean, 1 finding, 2 usage, 3 could not check |
 | `franchise_gate.py` | No franchise name in `data/`, `dist/`, `guide/`, `templates/`, `logo/` (decision 30) | same |
 | `fibo_budget.py` | FIBO call guard: `reserve N` refuses past 1,950 a month (decision 35) | same |
+| `build_guide_data.py` | Builds `dist/brand.json`, the guide's data, from `data/`, `tokens/type.yaml`, `research/color/state.yaml` and `TRADEMARKS.md`. Needs PyYAML, so it is a builder run in the PR that changes a source, not part of `verify.sh` | `--check`: 0 fresh, 1 stale, 3 no PyYAML |
 | `vendor/` | Byte copies from the website at `b8d3a92`: `export_scan.py` (leak scan) and the franchise rule | same |
 
 ```mermaid
