@@ -17,7 +17,7 @@ The design tokens, built by `tools/build_guide_data.py` from `tokens/` (decision
 
 | File | Holds |
 |---|---|
-| `tokens.css` | `:root` custom properties (`--co-*` State primaries, `--c-*` roles, `--s-*`, `--r-*`, `--line-*`, `--size-*`, `--sh-*`, `--t-*`), then the night set under `prefers-color-scheme: dark` and `[data-theme="dark"]` |
+| `tokens.css` | `:root` custom properties (`--co-*` State primaries, `--co-web-*` the State's 22 web steps (decision 56), `--c-*` roles, `--s-*`, `--r-*`, `--line-*`, `--size-*`, `--sh-*`, `--t-*`), then the night set under `prefers-color-scheme: dark` and `[data-theme="dark"]` |
 | `tokens.json` | The same tokens in the Design Tokens format (DTCG 2025.10), with each role's night value and contrast records in `$extensions` |
 
 ## Social cards (`social/`, 1280×640 JPEG)

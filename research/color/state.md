@@ -1,6 +1,6 @@
 # The State of Colorado palette
 
-**Precedence.** `decisions.md` wins (decision 29). Data: [`state.yaml`](state.yaml). Source: the 2024 State brand guide, pages 14 and 15, read 2026-11-13.
+**Precedence.** `decisions.md` wins (decision 29). Data: [`state.yaml`](state.yaml). Sources: the State's live brand pages, read 2026-11-15 (decision 56): The Elements (the seven primaries, unchanged from the 2024 guide), the Digital Guidelines 1.8 Color System and Typography pages (2025-04-01), and Inclusive Branding.
 
 ```mermaid
 flowchart LR
@@ -25,4 +25,7 @@ Contrast is WCAG 2.2: 4.5 for text, 3 for large text and UI parts. The ratios ma
 | Blue, Purple, Tree Green, Red and Right Mountain Teal carry text on white | ≥ 6.25:1 |
 | Yellow never carries text on white; it sits behind black or Blue text | 1.46:1 on white |
 | Left Mountain Green is for large text or UI parts on white, or black text on it | 4.00:1 |
-| Type: Museo Slab 500 for headlines, Trebuchet MS for body and live web text | State guide, page 15 |
+| Type: Museo Slab 500 for headlines, Trebuchet MS for body and live web text | The Elements |
+| Web body font: Atkinson Hyperlegible (OFL), newly approved | Inclusive Branding; Digital Guidelines 1.8, Typography |
+| Web steps: 22 USWDS tokens around the primaries (`primary-darker #001049` to `accent-warm-darker #DFA902`), as `--co-web-*` | Digital Guidelines 1.8, Color System |
+| Web text: primary-dark or primary-darker on a subtly off-white ground; dark mode only as an opt-in | Digital Guidelines 1.8, Color System |

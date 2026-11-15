@@ -233,8 +233,9 @@ function color(d) {
 
 function type(d) {
   const box = $("#type-specimens"), input = $("#headline");
-  const render = () => box.replaceChildren(...d.type.map((t) => el("div", {}, el("small", { class: "cap", text: `${t.role === "display" ? "Display" : "Text"} · ${t.family}` }),
-    el("p", { style: `font-family:${t.role === "display" ? "var(--name);font-size:2.2rem" : "var(--text);font-size:1.15rem"}`, text: input.value || "Colorado Startups" }),
+  const face = (t) => (t.role === "display" ? "var(--name);font-size:2.2rem" : `"${t.family}", var(--text);font-size:1.15rem`);
+  const render = () => box.replaceChildren(...d.type.map((t) => el("div", {}, el("small", { class: "cap", text: `${cap1(t.role)} · ${t.family}` }),
+    el("p", { style: `font-family:${face(t)}`, text: input.value || "Colorado Startups" }),
     el("small", { class: "cap", text: `${end(t.use)} ${end(t.licence)}` }))));
   input.addEventListener("input", render);
   render();
