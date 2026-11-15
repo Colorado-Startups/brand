@@ -354,7 +354,7 @@ fixed_in_v3_0_0:
   - "Guide controls: borders from --c-border, 4.48:1 on white and 6.47:1 on the night ground (was 1.38:1); panel, line and muted colours come from dist/tokens.css."
 open_after_v3_0_0:
   - "The coloradostartups.org card, reused by .github: painted dragons sit on the name (clear-space 0). It needs a re-render, which waits for the ZeroGPU daily quota with the guides scene."
-closed_in_v3_0_1:
-  - "The coloradostartups.org card is re-rendered at seed 52 with open sky behind the name (decision 56). Clear-space 1: rooftops rise under 'tups' and the hill edge sits about 10 px from the last 's'. Contrast 2: median 5.74 against white behind the title, scrim in and shadow out."
-  - "The guides scene ships at seed 12, with a map that carries no writing (decision 56)."
+closed_in_v3_2_0:
+  - "The coloradostartups.org card is re-rendered at seed 52 with open sky behind the name (decision 57). Clear-space 1: rooftops rise under 'tups' and the hill edge sits about 10 px from the last 's'. Contrast 2: median 5.74 against white behind the title, scrim in and shadow out."
+  - "The guides scene ships at seed 12, with a map that carries no writing (decision 57)."
 

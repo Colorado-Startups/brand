@@ -365,7 +365,7 @@ PAINTED = {  # place, then people, then two small accents (decisions 43 and 44);
 }
 
 
-# Card-only clause (v3.0.1): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
+# Card-only clause (v3.2.0, decision 57): compose() sets the name top left, where seed 51's dragons sat (after-audit). It describes
 # the sky only. A first wording that called the picture "a banner with a title" made FIBO paint the game's logo text
 # there, so sky mode also forces text_render empty in the edit JSON.
 CARD_SKY = {
@@ -518,7 +518,7 @@ def logo(kinds: str = "a,b,c", seed: int = 5):
 CARD_TITLE = {"coloradostartups.org": "Colorado Startups", "brand": "Colorado Startups", "claudius": "Claudius",
               "link": "Linken", "legallas": "Legallas"}
 CARD_ART = {"coloradostartups.org": "boulder-wowsky-52", "brand": "golden-wow-51", "claudius": "claudius-game-7",
-            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decisions 50, 56
+            "link": "link-game-13", "legallas": "legallas-game-13"}  # <source>-<kind>-<seed> in art/render/out/; decisions 50, 57
 PLACE_ART = {"boulder": "boulder-wow-51", "golden": "golden-wow-51", "denver": "denver-wow-51",
              "springs": "springs-wow-51", "fortcollins": "fortcollins-wow-51"}  # <place>-<lean>-<seed> in art/render/out/
 PHOTO_CREDIT = {  # rides in csart:Source; CC BY 2.0 and 2.5 4(b) allow credit "in any reasonable manner"

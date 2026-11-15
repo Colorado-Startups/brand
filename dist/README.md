@@ -17,7 +17,7 @@ The design tokens, built by `tools/build_guide_data.py` from `tokens/` (decision
 
 | File | Holds |
 |---|---|
-| `tokens.css` | `:root` custom properties (`--co-*` State primaries, `--c-*` roles, `--s-*`, `--r-*`, `--line-*`, `--size-*`, `--sh-*`, `--t-*`), then the night set under `prefers-color-scheme: dark` and `[data-theme="dark"]` |
+| `tokens.css` | `:root` custom properties (`--co-*` State primaries, `--co-web-*` the State's 22 web steps (decision 56), `--c-*` roles, `--s-*`, `--r-*`, `--line-*`, `--size-*`, `--sh-*`, `--t-*`), then the night set under `prefers-color-scheme: dark` and `[data-theme="dark"]` |
 | `tokens.json` | The same tokens in the Design Tokens format (DTCG 2025.10), with each role's night value and contrast records in `$extensions` |
 
 ## Social cards (`social/`, 1280×640 JPEG)
@@ -26,7 +26,7 @@ Every card is AI-made with FIBO 2.0 (decision 37) and shows only its name: no ta
 
 | Card | Image | Credit |
 |---|---|---|
-| `coloradostartups.org.jpg` | Boulder: the Flatirons transformed into an elven city of waterfalls, moon portals and a great tree, with dragons; open sky behind the name (decision 56) | Photo by Jimbo Herndan, [public domain](https://commons.wikimedia.org/wiki/File:Flatirons_2007.jpg) |
+| `coloradostartups.org.jpg` | Boulder: the Flatirons transformed into an elven city of waterfalls, moon portals and a great tree, with dragons; open sky behind the name (decision 57) | Photo by Jimbo Herndan, [public domain](https://commons.wikimedia.org/wiki/File:Flatirons_2007.jpg) |
 | `brand.jpg` | Golden: Table Mountain transformed into a dwarven kingdom's forge gate, with steam carts and a boulder wyrm | Photo by James St. John, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) ([source](https://commons.wikimedia.org/wiki/File:Lava_flows_capping_North_Table_Mountain_%26_South_Table_Mountain_(Denver_Formation,_Upper_Cretaceous;_Golden,_Colorado,_USA).jpg)), edited |
 | `claudius.jpg` | Claudius, a gnome engineer and loyal companion, in the game style (decision 50) | AI-made, no photo |
 | `link.jpg` | Linken, a gnome hero, in the game style | AI-made, no photo |
@@ -46,7 +46,7 @@ Three tiers, built by `art/render/fibo_cards.py` (`logo`, then `logo_export`). T
 | `wordmark-blue.png`, `wordmark-white.png` | Wordmark: Aileron under the State red rule, transparent | Decks, sponsor, State and press pieces, any width |
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 
-## Hall (`hall/`, decisions 53 and 56)
+## Hall (`hall/`, decisions 53 and 57)
 
 The website's Hall art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
 

@@ -4,16 +4,28 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
-## [3.0.1] - 2026-11-15
+## [3.2.0] - 2026-11-15
 
 The two renders `v3.0.0` left open. Checksums for every file in `dist/` are in the GitHub release notes.
 
 ### Added
-- `dist/hall/guides.jpg`: the guides scene, with a picture map that carries no writing (decision 56).
+- `dist/hall/guides.jpg`: the guides scene, with a picture map that carries no writing (decision 57).
 
 ### Fixed
-- The `coloradostartups.org` card, which `.github` reuses: the dragons no longer sit on the name, and the sky behind it is open (decision 56).
-- Decision 53's spend record: per HF's billing page, 2 min 47 s past the ZeroGPU quota cost $0.28 of the included credit (decision 56).
+- The `coloradostartups.org` card, which `.github` reuses: the dragons no longer sit on the name, and the sky behind it is open (decision 57).
+- Decision 53's spend record: per HF's billing page, 2 min 47 s past the ZeroGPU quota cost $0.28 of the included credit (decision 57).
+
+## [3.1.0] - 2026-11-15
+
+The State's latest guidance (decision 56).
+
+### Added
+- `--co-web-*` in `dist/tokens.css` and `palette.web` in `dist/tokens.json`: the State's 22 web color steps from its Digital Guidelines 1.8.
+- Atkinson Hyperlegible (SIL OFL 1.1) as the `body` type role, shipped in `guide/public/fonts/` with its licence.
+
+### Changed
+- `research/color/state.yaml` cites the State's live brand pages, read 2026-11-15, in place of the 2024 PDF; the primaries are unchanged.
+- The guide's body text is set in Atkinson Hyperlegible, with Trebuchet MS as the fallback.
 
 ## [3.0.0] - 2026-11-14
 
@@ -109,8 +121,9 @@ The first public release (decision 28). A pre-release: the v3 tokens, logo and g
 - `actions.lock` holds SHA refs, as the workflows pin them (#4).
 - Quick wins from the first Quality read (#2).
 
-[Unreleased]: https://github.com/Colorado-Startups/brand/compare/v3.0.1...HEAD
-[3.0.1]: https://github.com/Colorado-Startups/brand/compare/v3.0.0...v3.0.1
+[Unreleased]: https://github.com/Colorado-Startups/brand/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/Colorado-Startups/brand/compare/v3.1.0...v3.2.0
+[3.1.0]: https://github.com/Colorado-Startups/brand/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Colorado-Startups/brand/compare/v3.0.0-alpha.5...v3.0.0
 [3.0.0-alpha.5]: https://github.com/Colorado-Startups/brand/compare/v3.0.0-alpha.4...v3.0.0-alpha.5
 [3.0.0-alpha.4]: https://github.com/Colorado-Startups/brand/compare/v3.0.0-alpha.3...v3.0.0-alpha.4
