@@ -4,6 +4,8 @@ Part 2 of 4 of [`motion.md`](../motion.md).
 
 ## Frame and size math
 
+The public `Lightricks/LTX-2.5` Space has no first-and-last-frame mode, stops at 121 frames and wants sides divisible by 64, so the shipped loops are 1280 × 640 and dissolve their last 24 frames into their first (decision 61). The table holds for a lane with the full model.
+
 LTX-2.5 needs a frame count where `frames % 8 == 1`, and a width and height that divide by 32 (LTX-2.5 model card, "Constraints", read 2026-11-02). The numbers below are computed here from those two rules.
 
 | Need | Setting | Why |
@@ -22,7 +24,7 @@ For the home hero's loop, from its approved still:
 
 ## Encoding
 
-Encoding is a light step; generating video never runs on this Mac (`~/.claude/rules/compute.md`). These are starting values. Raise the CRF number until the clip meets the 1 MB goal, then check it by eye.
+Encoding runs on the clip Space `paul-co-startups/brand-clips` (`art/render/clip-space/`, HF's free CPU tier), never on this Mac: the bash guard blocks ffmpeg here (`~/.claude/rules/compute.md`, decision 61). `art/render/ltx_clips.py export` sends it each setting. These are starting values. Raise the CRF number until the clip meets the 1 MB goal, then check it by eye.
 
 ```sh
 # WebM (VP9), no audio, cropped to 1280 x 720

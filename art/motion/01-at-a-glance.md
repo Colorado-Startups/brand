@@ -8,7 +8,7 @@ Part 1 of 4 of [`motion.md`](../motion.md).
 flowchart LR
   S("Approved FIBO 2.0 still") --> R{"Run approved by Paul?"}
   R -->|"No"| X("Still only")
-  R -->|"Yes"| L("LTX-2.5 on Modal or the own ZeroGPU Space: i2v, or flf2v for a loop")
+  R -->|"Yes"| L("LTX-2.5 on a ZeroGPU Space (Lightricks' public one, decision 61) or Modal: i2v, or flf2v for a loop")
   L --> C("Check: no flashes, no text, still on model")
   C --> E("Encode: WebM, then MP4, no audio")
   E --> P("Ship: still as poster, pause control, AI-made label in metadata")

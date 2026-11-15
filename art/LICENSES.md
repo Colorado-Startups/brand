@@ -27,6 +27,8 @@ flowchart LR
 | Lane | Status | Guard |
 |---|---|---|
 | Own ZeroGPU Space `paul-co-startups/brand-fibo` (HF PRO) | ✓ primary FIBO lane (decision 41): text to image on Fibo-2.0-dev, edits by Bria's method (its VGL step, then Fibo-2.0-edit-turbo). Source `art/render/space/`; client `python3 art/render/fibo_cards.py <entry>` | PRO's 40 daily minutes (`xlarge` spends them at 2x), then the included $2.00 credit until it reads $0, then stop; recharge stays off (huggingface.co/settings/billing, read 2026-11-13). The VGL step uses Bria's third-party demo Space and receives each source photo. Read minutes and credit before and after a batch |
+| Public Space `Lightricks/LTX-2.5` (LTX-2.5 distilled, image to video) | ✓ the clip lane (decision 61): `R art/render/ltx_clips.py render <clip> --seed N`. Encodes and frame checks run on the own CPU Space `paul-co-startups/brand-clips` (`art/render/clip-space/`, free tier) | PRO's daily ZeroGPU quota, about 0.8 minutes a call; read minutes and credit before and after each call |
+| LTX Studio and the LTX Developer Console | ✗ Studio's Free and Lite plans carry a personal-use licence and Free is watermarked; the Console has only paid credits (read 2026-11-15) | none |
 | Modal, included monthly credit | ✓ fallback lane: `modal run art/render/fibo_cards.py::<entry>` | spend limit = credit |
 | Public demo Spaces | ✓ HF PRO is active on `paul-co-startups` (`hf_whoami`, read 2026-11-13). The org `colorado-startups` is on HF's free plan, which hosts no ZeroGPU Space | PRO's daily ZeroGPU quota |
 | HF Jobs | included credit only | balance read before and after |

@@ -87,6 +87,16 @@ Built by `templates/build.py` from committed files in seconds (no model call). T
 | `slide-title-1920x1080.png`, `slide-closing-1920x1080.png` | 1920 × 1080 | Deck backgrounds |
 | `email-signature.html` | 600 px wide | Mail client signature; replace NAME and ROLE |
 
+## Clips (`clips/`, decision 61)
+
+Muted ambient loops for the website's region panels, LTX-2.5 image-to-video of a painting in `places/` (decision 37). Each loop's last second dissolves into its first, so it repeats with no cut. WebM (VP9) first, MP4 (H.264) second, no audio, the AI-made label in each file's `comment` tag. Use the painting as the poster, and give the loop a pause control (`art/motion.md`). Built by `art/render/ltx_clips.py`; `<clip>.json` beside each clip is its provenance record: source still, model, lane, prompt, seed, seam check and billing.
+
+| File | Region and theme | Size | Length |
+|---|---|---|---|
+| `photonics.webm`, `photonics.mp4` | Photon Mountain, light and lasers: Boulder's portals pulse, waterfalls fall, light motes rise | 1280 × 640; 530 KB and 626 KB | 4.04 s, 97 frames at 24 fps |
+
+Fusion Canyon and Space Peak have no clip yet: on their paintings the model pushed the camera in on every seed (decision 61).
+
 ## Places (`places/`, 1440×720 JPEG)
 
 Each real Colorado place transformed with magic into one bright, hand-painted fantasy-game scene, repainted from a photo (decisions 43 to 46). AI-made with FIBO 2.0, with no text on the image; the AI-made label and photo credit are in its IPTC metadata (decision 46). Built by `art/render/fibo_cards.py` (`painted`, then `places`).

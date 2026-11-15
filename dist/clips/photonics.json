@@ -1,0 +1,50 @@
+{
+ "clip": "photonics",
+ "still": "dist/places/boulder.jpg",
+ "still_sha256": "2816f12e39305c407c7e400702f734c79440429f52ef3724a5971d066bf9072c",
+ "place": "Boulder (Photon Mountain)",
+ "source_photo": "Photo by Jimbo Herndan, public domain (commons.wikimedia.org/wiki/File:Flatirons_2007.jpg)",
+ "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
+ "lane": "huggingface.co/spaces/Lightricks/LTX-2.5, ZeroGPU on the HF PRO quota; encoded on paul-co-startups/brand-clips (free CPU)",
+ "mode": "image-to-video",
+ "prompt": "Boulder's Flatirons stand still as an elven city of light at dusk, in a bright, hand-painted fantasy game style. The round crystal portals set in the red rock glow pale blue and white, and their light ripples slowly inward like a calm pulse. Faint, steady threads of blue light shimmer between the portals like quiet lasers, never flashing. The waterfalls pour down between the rocks, the stars twinkle softly, and small motes of light drift up from the lanterns along the bridges. The robed elves stand in place, and only their capes and hair stir in a light breeze. The dragons stay where they are in the sky, their wings slowly rising and falling. The camera holds completely still, with no cuts.",
+ "prompt_enhancer": false,
+ "seed": 12,
+ "render": "1280x640, 121 frames, 24 fps",
+ "guidance": "1.0 (distilled, unguided)",
+ "decoder": "conv",
+ "loop": "last 24 frames dissolved frame by frame into the first 24; 97 frames",
+ "seam": {
+  "loop_frames": 97,
+  "seam_change": 5.0,
+  "ordinary_median": 2.58,
+  "ordinary_max": 3.27
+ },
+ "audio": "dropped",
+ "label": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+ "raw_sha256": "fedc071db419063f3cefb279b6e63ffb266211f2a5939805b4e2022bd987c7fa",
+ "approved": "Paul, in the website session on 2026-11-15: \"Yes, render 3 (Recommended)\", on free GPU lanes only",
+ "spend": "huggingface.co/settings/billing, read before and after each call: ZeroGPU 9.1 to 10.0 of 40 min for this call; credit $1.72 to $1.72; period usage $0.28 to $0.28; automatic recharge off",
+ "files": {
+  "photonics.webm": {
+   "bytes": 529606,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "494c8b69c52433dd6977debd54d47b2632f302b527c7226b87cff55f0d651425"
+  },
+  "photonics.mp4": {
+   "bytes": 626472,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "9923f4ace75554f8a64d48c7799978c89e0af795ae563f834c222370353bdeb7"
+  }
+ }
+}
