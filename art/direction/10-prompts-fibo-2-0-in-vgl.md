@@ -19,12 +19,12 @@ Node sizes come from the Bria node's settings (`get_node`, 2026-11-02, recorded 
 
 **Caption rules** (VGL guide):
 
-2. Always set `style_medium` and `artistic_style`. Without them a caption defaults to a photograph.
-3. `artistic_style` holds 3 words at most.
-4. `objects` holds 5 entries at most. Everything else goes in `background_setting`.
-5. `text_render` stays empty, because the Hall's pictures carry no text.
-6. Keep fields consistent: the light, the mood and the background describe the same scene.
-7. Record the seed with every render. The same seed and caption recreate an image (the node's tooltip, recorded in v3).
+1. Always set `style_medium` and `artistic_style`. Without them a caption defaults to a photograph.
+2. `artistic_style` holds 3 words at most.
+3. `objects` holds 5 entries at most. Everything else goes in `background_setting`.
+4. `text_render` stays empty, because the Hall's pictures carry no text.
+5. Keep fields consistent: the light, the mood and the background describe the same scene.
+6. Record the seed with every render. The same seed and caption recreate an image (the node's tooltip, recorded in v3).
 
 **Edits.** FIBO 2.0 Edit, on `api_bria_image_edit`, fixes one thing at a time. Write `edit_instruction` as one imperative command that starts with a verb, such as "Remove the extra finger from the founder's left hand." The other fields describe the result. A mask holds the rest of the picture still and fixes drift in a keeper's look. The node takes `guidance_scale` from 3 to 5 and `steps` from 20 to 50 (`get_node`, recorded in v3).
 

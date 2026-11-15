@@ -20,7 +20,7 @@ Paul is the vision and the community manager. Claude makes every design, researc
 
 ## What binds
 
-Paul's calls in `decisions.md`, the house rules in `~/.claude/rules/` (compute: cloud first, renders on the free lanes in `art/LICENSES.md` after Paul's yes), the law (trademark: no franchise names or logos in what ships; copyright: nothing that copies a franchise's actual art; font licences), and Bria's terms (we must hold the rights to any image we upload, so no franchise art as an image input). Naming the influences in `art/` prompts to get their look is allowed (decision 44). Everything else is Claude's design judgment, logged in `decisions.md` (decision 38).
+Paul's calls in `decisions.md`, the house rules in `~/.claude/rules/` (compute: cloud first, renders on the free lanes in `art/LICENSES.md` after Paul's yes), the law (trademark: no franchise names or logos in what ships; copyright: nothing that copies a franchise's actual art; font licences), Bria's terms (we must hold the rights to any image we upload, so no franchise art as an image input), and the LTX-2.5 licence and Acceptable Use Policy for video (`art/LICENSES.md`). Naming the influences in `art/` prompts to get their look is allowed (decision 44). Everything else is Claude's design judgment, logged in `decisions.md` (decision 38).
 
 ## Data conventions
 
