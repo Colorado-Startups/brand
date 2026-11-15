@@ -48,6 +48,18 @@ Three tiers and the banner, built by `art/render/fibo_cards.py` (`crest`, `banne
 | `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` | Icon: white shield on State blue | Favicon, app icons, tiny avatars |
 | `claudius-icon-1024.png` | Claudius's icon: his head and shoulders from his card art (decision 50), on navy | The Claudius plugin's directory listing |
 
+## Region crests (`crests/`, decision 60)
+
+One crest per region, as each race in the game carries its own crest under the faction's banner. Each is a FIBO 2.0 edit of the master crest (`logo/emblem-1024.png`), built by `art/render/fibo_cards.py` (`region_crest`, then `crest_export`) and labelled AI-made in its XMP. The gold rim, wings and shield outline stay the same; the field takes the region's stone color and the charge is the region's own symbol. No letters, no project mark. Reserved marks (`TRADEMARKS.md`).
+
+| File | Field | Charge |
+|---|---|---|
+| `photon-mountain-1024.png`, `-512.png` | Fluorite violet | A crystal prism casting rainbow light over the Flatirons |
+| `space-peak-1024.png`, `-512.png` | Pikes Peak granite pink | A bright star over Pikes Peak |
+| `fusion-canyon-1024.png`, `-512.png` | Stout sandstone red | A ring of fire in a red canyon |
+
+Use: the region lockup "Colorado Startups · {Place}" (`data/architecture.yaml`), region event cards and channel headers, at 32 px and up. Below 32 px, use the logo's icon.
+
 ## Website art (`website/`, decisions 53, 57 and 58)
 
 The website's art in the game look, text to image with FIBO 2.0 (`art/render/fibo_cards.py`, `hall` then `hall_export`), each labelled AI-made in its XMP. Sizes follow the website's finals (coloradostartups.org `art/concepts/finals.md`).
