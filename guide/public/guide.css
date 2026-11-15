@@ -9,6 +9,7 @@
 :root[data-theme="dark"] { color-scheme: dark; --ground: #000a33; --ink: #f4f6ff; --link: #ffd100; --panel: #061450; --line: #26357a; --muted: #b8c2e8; --focus: #ffd100; }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; } /* .chips and .scroll set display, which would beat the hidden attribute */
 html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--ground); color: var(--ink); font: 1rem/1.55 var(--text); }
@@ -64,16 +65,22 @@ input[type="text"], input[type="search"] { width: 100%; max-width: 32rem; }
 .specimen { display: flex; flex-direction: column; justify-content: center; gap: .6rem; min-height: 12rem; padding: 2rem clamp(1rem, 4vw, 3rem);
             border-radius: .8rem; font: clamp(1.8rem, 5vw, 3.4rem) var(--name); background-size: cover; background-position: center; border: 1px solid var(--line); }
 .specimen .rule { width: 4.5rem; height: .45rem; }
+.specimen.tiered { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
+.specimen img { display: block; max-width: 100%; height: auto; }
+.specimen .tier-emblem { width: 10rem; } .specimen .tier-wordmark { width: auto; max-height: 5rem; }
 
 .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: .7rem; }
 .swatch { font: inherit; text-align: left; border: 1px solid var(--line); border-radius: .8rem; overflow: hidden; background: var(--panel); color: var(--ink); padding: 0; cursor: pointer; }
 .swatch i { display: block; height: 4.5rem; } .swatch span { display: block; padding: .5rem .7rem; font-size: .82rem; line-height: 1.35; }
 .swatch b { font-size: .95rem; }
+.swatch[aria-pressed="true"] { border-color: var(--focus); box-shadow: 0 0 0 2px var(--focus); }
 .scroll { overflow-x: auto; }
 .matrix { border-collapse: separate; border-spacing: 4px; font-size: .85rem; }
 .matrix th { font-weight: 400; color: var(--muted); text-align: left; padding: .2rem .4rem; white-space: nowrap; }
 .matrix td button { font: inherit; width: 6.2rem; padding: .5rem .3rem; border-radius: .5rem; border: 1px solid var(--line); cursor: pointer; }
-.matrix td button small { display: block; font-size: .72rem; }
+/* The grade, drawn: dashed passes for large text only, struck through fails. Fading would hide the pair it shows. */
+.matrix td button.large { border: 2px dashed currentColor; }
+.matrix td button.fail { text-decoration-line: line-through; text-decoration-thickness: 2px; }
 .preview { border-radius: .8rem; padding: 1rem 1.2rem; margin: .8rem 0; font-size: 1.1rem; min-height: 3.5rem; border: 1px solid var(--line); }
 
 .type-grid { display: grid; gap: .8rem; margin-top: 1rem; }
@@ -93,7 +100,11 @@ input[type="text"], input[type="search"] { width: 100%; max-width: 32rem; }
 details { margin: .8rem 0; } summary { cursor: pointer; color: var(--link); }
 
 .gallery { margin: 0 0 .6rem; } .gallery img { width: 100%; height: auto; border-radius: .8rem; display: block; aspect-ratio: 2 / 1; object-fit: cover; }
-.gallery figcaption { font-size: .92rem; color: var(--muted); margin-top: .5rem; }
+.gallery figcaption { font-size: .92rem; color: var(--muted); margin-top: .5rem; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.gallery figcaption > span { flex: 1 1 18rem; }
+.kin { flex: 1 1 16rem; margin: 0; display: grid; gap: .2rem; }
+.kin div { display: grid; grid-template-columns: 4.8rem minmax(0, 1fr); gap: .5rem; }
+.kin dt { font-weight: 700; color: var(--ink); } .kin dd { margin: 0; }
 .register { border-radius: .8rem; min-height: 12rem; padding: 1.5rem; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: flex-end; gap: .4rem; background-size: cover; background-position: center; }
 .register.core { background: #fff; color: #001970; justify-content: center; }
 .register.hall { color: #fff; text-shadow: 0 2px 10px rgba(0, 10, 40, .8); }
@@ -108,11 +119,23 @@ details { margin: .8rem 0; } summary { cursor: pointer; color: var(--link); }
 .tree { border-left: 0; padding-left: 0; }
 .tree button { font: inherit; font-size: .9rem; background: none; border: 0; color: var(--ink); cursor: pointer; padding: .2rem .3rem; border-radius: .3rem; text-align: left; }
 .tree button[aria-pressed="true"] { background: var(--co-blue); color: #fff; }
+.tree .twist { width: 1.6rem; padding: .1rem 0; font-size: 1.05rem; line-height: 1; color: var(--ink); text-align: center; }
+.tree .twist::before { content: "▸"; } .tree .twist[aria-expanded="true"]::before { content: "▾"; }
+.tree ul li:not(.has-kids) > .node { margin-left: 1.6rem; }
+
+/* Lockups as type specimens. The endorsement sits in a project's own type, so it uses the system face, not Aileron. */
+.lockups { display: grid; gap: .8rem; margin-top: .8rem; }
+.lockups figure { margin: 0; } .lockups figcaption { margin: 0 0 .3rem; }
+.lockup { display: flex; flex-direction: column; gap: .45rem; padding: 1rem 1.2rem; border-radius: .8rem; background: #fff; color: #001970; border: 1px solid var(--line); }
+.lockup-line { font: clamp(1.1rem, 3.2vw, 1.5rem) var(--name); overflow-wrap: anywhere; }
+.lockup .place { font-weight: 300; white-space: nowrap; }
+.endorse b { font: 700 2.2rem/1.1 system-ui, sans-serif; } .endorse small { font: .72rem system-ui, sans-serif; color: #4a5785; }
 
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.5rem; }
 .licences, .files { border-collapse: collapse; width: 100%; margin-top: 1.2rem; font-size: .92rem; }
 .licences th, .licences td, .files th, .files td { text-align: left; padding: .5rem .6rem; border-top: 1px solid var(--line); vertical-align: top; }
 .licences th { font-weight: 400; color: var(--muted); width: 14rem; }
+.apps { list-style: none; padding: 0; margin: .4rem 0; } .apps li { padding: .5rem 0; border-top: 1px solid var(--line); }
 .files code { font-size: .78rem; } .files button { font: inherit; font-size: .78rem; background: none; border: 0; color: var(--link); cursor: pointer; padding: 0; }
 .foot { max-width: 72rem; margin: 0 auto; padding: 1.5rem clamp(1rem, 3vw, 2rem) 3rem; color: var(--muted); font-size: .88rem; }
 .toast { position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%); background: var(--co-blue); color: #fff; padding: .5rem 1rem; border-radius: 99rem; font-size: .9rem; z-index: 9; }

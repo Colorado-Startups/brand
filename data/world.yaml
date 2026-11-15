@@ -1,9 +1,9 @@
 # data/world.yaml: the Hall's world. Influences, materials, rooms, outposts, towns,
-# crests, keepers, rituals and the real-places rule.
+# crests, keepers, rituals, real-places facts, and the place art and characters the guide shows.
 #
-# Owner: S2 Architecture and world (CLAUDE.md, folder ownership). Readers: S7 (art
-# direction), S8 (guide section 13, The Hall world, and the outpost crests in section 5),
-# S9 (templates), S12 (outpost colors, Wave 2) and S13 (crests, Wave 2).
+# Owner: S2 Architecture and world (CLAUDE.md, folder ownership). Readers: art/, the
+# templates, and tools/build_guide_data.py, which copies place_art, characters and keepers
+# into dist/brand.json for the guide's World and Characters sections.
 #
 # Precedence: decisions.md wins over this file. baseline/v2/dwarves.yaml (the website's
 # data/team/dwarves.yaml) wins on every keeper field. baseline/v2/lore.md wins on the
@@ -21,10 +21,13 @@
 #   rooms        the Hall's rooms and the outside square, with plain labels
 #   outposts     the three outposts, each with a real Colorado stone and a color proposal
 #   towns        every town in lore.md plus the Wave 1 additions, with sourced facts
-#   crests       the rules for building every outpost and town crest from the master mark
+#   crests       how each outpost and town crest is built from the logo, once it ships
 #   keepers      name, kind, title, role and disclosure, copied from baseline/v2/dwarves.yaml
 #   rituals      the monthly forge theme, the newcomer's stone and honors
-#   real_places  the real-places rule
+#   real_places  facts about real places (decision 38 deleted the rules)
+#   place_art    each shipped place image: town, region, caption, credit, and the people,
+#                creature and mount decision 44 set for it, in generic words
+#   characters   each project repo's character, shown on its social card
 #
 # Figures: a fact about the world carries `source:` (a URL or a named file, with the date
 # it was read). A target that nobody has measured yet carries `goal: true`. Contrast
@@ -34,6 +37,7 @@ meta:
   version: 3.0.0-wave1
   owner: S2 Architecture and world
   date: "2026-11-02"
+  updated: "2026-11-14: place_art gains people, creature and mount (decision 44); notes that decisions 37 to 48 replaced are gone"
   decided_by: Claude, under decision 4 (Claude makes every design call and logs it)
   sources_note: >-
     "Read 2026-11-02" means the session opened the page or file that day. "Via the
@@ -42,15 +46,15 @@ meta:
 
 influences:
   rule: >-
-    Shipped files use `public_phrase`. Franchise art is copyrighted, so it never ships and is
-    never an image input to shipped art (the law; decision 38).
+    Shipped text uses `public_phrase`, because a franchise name in what ships is a trademark
+    risk. What binds is the law (decision 44): franchise art is copyrighted, so none of it
+    ships and none of it is an image input to shipped art.
   names: >-
-    Decision 30 names the influences openly in art/DIRECTION.md. In data/ their names live
-    in one place, data/words.yaml `franchises` (S3), joined here by `franchise_generic`,
-    which equals that file's `generic` text. They stay out of this file for two reasons.
-    S10's never-words check scans every tracked file except data/words.yaml, with a test
-    that the exemption cannot widen. S10's build also merges every data/*.yaml into
-    dist/brand.json, which consumers pull into the website's franchise-gated paths.
+    Decision 44 names the influences openly in the art/ prompts. In data/ their names live
+    only in data/words.yaml (`franchises` and `never`), joined here by `franchise_generic`,
+    which equals that file's `generic` text. tools/franchise_gate.py scans data/ (all but
+    data/words.yaml), dist/ and the guide, and tools/build_guide_data.py copies rows of this
+    file into dist/brand.json, which consumers pull into their own franchise-gated paths.
   traits_source: >-
     Traits are described from the orchestrator's private research digest (section 3,
     2026-11-02). Its sources name the franchises in their URLs, so they are not linked here.
@@ -187,9 +191,6 @@ outposts:
     one color proposal drawn from it. The color marks the outpost's crest field and its
     map dot. The outpost's name always rides beside the color, because color alone is a
     weak recognition asset (digest section 2, Fame x Uniqueness).
-  method: >-
-    Each color answers the six questions of the orchestrator's color method (2026-11-02):
-    role, distinctiveness, heritage equity, concept fit, access and cliche check.
   colors_status: >-
     Proposals for S12 (Wave 2). S12 sets the final hex values against the v3 palette and
     keeps each outpost color clearly apart from every v3 role.
@@ -223,8 +224,8 @@ outposts:
             ecosystem peers until the color audit in research/color/ arrives.
           heritage_equity: >-
             Sits near the 2014 shield's purple (OKLab distance 0.076 from v2 brand-purple,
-            computed here). If the winning concept keeps that purple as an accent, S12
-            moves this toward blue-violet so an outpost never reads as the master's color.
+            computed here). The logo keeps that purple in the emblem's C (decision 50), so
+            the final value moves toward blue-violet, keeping the outpost apart from the master.
           concept_fit: A deep jewel note, set in the crest only, inside the Hall's forge world of gold, fire and light.
           access: Ground-colored ink on it reaches 10.25:1; the crest rim carries the boundary on any ground.
           cliche_check: Not brown, forest green, "Colorado blue" or flag red and gold.
@@ -278,7 +279,7 @@ outposts:
       plain_label: the Colorado Startups chapter for Fort Collins, Loveland, Windsor and Greeley
       towns: [fort-collins, loveland, windsor, greeley]
       area_source: website data/regions/fusion-canyon.yaml (origin/main c6f10bc), read 2026-11-02
-      note: Named for the canyon. Built on the plain. Copy never places it inside a canyon.
+      note: Named for Poudre Canyon, which its place art paints (decision 44); its towns sit on the plain.
       stone:
         name: Stout sandstone
         what: >-
@@ -332,9 +333,9 @@ outposts:
     source: website decision 45
 
 towns:
-  rule: >-
-    Towns are real places, shown as they are, outside the Hall's doors (website decision
-    90). The facts below are the ones art and copy may lean on; each is sourced.
+  note: >-
+    Towns are real places. The facts below are the ones art and copy may lean on; each is
+    sourced. The place art repaints each landmark with magic (decisions 43 and 44, place_art).
   list:
     - id: boulder
       name: Boulder
@@ -346,8 +347,6 @@ towns:
           source: https://coloradosun.com/2026/10/06/boulder-flatirons-geology-tour/ (read 2026-11-02)
         - fact: Boulder Creek flows through the center of the city, which is home to the University of Colorado Boulder.
           source: https://en.wikipedia.org/wiki/Boulder,_Colorado (read 2026-11-02)
-      as_drawn: The Flatirons as three tilted slabs of reddish rock, seen from outside; footbridges over Boulder Creek.
-      as_drawn_source: baseline/v2/art-DIRECTION.md (the vocabulary of the Hall)
 
     - id: golden
       name: Golden
@@ -359,8 +358,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Golden,_Colorado (read 2026-11-02)
         - fact: Each new Mines student adds a rock to the white "M" on Mount Zion, a tradition since 1908.
           source: https://en.wikipedia.org/wiki/Mount_Zion_(Colorado) (read 2026-11-02)
-      as_drawn: Brick main street on Clear Creek, mine headframes on the hills, assay-lab brass in the gnome workshops.
-      as_drawn_source: baseline/v2/lore.md; baseline/v2/art-DIRECTION.md
 
     - id: arvada
       name: Arvada
@@ -370,8 +367,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Arvada,_Colorado (read 2026-11-02)
         - fact: The find lies along Ralston Creek in the city's Gold Strike Park; Olde Town Arvada is the historic heart of the city.
           source: https://en.wikipedia.org/wiki/Arvada,_Colorado (read 2026-11-02)
-      as_drawn: Olde Town's brick storefronts and the creek where the first gold turned up.
-      as_drawn_source: baseline/v2/art-DIRECTION.md (town main streets)
 
     - id: denver
       name: Denver
@@ -381,8 +376,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Denver (read 2026-11-02)
         - fact: The Mile High City's official elevation is one mile above sea level.
           source: https://en.wikipedia.org/wiki/Denver (read 2026-11-02)
-      as_drawn: City lights on the plain, seen from the mountain.
-      as_drawn_source: baseline/v2/lore.md
 
     - id: colorado-springs
       name: Colorado Springs
@@ -392,9 +385,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Colorado_Springs,_Colorado (read 2026-11-02)
         - fact: Pikes Peak is made almost entirely of pink Pikes Peak granite.
           source: https://en.wikipedia.org/wiki/Pikes_Peak_granite (read 2026-11-02)
-      as_drawn: Pikes Peak rising behind a sunny town; the cog railway climbing the mountain.
-      as_drawn_source: baseline/v2/art-DIRECTION.md (the regions)
-      real_places_note: Garden of the Gods, on the city's western edge, is never fantasy decoration (real_places).
 
     - id: manitou-springs
       name: Manitou Springs
@@ -404,9 +394,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Manitou_Springs,_Colorado (read 2026-11-02)
         - fact: Its mineral springs were sacred grounds; the Ute, Arapaho, Cheyenne and other plains tribes came to the area and spent winters there.
           source: https://en.wikipedia.org/wiki/Manitou_Mineral_Springs (read 2026-11-02)
-      as_drawn: A mountain town of red sandstone and timber at the foot of the peak, shown as it is.
-      as_drawn_source: baseline/v2/lore.md
-      real_places_note: The springs are never drawn as, or named for, the Hall's hot springs (real_places).
 
     - id: fort-collins
       name: Fort Collins
@@ -420,8 +407,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Horsetooth_Mountain (read 2026-11-02)
         - fact: The Avery House was built in 1879 of red sandstone from the Stout quarry.
           source: https://history.fcgov.com/timeline/ (read 2026-11-02)
-      as_drawn: Old Town's brick and red sandstone, footbridges over the Poudre, plains windpumps.
-      as_drawn_source: baseline/v2/lore.md; baseline/v2/art-DIRECTION.md
 
     - id: loveland
       name: Loveland
@@ -433,8 +418,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Loveland,_Colorado (read 2026-11-02)
         - fact: The town was laid out near the railroad's crossing of the Big Thompson River.
           source: https://en.wikipedia.org/wiki/Loveland,_Colorado (read 2026-11-02)
-      as_drawn: Bronze sculpture in the park and a working foundry, the plain's own forge.
-      as_drawn_source: this file (S2, 2026-11-02), from the facts above
 
     - id: windsor
       name: Windsor
@@ -444,8 +427,6 @@ towns:
           source: https://en.wikipedia.org/wiki/Windsor,_Colorado (read 2026-11-02)
         - fact: A factory for making sugar from sugar beets was built here in 1903.
           source: https://en.wikipedia.org/wiki/Windsor,_Colorado (read 2026-11-02)
-      as_drawn: Open plains, irrigated fields and a brick factory stack by the lake.
-      as_drawn_source: this file (S2, 2026-11-02), from the facts above
 
     - id: greeley
       name: Greeley
@@ -455,19 +436,17 @@ towns:
           source: https://en.wikipedia.org/wiki/Greeley,_Colorado (read 2026-11-02)
         - fact: The Cache la Poudre River flows through north Greeley, which is home to the University of Northern Colorado.
           source: https://en.wikipedia.org/wiki/Greeley,_Colorado (read 2026-11-02)
-      as_drawn: Plains windpumps, irrigation ditches and a brick main street under a wide sky.
-      as_drawn_source: baseline/v2/art-DIRECTION.md (plains and creeks)
 
 crests:
   status: >-
-    Rules now. The geometry arrives with the master mark in Wave 2. S13 builds every crest
-    in logo/ from one SVG template and this file, so a new town adds a row, not a drawing.
+    Waits on the logo (decision 48). Once the emblem ships, every crest is built from it and
+    this file, so a new town adds a row, not a new design.
   parts:
     - id: rim
       rule: >-
-        One closed outline shape, the same for every crest, drawn by S13 from the master
-        mark's geometry. The rim carries the 3:1 boundary: the text role on light
-        grounds, the on-night role on night bands.
+        One closed outline shape, the same for every crest, taken from the emblem's
+        outline. The rim carries the 3:1 boundary: the text role on light grounds, the
+        on-night role on night bands.
     - id: field
       rule: The outpost's stone color (outposts.list[].color_proposal until S12 sets the token).
     - id: mark
@@ -490,7 +469,7 @@ crests:
     min_crest_px: 24
     band_from_px: 64
     goal: true
-    note: Targets until S13 tests the drawn crests; below 24 px use the master mark alone.
+    note: Targets until the crests exist; below 24 px use the logo's icon alone.
   variants:
     one_color: Rim and mark in one ink, field left empty; the name beside it carries the outpost.
     reversed: On a night band the rim switches to the on-night role; field and mark stay.
@@ -502,7 +481,9 @@ keepers:
     copied verbatim on 2026-11-02. That file wins; change it there first.
   disclosure_rule: >-
     Every keeper says it is an AI agent wherever it appears, in words or in a picture,
-    with the disclosure below beside it (CLAUDE.md, Rules that never bend).
+    with the disclosure below beside it. This is a fact about AI agents, told to the people
+    who meet one, not a style rule, so decision 38's cuts leave it in place (CLAUDE.md,
+    What binds; decision 38).
   list:
     - id: communitas
       name: Communitas
@@ -578,12 +559,6 @@ rituals:
   honors:
     lore_name: honor
     plain_label: a thank-you that names what someone did; the person can hide it
-    rules:
-      - An honor names one deed in one sentence, with its outpost and month.
-      - A person gives it; a keeper never does.
-      - The member decides whether it shows and can hide it at any time.
-      - No tiers, counts, totals, levels or streaks, and honors are never ranked.
-      - Every honor draws as the same small carved ring in the outpost's stone color, so no honor looks bigger than another.
     form: "{Hall phrase}: {the deed in plain words}, {outpost}, {month and year}"
     examples:
       - "Opened the doors: welcomed newcomers at the Golden Outpost gathering, March 2027"
@@ -615,14 +590,51 @@ real_places:
       Arapaho and Cheyenne also hold the Front Range as homeland. No tribe has been
       consulted on this brand.
 
-# The shipped art the guide shows, in generic words (the franchise gate scans data/). Files are in dist/;
-# credits link to each photo's source in art/render/src/SOURCES.md. Decisions 43 to 46.
+# The shipped art the guide shows, in generic words (tools/franchise_gate.py scans data/). Files are in
+# dist/; credits link to each photo's source in art/render/src/SOURCES.md. Decisions 43 to 46. `people`,
+# `creature` and `mount` translate decision 44's table: art/ names the influences, and this file says what
+# a viewer sees, so the gate passes and the meaning stays.
 place_art:
-  - {file: places/boulder.jpg, town: Boulder, region: Photon Mountain, caption: "The Flatirons as an elven city of waterfalls, moon portals and a great tree, with dragons", credit: "Public-domain photo by Jimbo Herndan"}
-  - {file: places/golden.jpg, town: Golden, region: Photon Mountain, caption: "Table Mountain as a dwarven kingdom's forge gate, with steam carts and a boulder wyrm", credit: "Photo by James St. John, CC BY 2.0, edited"}
-  - {file: places/denver.jpg, town: Denver, region: Photon Mountain, caption: "The skyline behind a walled castle town, with knights on white horses and white gryphons", credit: "Public-domain photo by USFWS Mountain-Prairie"}
-  - {file: places/springs.jpg, town: Colorado Springs, region: Space Peak, caption: "Pikes Peak's rock spires as tower aeries, with gyrocopters and a gryphon", credit: "Photo by Huttarl, CC BY 2.5, edited"}
-  - {file: places/fortcollins.jpg, town: Fort Collins, region: Fusion Canyon, caption: "Poudre Canyon as a gnome workshop village of water wheels and round-door homes, with small dragons and mechanical striders", credit: "Photo by Charles Willgren, CC BY 2.0, edited"}
+  - file: places/boulder.jpg
+    town: Boulder
+    region: Photon Mountain
+    caption: The Flatirons as an elven city of waterfalls, moon portals and a great tree, with dragons
+    credit: Public-domain photo by Jimbo Herndan
+    people: tall moon elves with long swept-back ears, and wise high elves
+    creature: green dragons
+    mount: hippogryphs with golden-eagle heads
+  - file: places/golden.jpg
+    town: Golden
+    region: Photon Mountain
+    caption: Table Mountain as a dwarven kingdom's forge gate, with steam carts and a boulder wyrm
+    credit: Photo by James St. John, CC BY 2.0, edited
+    people: braided mountain dwarves of an old forge kingdom, with a few gnome tinkers
+    creature: stone wyrms of boulders veined with gold
+    mount: dwarven steam-tank drills
+  - file: places/denver.jpg
+    town: Denver
+    region: Photon Mountain
+    caption: The skyline behind a walled castle town, with knights on white horses and white gryphons
+    credit: Public-domain photo by USFWS Mountain-Prairie
+    people: knights and horse lords of the plains, with dwarves
+    creature: white gryphons with bald-eagle heads
+    mount: white horses glowing with holy light
+  - file: places/springs.jpg
+    town: Colorado Springs
+    region: Space Peak
+    caption: Pikes Peak's rock spires as tower aeries, with gyrocopters and a gryphon
+    credit: Photo by Huttarl, CC BY 2.5, edited
+    people: wild, tattooed dwarves of the high aeries
+    creature: gryphons with golden-eagle heads
+    mount: dwarven gyrocopters
+  - file: places/fortcollins.jpg
+    town: Fort Collins
+    region: Fusion Canyon
+    caption: Poudre Canyon as a gnome workshop village of water wheels and round-door homes, with small dragons and mechanical striders
+    credit: Photo by Charles Willgren, CC BY 2.0, edited
+    people: tinkering gnomes and barefoot halflings
+    creature: mechanical dragonlings
+    mount: mechanical bird-legged striders
 
 # Each project repo's character, shown on its social card (decisions 39 and 40). AI-made, no copyright claimed;
 # the names and likenesses are reserved (TRADEMARKS.md).
