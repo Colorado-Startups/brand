@@ -19,7 +19,6 @@ Node sizes come from the Bria node's settings (`get_node`, 2026-11-02, recorded 
 
 **Caption rules** (VGL guide):
 
-1. Describe, don't instruct. Write "founders laughing at a long table", never "make the founders laugh".
 2. Always set `style_medium` and `artistic_style`. Without them a caption defaults to a photograph.
 3. `artistic_style` holds 3 words at most.
 4. `objects` holds 5 entries at most. Everything else goes in `background_setting`.

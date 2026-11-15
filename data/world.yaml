@@ -71,7 +71,6 @@ influences:
           colorado: Mine tunnels and headframes from the Pikes Peak Gold Rush, which ran from July 1858 to about February 1861
           colorado_source: https://en.wikipedia.org/wiki/Pikes_Peak_Gold_Rush (read 2026-11-02)
           lands: [hero art, section dividers, the forge room]
-      never: [the city's name, its gates or halls copied, its banners or emblems, its folk's costumes]
 
     - id: gnome-city
       public_phrase: a fantasy MMO's gnomes and their engineering city
@@ -83,7 +82,6 @@ influences:
             and the cog railway from Manitou Springs to the top of Pikes Peak
           colorado_source: https://en.wikipedia.org/wiki/Golden,_Colorado and https://en.wikipedia.org/wiki/Manitou_Springs,_Colorado (read 2026-11-02)
           lands: [Resourcus the gnome keeper, loading states, data viz]
-      never: [the city's name, its machines, vehicles or mounts, grime]
 
     - id: fire-mountain
       public_phrase: a classic adventure game's fire mountain and its town
@@ -97,12 +95,6 @@ influences:
           colorado: Ember light on red rock
           colorado_source: baseline/v2/art-DIRECTION.md (the vocabulary of the Hall)
           lands: [accent glow, hover states, motion]
-      never:
-        - the dot-in-a-circle emblem
-        - a folk made of living rock (website decision 90)
-        - an erupting volcano, a crater or lava flows
-        - the town's round layout copied
-        - a real spring that matters to the Ute and other tribes (real_places)
 
     - id: mountain-dwarves
       public_phrase: high fantasy's mountain dwarves
@@ -123,7 +115,6 @@ influences:
           colorado: Aspen gold on granite
           colorado_source: baseline/v2/art-DIRECTION.md (aspen gold is an art-only color)
           lands: [palette, honors]
-      never: [their script or runes, any named hall, door, gate or map style, their heraldry]
 
 colorado_cues:
   source: >-
@@ -148,23 +139,18 @@ materials:
     - id: halls
       lore: Vast carved halls lit by lanterns, great hearths and forges
       looks_like: Red sandstone and granite carved into soaring arches; thick timber beams; long stairs; stone bridges over lit channels
-      never: [a cave, a dungeon, a dark mine, a fortress wall]
     - id: metalwork
       lore: Molten-gold channels, hammered bronze doors and banners
       looks_like: Glowing channels behind brass rails; tall open bronze doors with geometric relief; banners in gold, ember and sky blue
-      never: [lava flows, runes or inscriptions, locked gates, lettering or heraldry on banners]
     - id: workshops
       lore: Gnome workshops ticking with brass clockwork; the cog railways and mine lifts the gnomes run through the range
       looks_like: Brass gears, orreries, telescopes, small cranes, ore carts, mine lifts
-      never: [steam-punk grime, any game's machines or mounts]
     - id: mountains-heart
       lore: The range's own warmth rises under the Hall, feeds the forges and the hot springs, and is always safe and contained
       looks_like: Warm pools and soft steam; glowing vents behind brass rails
-      never: [eruptions, a crater, danger]
     - id: stone
       lore: Front Range granite and sandstone, and Colorado mining heritage
       looks_like: Pink granite, red sandstone, stamp mills, headframes, ore carts
-      never: [generic fantasy peaks, desert, mesas]
 
 rooms:
   source: baseline/v2/lore.md (The Hall; Outside the doors) for the rooms; data/voice.yaml (vocabulary, S3) and website decision 46 (the header) for the plain labels
@@ -508,12 +494,6 @@ crests:
   variants:
     one_color: Rim and mark in one ink, field left empty; the name beside it carries the outpost.
     reversed: On a night band the rim switches to the on-night role; field and mark stay.
-  never:
-    - A landmark picture (the Flatirons, Pikes Peak, Horsetooth Rock) or any real place drawn in a crest.
-    - A project's mark (such as Summit Sun) inside a crest.
-    - A keeper, a sponsor's logo or a second stone color inside a crest.
-    - Crowns, swords, shields from any real house, runes or a dot-in-a-circle.
-    - A gradient in the field; the crest must print in flat colors.
   source: decisions.md, decisions 11 and 12
 
 keepers:
@@ -523,10 +503,6 @@ keepers:
   disclosure_rule: >-
     Every keeper says it is an AI agent wherever it appears, in words or in a picture,
     with the disclosure below beside it (CLAUDE.md, Rules that never bend).
-  never:
-    - A keeper never moderates (baseline/v2/dwarves.yaml, Communitas).
-    - A keeper never organizes an outpost (baseline/v2/lore.md).
-    - A keeper never gives an honor (rituals.honors).
   list:
     - id: communitas
       name: Communitas
@@ -564,9 +540,6 @@ rituals:
     who_picks: >-
       Colorado Startups' organizers set the year's themes, and any outpost may propose one.
       Publicus may draft the theme note; a person reviews and publishes it.
-    never:
-      - A theme never ranks outposts or scores a contest.
-      - No theme is about politics or fund talk (baseline/v2/voice.md, Never).
     calendar_status: A proposal; organizers may swap any month. S3's vocabulary wins on the words.
     calendar:
       - {month: January, theme: Prospect, plain_label: "finding a problem worth solving", door: idea}

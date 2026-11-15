@@ -11,7 +11,7 @@ Colorado's founders build their companies in the Hall, a bright forge-kingdom ca
 | v3 (2026-10-18) | v4 (this file) |
 |---|---|
 | Colors named by hex | Colors named by token role only. Wave 2 (S12) sets the values |
-| The influences stated as a mood | Seven rules from the influence map, each with what to paint and what never to paint |
+| The influences stated as a mood | Seven rules from the influence map, each with what to paint |
 | Anima prompt files in `.txt` | FIBO 2.0 VGL templates in `art/prompts/*.vgl.json`, with the fixed fields marked |
 | Each keeper described anew in each prompt | One fixed sheet per keeper in `art/keepers/`, pasted verbatim into every caption |
 | Motion rules dropped by a website merge | Restored and extended in `art/motion.md` |
