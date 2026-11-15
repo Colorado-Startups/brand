@@ -1,0 +1,52 @@
+{
+ "clip": "space",
+ "still": "dist/places/springs.jpg",
+ "still_sha256": "ee02ac74c6bbfb611a0d0be2ed084d6f91bfd9f1f50e1f8939e084642c1c770b",
+ "place": "Colorado Springs (Space Peak)",
+ "source_photo": "Photo by Huttarl, CC BY 2.5 (commons.wikimedia.org/wiki/File:Pikes_Peak_from_CO_Springs.jpg), edited",
+ "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
+ "lane": "huggingface.co/spaces/paul-co-startups/brand-ltx, ZeroGPU on the HF PRO quota; encoded on paul-co-startups/brand-clips (free CPU)",
+ "mode": "image-to-video with the Cinemagraph LoRA",
+ "prompt": "CINEMAGRAPH_MOTION, tripod locked-off static camera, zero camera movement, no zoom, the whole painting is a frozen still image, the towers, mountain, the golden gryphon with its wings spread and the brass gyrocopters hang completely still in the air, only the small stars and the clouds softly shimmer, everything else stays perfectly still, seamless natural loop",
+ "negative": "camera movement, pan, tilt, zoom, push in, parallax, whole image moving, background sliding, creatures moving, creatures merging, flash, strobe, flicker on entire image, text, letters, noisy texture, distorted, blurry, low quality",
+ "lora": "Lightricks/LTX-2.5-22b-LoRA-Cinemagraph at strength 1.4",
+ "prompt_enhancer": false,
+ "seed": 12,
+ "render": "1280x640, 121 frames, 24 fps",
+ "guidance": "1.0 (distilled, unguided)",
+ "decoder": "conv",
+ "loop": "last 24 frames dissolved frame by frame into the first 24; 97 frames",
+ "seam": {
+  "loop_frames": 97,
+  "seam_change": 3.57,
+  "ordinary_median": 0.6,
+  "ordinary_max": 1.52
+ },
+ "audio": "dropped",
+ "label": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+ "raw_sha256": "a1594dc42cb9c59a41b761add6ab9fbcc750d3443949cd7dbcd856833116a435",
+ "approved": "Paul, in the brand chat on 2026-11-15: accepted the gated licences of Lightricks/LTX-2.5-Diffusers and Lightricks/LTX-2.5-22b-LoRA-Cinemagraph, and the HF_TOKEN push to the brand-ltx Space (keys.sh dialog); free lanes only",
+ "spend": "huggingface.co/settings/billing, read before the first call and after the last of 4 calls (2 seeds each): ZeroGPU 13.9 to 16.6 of 40 min; credit $1.72 to $1.72; period usage $0.28 to $0.28; automatic recharge off",
+ "files": {
+  "space.webm": {
+   "bytes": 250725,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "14f15e8eef47da9f31356f284e3b13ae768b08797f9e6986e1af5efadb9e8c5b"
+  },
+  "space.mp4": {
+   "bytes": 396309,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "9801857698ae986930ba2da7f8b4c6a530ab6249f57fd649d3de68096f9fb615"
+  }
+ }
+}

@@ -5,6 +5,7 @@ signed-in account, so its HF PRO daily quota, the way the FIBO edit step calls B
 huggingface.co/settings/billing before and after every call; past the quota HF bills the included credit (decision 57).
 R is uv run --no-project --with gradio_client==2.7.2 python3:
   R art/render/ltx_clips.py render photonics --seed 11       one GPU call: raw clip and runs row in art/render/out/clips/
+  R art/render/ltx_clips.py cinemagraph fusion --seed 11     one GPU call on our own Space with the Cinemagraph LoRA (decision 62)
   R art/render/ltx_clips.py frames photonics --seed 11        contact sheet, picked frames, brightness and change
   R art/render/ltx_clips.py export photonics --seed 11        loop, WebM and MP4 with no audio -> dist/clips/
 frames and export run ffmpeg on the clip Space paul-co-startups/brand-clips (art/render/clip-space/, free CPU tier),
@@ -19,11 +20,15 @@ ROOT = HERE.parent.parent
 OUT = HERE / "out" / "clips"
 DIST = ROOT / "dist" / "clips"
 SPACE = "Lightricks/LTX-2.5"
+CINE_SPACE = "paul-co-startups/brand-ltx"  # art/render/ltx-space/: the same distilled model plus Lightricks' Cinemagraph LoRA
+CINE_NEGATIVE = ("camera movement, pan, tilt, zoom, push in, parallax, whole image moving, background sliding, creatures moving, "
+                 "creatures merging, flash, strobe, flicker on entire image, text, letters, noisy texture, distorted, blurry, low quality")
 ENCODER = "paul-co-startups/brand-clips"  # art/render/clip-space/, free CPU: ffmpeg never runs on the Mac
 # The Space's grid: both sides divide by 64. 1280 x 640 keeps the paintings' 2:1 and the 720p class's 1280 width.
 WIDTH, HEIGHT, SECONDS, FPS, DECODER = 1280, 640, 5.0, 24, "conv"
 FRAMES = int(SECONDS * FPS) // 8 * 8 + 1  # 121, the Space's own snap to the 8k+1 grid
 FADE = 24  # frames crossfaded at the seam: 1 s
+CINE_STRENGTH = 1.1  # the LoRA card's sweet spot is 1.0 to 1.2
 LABEL = "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)"
 
 # One present-tense paragraph each (art/motion.md rule 8): what moves, how, and what the camera does. Places are named
@@ -60,6 +65,19 @@ CLIPS = {
                   "drifts slowly through the valley."},
 }
 
+# The Cinemagraph LoRA's own prompt form (its model card): the trigger word, a locked-off camera, then what moves and that
+# everything else is frozen. Each names only what moves (decision 62).
+CINE = {
+    "fusion": "CINEMAGRAPH_MOTION, tripod locked-off static camera, zero camera movement, no zoom, the whole painting is a "
+              "frozen still image, the houses, gnomes, riders, striders, dragonlings, waterwheel and cliffs remain "
+              "completely still, only the teal glow of the round energy cores in the workshop windows gently pulses, "
+              "and a few tiny sparks drift slowly upward, everything else stays perfectly still, seamless natural loop",
+    "space": "CINEMAGRAPH_MOTION, tripod locked-off static camera, zero camera movement, no zoom, the whole painting is a "
+             "frozen still image, the towers, mountain, the golden gryphon with its wings spread and the brass "
+             "gyrocopters hang completely still in the air, only the small stars and the clouds softly shimmer, "
+             "everything else stays perfectly still, seamless natural loop",
+}
+
 
 def sha(path):
     return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
@@ -92,6 +110,23 @@ def render(clip, seed):
          "prompt_sent_matches": used.strip() == c["prompt"].strip(), "wall_seconds": round(secs, 1),
          "at": started.isoformat(timespec="seconds"), "sha256": sha(raw(clip, seed))})
     print(clip, seed, length, f"{secs:.0f} s wall", raw(clip, seed))
+
+
+def cinemagraph(clip, seed, strength=CINE_STRENGTH):
+    """One GPU call on our own Space: the distilled model with the Cinemagraph LoRA, camera still, only the named parts move."""
+    from gradio_client import Client, handle_file
+    OUT.mkdir(parents=True, exist_ok=True)
+    c, started = CLIPS[clip], datetime.datetime.now(datetime.timezone.utc)
+    video = Client(CINE_SPACE).predict(handle_file(str(ROOT / c["still"])), CINE[clip], CINE_NEGATIVE, seed, HEIGHT, WIDTH, FRAMES,
+                                       strength, api_name="/cinemagraph")
+    path = video["video"] if isinstance(video, dict) else video
+    shutil.copyfile(path, raw(clip, seed))
+    secs = (datetime.datetime.now(datetime.timezone.utc) - started).total_seconds()
+    log({"clip": clip, "seed": seed, "prompt": CINE[clip], "negative": CINE_NEGATIVE, "still": c["still"],
+         "still_sha256": sha(ROOT / c["still"]), "space": CINE_SPACE, "lora": "Lightricks/LTX-2.5-22b-LoRA-Cinemagraph",
+         "lora_strength": strength, "width": WIDTH, "height": HEIGHT, "frames": FRAMES, "wall_seconds": round(secs, 1),
+         "at": started.isoformat(timespec="seconds"), "sha256": sha(raw(clip, seed))})
+    print(clip, seed, f"{secs:.0f} s wall", raw(clip, seed))
 
 
 def ffprobe(path, entries):
@@ -131,8 +166,10 @@ def export(clip, seed, webm_crf, mp4_crf, approved, spend):
                          "comment": tags.get("comment"), "sha256": sha(f)}
     record = {"clip": clip, "still": c["still"], "still_sha256": sha(ROOT / c["still"]), "place": c["place"],
               "source_photo": c["source_photo"], "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
-              "lane": f"huggingface.co/spaces/{SPACE}, ZeroGPU on the HF PRO quota; encoded on {ENCODER} (free CPU)",
-              "mode": "image-to-video", "prompt": run["prompt"], "prompt_enhancer": False, "seed": seed,
+              "lane": f"huggingface.co/spaces/{run['space']}, ZeroGPU on the HF PRO quota; encoded on {ENCODER} (free CPU)",
+              "mode": "image-to-video" + (" with the Cinemagraph LoRA" if "lora" in run else ""), "prompt": run["prompt"],
+              **({"negative": run["negative"], "lora": f"{run['lora']} at strength {run['lora_strength']}"} if "lora" in run else {}),
+              "prompt_enhancer": False, "seed": seed,
               "render": f"{WIDTH}x{HEIGHT}, {FRAMES} frames, {FPS} fps", "guidance": "1.0 (distilled, unguided)",
               "decoder": DECODER, "loop": f"last {FADE} frames dissolved frame by frame into the first {FADE}; {FRAMES - FADE} frames",
               "seam": json.loads(seam), "audio": "dropped", "label": LABEL, "raw_sha256": sha(src),
@@ -143,16 +180,19 @@ def export(clip, seed, webm_crf, mp4_crf, approved, spend):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("step", choices=["render", "frames", "export"])
+    p.add_argument("step", choices=["render", "cinemagraph", "frames", "export"])
     p.add_argument("clip", choices=sorted(CLIPS))
     p.add_argument("--seed", type=int, required=True)
     p.add_argument("--webm-crf", type=int, default=40)
     p.add_argument("--mp4-crf", type=int, default=28)
+    p.add_argument("--strength", type=float, default=CINE_STRENGTH)
     p.add_argument("--approved", default="")
     p.add_argument("--spend", default="")
     a = p.parse_args()
     if a.step == "render":
         render(a.clip, a.seed)
+    elif a.step == "cinemagraph":
+        cinemagraph(a.clip, a.seed, a.strength)
     elif a.step == "frames":
         frames(a.clip, a.seed)
     else:

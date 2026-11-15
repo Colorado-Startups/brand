@@ -1,0 +1,52 @@
+{
+ "clip": "fusion",
+ "still": "dist/places/fortcollins.jpg",
+ "still_sha256": "61ce92fd942713a78d306c56957642752b41406c2b5083308b701e4d1cfaca23",
+ "place": "Fort Collins (Fusion Canyon)",
+ "source_photo": "Photo by Charles Willgren, CC BY 2.0 (commons.wikimedia.org/wiki/File:Poudre_Canyon,_Greyrock_trail.jpg), edited",
+ "model": "LTX-2.5 distilled 22B (Lightricks/LTX-2.5-Diffusers)",
+ "lane": "huggingface.co/spaces/paul-co-startups/brand-ltx, ZeroGPU on the HF PRO quota; encoded on paul-co-startups/brand-clips (free CPU)",
+ "mode": "image-to-video with the Cinemagraph LoRA",
+ "prompt": "CINEMAGRAPH_MOTION, tripod locked-off static camera, zero camera movement, no zoom, the whole painting is a frozen still image, the houses, gnomes, riders, striders, dragonlings, waterwheel and cliffs remain completely still, only the teal glow of the round energy cores in the workshop windows gently pulses, and a few tiny sparks drift slowly upward, everything else stays perfectly still, seamless natural loop",
+ "negative": "camera movement, pan, tilt, zoom, push in, parallax, whole image moving, background sliding, creatures moving, creatures merging, flash, strobe, flicker on entire image, text, letters, noisy texture, distorted, blurry, low quality",
+ "lora": "Lightricks/LTX-2.5-22b-LoRA-Cinemagraph at strength 1.4",
+ "prompt_enhancer": false,
+ "seed": 12,
+ "render": "1280x640, 121 frames, 24 fps",
+ "guidance": "1.0 (distilled, unguided)",
+ "decoder": "conv",
+ "loop": "last 24 frames dissolved frame by frame into the first 24; 97 frames",
+ "seam": {
+  "loop_frames": 97,
+  "seam_change": 4.84,
+  "ordinary_median": 1.22,
+  "ordinary_max": 2.04
+ },
+ "audio": "dropped",
+ "label": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+ "raw_sha256": "3bb10b0efdda9f3c0dd05020120151aca4f1a729cad6b4fff140cd7ddb23ea61",
+ "approved": "Paul, in the brand chat on 2026-11-15: accepted the gated licences of Lightricks/LTX-2.5-Diffusers and Lightricks/LTX-2.5-22b-LoRA-Cinemagraph, and the HF_TOKEN push to the brand-ltx Space (keys.sh dialog); free lanes only",
+ "spend": "huggingface.co/settings/billing, read before the first call and after the last of 4 calls (2 seeds each): ZeroGPU 13.9 to 16.6 of 40 min; credit $1.72 to $1.72; period usage $0.28 to $0.28; automatic recharge off",
+ "files": {
+  "fusion.webm": {
+   "bytes": 409131,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "0c22d62106325a274f6146bf8bd21d388f840b78229f3292c43a8425bea06d67"
+  },
+  "fusion.mp4": {
+   "bytes": 581278,
+   "seconds": 4.04,
+   "size": "1280x640",
+   "streams": [
+    "video"
+   ],
+   "comment": "AI-made: LTX-2.5 image-to-video of a FIBO 2.0 painting (Colorado Startups brand)",
+   "sha256": "ac80614b9d5ded4faeb96dbc10b8cdf6eadcb220070773dfb72d74235d19f4db"
+  }
+ }
+}

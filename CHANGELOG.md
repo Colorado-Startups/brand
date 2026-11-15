@@ -4,6 +4,15 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.3.0] - 2026-11-15
+
+Theme clips for Fusion Canyon and Space Peak, with a still camera (decision 62). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- `dist/clips/fusion.webm`, `fusion.mp4`, `fusion.json`: a 4 s muted loop of the Fort Collins painting, teal cores pulsing and sparks drifting.
+- `dist/clips/space.webm`, `space.mp4`, `space.json`: a 4 s muted loop of the Colorado Springs painting, stars and clouds shimmering, gryphon and gyrocopters in place.
+- `art/render/ltx-space/`: the own ZeroGPU Space for LTX-2.5 with the Cinemagraph LoRA, and `ltx_clips.py cinemagraph`.
+
 ## [4.2.0] - 2026-11-15
 
 The first theme clip for the website's region panels (decision 61). Checksums for every file in `dist/` are in the GitHub release notes.
