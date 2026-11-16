@@ -574,7 +574,7 @@ glossary:
       means: The sentence each keeper carries wherever it appears, copied word for word from dwarves.yaml.
       source: [dwarves, claude-md]
     - term: region
-      means: "The website's word for the three areas: Photon Mountain (Boulder, Golden, Arvada, Denver), Space Peak (Colorado Springs and the Pikes Peak region) and Fusion Canyon (Fort Collins, Loveland, Windsor, Greeley)."
+      means: "The website's word for the three areas: Photon Mountain (Boulder, Golden, Arvada, Denver), Space Peak (Colorado Springs, Fountain) and Fusion Canyon (Fort Collins, Loveland, Windsor)."
       source: web-d45
     - term: seat
       means: A role a person fills, such as moderator, organizer, Slack Community Lead or Connector. Keepers never hold one.
