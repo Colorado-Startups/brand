@@ -36,7 +36,7 @@ meta:
   version: 3.0.0-wave1
   owner: S2 Architecture and world
   date: "2026-11-02"
-  updated: "2026-11-15: the three region crests ship and the crests take a charge per region (decision 60)"
+  updated: "2026-11-15: region color tokens, region crafts and the characters' disclosures (decision 64)"
   decided_by: Claude, under decision 4 (Claude makes every design call and logs it)
   sources_note: >-
     "Read 2026-11-02" means the session opened the page or file that day. "Via the
@@ -162,13 +162,19 @@ regions:
     map dot. The region's name always rides beside the color, because color alone is a
     weak recognition asset (digest section 2, Fame x Uniqueness).
   colors_status: >-
-    Proposals for S12 (Wave 2). S12 sets the final hex values against the v3 palette and
-    keeps each region color clearly apart from every v3 role.
+    Set as tokens (decision 64): tokens/brand_tokens.yaml region-photon-mountain,
+    region-space-peak and region-fusion-canyon, each with an on-region ink and a night
+    value. Each token is the hue of its crest's painted field, measured on
+    dist/crests/<region>-512.png. Each color_proposal below is kept as the record of its stone.
+  craft_rule: >-
+    Each region's craft is what its own people are painted at work on in the place
+    paintings v2 (decision 64; art/render-queue.yaml places-v2).
   list:
     - id: photon-mountain
       name: Photon Mountain
       plain_label: the Colorado Startups chapter for Boulder, Golden, Arvada and Denver
       towns: [boulder, golden, arvada, denver]
+      craft: light
       area_source: website data/regions/photon-mountain.yaml (origin/main c6f10bc), read 2026-11-02
       stone:
         name: Jamestown fluorite
@@ -205,6 +211,7 @@ regions:
       plain_label: the Colorado Startups chapter for Colorado Springs and Fountain
       # towns: the towns the brand paints and writes about (decision 63); Manitou Springs is a nearby town.
       towns: [colorado-springs, manitou-springs]
+      craft: flight and stars
       area_source: website data/regions/space-peak.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
       stone:
         name: Pikes Peak granite
@@ -250,6 +257,7 @@ regions:
       plain_label: the Colorado Startups chapter for Fort Collins, Loveland and Windsor
       # towns: the towns the brand paints and writes about (decision 63); Greeley is a nearby town.
       towns: [fort-collins, loveland, windsor, greeley]
+      craft: fire and energy
       area_source: website data/regions/fusion-canyon.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
       note: Named for Poudre Canyon, which its place art paints (decision 44); its towns sit on the plain.
       stone:
@@ -422,7 +430,7 @@ crests:
         wings and the 2014 shield's outline, on the crest's own deep navy ground. The
         navy ground and the gold rim carry the boundary on any page (decisions 59 and 60).
     - id: field
-      rule: The region's stone color (regions.list[].color_proposal until S12 sets the token), as glossy enamel.
+      rule: The region's stone color, as glossy enamel. Its UI token is region-<region> in tokens/brand_tokens.yaml (decision 64).
     - id: charge
       rule: >-
         The region's own creature, described in our own words (decision 60). Photon
@@ -623,9 +631,26 @@ place_art:
     mount: mechanical bird-legged striders
 
 # Each project repo's character, shown on its social card (decisions 39 and 40). AI-made, no copyright claimed;
-# the names and likenesses are reserved (TRADEMARKS.md).
+# the names and likenesses are reserved (TRADEMARKS.md). Decision 64: each may appear on the website's AI agents
+# page (/agents/, data/voice.yaml site_words) with its card, and with its disclosure beside it, word for word.
+# Like a keeper, a character is never shown beside sponsors and never speaks for the community.
 characters:
-  - {name: Claudius, card: social/claudius.jpg, what: "A gnome engineer and loyal companion", repo: Colorado-Startups/claudius}
-  - {name: Linken, card: social/link.jpg, what: "A gnome hero", repo: Colorado-Startups/link}
-  - {name: Legallas, card: social/legallas.jpg, what: "An elf ranger", repo: Colorado-Startups/legallas}
-
+  - name: Claudius
+    card: social/claudius.jpg
+    what: A gnome engineer and loyal companion
+    repo: Colorado-Startups/claudius
+    agents_page: true
+    disclosure: Claudius is an open-source AI agent project from Colorado Startups. It runs in your own AI tool and can make mistakes, so check its work.
+  - name: Linken
+    card: social/link.jpg
+    what: A gnome hero
+    repo: Colorado-Startups/link
+    agents_page: true
+    disclosure: Linken is an open-source AI agent project from Colorado Startups. It runs in your own AI tool and can make mistakes, so check its work before anything posts.
+  - name: Legallas
+    card: social/legallas.jpg
+    what: An elf ranger
+    repo: Colorado-Startups/legallas
+    agents_page: when its repo is public
+    agents_page_note: The repo is private until its launch gate (GitHub, read 2026-11-15), so the website lists Legallas only once it is public.
+    disclosure: Legallas is an open-source AI agent project from Colorado Startups, not a lawyer or law firm. It runs in your own AI tool and can make mistakes, so check its work and have your own lawyer review anything before you rely on it.

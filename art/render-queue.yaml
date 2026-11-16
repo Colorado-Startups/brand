@@ -81,7 +81,20 @@ deferred:
     decision: 44
   - id: keepers-restyle
     what: "Communitas, Resourcus and Publicus restyled in the game style, from their sheets in art/keepers/"
+    note: "Comes before any Rive rigging: no keeper is rigged until its restyle is approved (decision 64). Website plan step B1, then B2"
     decision: 48
+  - id: places-v2
+    what: "Place paintings v2: each place's own people at work on its region's craft (data/world.yaml regions[].craft). Same landmark, structure and creatures as v1; the people move from standing to working"
+    status: "Queued, not rendered. Waits for Paul's yes on the render batch (website plan step B4, which also needs his yes in chat) and his approval of each image"
+    estimate: "5 FIBO edits at one seed each, plus a second seed where the first fails review (computed here; goal: true)"
+    places:
+      - {id: place-boulder-v2, region: Photon Mountain, craft: light, work: "Moon elves tend lanterns and moon portals, and polish prisms that throw light over the city"}
+      - {id: place-golden-v2, region: Photon Mountain, craft: light, work: "Dwarves and gnome tinkers forge glowing crystal lamps at the gate, and hang them along the steam-cart rails"}
+      - {id: place-denver-v2, region: Photon Mountain, craft: light, work: "Knights and horse lords raise beacon fires on the walls and light the citadel's lamps"}
+      - {id: place-springs-v2, region: Space Peak, craft: flight and stars, work: "Aerie dwarves build and launch gyrocopters, and chart stars with a brass telescope on a spire"}
+      - {id: place-fortcollins-v2, region: Fusion Canyon, craft: fire and energy, work: "Gnomes and halflings stoke forges, turn water wheels and wind the dragonlings' fire cores"}
+    rules: "art/DIRECTION.md: one hero structure, the place's own people, the landmark recognisable, no letters. Source photos and v1 paintings are ours to upload (Bria's terms)"
+    decision: 64
   - id: clips
     what: "LTX-2.5 ambient loops from approved stills (art/motion.md). Photon Mountain ships (decision 61); Fusion Canyon and Space Peak wait for the Cinemagraph LoRA on an own ZeroGPU Space"
     decision: 37

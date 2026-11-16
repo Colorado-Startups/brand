@@ -7,7 +7,7 @@
 | Part | Sections | Words |
 |---|---|---|
 | 1 | [The idea; What changed from v4](direction/01-the-idea.md) | 421 |
-| 2 | [The five places; Borrow and blend; What binds](direction/02-the-five-places.md) | 459 |
+| 2 | [The five places; Places v2; Borrow and blend; What binds](direction/02-the-five-places.md) | 553 |
 | 3 | [The look; Each place's colors; How a place is made](direction/03-the-look.md) | 529 |
 | 4 | [Characters and cards; Status; Layout](direction/04-characters-and-cards.md) | 390 |
 | 5 | [Palette by token role](direction/05-palette-by-token-role.md) | 349 |

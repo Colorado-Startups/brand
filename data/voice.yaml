@@ -31,11 +31,13 @@
 #   boilerplates  about-text at 25, 50 and 100 words. Marked pending: S1.
 #   vocabulary    the brand's own lore words, each with its plain label.
 #   glossary      brand and community terms in plain words.
+#   site_words    the website's words for its newcomer checklist, honors, AI
+#                 agents page and region figures (decision 64).
 
 meta:
   version: v3 draft
   owner: S3 Voice and words
-  updated: "2026-11-02"
+  updated: "2026-11-15: site_words for the website engagement plan (decision 64)"
   sources:
     - id: v2-voice
       what: The v2 voice, baseline/v2/voice.md (website 01_doctrine/voice.md at 18b65a6).
@@ -81,6 +83,8 @@ meta:
       what: Kate Moran, "The Four Dimensions of Tone of Voice" (Nielsen Norman Group, 2016). Each tone dimension is a spectrum.
     - id: mark-pearson
       what: Margaret Mark and Carol S. Pearson, The Hero and the Outlaw (McGraw-Hill, 2001). The twelve brand archetypes.
+    - id: b0
+      what: Decision 64 (2026-11-15), step B0 of the website engagement plan Paul approved that day.
     - id: s3
       what: Decided here by S3, 2026-11-02, under decision 4 (Claude decides). The PR body gives the reason.
 
@@ -361,6 +365,10 @@ do_dont:
       dont: Level 5 Builder, top of the points table.
       trait: bright
       source: claude-md
+    - do: "Your first steps: five things to do this week."
+      dont: Complete five quests to level up and join a league.
+      trait: direct
+      source: b0
     - do: Save the closing line for big moments.
       dont: Sign every Slack reply with the closing line.
       trait: bright
@@ -615,6 +623,47 @@ glossary:
     - term: franchise-name gate
       means: The check that blocks every term in the never list of data/words.yaml.
       source: claude-md
+    - term: first steps
+      means: The website's checklist for newcomers. Finishing it earns an honor card.
+      source: b0
+    - term: honor card
+      means: A card that names what someone did. The person can hide it, and it shows no counts.
+      source: [b0, brand-decisions]
+    - term: AI agents page
+      means: "The website's page at /agents/, labelled \"AI agents\", for the community's open-source AI agent projects."
+      source: b0
+    - term: tally
+      means: A figure for one region, such as members or gatherings. Tallies sit side by side and are never ranked; regions are equals.
+      source: [b0, lore]
     - term: real-places rule
       means: Places that matter to the Ute and other tribes, such as Garden of the Gods, are never fantasy decoration.
       source: [claude-md, lore]
+
+site_words:
+  source: b0
+  rule: >-
+    The website's engagement features use these words and no others. Decision 22 still
+    allows points, levels and ranks elsewhere; the first steps and honor cards use none,
+    because badges and a leaderboard lowered motivation in Hanus and Fox (2015), and
+    regions are equals (decision 58).
+  checklist:
+    name: first steps
+    plain_label: the newcomer checklist
+    ends_in: an honor card
+    never: [quest, quests, mission, challenge, streak]
+  honor_card:
+    name: honor card
+    names: the deed, in the honors form of data/world.yaml rituals.honors
+    hideable: true
+    shows_counts: false
+    never: [badge, achievement, trophy, points, level, levels, league, leagues, rank, XP]
+  agents_page:
+    path: /agents/
+    label: AI agents
+    rule: Every entry says "AI agent" and carries its disclosure from data/world.yaml characters.
+    never: [the Guild, guild]
+  region_figures:
+    name: tallies
+    rule: Shown side by side in a fixed order, never sorted by size, never ranked, never a "top region".
+    never: [scoreboard, leaderboard, standings, winner]
+  leaderboard_note: The Leaderboard ranks companies, never people or regions (glossary).

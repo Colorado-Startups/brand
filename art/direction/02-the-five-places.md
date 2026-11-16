@@ -16,6 +16,16 @@ Each place keeps its real landmark and blends two named worlds into one city (de
 
 Source: decisions 39 and 44. The prompts are in `PAINTED` in `art/render/fibo_cards.py`.
 
+## Places v2: builders at work (queued)
+
+Decision 64 queues a second edit of each painting. Each place's own people are shown at work on their region's craft (`data/world.yaml` `regions[].craft`). The landmark, the hero structure and the creatures stay. Nothing renders until Paul says yes to the batch; the rows are in `art/render-queue.yaml` `places-v2`.
+
+| Region | Craft | Places |
+|---|---|---|
+| Photon Mountain | Light | Boulder, Golden, Denver |
+| Space Peak | Flight and stars | Colorado Springs |
+| Fusion Canyon | Fire and energy | Fort Collins |
+
 ## Borrow and blend
 
 | Idea | Source |
