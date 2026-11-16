@@ -24,4 +24,5 @@ Read 2026-11-02.
 | Reduced motion | `prefers-reduced-motion: reduce` shows the still first frame |
 | Build | Scenes live in `art/rive/<name>/` (`rive create`); `rive <dir> --verify` checks one locally in seconds; nothing renders video on this Mac |
 | Account | Pushing to a Rive account waits for Paul's `rive login` |
-| Licence | Rive's runtimes are open source; S7 reads Rive's terms of service and adds a row to `art/LICENSES.md` before the first shipped `.riv` |
+| Licence | The Rive row in `art/LICENSES.md` (decision 64): Cadet plan, runtimes MIT, files kept Private |
+| Order | Keepers are restyled before any rigging (decision 64) |

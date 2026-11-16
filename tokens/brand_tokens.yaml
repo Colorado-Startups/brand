@@ -61,6 +61,14 @@ color:
   copper-wash:    {light: "#FAEBEE", night: "#37000D", why: "Badge ground for link ink: an 8% tint of State Red; the same Red at 28% brightness at night."}
   pine:           {light: "@Tree Green", night: "#87A692", why: "Ink for nature and green status: State Tree Green; a 55% tint at night."}
   pine-wash:      {light: "#E9EFEB", night: "#0B1C11", why: "Badge ground for pine ink: a 10% tint of State Tree Green; the same Green at 30% brightness at night."}
+  # Regions (decision 64): each region's crest field, for map dots, region bands and chips. A fill, never text;
+  # the region's name always rides beside it in text ink. Hue from the crest's painted field (dist/crests/).
+  region-photon-mountain:    {light: "#4A2C84", night: "#A58FE6", why: "Photon Mountain's fluorite violet: the crest field's hue (painted median #1E0F54), lifted to the stone proposal so it stays apart from State Blue text; a light violet at night."}
+  on-region-photon-mountain: {light: "#FFFFFF", night: "#000A33", why: "Ink on Photon Mountain's fill: white; the night ground on the night fill."}
+  region-space-peak:         {light: "#C67273", night: "#E8A3B4", why: "Space Peak's granite pink: the crest field's painted median; a lighter pink at night."}
+  on-region-space-peak:      {light: "#000A33", night: "#000A33", why: "Ink on Space Peak's fill: the night ground, because State Blue reaches only 4.41 on it."}
+  region-fusion-canyon:      {light: "#7A2A1E", night: "#D9703F", why: "Fusion Canyon's Stout red: the crest field's hue (painted median #6F2117), one step lighter; an ember orange at night so it stays apart from Space Peak's pink."}
+  on-region-fusion-canyon:   {light: "#FFFFFF", night: "#000A33", why: "Ink on Fusion Canyon's fill: white; the night ground on the night fill."}
 
 # Old names from the dark v1 palette, kept as v2 kept them so lane code written against them still renders.
 alias:
@@ -165,6 +173,15 @@ contrast:  # light theme: every text and UI pairing the components use; min 4.5 
   - { fg: focus, bg: surface, ratio: 13.89, min: 3 }
   - { fg: focus, bg: stone, ratio: 12.49, min: 3 }
   - { fg: focus-on-night, bg: night, ratio: 13.17, min: 3 }
+  - { fg: on-region-photon-mountain, bg: region-photon-mountain, ratio: 10.58, min: 4.5 }
+  - { fg: on-region-space-peak, bg: region-space-peak, ratio: 5.55, min: 4.5 }
+  - { fg: on-region-fusion-canyon, bg: region-fusion-canyon, ratio: 9.64, min: 4.5 }
+  - { fg: region-photon-mountain, bg: ground, ratio: 10.58, min: 3 }
+  - { fg: region-space-peak, bg: ground, ratio: 3.47, min: 3 }
+  - { fg: region-fusion-canyon, bg: ground, ratio: 9.64, min: 3 }
+  - { fg: region-photon-mountain, bg: surface, ratio: 9.61, min: 3 }
+  - { fg: region-space-peak, bg: surface, ratio: 3.15, min: 3 }
+  - { fg: region-fusion-canyon, bg: surface, ratio: 8.76, min: 3 }
 
 contrast-night:  # night theme: the same pairs on the night values (a role with no night value keeps its light one)
   - { fg: text, bg: ground, ratio: 17.85, min: 4.5 }
@@ -211,3 +228,12 @@ contrast-night:  # night theme: the same pairs on the night values (a role with 
   - { fg: focus, bg: surface, ratio: 11.75, min: 3 }
   - { fg: focus, bg: stone, ratio: 10.93, min: 3 }
   - { fg: focus-on-night, bg: night, ratio: 13.74, min: 3 }
+  - { fg: on-region-photon-mountain, bg: region-photon-mountain, ratio: 7.03, min: 4.5 }
+  - { fg: on-region-space-peak, bg: region-space-peak, ratio: 9.47, min: 4.5 }
+  - { fg: on-region-fusion-canyon, bg: region-fusion-canyon, ratio: 5.81, min: 4.5 }
+  - { fg: region-photon-mountain, bg: ground, ratio: 7.03, min: 3 }
+  - { fg: region-space-peak, bg: ground, ratio: 9.47, min: 3 }
+  - { fg: region-fusion-canyon, bg: ground, ratio: 5.81, min: 3 }
+  - { fg: region-photon-mountain, bg: surface, ratio: 6.27, min: 3 }
+  - { fg: region-space-peak, bg: surface, ratio: 8.44, min: 3 }
+  - { fg: region-fusion-canyon, bg: surface, ratio: 5.18, min: 3 }
