@@ -651,6 +651,6 @@ characters:
     card: social/legallas.jpg
     what: An elf ranger
     repo: Colorado-Startups/legallas
-    agents_page: when its repo is public
-    agents_page_note: The repo is private until its launch gate (GitHub, read 2026-11-15), so the website lists Legallas only once it is public.
+    agents_page: false
+    agents_page_note: The repo is private until its launch gate (GitHub, read 2026-11-15), so the website does not list Legallas yet. Set true once the repo is public; the disclosure's "open-source" applies from then.
     disclosure: Legallas is an open-source AI agent project from Colorado Startups, not a lawyer or law firm. It runs in your own AI tool and can make mistakes, so check its work and have your own lawyer review anything before you rely on it.
