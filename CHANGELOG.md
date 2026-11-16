@@ -4,6 +4,21 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.4.0] - 2026-11-16
+
+The brand's calls for the website engagement plan (decision 64), with the regions' new plain labels (decision 63). Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Added
+- Region color tokens in `tokens/brand_tokens.yaml`, `dist/tokens.css` and `dist/tokens.json`: `region-photon-mountain`, `region-space-peak`, `region-fusion-canyon` and an `on-region-*` ink for each, with night values and 18 contrast pairs (#42, decision 64).
+- `data/voice.yaml` `site_words`: "first steps", "honor card", the AI agents page at `/agents/` and "tallies", each with the words it never uses; four glossary terms and one do and don't pair, also in `dist/brand.json` (#42, decision 64).
+- `data/world.yaml` `characters`: a disclosure line and an `agents_page` flag for Claudius, Linken and Legallas, also in `dist/brand.json`; Legallas is `false` until its repo is public (#42, decision 64).
+- `data/world.yaml` `regions[].craft` and `art/render-queue.yaml` `places-v2`: place paintings v2, queued and not rendered (#42, decision 64).
+- `art/LICENSES.md`: the Rive row (#42, decision 64).
+
+### Changed
+- Space Peak's plain label is "the Colorado Startups chapter for Colorado Springs and Fountain", and Fusion Canyon's drops Greeley, in `data/world.yaml`, `data/architecture.yaml`, the `region` glossary entry and `dist/brand.json` (#40, decision 63).
+- `data/world.yaml` `regions.colors_status` and the crest `field` rule point to the region tokens (#42, decision 64).
+
 ## [4.3.0] - 2026-11-15
 
 Theme clips for Fusion Canyon and Space Peak, with a still camera (decision 62). Checksums for every file in `dist/` are in the GitHub release notes.
