@@ -202,9 +202,10 @@ regions:
 
     - id: space-peak
       name: Space Peak
-      plain_label: the Colorado Startups chapter for Colorado Springs and the Pikes Peak region
+      plain_label: the Colorado Startups chapter for Colorado Springs and Fountain
+      # towns: the towns the brand paints and writes about (decision 63); Manitou Springs is a nearby town.
       towns: [colorado-springs, manitou-springs]
-      area_source: website data/regions/space-peak.yaml (origin/main c6f10bc), read 2026-11-02
+      area_source: website data/regions/space-peak.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
       stone:
         name: Pikes Peak granite
         what: >-
@@ -246,9 +247,10 @@ regions:
 
     - id: fusion-canyon
       name: Fusion Canyon
-      plain_label: the Colorado Startups chapter for Fort Collins, Loveland, Windsor and Greeley
+      plain_label: the Colorado Startups chapter for Fort Collins, Loveland and Windsor
+      # towns: the towns the brand paints and writes about (decision 63); Greeley is a nearby town.
       towns: [fort-collins, loveland, windsor, greeley]
-      area_source: website data/regions/fusion-canyon.yaml (origin/main c6f10bc), read 2026-11-02
+      area_source: website data/regions/fusion-canyon.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
       note: Named for Poudre Canyon, which its place art paints (decision 44); its towns sit on the plain.
       stone:
         name: Stout sandstone

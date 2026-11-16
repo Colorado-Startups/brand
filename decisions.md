@@ -273,3 +273,17 @@ The brand's decision log. Any session appends its decisions here in its own PR (
     - Shipped: WebM 409 KB and 251 KB, MP4 581 KB and 396 KB (goal: 1 MB), 1280 × 640, 4.04 s, silent, AI-made comment tag. Seam change across the wrap: 4.84 (fusion, ordinary median 1.22, max 2.04) and 3.57 (space); the wrap is larger than neighbours as with photonics (decision 61) and not seen at 480 px.
     - Spend: 4 calls, 2 seeds each. Per huggingface.co/settings/billing, read before the first and after the last: ZeroGPU 13.9 to 16.6 of 40 minutes; credit $1.72 to $1.72; period usage $0.28 to $0.28; recharge off. Nothing drew on a card.
     - Reverse: delete `fusion.*` and `space.*` in `dist/clips/` and `art/render/ltx-space/`, and delete the Space.
+63. **2026-11-15, Paul and Claude. Fusion Canyon's and Space Peak's plain labels follow the regions' new city lists.** Paul re-cut the three regions on 2026-11-15: each is a loop of named roads about Silicon Valley's size, with its cities on the loop's corners. The website merged it as its PR 60 (main `37232431f9bab6a2a3cb2e09701642f40b446187`). Paul approved a plan in which the brand's plain labels follow, relayed by the website's orchestrator session.
+
+    | Region | Cities, per the website's region file at that commit (read 2026-11-15) | Nearby, same file | Plain label |
+    |---|---|---|---|
+    | Fusion Canyon | Fort Collins, Loveland, Windsor | Greeley, Timnath, Wellington, Berthoud, Johnstown, Evans, Estes Park | the Colorado Startups chapter for Fort Collins, Loveland and Windsor |
+    | Space Peak | Colorado Springs, Fountain | Security-Widefield, Manitou Springs, Monument, Woodland Park, Cascade, Pueblo | the Colorado Startups chapter for Colorado Springs and Fountain |
+    | Photon Mountain | Boulder, Golden, Arvada, Denver | unchanged | unchanged |
+
+    - Greeley, 22.6 miles east of Fort Collins by USGS GNIS points (the website file's own comment), is now a nearby town, not one of the region's cities.
+    - Changed: `plain_label` and `area_source` in `data/world.yaml`, `plain_label` and `source` in `data/architecture.yaml`, the `region` glossary entry in `data/voice.yaml`, and `dist/brand.json`, which carries the labels and the glossary.
+    - Kept: each region's `towns` list. It names the towns the brand paints and writes about, so Greeley stays a Fusion Canyon town and Manitou Springs a Space Peak town. No check ties `towns` to the plain label (`tools/` read 2026-11-15). A YAML comment on each list says so.
+    - Kept as history: `baseline/`, `research/` and past decisions.
+    - Release: none is needed for the website, which reads its own region files and not `dist/brand.json` (decision 58). The next tag that ships it is a minor, `v4.4.0`: a data value changes inside the same identity (`governance/releases/01-what-each-bump-means.md`).
+    - Reverse: revert this decision's PR.

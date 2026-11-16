@@ -193,18 +193,18 @@ nodes:
 
   - id: region-space-peak
     name: Space Peak
-    plain_label: the Colorado Startups chapter for Colorado Springs and the Pikes Peak region
+    plain_label: the Colorado Startups chapter for Colorado Springs and Fountain
     parent: regions
     aaker: branded-house
     reason: The community hat of the Space Peak name. See naming.one-name-two-hats.
     same_name_as: project-space-peak
     lockups: [region]
     towns: [colorado-springs, manitou-springs]
-    source: website data/regions/space-peak.yaml (origin/main c6f10bc), read 2026-11-02
+    source: website data/regions/space-peak.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
 
   - id: region-fusion-canyon
     name: Fusion Canyon
-    plain_label: the Colorado Startups chapter for Fort Collins, Loveland, Windsor and Greeley
+    plain_label: the Colorado Startups chapter for Fort Collins, Loveland and Windsor
     parent: regions
     aaker: branded-house
     reason: The community hat of the Fusion Canyon name. See naming.one-name-two-hats.
@@ -213,7 +213,7 @@ nodes:
     towns: [fort-collins, loveland, windsor, greeley]
     rules:
       - Named for the canyon. Its place art is Poudre Canyon at Fort Collins, with the town built into the canyon floor (decisions 44 and 45).
-    source: website data/regions/fusion-canyon.yaml (origin/main c6f10bc), read 2026-11-02
+    source: website data/regions/fusion-canyon.yaml (main 37232431f9bab6a2a3cb2e09701642f40b446187), read 2026-11-15
 
   - id: projects
     name: Colorado Startups projects
