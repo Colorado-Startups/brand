@@ -52,6 +52,7 @@ Anthropic-built and Anthropic-reviewed plugins first (Paul, 2026-11-15).
 
 | Task | Use |
 |---|---|
+| Plugins, skills, connectors, agents, tools | All stay on in the Claude desktop app for every Cowork and Code session. A session ignores what it does not need by not loading it; sub-sessions get the full suite too. Never turn one off app-wide or in this repo's settings ([Claudius: All on, app-wide](https://github.com/Colorado-Startups/claudius/blob/main/templates/claude/README.md#all-on-app-wide)) |
 | Voice and copy checks | `brand-voice:enforce-voice`, `brand-voice:guideline-generation` |
 | Design critique, accessibility, design system | `design:design-critique`, `design:accessibility-review`, `design:design-system` |
 | The guide's pages | `frontend-design:frontend-design` |
