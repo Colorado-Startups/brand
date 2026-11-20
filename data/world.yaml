@@ -644,7 +644,7 @@ characters:
   - name: Linken
     card: social/link.jpg
     what: A gnome hero
-    repo: Colorado-Startups/link
+    repo: Colorado-Startups/linken
     agents_page: true
     disclosure: Linken is an open-source AI agent project from Colorado Startups. It runs in your own AI tool and can make mistakes, so check its work before anything posts.
   - name: Legallas
