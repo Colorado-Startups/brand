@@ -4,6 +4,14 @@ All notable changes to this repo are in this file. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [4.5.0] - 2026-11-20
+
+Linken's repo moved from `Colorado-Startups/link` to `Colorado-Startups/linken`. Checksums for every file in `dist/` are in the GitHub release notes.
+
+### Changed
+- `data/world.yaml` `characters`: Linken's `repo` is `Colorado-Startups/linken`, also in `dist/brand.json` (#49). Sites that link a character's repo take the new one; the old URL redirects.
+- Pins: Claudius v1.1.1 and Git Crafter v7.0.2 (#44, #45), and plugins, skills and connectors stay on app-wide (#46). Repo upkeep only: nothing in `dist/` changes for these.
+
 ## [4.4.0] - 2026-11-16
 
 The brand's calls for the website engagement plan (decision 64), with the regions' new plain labels (decision 63). Checksums for every file in `dist/` are in the GitHub release notes.
