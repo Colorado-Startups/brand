@@ -6,7 +6,7 @@ workflows:
     '.github/workflows/ci.yml': []
     '.github/workflows/claude-review.yml':
         - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
-        - 'anthropics/claude-code-action@6d5ae526d25ce88daa2200be073e1a373167f064'
+        - 'anthropics/claude-code-action@61a9c274fa7110a66dfafc1bbbced03833eb25fe'
     '.github/workflows/cloud-test.yml': []
     '.github/workflows/pages.yml':
         - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
@@ -17,7 +17,7 @@ workflows:
         - 'soulcraft-org/git-crafter@8023bd4683416f6d420bd20d137960b09c06b91e'
     '.github/workflows/scorecard.yml':
         - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
-        - 'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
+        - 'github/codeql-action@33d7b85da1a04171e211befe2c739303b9a4c066'
         - 'ossf/scorecard-action@fa7117db83c52d787ae5a89f350999701505d78e'
 dependencies:
     'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
@@ -26,11 +26,6 @@ dependencies:
         owner_id: 44036562
         repo_id: 197814629
     'actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510':
-        ref: 'v3.3.0'
-        commit: 'sha1-64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
-        owner_id: 44036562
-        repo_id: 642580244
-    'actions/create-github-app-token@v3.3.0':
         ref: 'v3.3.0'
         commit: 'sha1-64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
         owner_id: 44036562
@@ -67,16 +62,16 @@ dependencies:
         repo_id: 496012378
         uses:
             - 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f'
-    'anthropics/claude-code-action@6d5ae526d25ce88daa2200be073e1a373167f064':
-        ref: 'v1.0.265'
-        commit: 'sha1-6d5ae526d25ce88daa2200be073e1a373167f064'
+    'anthropics/claude-code-action@61a9c274fa7110a66dfafc1bbbced03833eb25fe':
+        ref: 'v1.0.269'
+        commit: 'sha1-61a9c274fa7110a66dfafc1bbbced03833eb25fe'
         owner_id: 76263028
         repo_id: 986421638
         uses:
             - 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6'
-    'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370':
-        ref: 'v4.39.1'
-        commit: 'sha1-9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
+    'github/codeql-action@33d7b85da1a04171e211befe2c739303b9a4c066':
+        ref: 'v4.39.3'
+        commit: 'sha1-33d7b85da1a04171e211befe2c739303b9a4c066'
         owner_id: 9919
         repo_id: 259445878
     'ossf/scorecard-action@fa7117db83c52d787ae5a89f350999701505d78e':
